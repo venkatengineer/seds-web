@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* PREMIUM DARK SPACE PALETTE */
+    --bg-void: #020107;
+    --bg-deep: #04020A;
+    --bg-surface: #07030F;
+    --bg-elevated: #0B0615;
+
+    /* SPACE PURPLE (Deep, atmospheric) */
+    --purple-deepest: #32105F;
+    --purple-shadow: #4C1D95;
+    --purple-primary: #6D28D9;
+
+    /* ASTRONOMICAL LIGHT SOURCES */
+    --light-violet: #8B5CF6;
+    --light-electric: #A855F7;
+    --light-lavender: #C084FC;
+
+    /* EDITORIAL TYPOGRAPHY */
+    --text-primary: #F7F5FF;
+    --text-secondary: #A6A0B8;
+
+    /* RESTRAINED FALLOFF GLOWS */
+    --glow-soft: rgba(139, 92, 246, 0.18);
+    --glow-active: rgba(168, 85, 247, 0.32);
+    --glow-deep: rgba(76, 29, 149, 0.22);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #020107;
+    color: #F7F5FF;
+    font-family: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: #020107;
+    color: #F7F5FF;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* Microscopic film grain overlay (very subtle) */
+  .grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 998;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* Deep space scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #020107;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(76, 29, 149, 0.4);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6D28D9;
+  }
+}
+
+/* Typography styles */
+.font-display {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+}
+
+.font-editorial {
+  font-family: 'Syne', 'Space Grotesk', -apple-system, sans-serif;
+}
+
+.font-mono-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Controlled Astronomical Lights */
+.astro-light-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.12) 0%, rgba(76, 29, 149, 0.05) 50%, rgba(2, 1, 7, 0) 80%);
+  filter: blur(80px);
+}
+
+.astro-halo-monument {
+  box-shadow: 0 0 60px rgba(109, 40, 217, 0.22), 0 0 100px rgba(76, 29, 149, 0.12);
+}
+
+/* Architectural Hairlines */
+.hairline-dark {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hairline-dark-t {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hairline-dark-b {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hairline-violet {
+  border: 1px solid rgba(139, 92, 246, 0.14);
+}
+
+.hairline-violet-t {
+  border-top: 1px solid rgba(139, 92, 246, 0.14);
+}
+
+.hairline-violet-b {
+  border-bottom: 1px solid rgba(139, 92, 246, 0.14);
+}
+
+/* Quiet, cinematic link underline */
+.link-cinematic {
+  position: relative;
+  display: inline-block;
+}
+.link-cinematic::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background: #8B5CF6;
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-cinematic:hover::after {
+  width: 100%;
+}
