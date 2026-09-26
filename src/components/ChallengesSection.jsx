@@ -26,18 +26,25 @@ const NODE_POSITIONS = [
   { id: 'climate', angle: 198, cx: 95, cy: 170 },
 ];
 
-export default function ChallengesSection({ onOpenRegister }) {
+export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
   const [activeChapterIndex, setActiveChapterIndex] = useState(0);
 
   const tracks = EVENT_CONFIG.tracks;
   const currentTrack = tracks[activeChapterIndex];
 
+  const handleSelectChapter = (idx) => {
+    setActiveChapterIndex(idx);
+    if (onNodeSelect) onNodeSelect(idx);
+  };
+
   const nextChapter = () => {
-    setActiveChapterIndex((prev) => (prev + 1) % tracks.length);
+    const nextIdx = (activeChapterIndex + 1) % tracks.length;
+    handleSelectChapter(nextIdx);
   };
 
   const prevChapter = () => {
-    setActiveChapterIndex((prev) => (prev - 1 + tracks.length) % tracks.length);
+    const prevIdx = (activeChapterIndex - 1 + tracks.length) % tracks.length;
+    handleSelectChapter(prevIdx);
   };
 
   return (
@@ -61,7 +68,8 @@ export default function ChallengesSection({ onOpenRegister }) {
           {tracks.map((track, idx) => (
             <button
               key={track.id}
-              onClick={() => setActiveChapterIndex(idx)}
+              onClick={() => handleSelectChapter(idx)}
+              onMouseEnter={() => { if (onNodeSelect) onNodeSelect(idx); }}
               className={`px-3 py-1.5 rounded-full font-display text-xs tracking-wider transition-all duration-300 focus:outline-none ${
                 idx === activeChapterIndex
                   ? 'border border-[#8B5CF6] bg-[#4C1D95]/40 text-white font-semibold shadow-[0_0_15px_rgba(139,92,246,0.35)]'
@@ -133,7 +141,8 @@ export default function ChallengesSection({ onOpenRegister }) {
             return (
               <button
                 key={pos.id}
-                onClick={() => setActiveChapterIndex(idx)}
+                onClick={() => handleSelectChapter(idx)}
+                onMouseEnter={() => { if (onNodeSelect) onNodeSelect(idx); }}
                 className={`absolute group transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 p-2 rounded-full transition-all duration-400 ease-out focus:outline-none ${
                   isSelected
                     ? 'scale-115 z-30 opacity-100'

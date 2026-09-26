@@ -21,56 +21,15 @@ export default function App() {
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [activeChallengeIndex, setActiveChallengeIndex] = useState(0);
 
-  // Boot sequence state (0 to 7)
+  // Boot sequence state
   const isAlreadyBooted = typeof window !== 'undefined' && sessionStorage.getItem('seds_boot_completed') === 'true';
   const [bootPhase, setBootPhase] = useState(isAlreadyBooted ? 7 : 0);
+  const [isBootComplete, setIsBootComplete] = useState(isAlreadyBooted);
+  const engineRef = useRef(null);
 
-  // 1. Master Cinematic Boot Sequence Timer (Phases 0 through 7)
-  useEffect(() => {
-    if (bootPhase >= 7) return;
-
-    const timers = [
-      setTimeout(() => setBootPhase(1), 400),   // Phase 1: Light spreads, stars fade in
-      setTimeout(() => setBootPhase(2), 1200),  // Phase 2: Space forms, orbit draws 0->100%
-      setTimeout(() => setBootPhase(3), 2000),  // Phase 3: Sunlight illuminates Earth limb
-      setTimeout(() => setBootPhase(4), 2800),  // Phase 4: SEDS REC identity reveals
-      setTimeout(() => setBootPhase(5), 3600),  // Phase 5: ORBITAL 26 reveals
-      setTimeout(() => setBootPhase(6), 4400),  // Phase 6: Hero headline reveals line by line
-      setTimeout(() => {
-        setBootPhase(7);                        // Phase 7: Navigation & full interaction unlocked
-        sessionStorage.setItem('seds_boot_completed', 'true');
-      }, 5400),
-    ];
-
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
-        skipBoot();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      timers.forEach((t) => clearTimeout(t));
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
-
-  const skipBoot = () => {
-    setBootPhase(6);
-    setTimeout(() => {
-      setBootPhase(7);
-      sessionStorage.setItem('seds_boot_completed', 'true');
-    }, 500);
-  };
-
-  const replayBoot = () => {
-    sessionStorage.removeItem('seds_boot_completed');
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    setBootPhase(0);
-  };
-
-  // 2. Mouse coordinate tracker for 3D camera parallax drift
+  // Mouse coordinate tracker for 3D camera parallax drift
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePos({
@@ -82,7 +41,7 @@ export default function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // 3. Scroll listener for hero camera forward travel & global progress
+  // Global scroll listener for camera flight & progress
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -95,7 +54,7 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 4. Continuous IntersectionObserver for section camera waypoints
+  // Continuous IntersectionObserver for section camera waypoints
   useEffect(() => {
     const sections = [
       'hero',
@@ -133,7 +92,7 @@ export default function App() {
     return () => observers.forEach((obs) => obs.disconnect());
   }, []);
 
-  // Smooth 3D Travel & Scroll to target sector
+  // Smooth Travel & Scroll to target sector
   const handleNavigate = (id) => {
     setActiveSection(id);
     const element = document.getElementById(id);
@@ -142,14 +101,31 @@ export default function App() {
     }
   };
 
+  const handleSkipBoot = () => {
+    if (engineRef.current && engineRef.current.skipBoot) {
+      engineRef.current.skipBoot();
+    }
+    setBootPhase(6);
+    setTimeout(() => {
+      setBootPhase(7);
+      setIsBootComplete(true);
+      try { sessionStorage.setItem('seds_boot_completed', 'true'); } catch (_) {}
+    }, 450);
+  };
+
+  const handleReplayBoot = () => {
+    try { sessionStorage.removeItem('seds_boot_completed'); } catch (_) {}
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.location.reload();
+  };
+
   return (
     <div className="relative min-h-screen bg-[#010106] text-[#F7F5FF] overflow-x-hidden selection:bg-[#8B5CF6]/30 selection:text-white">
       
-      {/* 1. MASTER CINEMATIC BOOT SEQUENCE (Unifies with same 3D scene) */}
+      {/* 1. MASTER CINEMATIC BOOT SEQUENCE (Synchronized with ThreeSpaceEngine) */}
       <BootSequence
         bootPhase={bootPhase}
-        onSkip={skipBoot}
-        onAdvancePhase={(p) => setBootPhase(p)}
+        onSkip={handleSkipBoot}
       />
 
       {/* 2. Custom Minimal Circular Cursor with Violet Expansion */}
@@ -158,13 +134,23 @@ export default function App() {
       {/* 3. Subtle Film Grain Overlay */}
       <div className="grain-overlay" />
 
-      {/* 4. MASTER PERSISTENT 3D CELESTIAL ENGINE (Runs continuously from Boot through entire site) */}
+      {/* 4. MASTER PERSISTENT 3D CELESTIAL ENGINE (Mounted ONCE, never torn down) */}
       <ThreeSpaceEngine
+        ref={engineRef}
         activeSection={activeSection}
         mousePos={mousePos}
         isModalOpen={isRegisterOpen}
         scrollProgress={scrollProgress}
-        bootPhase={bootPhase}
+        isBootComplete={isBootComplete}
+        activeChallengeIndex={activeChallengeIndex}
+        onBootProgress={(phase) => {
+          setBootPhase((prev) => (prev >= 6 && phase < 6 ? prev : phase));
+        }}
+        onBootComplete={() => {
+          setBootPhase(7);
+          setIsBootComplete(true);
+          try { sessionStorage.setItem('seds_boot_completed', 'true'); } catch (_) {}
+        }}
       />
 
       {/* 5. FOREGROUND EDITORIAL UI */}
@@ -179,10 +165,10 @@ export default function App() {
           onNavigate={handleNavigate}
           onOpenRegister={() => setIsRegisterOpen(true)}
           bootPhase={bootPhase}
-          onReplayBoot={replayBoot}
+          onReplayBoot={handleReplayBoot}
         />
 
-        {/* Hero Section: SEDS REC PRESENTS ORBITAL 26 // BUILD BEYOND THE KNOWN */}
+        {/* Hero Section: Staggered line reveal coordinated with Boot */}
         <HeroSection
           onOpenRegister={() => setIsRegisterOpen(true)}
           onNavigate={handleNavigate}
@@ -190,26 +176,27 @@ export default function App() {
           bootPhase={bootPhase}
         />
 
-        {/* SEDS REC Mission: SPACE IS NOT JUST TO BE OBSERVED. IT IS TO BE BUILT. */}
+        {/* SEDS REC Mission: Staggered sequential reveals */}
         <MissionSection onNavigate={handleNavigate} />
 
-        {/* SEDS REC Identity: STUDENTS. BUILDERS. EXPLORERS. */}
+        {/* SEDS REC Identity: Real documentary evidence with image masks */}
         <IdentitySection onNavigate={handleNavigate} />
 
-        {/* Student Project Showcase: Engineering Proof with Authentic Documentary Imagery */}
+        {/* Student Project Showcase: Real hardware with physical depth */}
         <ProjectShowcaseSection
           onOpenRegister={() => setIsRegisterOpen(true)}
         />
 
-        {/* 5-Node Interactive Spatial Constellation & Editorial Challenge Chapters */}
+        {/* 5-Node Interactive Spatial Constellation */}
         <ChallengesSection
           onOpenRegister={() => setIsRegisterOpen(true)}
+          onNodeSelect={(idx) => setActiveChallengeIndex(idx)}
         />
 
         {/* Orbital Trajectory Timeline: Single Curve with Traveling Luminous Beacon */}
         <TimelineSection />
 
-        {/* Launch Countdown: Within Astronomical Environment with Smooth Sliding Digits */}
+        {/* Launch Countdown: Smooth Sliding Numbers */}
         <CountdownSection />
 
         {/* Monumental Prize Destination: ₹50,000 Spatial Composition */}
