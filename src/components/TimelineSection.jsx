@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { EVENT_CONFIG } from '../config/event';
 
 /**
- * ELEGANT ORBITAL TRAJECTORY TIMELINE
+ * MASTER ORBITAL TRAJECTORY TIMELINE
  * 
- * Philosophy:
- * - One trajectory.
- * - One luminous object.
- * - Four stages: DISCOVER, BUILD, CREATE, LAUNCH.
- * - No card grid. No giant bordered boxes.
- * - Clean editorial timeline flow.
+ * Target:
+ * - One long orbital trajectory curve.
+ * - Luminous object travels along it with slow breathing halo (NO flashing, NO rapid pulsing).
+ * - Trajectory is the transition mechanism: As object reaches each stage (DISCOVER, BUILD, CREATE, LAUNCH),
+ *   the corresponding content reveals smoothly.
+ * - Clean editorial timeline, no giant bordered boxes.
  */
 
 export default function TimelineSection() {
@@ -52,46 +52,47 @@ export default function TimelineSection() {
 
       <div className="max-w-5xl mx-auto w-full space-y-12">
         
-        {/* 1. Single Elegant Orbital Trajectory Curve */}
-        <div className="relative w-full h-[120px] sm:h-[150px] pointer-events-none">
+        {/* 1. Single Long Curved Orbital Trajectory */}
+        <div className="relative w-full h-[130px] sm:h-[160px] pointer-events-none">
           <svg
             className="w-full h-full overflow-visible"
-            viewBox="0 0 900 150"
+            viewBox="0 0 900 160"
             preserveAspectRatio="none"
           >
-            {/* Base Background Path */}
+            {/* Base Background Trajectory Arc */}
             <path
-              d="M 50 120 C 260 15, 600 135, 850 30"
+              d="M 50 130 C 260 20, 600 145, 850 35"
               fill="none"
               stroke="rgba(255, 255, 255, 0.08)"
               strokeWidth="1.5"
             />
 
-            {/* Active Luminous Path Segment */}
+            {/* Active Luminous Trajectory Segment */}
             <path
               ref={pathRef}
-              d="M 50 120 C 260 15, 600 135, 850 30"
+              d="M 50 130 C 260 20, 600 145, 850 35"
               fill="none"
               stroke="#8B5CF6"
-              strokeWidth="2.2"
+              strokeWidth="2.4"
               strokeDasharray="1000"
               strokeDashoffset={1000 - progressWeights[activeStageIndex] * 1000}
               className="transition-all duration-700 ease-out"
             />
 
-            {/* Traveling Luminous Object */}
+            {/* Traveling Luminous Beacon */}
             <g
               className="transition-all duration-700 ease-out"
               transform={`translate(${particleCoord.x}, ${particleCoord.y})`}
             >
-              <circle r="16" fill="rgba(139, 92, 246, 0.22)" />
-              <circle r="6" fill="none" stroke="#C084FC" strokeWidth="1.5" />
-              <circle r="2.5" fill="#F7F5FF" />
+              {/* Soft Distant Beacon Halo */}
+              <circle r="22" fill="rgba(139, 92, 246, 0.20)" className="animate-pulse" style={{ animationDuration: '3s' }} />
+              <circle r="8" fill="none" stroke="#C084FC" strokeWidth="1.5" />
+              <circle r="3" fill="#F7F5FF" />
             </g>
           </svg>
         </div>
 
-        {/* 2. Four Stage Clickable Markers (Clean open layout, NO CARDS) */}
+        {/* 2. Four Stage Selectors Along Path (Clean Open Layout) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-4 border-t border-white/[0.08]">
           {stages.map((stage, idx) => {
             const isActive = idx === activeStageIndex;
@@ -102,10 +103,10 @@ export default function TimelineSection() {
                 className="group text-left space-y-2 focus:outline-none transition-all duration-300"
               >
                 <div className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full transition-colors ${
-                    isActive ? 'bg-[#8B5CF6] shadow-[0_0_10px_#8B5CF6]' : 'bg-white/20 group-hover:bg-white/50'
+                  <span className={`w-2 h-2 rounded-full transition-all duration-400 ${
+                    isActive ? 'bg-[#8B5CF6] shadow-[0_0_12px_#8B5CF6] scale-125' : 'bg-white/20 group-hover:bg-white/50'
                   }`} />
-                  <span className={`font-display text-xs tracking-[0.2em] uppercase ${
+                  <span className={`font-display text-xs tracking-[0.2em] uppercase transition-colors ${
                     isActive ? 'text-[#8B5CF6] font-semibold' : 'text-[#A6A0B8]'
                   }`}>
                     STAGE {stage.stage}
@@ -126,9 +127,9 @@ export default function TimelineSection() {
           })}
         </div>
 
-        {/* 3. Active Stage Content Reveal (Clean Editorial Display, NO Giant Box) */}
+        {/* 3. Active Stage Content Reveal (Clean Editorial Display) */}
         <div className="pt-8 border-t border-white/[0.08] flex flex-col md:flex-row md:items-baseline justify-between gap-6">
-          <div className="max-w-2xl space-y-3">
+          <div key={currentStage.stage} className="max-w-2xl space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-400">
             <div className="font-display text-xs uppercase tracking-[0.2em] text-[#C084FC] font-semibold">
               // {currentStage.tagline}
             </div>

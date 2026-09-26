@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SEDS_CONFIG } from '../config/event';
 import { ArrowUpRight } from 'lucide-react';
 
@@ -8,9 +8,8 @@ import { ArrowUpRight } from 'lucide-react';
  * Target:
  * - Headline: STUDENTS. BUILDERS. EXPLORERS.
  * - Subhead: "Students are building the future of space."
- * - Large authentic documentary photography (/images/team/students_lab.jpg).
- * - Editorial exploration of PROJECTS, RESEARCH, EVENTS, OUTREACH.
- * - Human, technological, credible, and grounded in real student work.
+ * - Large authentic documentary photography (/images/team/students_lab.jpg) with cinematic mask reveal.
+ * - Operational pillars: Projects, Research, Events, Outreach.
  */
 
 const PILLARS_DETAIL = [
@@ -19,38 +18,50 @@ const PILLARS_DETAIL = [
     title: 'PROJECTS & HARDWARE',
     tag: 'HANDS-ON FLIGHT SYSTEMS',
     desc: 'Students design, machine, assemble, and test real aerospace systems. From PCB layout of sub-orbital avionics and CubeSat bus backplanes to solid rocket motor static fire test stands, our teams build flight-ready hardware in the laboratory.',
-    metrics: 'Active Avionics & Rocketry Testbeds',
   },
   {
     id: 'research',
     title: 'RESEARCH & COMPUTATION',
     tag: 'THEORETICAL & APPLIED ASTRODYNAMICS',
     desc: 'Beyond hardware fabrication, SEDS REC students author papers on low-thrust orbital mechanics, N-body gravitational perturbation models, aerodynamic simulations, and computer vision for autonomous planetary surface navigation.',
-    metrics: 'Peer-reviewed Student Publications',
   },
   {
     id: 'events',
     title: 'EVENTS & SPRINT HACKATHONS',
     tag: 'INTENSIVE TECHNICAL CONVENING',
     desc: 'Organizers and hosts of ORBITAL 26, university avionics soldering bootcamps, high-altitude meteorological balloon launches, and rocketry recovery workshops that gather hundreds of student engineers from across the country.',
-    metrics: 'National Hackathons & Flight Workshops',
   },
   {
     id: 'outreach',
     title: 'OUTREACH & EDUCATION',
     tag: 'COMMUNITY IMPACT',
     desc: 'Democratizing space technology through public stargazing sessions, hands-on model rocketry sessions for high school students, and open-source aerospace software libraries distributed freely to aspiring young engineers.',
-    metrics: 'Students Mentored Across Schools & Colleges',
   },
 ];
 
 export default function IdentitySection({ onNavigate }) {
   const [activeTab, setActiveTab] = useState('projects');
+  const [isRevealed, setIsRevealed] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsRevealed(true);
+      }
+    }, { threshold: 0.15 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   const currentPillar = PILLARS_DETAIL.find((p) => p.id === activeTab) || PILLARS_DETAIL[0];
 
   return (
     <section 
       id="identity" 
+      ref={containerRef}
       className="relative min-h-screen w-full flex flex-col justify-center py-32 px-6 sm:px-12 lg:px-16 z-20 overflow-hidden"
     >
       {/* Top Eyebrow */}
@@ -127,13 +138,20 @@ export default function IdentitySection({ onNavigate }) {
           </div>
         </div>
 
-        {/* Right Column (7 Cols): Documentary Photograph of Students in Cleanroom/Lab */}
+        {/* Right Column (7 Cols): Documentary Photograph with Cinematic Image Mask */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#07030F] shadow-[0_20px_60px_rgba(0,0,0,0.6)] group">
+          <div 
+            className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#07030F] shadow-[0_20px_60px_rgba(0,0,0,0.6)] group"
+            style={{
+              clipPath: isRevealed ? 'inset(0% 0% 0% 0% round 1rem)' : 'inset(6% 6% 6% 6% round 1rem)',
+              filter: isRevealed ? 'blur(0px) brightness(1)' : 'blur(10px) brightness(0.6)',
+              transition: 'clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease-out',
+            }}
+          >
             <img 
               src="/images/team/students_lab.jpg" 
               alt="SEDS REC Student Engineering Team in Aerospace Robotics and Satellite Workshop at Rajalakshmi Engineering College" 
-              className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+              className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               loading="lazy"
             />
             {/* Subtle Vignette Gradient */}

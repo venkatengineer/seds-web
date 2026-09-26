@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Volume2, VolumeX, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Volume2, VolumeX, Menu, X, RotateCcw } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 import { toggleOrbitalAmbiance } from '../utils/audio';
 
@@ -7,10 +7,10 @@ import { toggleOrbitalAmbiance } from '../utils/audio';
  * PREMIUM MINIMAL EDITORIAL NAVIGATION
  * 
  * Target:
- * - Almost invisible against deep space until needed.
+ * - Hidden during boot sequence. Fades in only after Hero completes (Phase 7).
  * - Left: SEDS REC (subtle, refined).
- * - Center: MISSION | PROJECTS | CHALLENGES | TIMELINE | PRIZES | FAQ
- * - Right: Audio Ambiance + REGISTER
+ * - Center: MISSION | IDENTITY | PROJECTS | CHALLENGES | TIMELINE | PRIZES | FAQ
+ * - Right: Replay Boot button + Audio Ambiance + REGISTER
  * - On hover: subtle violet light, smooth underline. No glowing boxes.
  */
 
@@ -24,7 +24,13 @@ const NAV_LINKS = [
   { id: 'faq', label: 'FAQ' },
 ];
 
-export default function Navigation({ activeSection, onNavigate, onOpenRegister }) {
+export default function Navigation({ 
+  activeSection, 
+  onNavigate, 
+  onOpenRegister, 
+  bootPhase = 7,
+  onReplayBoot,
+}) {
   const [isAudioActive, setIsAudioActive] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -38,9 +44,15 @@ export default function Navigation({ activeSection, onNavigate, onOpenRegister }
     setMobileMenuOpen(false);
   };
 
+  const isNavVisible = bootPhase >= 7;
+
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 px-6 sm:px-12 lg:px-16 py-6 pointer-events-none transition-all duration-300">
+      <header 
+        className={`fixed top-0 left-0 right-0 z-40 px-6 sm:px-12 lg:px-16 py-6 pointer-events-none transition-all duration-1000 ease-out ${
+          isNavVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6'
+        }`}
+      >
         <div className="w-full flex items-center justify-between pointer-events-auto">
           
           {/* Left: SEDS REC Identity */}
@@ -60,7 +72,7 @@ export default function Navigation({ activeSection, onNavigate, onOpenRegister }
           </button>
 
           {/* Center: Minimal Text Navigation */}
-          <nav className="hidden lg:flex items-center gap-7 xl:gap-9">
+          <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
             {NAV_LINKS.map((item) => {
               const isSelected = activeSection === item.id;
               return (
@@ -86,6 +98,18 @@ export default function Navigation({ activeSection, onNavigate, onOpenRegister }
 
           {/* Right: Audio Ambiance & Register */}
           <div className="flex items-center gap-3 sm:gap-4">
+            {/* Replay Cinematic Boot */}
+            {onReplayBoot && (
+              <button
+                onClick={onReplayBoot}
+                title="Replay Cinematic Boot Experience"
+                className="p-2 rounded-full border border-white/10 bg-transparent text-[#A6A0B8] hover:text-[#F7F5FF] hover:border-white/20 transition-all duration-300 focus:outline-none hidden sm:flex items-center gap-1.5 text-[10px] font-display uppercase tracking-wider"
+              >
+                <RotateCcw size={12} />
+                <span className="hidden xl:inline">Boot</span>
+              </button>
+            )}
+
             <button
               onClick={handleAudioToggle}
               title={isAudioActive ? 'Mute Deep Space Ambiance' : 'Enable Deep Space Ambiance'}
@@ -100,7 +124,7 @@ export default function Navigation({ activeSection, onNavigate, onOpenRegister }
 
             <button
               onClick={onOpenRegister}
-              className="group relative overflow-hidden px-5 py-2.5 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/20 hover:bg-[#6D28D9]/40 text-[#F7F5FF] hover:border-[#8B5CF6] hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300 focus:outline-none"
+              className="group relative overflow-hidden px-5 py-2.5 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/20 hover:bg-[#6D28D9]/40 text-[#F7F5FF] hover:border-[#8B5CF6] hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:-translate-y-0.5 transition-all duration-300 focus:outline-none"
             >
               <div className="flex items-center gap-1.5 font-display text-xs uppercase tracking-[0.2em] font-medium">
                 <span>Register</span>

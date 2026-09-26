@@ -143,6 +143,17 @@ export const EVENT_CONFIG = {
       domains: ["Rocker-Bogie Kinematics", "Surface Computer Vision", "Swarm Exploration", "Habitat Life Support"],
       prize: "₹10,000 Track Grant",
     },
+    {
+      id: "climate",
+      chapter: "05",
+      name: "CLIMATE & EARTH OBSERVATION",
+      title: "EARTH OBSERVATION",
+      subtitle: "Hyperspectral Remote Sensing & Atmospheric Telemetry",
+      desc: "Analyze multi-spectral orbital data, greenhouse gas flux tracking, and real-time planetary climate observation telemetry models.",
+      image: "/images/challenges/satellites.jpg",
+      domains: ["Remote Sensing", "GIS Telemetry", "Spectroscopy", "Wildfire Telemetry"],
+      prize: "₹10,000 Track Grant",
+    },
   ],
   timeline: [
     {

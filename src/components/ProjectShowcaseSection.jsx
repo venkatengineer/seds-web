@@ -8,7 +8,7 @@ import { SEDS_PROJECTS } from '../config/event';
  * Philosophy:
  * - Real projects with large documentary engineering photography.
  * - Project Name, Year, Category, Short Description, Subsystems, CTA.
- * - Authentic student engineering proof: Rocketry, CubeSats, Rovers, Ground Stations.
+ * - Cinematic image mask reveals and subtle physical depth on hover.
  */
 
 export default function ProjectShowcaseSection({ onOpenRegister }) {
@@ -49,14 +49,14 @@ export default function ProjectShowcaseSection({ onOpenRegister }) {
         {SEDS_PROJECTS.map((project) => (
           <div
             key={project.id}
-            className="group relative rounded-2xl border border-white/[0.08] bg-[#07030F]/80 backdrop-blur-md overflow-hidden transition-all duration-400 hover:border-[#8B5CF6]/50 hover:shadow-[0_20px_50px_rgba(76,29,149,0.25)] flex flex-col justify-between"
+            className="group relative rounded-2xl border border-white/[0.08] bg-[#07030F]/80 backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-[#8B5CF6]/50 hover:shadow-[0_25px_60px_rgba(76,29,149,0.3)] hover:-translate-y-1 flex flex-col justify-between"
           >
-            {/* Top Project Visual */}
+            {/* Top Project Visual with Cinematic Mask */}
             <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#020107]">
               <img
                 src={project.image}
                 alt={project.name}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#07030F] via-transparent to-transparent opacity-80" />

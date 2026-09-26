@@ -5,14 +5,23 @@ import { EVENT_CONFIG } from '../config/event';
  * ASTRONOMICAL COUNTDOWN SECTION
  * 
  * Philosophy:
- * - Placed inside a beautiful astronomical environment (distant Earth/lunar horizon).
- * - Very subtle atmospheric movement.
- * - Centered:
- *   ORBITAL 26
- *   09 : 14 : 29 : 18
- *   REGISTRATION CLOSES IN
- * - Quiet, steady, no flashing or arcade pulse.
+ * - Placed inside an astronomical environment with a curved atmospheric horizon glow along bottom.
+ * - Smooth vertical sliding number transitions when digits change (NO violent flip, NO strobe).
+ * - Centered: ORBITAL 26 | 09 : 14 : 29 : 18 | REGISTRATION CLOSES IN.
  */
+
+function SlidingDigit({ value }) {
+  return (
+    <span className="relative inline-block overflow-hidden h-[1.15em] align-top">
+      <span
+        key={value}
+        className="inline-block transition-all duration-300 ease-out animate-in slide-in-from-top-4 fade-in duration-300"
+      >
+        {value}
+      </span>
+    </span>
+  );
+}
 
 export default function CountdownSection() {
   const [timeLeft, setTimeLeft] = useState({ days: 9, hours: 14, minutes: 29, seconds: 18 });
@@ -28,6 +37,11 @@ export default function CountdownSection() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const dStr = String(timeLeft.days).padStart(2, '0');
+  const hStr = String(timeLeft.hours).padStart(2, '0');
+  const mStr = String(timeLeft.minutes).padStart(2, '0');
+  const sStr = String(timeLeft.seconds).padStart(2, '0');
 
   return (
     <section 
@@ -59,15 +73,15 @@ export default function CountdownSection() {
             </div>
           </div>
 
-          {/* Monumental Digits */}
+          {/* Monumental Digits with Smooth Vertical Slide */}
           <div className="font-editorial text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#F7F5FF] flex items-center justify-center gap-2 sm:gap-4 my-2">
-            <span>{String(timeLeft.days).padStart(2, '0')}</span>
+            <SlidingDigit value={dStr} />
             <span className="text-[#8B5CF6]/40 font-light text-2xl sm:text-4xl">:</span>
-            <span>{String(timeLeft.hours).padStart(2, '0')}</span>
+            <SlidingDigit value={hStr} />
             <span className="text-[#8B5CF6]/40 font-light text-2xl sm:text-4xl">:</span>
-            <span>{String(timeLeft.minutes).padStart(2, '0')}</span>
+            <SlidingDigit value={mStr} />
             <span className="text-[#8B5CF6]/40 font-light text-2xl sm:text-4xl">:</span>
-            <span className="text-[#F7F5FF]">{String(timeLeft.seconds).padStart(2, '0')}</span>
+            <SlidingDigit value={sStr} />
           </div>
 
           {/* Unit Labels */}
