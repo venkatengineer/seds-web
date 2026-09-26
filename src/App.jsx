@@ -19,7 +19,6 @@ import RegistrationPortal from './components/RegistrationPortal';
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [activeChallengeIndex, setActiveChallengeIndex] = useState(0);
 
@@ -41,20 +40,7 @@ export default function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Global scroll listener for camera flight & progress
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const totalDocHeight = document.documentElement.scrollHeight - windowHeight;
-      const progress = totalDocHeight > 0 ? scrollY / totalDocHeight : 0;
-      setScrollProgress(progress);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Continuous IntersectionObserver for section camera waypoints
+  // Focal IntersectionObserver for active navigation tracking (Zero scroll jitter)
   useEffect(() => {
     const sections = [
       'hero',
@@ -68,28 +54,24 @@ export default function App() {
       'partners',
       'faq',
     ];
-    const observers = [];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-25% 0px -25% 0px', threshold: 0.1 }
+    );
 
     sections.forEach((id) => {
       const el = document.getElementById(id);
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveSection(id);
-            }
-          });
-        },
-        { threshold: 0.22 }
-      );
-
-      observer.observe(el);
-      observers.push(observer);
+      if (el) observer.observe(el);
     });
 
-    return () => observers.forEach((obs) => obs.disconnect());
+    return () => observer.disconnect();
   }, []);
 
   // Smooth Travel & Scroll to target sector
@@ -140,7 +122,6 @@ export default function App() {
         activeSection={activeSection}
         mousePos={mousePos}
         isModalOpen={isRegisterOpen}
-        scrollProgress={scrollProgress}
         isBootComplete={isBootComplete}
         activeChallengeIndex={activeChallengeIndex}
         onBootProgress={(phase) => {

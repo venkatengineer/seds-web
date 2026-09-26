@@ -18,92 +18,43 @@ import gsap from 'gsap';
  * - Smooth camera flight paths and 3-layer mouse depth parallax.
  */
 
-// Camera waypoints for each section
-const WAYPOINTS = {
-  hero: {
-    camPos: new THREE.Vector3(0, 0, 105),
-    lookAt: new THREE.Vector3(0, 0, 0),
-    planetOffset: new THREE.Vector3(38, 2, -10),
-    planetScale: 1.0,
-    orbitSpeed: 0.0012,
-  },
-  mission: {
-    camPos: new THREE.Vector3(-14, 4, 80),
-    lookAt: new THREE.Vector3(10, 0, 0),
-    planetOffset: new THREE.Vector3(46, -6, -30),
-    planetScale: 0.92,
-    orbitSpeed: 0.0010,
-  },
-  identity: {
-    camPos: new THREE.Vector3(12, -8, 65),
-    lookAt: new THREE.Vector3(-6, -4, 0),
-    planetOffset: new THREE.Vector3(48, -12, -45),
-    planetScale: 0.88,
-    orbitSpeed: 0.0009,
-  },
-  projects: {
-    camPos: new THREE.Vector3(-8, 12, 45),
-    lookAt: new THREE.Vector3(12, 6, -15),
-    planetOffset: new THREE.Vector3(46, 8, -60),
-    planetScale: 0.85,
-    orbitSpeed: 0.0011,
-  },
-  challenges: {
-    camPos: new THREE.Vector3(2, 12, 28),
-    lookAt: new THREE.Vector3(-4, 6, -40),
-    planetOffset: new THREE.Vector3(56, 18, -85),
-    planetScale: 0.82,
-    orbitSpeed: 0.0010,
-  },
-  timeline: {
-    camPos: new THREE.Vector3(18, 4, -30),
-    lookAt: new THREE.Vector3(0, 0, -85),
-    planetOffset: new THREE.Vector3(42, -6, -110),
-    planetScale: 0.80,
-    orbitSpeed: 0.0009,
-  },
-  countdown: {
-    camPos: new THREE.Vector3(0, -10, -85),
-    lookAt: new THREE.Vector3(4, -4, -145),
-    planetOffset: new THREE.Vector3(36, -22, -150),
-    planetScale: 0.85,
-    orbitSpeed: 0.0008,
-  },
-  prizes: {
-    camPos: new THREE.Vector3(10, -14, -150),
-    lookAt: new THREE.Vector3(-4, -10, -210),
-    planetOffset: new THREE.Vector3(44, -16, -230),
-    planetScale: 0.90,
-    orbitSpeed: 0.0010,
-  },
-  partners: {
-    camPos: new THREE.Vector3(-6, 2, -220),
-    lookAt: new THREE.Vector3(4, 0, -280),
-    planetOffset: new THREE.Vector3(46, -2, -300),
-    planetScale: 0.80,
-    orbitSpeed: 0.0008,
-  },
-  faq: {
-    camPos: new THREE.Vector3(0, 0, -280),
-    lookAt: new THREE.Vector3(0, 0, -340),
-    planetOffset: new THREE.Vector3(52, 6, -370),
-    planetScale: 0.75,
-    orbitSpeed: 0.0007,
-  },
-  register: {
-    camPos: new THREE.Vector3(0, 0, -340),
-    lookAt: new THREE.Vector3(0, 0, -385),
-    planetOffset: new THREE.Vector3(0, 0, -385),
-    planetScale: 0.05,
-    orbitSpeed: 0.008,
-  },
-};
+// Continuous orbital trajectory milestones along scroll progress (0.00 -> 1.00)
+const SCROLL_MILESTONES = [
+  { t: 0.00, cam: new THREE.Vector3(0, 0, 105), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(38, 2, -10), scale: 1.0 },
+  { t: 0.12, cam: new THREE.Vector3(-6, 2, 98), look: new THREE.Vector3(4, 0, 0), earth: new THREE.Vector3(39, 0, -12), scale: 0.98 },
+  { t: 0.25, cam: new THREE.Vector3(4, -3, 92), look: new THREE.Vector3(-3, -1, 0), earth: new THREE.Vector3(40, -3, -14), scale: 0.96 },
+  { t: 0.38, cam: new THREE.Vector3(-3, 5, 86), look: new THREE.Vector3(6, 1, 0), earth: new THREE.Vector3(40, 2, -15), scale: 0.95 },
+  { t: 0.52, cam: new THREE.Vector3(1, 3, 80), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(42, 4, -16), scale: 0.93 },
+  { t: 0.66, cam: new THREE.Vector3(5, -2, 85), look: new THREE.Vector3(-3, 0, 0), earth: new THREE.Vector3(40, -2, -14), scale: 0.95 },
+  { t: 0.78, cam: new THREE.Vector3(0, -4, 90), look: new THREE.Vector3(1, -1, 0), earth: new THREE.Vector3(39, -4, -13), scale: 0.96 },
+  { t: 0.88, cam: new THREE.Vector3(4, -2, 94), look: new THREE.Vector3(-2, 0, 0), earth: new THREE.Vector3(39, -2, -12), scale: 0.98 },
+  { t: 1.00, cam: new THREE.Vector3(0, 0, 100), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(38, 2, -10), scale: 1.0 },
+];
+
+function getScrollWaypoint(progress) {
+  const p = Math.max(0, Math.min(1, progress));
+  for (let i = 0; i < SCROLL_MILESTONES.length - 1; i++) {
+    const m1 = SCROLL_MILESTONES[i];
+    const m2 = SCROLL_MILESTONES[i + 1];
+    if (p >= m1.t && p <= m2.t) {
+      const alpha = (p - m1.t) / (m2.t - m1.t);
+      const s = alpha * alpha * (3 - 2 * alpha);
+      return {
+        cam: new THREE.Vector3().lerpVectors(m1.cam, m2.cam, s),
+        look: new THREE.Vector3().lerpVectors(m1.look, m2.look, s),
+        earth: new THREE.Vector3().lerpVectors(m1.earth, m2.earth, s),
+        scale: THREE.MathUtils.lerp(m1.scale, m2.scale, s),
+      };
+    }
+  }
+  const last = SCROLL_MILESTONES[SCROLL_MILESTONES.length - 1];
+  return { cam: last.cam.clone(), look: last.look.clone(), earth: last.earth.clone(), scale: last.scale };
+}
 
 const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({ 
   activeSection = 'hero', 
   mousePos = { x: 0.5, y: 0.5 }, 
   isModalOpen = false, 
-  scrollProgress = 0,
   onBootProgress,
   onBootComplete,
   isBootComplete = false,
@@ -144,7 +95,6 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     activeSection,
     mousePos,
     isModalOpen,
-    scrollProgress,
     activeChallengeIndex,
     isBootComplete,
   });
@@ -154,11 +104,10 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       activeSection,
       mousePos,
       isModalOpen,
-      scrollProgress,
       activeChallengeIndex,
       isBootComplete,
     };
-  }, [activeSection, mousePos, isModalOpen, scrollProgress, activeChallengeIndex, isBootComplete]);
+  }, [activeSection, mousePos, isModalOpen, activeChallengeIndex, isBootComplete]);
 
   // Master Boot & Motion State Object driven by GSAP
   const motionRef = useRef({
@@ -982,11 +931,13 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     let clock = new THREE.Clock();
     let satAngle = 0;
     let moonAngle = 0.4;
-
+    let smoothScroll = 0;
     const currentCamPos = new THREE.Vector3(0, 0, motionRef.current.camZ);
     const targetCamPos = new THREE.Vector3(0, 0, motionRef.current.camZ);
     const currentLookAt = new THREE.Vector3(0, 0, 0);
     const targetLookAt = new THREE.Vector3(0, 0, 0);
+    const targetEarthPos = new THREE.Vector3(38, 2, -10);
+    let targetEarthScale = 1.0;
 
     const animate = () => {
       const elapsed = clock.getElapsedTime();
@@ -1041,52 +992,70 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       solarHingeLeft.rotation.y = -m.solarDeployAngle;
       solarHingeRight.rotation.y = m.solarDeployAngle;
 
-      // 4. Camera Waypoint Navigation
-      const wp = WAYPOINTS[p.activeSection] || WAYPOINTS.hero;
-      const targetSingularity = (p.isModalOpen || p.activeSection === 'register') ? 0.04 : 1.0;
-      m.singularityFactor = THREE.MathUtils.lerp(m.singularityFactor, targetSingularity, 0.05);
+      // 4. Continuous Smooth Scroll Calculation (Direct from window scroll, 60fps true sync)
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const rawScroll = docHeight > 0 ? Math.max(0, Math.min(1, window.scrollY / docHeight)) : 0;
+      smoothScroll = THREE.MathUtils.lerp(smoothScroll, rawScroll, 0.075);
 
-      const scrollOffsetZ = p.activeSection === 'hero' ? -(p.scrollProgress * 28) : 0;
+      // Continuous Hermite Waypoint targets
+      const wp = getScrollWaypoint(smoothScroll);
+
+      const targetSingularity = (p.isModalOpen || p.activeSection === 'register') ? 0.04 : 1.0;
+      m.singularityFactor = THREE.MathUtils.lerp(m.singularityFactor, targetSingularity, 0.06);
 
       if (p.isBootComplete || m.camZ <= 112) {
-        targetCamPos.copy(wp.camPos);
-        targetCamPos.z += scrollOffsetZ;
-        targetLookAt.copy(wp.lookAt);
+        targetCamPos.copy(wp.cam);
+        targetLookAt.copy(wp.look);
+        targetEarthPos.copy(wp.earth);
+        targetEarthScale = wp.scale;
       } else {
         targetCamPos.set(0, 0, m.camZ);
         targetLookAt.set(0, 0, 0);
+        targetEarthPos.set(38, 2, -10);
+        targetEarthScale = 1.0;
+      }
+
+      // Responsive adjustments for mobile/tablet (< 1024px)
+      if (width < 1024) {
+        targetEarthPos.set(0, 18, -25);
+        targetEarthScale *= 0.75;
       }
 
       // 3-Layer Mouse Parallax
       const mouseFactorX = (p.mousePos.x - 0.5);
       const mouseFactorY = (p.mousePos.y - 0.5);
-      const mouseCamX = mouseFactorX * 5.2;
-      const mouseCamY = mouseFactorY * -4.2;
+      const mouseCamX = mouseFactorX * 4.5;
+      const mouseCamY = mouseFactorY * -3.5;
 
-      currentCamPos.x = THREE.MathUtils.lerp(currentCamPos.x, targetCamPos.x + mouseCamX, 0.04);
-      currentCamPos.y = THREE.MathUtils.lerp(currentCamPos.y, targetCamPos.y + mouseCamY, 0.04);
-      currentCamPos.z = THREE.MathUtils.lerp(currentCamPos.z, targetCamPos.z, 0.04);
+      currentCamPos.x = THREE.MathUtils.lerp(currentCamPos.x, targetCamPos.x + mouseCamX, 0.05);
+      currentCamPos.y = THREE.MathUtils.lerp(currentCamPos.y, targetCamPos.y + mouseCamY, 0.05);
+      currentCamPos.z = THREE.MathUtils.lerp(currentCamPos.z, targetCamPos.z, 0.05);
       camera.position.copy(currentCamPos);
 
-      currentLookAt.lerp(targetLookAt, 0.04);
+      currentLookAt.lerp(targetLookAt, 0.05);
       camera.lookAt(currentLookAt);
 
       camera.fov = m.fov;
       camera.updateProjectionMatrix();
 
-      // Celestial position lerp
-      if (width >= 1024 && (p.isBootComplete || m.sunIntensity > 0.8)) {
-        celestialSystem.position.lerp(wp.planetOffset, 0.04);
+      // Celestial position lerp - 100% continuous and smooth!
+      if (p.isBootComplete || m.sunIntensity > 0.8) {
+        celestialSystem.position.lerp(targetEarthPos, 0.06);
       }
+
+      // Celestial scale with singularity collapse
+      const currentScale = targetEarthScale * m.singularityFactor;
+      celestialSystem.scale.setScalar(currentScale);
 
       // Parallax layer 1: background stars
       starField.position.x = mouseFactorX * -3.0;
       starField.position.y = mouseFactorY * 2.2;
       starMat.opacity = m.starOpacity;
 
-      // Parallax layer 2: planetary body & clouds
-      planetMesh.rotation.y = elapsed * 0.016;
-      cloudsMesh.rotation.y = elapsed * 0.024;
+      // Parallax layer 2: PHYSICAL PLANETARY SCROLL ROLL
+      // Earth rolls smoothly on its axis with scroll inertia + time drift!
+      planetMesh.rotation.y = elapsed * 0.012 + smoothScroll * 2.2;
+      cloudsMesh.rotation.y = elapsed * 0.018 + smoothScroll * 2.6;
 
       // Parallax layer 3: orbiting satellite
       satAngle += 0.0065;
@@ -1112,10 +1081,6 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         lunarDist * 0.7 * Math.sin(moonAngle) - 25
       );
       moonMesh.rotation.y = elapsed * 0.01;
-
-      // Celestial Scale & Singularity Factor
-      const currentScale = wp.planetScale * m.singularityFactor;
-      celestialSystem.scale.setScalar(currentScale);
 
       // Constellation Sector Visibility & Active Node Highlighting
       const inChallenges = p.activeSection === 'challenges';
