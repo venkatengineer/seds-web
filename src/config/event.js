@@ -211,21 +211,4 @@ export const PARTNERS_CONFIG = [
       },
     ],
   },
-  {
-    category: "INNOVATION & RESEARCH",
-    items: [
-      {
-        name: "Institution's Innovation Council (IIC)",
-        type: "Innovation Ecosystem",
-        location: "REC Campus",
-        role: "Student Entrepreneurship & Prototyping Incubation",
-      },
-      {
-        name: "REC Research & Development Cell",
-        type: "Research Support",
-        location: "REC Campus",
-        role: "Compute Facilities & Research Grant Sponsorship",
-      },
-    ],
-  },
 ];

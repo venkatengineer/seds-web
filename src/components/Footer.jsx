@@ -100,7 +100,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             SEDS Global Network Member
           </div>
           <div className="text-[#A6A0B8]">
-            REC Institution's Innovation Council
+            REC Aerospace Department
           </div>
           <div className="pt-2">
             <button 
