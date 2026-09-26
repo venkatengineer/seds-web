@@ -20,111 +20,112 @@ export default function Footer({ onNavigate, onOpenRegister }) {
   };
 
   return (
-    <footer className="relative w-full z-20 hairline-dark-t bg-[#020107] pt-20 pb-12 px-6 sm:px-12 lg:px-20 text-[#A6A0B8] select-none">
+    <footer className="relative w-full z-20 border-t border-white/[0.08] bg-[#020107] pt-24 pb-14 px-6 sm:px-12 lg:px-16 text-[#A6A0B8] select-none">
       
       {/* Top Footer Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 hairline-dark-b">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 border-b border-white/[0.06]">
         
         {/* Brand & Chapter Lineage */}
         <div className="md:col-span-2 space-y-4">
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
               <span className="font-editorial text-2xl font-bold tracking-[0.2em] text-[#F7F5FF]">
                 {SEDS_CONFIG.name}
               </span>
             </div>
-            <div className="font-mono-tech text-[10px] uppercase tracking-widest text-[#8B5CF6]">
-              {SEDS_CONFIG.tagline}
+            <div className="font-display text-xs uppercase tracking-wider text-[#8B5CF6] font-medium">
+              {SEDS_CONFIG.fullName}
             </div>
-            <div className="font-mono-tech text-[10px] text-[#A6A0B8] uppercase">
-              {SEDS_CONFIG.institution} • {SEDS_CONFIG.location}
+            <div className="font-display text-xs text-[#A6A0B8]">
+              {SEDS_CONFIG.institution} • {SEDS_CONFIG.department}
             </div>
           </div>
 
           <p className="max-w-md text-xs sm:text-sm font-sans font-light text-[#A6A0B8] leading-relaxed">
-            Advancing empirical space exploration, satellite hardware, and computational rocketry. 
-            Host organization of <strong className="text-[#F7F5FF]">{EVENT_CONFIG.name}</strong> space innovation sprint.
+            Advancing student-led aerospace engineering, sounding rocketry, CubeSat avionics, and computational astrodynamics. Official organizing chapter of <strong className="text-[#F7F5FF]">{EVENT_CONFIG.name}</strong>.
           </p>
 
-          <div className="pt-2 font-mono-tech text-[11px] text-[#F7F5FF]">
-            FLIGHT CLOCK: <span className="text-[#8B5CF6]">{utcTime || 'SYNCHRONIZING...'}</span>
+          <div className="pt-2 font-display text-xs text-[#F7F5FF]">
+            FLIGHT CLOCK: <span className="text-[#8B5CF6] font-medium">{utcTime || 'SYNCHRONIZING...'}</span>
           </div>
         </div>
 
         {/* Directory Column */}
-        <div className="space-y-3 font-mono-tech text-xs tracking-wider uppercase">
-          <div className="text-[10px] tracking-[0.25em] text-[#F7F5FF] font-semibold mb-4">
-            // FLIGHT DIRECTORY
+        <div className="space-y-3 font-display text-xs tracking-wider uppercase">
+          <div className="text-[11px] tracking-[0.25em] text-[#F7F5FF] font-semibold mb-4">
+            // SECTOR DIRECTORY
           </div>
           <div>
             <button onClick={() => onNavigate('mission')} className="hover:text-[#F7F5FF] transition-colors">
-              01 — SEDS Mission
+              01 — Chapter Mission
+            </button>
+          </div>
+          <div>
+            <button onClick={() => onNavigate('identity')} className="hover:text-[#F7F5FF] transition-colors">
+              02 — SEDS REC Identity
+            </button>
+          </div>
+          <div>
+            <button onClick={() => onNavigate('projects')} className="hover:text-[#F7F5FF] transition-colors">
+              03 — Student Projects
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('challenges')} className="hover:text-[#F7F5FF] transition-colors">
-              02 — Constellation Tracks
+              04 — Challenge Chapters
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('timeline')} className="hover:text-[#F7F5FF] transition-colors">
-              03 — Flight Trajectory
-            </button>
-          </div>
-          <div>
-            <button onClick={() => onNavigate('countdown')} className="hover:text-[#F7F5FF] transition-colors">
-              04 — Launch Countdown
+              05 — Flight Trajectory
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('prizes')} className="hover:text-[#F7F5FF] transition-colors">
-              05 — Prize Monuments
+              06 — Prize Monuments
             </button>
           </div>
         </div>
 
-        {/* Chapter Directives */}
-        <div className="space-y-3 font-mono-tech text-xs tracking-wider uppercase">
-          <div className="text-[10px] tracking-[0.25em] text-[#F7F5FF] font-semibold mb-4">
-            // PROTOCOLS
+        {/* Chapter Affiliations & Action */}
+        <div className="space-y-3 font-display text-xs tracking-wider uppercase">
+          <div className="text-[11px] tracking-[0.25em] text-[#F7F5FF] font-semibold mb-4">
+            // AFFILIATIONS
           </div>
-          <div>
-            <span className="hover:text-[#F7F5FF] cursor-pointer">
-              SEDS India Charter Directives
-            </span>
+          <div className="text-[#A6A0B8]">
+            SEDS India Official Chapter
           </div>
-          <div>
-            <span className="hover:text-[#F7F5FF] cursor-pointer">
-              Open Space Research Standards
-            </span>
+          <div className="text-[#A6A0B8]">
+            SEDS Global Network Member
           </div>
-          <div>
-            <span className="hover:text-[#F7F5FF] cursor-pointer">
-              Codebase Integrity Protocols
-            </span>
+          <div className="text-[#A6A0B8]">
+            REC Institution's Innovation Council
           </div>
-          <div>
-            <button onClick={onOpenRegister} className="text-[#8B5CF6] hover:text-[#C084FC] transition-colors">
-              Register Manifest ↗
+          <div className="pt-2">
+            <button 
+              onClick={onOpenRegister} 
+              className="text-[#8B5CF6] hover:text-[#C084FC] transition-colors font-medium"
+            >
+              Register for Orbital 26 ↗
             </button>
           </div>
         </div>
       </div>
 
       {/* Bottom Legal Baseline */}
-      <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono-tech text-[10px] text-[#A6A0B8]/60">
+      <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-display text-xs text-[#A6A0B8]/70">
         <div>
-          © 2026 {SEDS_CONFIG.name} // RAJALAKSHMI ENGINEERING COLLEGE. ALL RIGHTS RESERVED.
+          © 2026 {SEDS_CONFIG.name} // {SEDS_CONFIG.institution}. ALL RIGHTS RESERVED.
         </div>
 
         <div className="flex items-center gap-6">
-          <span>COORDINATES: 13.0082° N, 80.0034° E</span>
+          <span>CHENNAI, TAMIL NADU, INDIA</span>
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1.5 text-[#A6A0B8] hover:text-[#F7F5FF] transition-colors"
           >
-            <span>APEX</span>
+            <span>RETURN TO APEX</span>
             <ArrowUp size={12} />
           </button>
         </div>

@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { EVENT_CONFIG } from '../config/event';
 
 /**
- * PREMIUM DEEP SPACE COUNTDOWN
+ * ASTRONOMICAL COUNTDOWN SECTION
  * 
  * Philosophy:
- * - Information floating quietly in deep space.
- * - Large typography: 09 : 14 : 32 : 07
- * - Very subtle glowing purple light behind numbers with soft falloff.
- * - ZERO flashing, ZERO rapid pulsing every second.
- * - No giant glass card, no neon box.
+ * - Placed inside a beautiful astronomical environment (distant Earth/lunar horizon).
+ * - Very subtle atmospheric movement.
+ * - Centered:
+ *   ORBITAL 26
+ *   09 : 14 : 29 : 18
+ *   REGISTRATION CLOSES IN
+ * - Quiet, steady, no flashing or arcade pulse.
  */
 
 export default function CountdownSection() {
-  const [timeLeft, setTimeLeft] = useState({ days: 9, hours: 14, minutes: 32, seconds: 7 });
+  const [timeLeft, setTimeLeft] = useState({ days: 9, hours: 14, minutes: 29, seconds: 18 });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -30,35 +32,34 @@ export default function CountdownSection() {
   return (
     <section 
       id="countdown" 
-      className="relative min-h-[70vh] w-full flex flex-col items-center justify-center py-24 px-6 sm:px-12 z-20 select-none overflow-hidden"
+      className="relative min-h-[75vh] w-full flex flex-col items-center justify-center py-28 px-6 sm:px-12 z-20 select-none overflow-hidden"
     >
-      {/* Soft Purple Distant Light Behind Countdown (High falloff) */}
+      {/* Distant Earth / Lunar Atmospheric Horizon Glow along bottom */}
       <div 
-        className="absolute w-[450px] h-[450px] rounded-full pointer-events-none -z-10 opacity-15"
+        className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[90vw] max-w-5xl h-64 rounded-t-full pointer-events-none -z-10 opacity-25"
         style={{
-          background: 'radial-gradient(circle, rgba(109, 40, 217, 0.25) 0%, rgba(50, 16, 95, 0.08) 50%, rgba(2, 1, 7, 0) 80%)',
-          filter: 'blur(90px)',
+          background: 'radial-gradient(ellipse at 50% 100%, rgba(139, 92, 246, 0.45) 0%, rgba(76, 29, 149, 0.15) 50%, rgba(2, 1, 7, 0) 80%)',
+          filter: 'blur(70px)',
         }}
       />
 
-      {/* Thin, Slow-Rotating Orbital Framing (180s rotation, very subtle) */}
-      <div className="relative w-[340px] h-[340px] max-w-[94vw] max-h-[94vw] sm:w-[480px] sm:h-[480px] md:w-[600px] md:h-[600px] rounded-full flex flex-col items-center justify-center text-center p-4 sm:p-8">
+      {/* Subtle Slow Astronomical Framing Arc */}
+      <div className="relative w-[340px] h-[340px] max-w-[92vw] max-h-[92vw] sm:w-[460px] sm:h-[460px] md:w-[560px] md:h-[560px] rounded-full flex flex-col items-center justify-center text-center p-6">
         <div className="absolute inset-0 rounded-full border border-white/[0.04]" />
-        <div className="absolute inset-8 rounded-full border border-[#8B5CF6]/15 border-dashed animate-[spin_180s_linear_infinite]" />
-        <div className="absolute inset-20 rounded-full border border-white/[0.03]" />
+        <div className="absolute inset-10 rounded-full border border-[#8B5CF6]/15 border-dashed animate-[spin_180s_linear_infinite]" />
 
-        {/* Content Centered in Deep Space */}
+        {/* Content Centered in Space */}
         <div className="relative z-10 space-y-4">
-          <div>
-            <span className="font-mono-tech text-[10px] tracking-[0.35em] text-[#8B5CF6] uppercase block mb-1">
+          <div className="space-y-1">
+            <span className="font-display text-xs tracking-[0.3em] uppercase text-[#8B5CF6] font-semibold block">
               // LAUNCH HORIZON
             </span>
-            <div className="font-mono-tech text-xs tracking-[0.4em] uppercase text-[#A6A0B8]">
-              UNTIL ORBITAL SPRINT
+            <div className="font-editorial text-2xl sm:text-3xl font-bold tracking-[0.2em] text-[#F7F5FF]">
+              {EVENT_CONFIG.name}
             </div>
           </div>
 
-          {/* Monumental Numbers (Quiet, Steady, No Flashing) */}
+          {/* Monumental Digits */}
           <div className="font-editorial text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#F7F5FF] flex items-center justify-center gap-2 sm:gap-4 my-2">
             <span>{String(timeLeft.days).padStart(2, '0')}</span>
             <span className="text-[#8B5CF6]/40 font-light text-2xl sm:text-4xl">:</span>
@@ -66,23 +67,25 @@ export default function CountdownSection() {
             <span className="text-[#8B5CF6]/40 font-light text-2xl sm:text-4xl">:</span>
             <span>{String(timeLeft.minutes).padStart(2, '0')}</span>
             <span className="text-[#8B5CF6]/40 font-light text-2xl sm:text-4xl">:</span>
-            <span className="text-[#F7F5FF]">
-              {String(timeLeft.seconds).padStart(2, '0')}
-            </span>
+            <span className="text-[#F7F5FF]">{String(timeLeft.seconds).padStart(2, '0')}</span>
           </div>
 
           {/* Unit Labels */}
-          <div className="flex items-center justify-center gap-6 sm:gap-11 font-mono-tech text-[10px] sm:text-xs tracking-[0.25em] text-[#A6A0B8] uppercase">
+          <div className="flex items-center justify-center gap-7 sm:gap-11 font-display text-[11px] sm:text-xs tracking-[0.22em] text-[#A6A0B8] uppercase">
             <span>DAYS</span>
             <span>HOURS</span>
-            <span>MIN</span>
-            <span>SEC</span>
+            <span>MINS</span>
+            <span>SECS</span>
           </div>
 
-          {/* Subtext */}
-          <p className="max-w-xs mx-auto font-sans text-xs text-[#A6A0B8] font-light leading-relaxed pt-2">
-            Synchronized with Indian Standard Time (IST). Registration closes upon slot exhaustion.
-          </p>
+          <div className="pt-2">
+            <div className="font-display text-xs tracking-[0.25em] uppercase text-[#C084FC] font-semibold">
+              REGISTRATION CLOSES IN
+            </div>
+            <p className="max-w-xs mx-auto font-sans text-xs text-[#A6A0B8] font-light leading-relaxed mt-1">
+              Synchronized with Indian Standard Time (IST). Final registration cutoff upon crew slot capacity.
+            </p>
+          </div>
         </div>
       </div>
     </section>

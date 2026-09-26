@@ -2,26 +2,37 @@ import React, { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 
+/**
+ * EDITORIAL FAQ SECTION
+ * 
+ * Target:
+ * - Large title: "QUESTIONS?"
+ * - Generous vertical spacing.
+ * - Very subtle dividers.
+ * - Large typography.
+ * - No excessive containers or dashboard cards.
+ */
+
 const FAQS = [
   {
     q: `What is ${SEDS_CONFIG.name} and who can participate in ${EVENT_CONFIG.name}?`,
-    a: `${SEDS_CONFIG.name} (${SEDS_CONFIG.tagline}) is the premier student space exploration chapter based at ${SEDS_CONFIG.institution}. Participation in ${EVENT_CONFIG.name} is open to all university students, researchers, and independent developers globally. Teams of 1 to 4 members are welcome in both hybrid physical and remote formats.`,
+    a: `${SEDS_CONFIG.name} (${SEDS_CONFIG.fullName}) is the student aerospace and space technology division established at ${SEDS_CONFIG.institution}, affiliated with the national SEDS India network. Participation in ${EVENT_CONFIG.name} is open to all university students, researchers, and independent builders globally. Teams of 1 to 4 members are welcome in both physical campus sprint and remote telemetry participation formats.`,
   },
   {
-    q: 'Do I need prior experience in aerospace or rocketry?',
-    a: `No prior aerospace experience is required. ${EVENT_CONFIG.name} welcomes software engineers, AI developers, mathematicians, and hardware designers. SEDS REC mentors will provide starter ephemeris APIs, satellite telemetry datasets, and baseline astrodynamics libraries at the start of the sprint.`,
+    q: 'Do I need prior experience in aerospace engineering or rocketry?',
+    a: `No prior aerospace background is required. ${EVENT_CONFIG.name} brings software developers, mathematicians, robotics designers, and physics students together. SEDS REC technical mentors provide starter ephemeris APIs, CubeSat telemetry datasets, and baseline astrodynamics libraries at the opening briefing.`,
   },
   {
-    q: 'What is the role of Rajalakshmi Engineering College?',
-    a: `${SEDS_CONFIG.institution} is the host institution providing lab access, high-bandwidth compute networks, prototyping facilities, and academic faculty mentorship for the ${SEDS_CONFIG.name} chapter and this innovation sprint.`,
+    q: `What is the role of ${SEDS_CONFIG.institution}?`,
+    a: `${SEDS_CONFIG.institution} is the autonomous host university providing laboratory testbeds, campus avionics fabrication facilities, compute infrastructure, and academic faculty mentorship from the Department of Aerospace Engineering.`,
   },
   {
-    q: 'Who retains the intellectual property developed during the hackathon?',
-    a: `100% of the intellectual property, codebases, algorithms, and designs remain exclusively with the participating teams. Neither ${SEDS_CONFIG.name} nor ${SEDS_CONFIG.institution} claims any rights over your creations.`,
+    q: 'Who retains the intellectual property developed during the sprint?',
+    a: `100% of all intellectual property, flight code, algorithms, and designs remain exclusively with the participating students. Neither ${SEDS_CONFIG.name} nor ${SEDS_CONFIG.institution} claims any ownership or licensing over your creations.`,
   },
   {
-    q: 'How does the evaluation process work?',
-    a: 'Projects will be evaluated on technical rigor, mathematical validity, autonomous operational capability, and system architecture. The jury comprises aerospace researchers, SEDS alumni, and distributed computing engineers.',
+    q: 'How does the technical evaluation process work?',
+    a: 'Prototypes are evaluated by aerospace researchers, SEDS alumni, and faculty on engineering rigor, mathematical correctness, reproducible execution, and suitability for real-world space or sub-orbital deployment.',
   },
 ];
 
@@ -35,50 +46,49 @@ export default function FaqSection() {
   return (
     <section 
       id="faq" 
-      className="relative min-h-[70vh] w-full flex flex-col justify-center py-28 px-6 sm:px-12 lg:px-20 z-20"
+      className="relative min-h-[75vh] w-full flex flex-col justify-center py-32 px-6 sm:px-12 lg:px-16 z-20"
     >
-      {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 hairline-dark-b pb-6 mb-16">
+      {/* Top Editorial Eyebrow */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-16">
         <div>
-          <span className="font-mono-tech text-xs tracking-[0.3em] uppercase text-[#8B5CF6] block mb-1">
-            // {SEDS_CONFIG.name} DIRECTIVES
+          <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold">
+            // FREQUENTLY INQUIRED DIRECTIVES
           </span>
-          <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
-            FREQUENT DIRECTIVES.
+          <h2 className="font-editorial text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#F7F5FF]">
+            QUESTIONS?
           </h2>
         </div>
-        <div className="font-mono-tech text-xs tracking-[0.2em] text-[#A6A0B8] uppercase">
-          OPERATIONAL PROTOCOLS
+        <div className="font-display text-xs tracking-[0.2em] text-[#A6A0B8] uppercase">
+          OPERATIONAL CLARIFICATIONS
         </div>
       </div>
 
-      {/* Minimal Architectural Accordion */}
-      <div className="max-w-4xl divide-y divide-white/[0.06]">
+      {/* Editorial Accordion: Generous Spacing, Subtle Dividers, Large Typography */}
+      <div className="max-w-4xl divide-y divide-white/[0.08]">
         {FAQS.map((item, idx) => {
           const isOpen = openIndex === idx;
           return (
-            <div key={idx} className="py-6 sm:py-8">
+            <div key={idx} className="py-8 sm:py-10">
               <button
                 onClick={() => toggle(idx)}
-                className="w-full flex items-center justify-between text-left gap-6 group focus:outline-none"
-                data-interactive="true"
+                className="w-full flex items-start justify-between text-left gap-6 group focus:outline-none"
               >
-                <div className="flex items-start gap-4 sm:gap-8">
-                  <span className="font-mono-tech text-xs tracking-widest text-[#8B5CF6] mt-1">
+                <div className="flex items-baseline gap-4 sm:gap-6">
+                  <span className="font-display text-xs tracking-widest text-[#8B5CF6] font-semibold">
                     0{idx + 1}
                   </span>
-                  <span className="font-display text-lg sm:text-2xl font-normal text-[#F7F5FF] group-hover:text-white transition-colors">
+                  <span className="font-display text-xl sm:text-2xl font-normal text-[#F7F5FF] group-hover:text-white transition-colors">
                     {item.q}
                   </span>
                 </div>
 
-                <div className="p-2 rounded-full border border-white/10 group-hover:border-[#8B5CF6]/50 text-[#A6A0B8] group-hover:text-white transition-colors shrink-0">
+                <div className="p-2 rounded-full border border-white/10 group-hover:border-[#8B5CF6]/50 text-[#A6A0B8] group-hover:text-white transition-colors shrink-0 mt-1">
                   {isOpen ? <Minus size={14} /> : <Plus size={14} />}
                 </div>
               </button>
 
               {isOpen && (
-                <div className="mt-4 pl-8 sm:pl-16 pr-4 sm:pr-12 text-[#A6A0B8] font-sans text-sm sm:text-base font-light leading-relaxed animate-in fade-in duration-300">
+                <div className="mt-6 pl-8 sm:pl-12 pr-4 sm:pr-12 text-[#A6A0B8] font-sans text-base sm:text-lg font-light leading-relaxed animate-in fade-in duration-300">
                   {item.a}
                 </div>
               )}

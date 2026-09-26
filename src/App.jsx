@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import ThreeSpaceEngine from './components/ThreeSpaceEngine';
-import SpaceNavigationMap from './components/SpaceNavigationMap';
 import CustomCursor from './components/CustomCursor';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
 import MissionSection from './components/MissionSection';
+import IdentitySection from './components/IdentitySection';
+import ProjectShowcaseSection from './components/ProjectShowcaseSection';
 import ChallengesSection from './components/ChallengesSection';
 import TimelineSection from './components/TimelineSection';
 import CountdownSection from './components/CountdownSection';
 import PrizesSection from './components/PrizesSection';
-import SponsorsConstellation from './components/SponsorsConstellation';
+import SponsorsWall from './components/SponsorsWall';
 import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import EntryLoader from './components/EntryLoader';
@@ -34,7 +35,7 @@ export default function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Scroll listener for camera forward travel & zoom
+  // Scroll listener for hero camera forward travel
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -48,7 +49,18 @@ export default function App() {
 
   // IntersectionObserver to continuously synchronize active section & 3D camera waypoints
   useEffect(() => {
-    const sections = ['hero', 'mission', 'challenges', 'timeline', 'countdown', 'prizes', 'sponsors', 'faq'];
+    const sections = [
+      'hero',
+      'mission',
+      'identity',
+      'projects',
+      'challenges',
+      'timeline',
+      'countdown',
+      'prizes',
+      'partners',
+      'faq',
+    ];
     const observers = [];
 
     sections.forEach((id) => {
@@ -63,7 +75,7 @@ export default function App() {
             }
           });
         },
-        { threshold: 0.3 }
+        { threshold: 0.25 }
       );
 
       observer.observe(el);
@@ -83,7 +95,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#020107] text-[#F5F3FF] overflow-x-hidden selection:bg-[#8B5CF6]/30 selection:text-white">
+    <div className="relative min-h-screen bg-[#020107] text-[#F7F5FF] overflow-x-hidden selection:bg-[#8B5CF6]/30 selection:text-white">
       
       {/* 1. Cinematic Entry Experience */}
       <EntryLoader onComplete={() => setHasEntered(true)} />
@@ -100,17 +112,9 @@ export default function App() {
         mousePos={mousePos}
         isModalOpen={isRegisterOpen}
         scrollProgress={scrollProgress}
-        onNodeClick={handleNavigate}
       />
 
-      {/* 5. ASTRONOMICAL SPACE NAVIGATION MAP (Fixed HUD Radar) */}
-      <SpaceNavigationMap
-        activeSection={activeSection}
-        onNavigate={handleNavigate}
-        onOpenRegister={() => setIsRegisterOpen(true)}
-      />
-
-      {/* 6. FOREGROUND EDITORIAL UI & SECTOR REGIONS */}
+      {/* 5. FOREGROUND EDITORIAL UI */}
       <div className="relative z-20">
         {/* Floating Minimal Navigation Dock */}
         <Navigation
@@ -127,28 +131,36 @@ export default function App() {
           scrollProgress={scrollProgress}
         />
 
-        {/* SEDS REC Mission: WE EXPLORE WHAT COMES NEXT */}
+        {/* SEDS REC Mission: SPACE IS NOT JUST TO BE OBSERVED. IT IS TO BE BUILT. */}
         <MissionSection onNavigate={handleNavigate} />
 
-        {/* Challenge Constellation: Deliberate 5-Node Geometrical Network */}
+        {/* SEDS REC Identity: STUDENTS. BUILDERS. EXPLORERS. */}
+        <IdentitySection onNavigate={handleNavigate} />
+
+        {/* Student Project Showcase: Engineering Proof with Authentic Documentary Imagery */}
+        <ProjectShowcaseSection
+          onOpenRegister={() => setIsRegisterOpen(true)}
+        />
+
+        {/* Large Editorial Challenge Explorer: Propulsion, Satellites, Astrodynamics, Exploration */}
         <ChallengesSection
           onOpenRegister={() => setIsRegisterOpen(true)}
         />
 
-        {/* Orbital Trajectory Timeline: Attached Traveling Violet Particle */}
+        {/* Orbital Trajectory Timeline: Single Elegant Trajectory with Traveling Point */}
         <TimelineSection />
 
-        {/* Launch Countdown: Within Massive Rotating Orbital Circle */}
+        {/* Launch Countdown: Within Astronomical Environment */}
         <CountdownSection />
 
-        {/* Monumental Prize Scale: ₹50K with Volumetric Purple Halo */}
+        {/* Monumental Prize Destination: ₹50,000 Spatial Composition */}
         <PrizesSection
           onOpenRegister={() => setIsRegisterOpen(true)}
           mousePos={mousePos}
         />
 
-        {/* Controlled Orbital Alliances: Concentric Sponsor Paths */}
-        <SponsorsConstellation />
+        {/* Institutional & Chapter Partners Logo Wall */}
+        <SponsorsWall />
 
         {/* SEDS REC Directives & Operational FAQ */}
         <FaqSection />
@@ -160,7 +172,7 @@ export default function App() {
         />
       </div>
 
-      {/* Registration Portal: Singularity Collapse Transition */}
+      {/* Registration Portal: Emotional Singularity Transition */}
       <RegistrationPortal
         isOpen={isRegisterOpen}
         onClose={() => setIsRegisterOpen(false)}

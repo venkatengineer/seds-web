@@ -1,125 +1,126 @@
 import React from 'react';
-import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
+import { ArrowUpRight } from 'lucide-react';
+import { EVENT_CONFIG } from '../config/event';
 
 /**
- * SPATIAL PRIZE MONUMENTS
+ * SPATIAL PRIZE COMPOSITION
  * 
- * Philosophy:
- * - Avoids generic 3-card layout.
- * - Creates spatial depth: Grand Prize (₹50K) large and close with soft purple falloff halo.
- * - Secondary prizes placed deeper in visual field (scale 0.88, subtle parallax).
- * - ZERO flashing, ZERO rapid pulsing.
+ * Target:
+ * - NOT three cards.
+ * - Huge spatial composition with depth, light, and monumental typography.
+ * - ₹50,000 GRAND PRIZE as the primary destination.
+ * - Secondary awards placed in orbit around the primary capital pool.
  */
 
 export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 0.5 } }) {
-  // Controlled parallax depth calculation (max 6-8px)
-  const depthOffsetX = (mousePos.x - 0.5) * 8;
-  const depthOffsetY = (mousePos.y - 0.5) * 6;
+  const depthX = (mousePos.x - 0.5) * 6;
+  const depthY = (mousePos.y - 0.5) * 5;
 
   return (
     <section 
       id="prizes" 
-      className="relative min-h-screen w-full flex flex-col justify-center py-28 px-6 sm:px-12 lg:px-20 z-20 select-none overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col justify-center py-32 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
-      {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 hairline-dark-b pb-6 mb-16">
+      {/* Top Editorial Eyebrow */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-16">
         <div>
-          <span className="font-mono-tech text-xs tracking-[0.3em] uppercase text-[#8B5CF6] block mb-1">
-            // {SEDS_CONFIG.name} REWARDS & GRANTS
+          <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold">
+            // ORBITAL 26 CAPITAL ALLOCATION
           </span>
           <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
             PRIZE MONUMENTS.
           </h2>
         </div>
-        <div className="font-mono-tech text-xs tracking-[0.2em] text-[#A6A0B8] uppercase">
-          {EVENT_CONFIG.name} // CAPITAL ALLOCATION
+        <div className="font-display text-xs tracking-[0.2em] text-[#A6A0B8] uppercase">
+          NON-DILUTIVE FELLOWSHIP POOL
         </div>
       </div>
 
-      {/* Primary Grand Prize (Closer in Depth, Monumental Scale, Soft Purple Halo) */}
-      <div className="relative text-center my-6 py-8 flex flex-col items-center justify-center">
+      {/* Monumental Spatial Destination: ₹50,000 Grand Prize */}
+      <div className="relative text-center my-8 py-12 flex flex-col items-center justify-center">
         
-        {/* Soft Volumetric Purple Halo (Low contrast, realistic falloff) */}
+        {/* Soft Volumetric Purple Halo */}
         <div 
-          className="absolute w-[440px] h-[440px] sm:w-[580px] sm:h-[580px] rounded-full pointer-events-none -z-10 opacity-20"
+          className="absolute w-[480px] h-[480px] sm:w-[620px] sm:h-[620px] rounded-full pointer-events-none -z-10 opacity-25"
           style={{
-            background: 'radial-gradient(circle, rgba(109, 40, 217, 0.25) 0%, rgba(50, 16, 95, 0.08) 50%, rgba(2, 1, 7, 0) 80%)',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, rgba(76, 29, 149, 0.1) 50%, rgba(2, 1, 7, 0) 80%)',
             filter: 'blur(90px)',
-            transform: `translate(${depthOffsetX * -0.5}px, ${depthOffsetY * -0.5}px)`,
+            transform: `translate(${depthX * -0.6}px, ${depthY * -0.6}px)`,
           }}
         />
 
-        {/* Framing Orbital Reference Arc */}
-        <div className="absolute w-[360px] h-[360px] sm:w-[520px] sm:h-[520px] rounded-full border border-white/[0.04] pointer-events-none -z-10" />
+        {/* Delicate Slow Rotating Horizon Arc */}
+        <div className="absolute w-[360px] h-[360px] sm:w-[540px] sm:h-[540px] rounded-full border border-white/[0.04] pointer-events-none -z-10" />
 
-        {/* Position Tag */}
-        <div className="inline-flex items-center gap-2 mb-3 font-mono-tech text-xs tracking-[0.35em] uppercase text-[#8B5CF6]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
-          <span>POSITION 01 // ORBIT APEX</span>
+        <div className="inline-flex items-center gap-2 mb-3 font-display text-xs tracking-[0.3em] uppercase text-[#8B5CF6]">
+          <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+          <span>PRIMARY MONUMENT // FIRST POSITION</span>
         </div>
 
-        {/* Monumental ₹50K Typography */}
+        {/* Monumental ₹50,000 */}
         <div 
-          className="font-editorial text-7xl sm:text-8xl md:text-9xl lg:text-[10.5rem] font-bold tracking-tighter text-[#F7F5FF] leading-none my-2"
+          className="font-editorial text-7xl sm:text-9xl md:text-[10rem] lg:text-[11.5rem] font-bold tracking-tight text-[#F7F5FF] leading-none my-2"
           style={{
-            textShadow: '0 0 50px rgba(109, 40, 217, 0.25)',
+            textShadow: '0 0 60px rgba(139, 92, 246, 0.25)',
           }}
         >
           {EVENT_CONFIG.grandPrize}
         </div>
 
-        {/* Grand Prize Label */}
-        <div className="font-display text-lg sm:text-2xl font-light tracking-[0.22em] uppercase text-[#F7F5FF] mt-2">
-          GRAND PRIZE & SEDS FELLOWSHIP
+        <div className="font-display text-xl sm:text-2xl font-light tracking-[0.2em] uppercase text-[#F7F5FF] mt-2">
+          GRAND PRIZE & SEDS INCUBATION
         </div>
 
-        <p className="max-w-md mx-auto text-xs sm:text-sm text-[#A6A0B8] font-light mt-2">
-          Unrestricted non-dilutive capital awarded to the most rigorously engineered flight software or astrodynamics model.
+        <p className="max-w-md mx-auto text-xs sm:text-sm text-[#A6A0B8] font-light mt-3 leading-relaxed">
+          Awarded unconditionally to the team demonstrating outstanding engineering rigor, mathematical fidelity, and flight-ready software architecture.
         </p>
       </div>
 
-      {/* Secondary Prizes (Deeper in the Visual Field: Scale 0.88 & Subtle Parallax) */}
+      {/* Secondary Awards In Orbit (Depth Tier 2) */}
       <div 
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-14 max-w-4xl mx-auto w-full my-6 transition-transform duration-500 ease-out"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 max-w-4xl mx-auto w-full mt-4 transition-transform duration-500 ease-out"
         style={{
-          transform: `translate3d(${depthOffsetX * 0.3}px, ${depthOffsetY * 0.3}px, 0)`,
+          transform: `translate3d(${depthX * 0.4}px, ${depthY * 0.4}px, 0)`,
         }}
       >
-        {/* Position 02 */}
-        <div className="relative p-7 rounded-2xl border border-white/[0.06] bg-[#07030F]/50 backdrop-blur-md text-center flex flex-col items-center justify-center hover:border-white/20 transition-all duration-300 scale-95 hover:scale-100">
-          <span className="font-mono-tech text-[10px] tracking-[0.28em] text-[#A6A0B8] uppercase mb-1.5">
-            POSITION 02 // VECTOR RUNNER-UP
+        <div className="p-8 rounded-2xl border border-white/[0.08] bg-[#07030F]/60 backdrop-blur-md text-center space-y-2 hover:border-[#8B5CF6]/40 transition-all duration-300">
+          <span className="font-display text-[10px] tracking-[0.25em] text-[#A6A0B8] uppercase block">
+            SECOND POSITION // RUNNER-UP
           </span>
-          <div className="font-editorial text-3xl sm:text-4xl font-bold tracking-tight text-[#F7F5FF] my-1">
+          <div className="font-editorial text-4xl sm:text-5xl font-bold tracking-tight text-[#F7F5FF]">
             {EVENT_CONFIG.secondPrize}
           </div>
           <div className="font-display text-xs uppercase tracking-widest text-[#8B5CF6]">
-            Runner-Up System Award
+            Flight Software Runner-Up
           </div>
         </div>
 
-        {/* Position 03 */}
-        <div className="relative p-7 rounded-2xl border border-white/[0.06] bg-[#07030F]/50 backdrop-blur-md text-center flex flex-col items-center justify-center hover:border-white/20 transition-all duration-300 scale-95 hover:scale-100">
-          <span className="font-mono-tech text-[10px] tracking-[0.28em] text-[#A6A0B8] uppercase mb-1.5">
-            POSITION 03 // INNOVATION MERIT
+        <div className="p-8 rounded-2xl border border-white/[0.08] bg-[#07030F]/60 backdrop-blur-md text-center space-y-2 hover:border-[#8B5CF6]/40 transition-all duration-300">
+          <span className="font-display text-[10px] tracking-[0.25em] text-[#A6A0B8] uppercase block">
+            THIRD POSITION // INNOVATION MERIT
           </span>
-          <div className="font-editorial text-3xl sm:text-4xl font-bold tracking-tight text-[#F7F5FF] my-1">
+          <div className="font-editorial text-4xl sm:text-5xl font-bold tracking-tight text-[#F7F5FF]">
             {EVENT_CONFIG.thirdPrize}
           </div>
           <div className="font-display text-xs uppercase tracking-widest text-[#8B5CF6]">
-            Bronze Flight Merit
+            Aerospace Innovation Award
           </div>
         </div>
       </div>
 
-      {/* Bottom CTA to Register */}
-      <div className="text-center pt-4">
+      {/* Track Grants Strip */}
+      <div className="max-w-4xl mx-auto w-full mt-8 pt-8 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs font-display text-[#A6A0B8]">
+        <div className="flex items-center gap-2">
+          <span className="text-[#8B5CF6] font-semibold">TRACK GRANTS:</span>
+          <span>₹10,000 awarded across each of the 4 individual challenge chapters</span>
+        </div>
+
         <button
           onClick={onOpenRegister}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 hover:border-[#8B5CF6]/50 bg-[#07030F]/60 text-xs font-mono-tech uppercase tracking-[0.2em] text-[#F7F5FF] hover:text-white transition-all duration-300"
-          data-interactive="true"
+          className="inline-flex items-center gap-1.5 text-[#F7F5FF] hover:text-[#C084FC] uppercase tracking-wider transition-colors"
         >
-          <span>Compete for Capital Grants ↗</span>
+          <span>Compete for Capital Grants</span>
+          <ArrowUpRight size={13} className="text-[#8B5CF6]" />
         </button>
       </div>
     </section>
