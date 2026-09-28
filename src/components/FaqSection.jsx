@@ -16,7 +16,15 @@ import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 const FAQS = [
   {
     q: `What is ${SEDS_CONFIG.name} and who can participate in ${EVENT_CONFIG.name}?`,
-    a: `${SEDS_CONFIG.name} (${SEDS_CONFIG.fullName}) is the student aerospace and space technology division established at ${SEDS_CONFIG.institution}, affiliated with the national SEDS India network. Participation in ${EVENT_CONFIG.name} is open to all university students, researchers, and independent builders globally. Teams of 1 to 4 members are welcome in both physical campus sprint and remote telemetry participation formats.`,
+    a: `${SEDS_CONFIG.name} (${SEDS_CONFIG.fullName}) is the student aerospace and space technology division established at ${SEDS_CONFIG.institution}, affiliated with the national SEDS India network. Participation in ${EVENT_CONFIG.name} is open to all university undergraduate and postgraduate students. Crews must strictly consist of 3 to 4 members.`,
+  },
+  {
+    q: 'How does the Two-Phase registration and evaluation process work?',
+    a: 'Registration is structured in two distinct phases: Phase 1 is completely FREE. Teams submit their team composition (3–4 members), problem statement domain, project title, brief description, and presentation deck (.ppt / .pptx). After evaluation by SEDS REC faculty and aerospace evaluators, approximately 30 shortlisted teams will be invited to Phase 2. The Phase 2 registration fee is ₹300 per person (₹900 for a 3-member team, ₹1,200 for a 4-member team).',
+  },
+  {
+    q: 'Can individuals register solo or with fewer than 3 members?',
+    a: 'No. All teams must register with exactly 3 or 4 members (1 Team Lead plus 2 or 3 team members) to ensure cross-disciplinary capability across aerospace software, hardware, and algorithms.',
   },
   {
     q: 'Do I need prior experience in aerospace engineering or rocketry?',
@@ -31,8 +39,8 @@ const FAQS = [
     a: `100% of all intellectual property, flight code, algorithms, and designs remain exclusively with the participating students. Neither ${SEDS_CONFIG.name} nor ${SEDS_CONFIG.institution} claims any ownership or licensing over your creations.`,
   },
   {
-    q: 'How does the technical evaluation process work?',
-    a: 'Prototypes are evaluated by aerospace researchers, SEDS alumni, and faculty on engineering rigor, mathematical correctness, reproducible execution, and suitability for real-world space or sub-orbital deployment.',
+    q: 'What format should our initial presentation deck be in?',
+    a: 'Phase 1 accepts presentation files in Microsoft PowerPoint (.ppt or .pptx) format up to 25 MB in size. A standardized SEDS template is linked directly within the registration portal.',
   },
 ];
 

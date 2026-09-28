@@ -24,19 +24,48 @@ function SlidingDigit({ value }) {
 }
 
 export default function CountdownSection() {
-  const [timeLeft, setTimeLeft] = useState({ days: 9, hours: 14, minutes: 29, seconds: 18 });
+  const [targetDate, setTargetDate] = useState(() => new Date('2026-04-10T23:59:59+05:30').getTime());
+  const [timeLeft, setTimeLeft] = useState(() => {
+    const diff = Math.max(0, new Date('2026-04-10T23:59:59+05:30').getTime() - Date.now());
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / 1000 / 60) % 60),
+      seconds: Math.floor((diff / 1000) % 60),
+    };
+  });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
-        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        return { ...prev, days: Math.max(0, prev.days - 1), hours: 23, minutes: 59, seconds: 59 };
+    fetch('/api/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.registration_phase_1_deadline) {
+          const parsed = new Date(data.registration_phase_1_deadline).getTime();
+          if (!isNaN(parsed)) {
+            setTargetDate(parsed);
+          }
+        }
+      })
+      .catch(() => {
+        // Fallback target date already initialized
       });
-    }, 1000);
-    return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      const diff = Math.max(0, targetDate - Date.now());
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / 1000 / 60) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      });
+    };
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
   const dStr = String(timeLeft.days).padStart(2, '0');
   const hStr = String(timeLeft.hours).padStart(2, '0');

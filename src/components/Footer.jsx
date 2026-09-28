@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 
-export default function Footer({ onNavigate, onOpenRegister }) {
+export default function Footer({ onNavigate, onOpenRegister, onOpenAdmin }) {
   const [utcTime, setUtcTime] = useState('');
 
   useEffect(() => {
@@ -121,6 +121,15 @@ export default function Footer({ onNavigate, onOpenRegister }) {
 
         <div className="flex items-center gap-6">
           <span>CHENNAI, TAMIL NADU, INDIA</span>
+          {onOpenAdmin && (
+            <button
+              onClick={onOpenAdmin}
+              className="font-mono text-[10px] text-[#A6A0B8]/40 hover:text-[#8B5CF6] transition-colors cursor-pointer"
+              title="Organizer Telemetry Clearance"
+            >
+              // MISSION DESK
+            </button>
+          )}
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1.5 text-[#A6A0B8] hover:text-[#F7F5FF] transition-colors"
