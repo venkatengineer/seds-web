@@ -28,7 +28,7 @@ export default function Navigation({
   activeSection, 
   onNavigate, 
   onOpenRegister, 
-  bootPhase = 7,
+  bootPhase = 13,
   onReplayBoot,
 }) {
   const [isAudioActive, setIsAudioActive] = useState(false);
@@ -44,7 +44,7 @@ export default function Navigation({
     setMobileMenuOpen(false);
   };
 
-  const isNavVisible = bootPhase >= 7;
+  const isNavVisible = bootPhase >= 13;
 
   return (
     <>

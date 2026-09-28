@@ -24,7 +24,7 @@ export default function App() {
 
   // Boot sequence state
   const isAlreadyBooted = typeof window !== 'undefined' && sessionStorage.getItem('seds_boot_completed') === 'true';
-  const [bootPhase, setBootPhase] = useState(isAlreadyBooted ? 7 : 0);
+  const [bootPhase, setBootPhase] = useState(isAlreadyBooted ? 13 : 0);
   const [isBootComplete, setIsBootComplete] = useState(isAlreadyBooted);
   const engineRef = useRef(null);
 
@@ -87,9 +87,9 @@ export default function App() {
     if (engineRef.current && engineRef.current.skipBoot) {
       engineRef.current.skipBoot();
     }
-    setBootPhase(6);
+    setBootPhase(12);
     setTimeout(() => {
-      setBootPhase(7);
+      setBootPhase(13);
       setIsBootComplete(true);
       try { sessionStorage.setItem('seds_boot_completed', 'true'); } catch (_) {}
     }, 450);
@@ -125,10 +125,10 @@ export default function App() {
         isBootComplete={isBootComplete}
         activeChallengeIndex={activeChallengeIndex}
         onBootProgress={(phase) => {
-          setBootPhase((prev) => (prev >= 6 && phase < 6 ? prev : phase));
+          setBootPhase((prev) => (prev >= 13 && phase < 13 ? prev : phase));
         }}
         onBootComplete={() => {
-          setBootPhase(7);
+          setBootPhase(13);
           setIsBootComplete(true);
           try { sessionStorage.setItem('seds_boot_completed', 'true'); } catch (_) {}
         }}
@@ -137,7 +137,7 @@ export default function App() {
       {/* 5. FOREGROUND EDITORIAL UI */}
       <div 
         className={`relative z-20 transition-opacity duration-1000 ${
-          bootPhase >= 6 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          bootPhase >= 12 ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       >
         {/* Floating Minimal Navigation Dock (Fades in at Phase 7) */}

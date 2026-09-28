@@ -1,18 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
+import { toggleOrbitalAmbiance, getAudioState } from '../utils/audio';
+import { Volume2, VolumeX } from 'lucide-react';
 
 /**
- * MASTER CINEMATIC BOOT SEQUENCE OVERLAY
+ * MASTER CINEMATIC BOOT SEQUENCE OVERLAY — "THE SIGNAL"
  * 
- * Target:
- * - Fluid, ZERO-GLITCH DOM presentation synchronized with ThreeSpaceEngine's master GSAP timeline.
- * - Progresses smoothly: Void (0) -> Light (1) -> Orbit (2) -> Earth Sunrise (3) -> SEDS REC (4) -> ORBITAL 26 (5) -> Hero Handoff (6) -> Live (7).
- * - NEVER unmounts abruptly! Smoothly dissolves opacity over 1000ms at phase 6 into the Hero headline.
- * - Continuous black backdrop opacity fade eliminates any background snapping.
+ * Target & Aesthetic:
+ * - Opening sequence of a high-budget space film combined with a premium technology product launch.
+ * - Zero HUD, zero fake telemetry, zero loading bars, zero glitch/cyberpunk effects.
+ * - Pure, restrained editorial elegance.
+ * - Phase Progression:
+ *   0: Complete Darkness (0.0s -> 0.5s)
+ *   1-6: Deep space visual cinema (The Signal -> Stars -> Spacecraft -> Earth Horizon -> Orbit -> Camera Pass)
+ *   7: Cosmic darkness pause (200-400ms)
+ *   8: SEDS REC & Rajalakshmi Engineering College reveal
+ *   9: PRESENTS reveal
+ *   10: ORBITAL 26 major title reveal
+ *   11: The Light Sweep across trajectory & title
+ *   12: BUILD BEYOND THE KNOWN & 48-Hour Space Sprint metadata
+ *   13: Seamless handoff into Website Hero (Splash BECOMES the Hero)
  */
 
 export default function BootSequence({ bootPhase, onSkip }) {
-  // Keyboard listener for Space or Esc to skip sequence
+  const [isAudioActive, setIsAudioActive] = useState(false);
+
+  // Sync initial audio state
+  useEffect(() => {
+    setIsAudioActive(getAudioState());
+  }, []);
+
+  const handleAudioToggle = (e) => {
+    e.stopPropagation();
+    const active = toggleOrbitalAmbiance();
+    setIsAudioActive(active);
+  };
+
+  // Keyboard shortcut listener to skip or advance
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.code === 'Space' || e.code === 'Escape' || e.key === 'Enter') {
@@ -23,145 +47,151 @@ export default function BootSequence({ bootPhase, onSkip }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onSkip]);
 
-  const isHandoff = bootPhase >= 6;
+  const isHandoff = bootPhase >= 13;
 
   return (
     <div
       onClick={onSkip}
-      className={`fixed inset-0 z-50 flex items-center justify-center select-none cursor-pointer transition-opacity duration-1000 ease-out ${
+      className={`fixed inset-0 z-50 flex items-center justify-center select-none cursor-pointer transition-opacity duration-1200 ease-out ${
         isHandoff ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
       }`}
     >
-      {/* 1. Deep Space Black Backdrop with Smooth 1.5s Opacity Dissolve */}
+      {/* 1. Deep Space Black Backdrop (Fades out softly after Phase 0 so 3D Canvas shines through) */}
       <div 
-        className="absolute inset-0 bg-[#010106] transition-opacity duration-1200 ease-out pointer-events-none"
+        className="absolute inset-0 bg-[#010106] transition-opacity duration-1000 ease-out pointer-events-none"
         style={{
-          opacity: bootPhase >= 3 ? 0 : 1,
+          opacity: bootPhase === 0 ? 1 : 0,
         }}
       />
 
-      {/* 2. Top Aerospace Flight Telemetry Header (Minimal, Real Context) */}
-      <div className="absolute top-8 left-8 right-8 flex items-center justify-between text-[#A6A0B8]/60 font-display text-[10px] tracking-[0.25em] uppercase pointer-events-none transition-opacity duration-700">
-        <div className="flex items-center gap-2.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] animate-pulse" />
-          <span>{SEDS_CONFIG.name} // FLIGHT OPS</span>
-        </div>
-        <div className="hidden sm:flex items-center gap-4 text-[9px] tracking-[0.28em] text-[#A6A0B8]/40">
-          <span>LEO: 420 KM</span>
-          <span>/</span>
-          <span>INC: 51.6°</span>
-          <span>/</span>
-          <span>SYS: OPTIMAL</span>
-        </div>
+      {/* 2. Top-Right Discreet Audio Ambiance Toggle */}
+      <div className="absolute top-8 right-8 z-30 pointer-events-auto">
+        <button
+          onClick={handleAudioToggle}
+          title={isAudioActive ? 'Mute Deep Space Audio' : 'Enable Deep Space Audio'}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-[#A6A0B8] hover:text-[#F7F5FF] hover:border-white/20 transition-all duration-300 text-[10px] font-display tracking-[0.2em] uppercase focus:outline-none"
+        >
+          {isAudioActive ? (
+            <>
+              <Volume2 size={12} className="text-[#C084FC]" />
+              <span className="text-[#C084FC]">SOUND: ACTIVE</span>
+            </>
+          ) : (
+            <>
+              <VolumeX size={12} />
+              <span>SOUND: OFF</span>
+            </>
+          )}
+        </button>
       </div>
 
-      {/* 3. Center Atmospheric Glow Dome */}
+      {/* 3. Center Atmospheric Glow Dome for Title Illumination */}
       <div
-        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none transition-all duration-1200 ease-out ${
-          bootPhase >= 1 && bootPhase < 4
-            ? 'w-[50vw] h-[50vw] opacity-40 scale-100'
-            : 'w-[15vw] h-[15vw] opacity-0 scale-50'
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none transition-all duration-1400 ease-out ${
+          bootPhase >= 10 && bootPhase < 13
+            ? 'w-[70vw] h-[50vw] opacity-40 scale-100'
+            : 'w-[20vw] h-[20vw] opacity-0 scale-50'
         }`}
         style={{
-          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, rgba(76, 29, 149, 0.15) 50%, rgba(1, 1, 6, 0) 80%)',
-          filter: 'blur(80px)',
+          background: 'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.28) 0%, rgba(76, 29, 149, 0.1) 50%, rgba(1, 1, 6, 0) 80%)',
+          filter: 'blur(90px)',
         }}
       />
 
-      {/* 4. Center Typographic Staging Area */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pointer-events-none max-w-2xl">
+      {/* 4. MASTER TYPOGRAPHIC STAGING AREA */}
+      <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 pointer-events-none max-w-5xl w-full">
         
-        {/* PHASE 0 & 1: Hyperspace Vector Lock Indicator */}
+        {/* ============================================================ */}
+        {/* PHASES 8 & 9: SEDS REC & RAJALAKSHMI ENGINEERING COLLEGE & PRESENTS */}
+        {/* ============================================================ */}
         <div
-          className={`transition-all duration-700 ease-out ${
-            bootPhase <= 1
+          className={`flex flex-col items-center justify-center transition-all duration-1000 ease-out ${
+            bootPhase >= 8
               ? 'opacity-100 translate-y-0 filter-none'
-              : 'opacity-0 -translate-y-4 blur-sm pointer-events-none'
-          }`}
+              : 'opacity-0 translate-y-6 blur-lg pointer-events-none'
+          } ${bootPhase >= 10 ? 'mb-4 sm:mb-6 scale-90 sm:scale-95' : 'my-4'}`}
         >
-          <div className="font-display text-[11px] tracking-[0.4em] uppercase text-[#C084FC]">
-            {bootPhase === 0 ? 'INITIALIZING QUANTUM SINGULARITY' : 'RELATIVISTIC WARP VELOCITY LOCK'}
-          </div>
-        </div>
-
-        {/* PHASE 2 & 3: Orbital Vector Lock */}
-        <div
-          className={`transition-all duration-700 ease-out ${
-            bootPhase === 2 || bootPhase === 3
-              ? 'opacity-100 translate-y-0 filter-none'
-              : 'opacity-0 -translate-y-4 blur-sm pointer-events-none'
-          }`}
-        >
-          <div className="font-display text-[11px] tracking-[0.4em] uppercase text-[#A6A0B8]">
-            {bootPhase === 2 ? 'SYNCHRONIZING ORBITAL TRAJECTORY' : 'ESTABLISHING CELESTIAL TERMINATOR'}
-          </div>
-        </div>
-
-        {/* PHASE 4: SEDS REC Identity Reveal */}
-        <div
-          className={`transition-all duration-900 ease-out ${
-            bootPhase === 4
-              ? 'opacity-100 translate-y-0 filter-none'
-              : bootPhase > 4
-              ? 'opacity-0 -translate-y-6 blur-md pointer-events-none'
-              : 'opacity-0 translate-y-8 blur-lg pointer-events-none'
-          }`}
-        >
-          <div className="font-editorial text-4xl sm:text-6xl font-bold tracking-[0.22em] text-[#F7F5FF] drop-shadow-[0_0_35px_rgba(139,92,246,0.6)]">
+          {/* SEDS REC */}
+          <div className="font-editorial text-3xl sm:text-5xl md:text-6xl font-bold tracking-[0.24em] text-[#F7F5FF] drop-shadow-[0_0_35px_rgba(139,92,246,0.5)]">
             {SEDS_CONFIG.name}
           </div>
-          <div className="font-display text-xs sm:text-sm tracking-[0.28em] text-[#C084FC] uppercase mt-2 font-medium">
+
+          {/* RAJALAKSHMI ENGINEERING COLLEGE */}
+          <div className="font-display text-[10px] sm:text-xs md:text-sm tracking-[0.38em] text-[#C084FC]/85 uppercase mt-2 sm:mt-3 font-medium">
             {SEDS_CONFIG.institution}
           </div>
-          <div className="font-display text-[9px] tracking-[0.3em] text-[#A6A0B8]/60 uppercase mt-2">
-            CHAPTER OF SEDS INDIA
+
+          {/* PHASE 9: PRESENTS */}
+          <div
+            className={`transition-all duration-800 ease-out mt-4 sm:mt-5 ${
+              bootPhase >= 9
+                ? 'opacity-100 translate-y-0 filter-none'
+                : 'opacity-0 translate-y-3 blur-sm'
+            }`}
+          >
+            <div className="font-display text-[11px] sm:text-xs tracking-[0.45em] uppercase text-[#8B5CF6] font-semibold">
+              {EVENT_CONFIG.presentsText}
+            </div>
           </div>
         </div>
 
-        {/* PHASE 5: PRESENTS / ORBITAL 26 Lockup */}
+        {/* ============================================================ */}
+        {/* PHASES 10, 11, 12: ORBITAL 26 & THE LIGHT SWEEP & TAGLINE */}
+        {/* ============================================================ */}
         <div
-          className={`transition-all duration-900 ease-out ${
-            bootPhase === 5
+          className={`flex flex-col items-center justify-center transition-all duration-1200 ease-out ${
+            bootPhase >= 10
               ? 'opacity-100 translate-y-0 filter-none'
-              : bootPhase > 5
-              ? 'opacity-0 -translate-y-6 blur-md pointer-events-none'
-              : 'opacity-0 translate-y-8 blur-lg pointer-events-none'
+              : 'opacity-0 translate-y-8 blur-xl pointer-events-none'
           }`}
         >
-          <div className="font-display text-xs tracking-[0.4em] uppercase text-[#8B5CF6] font-semibold mb-2">
-            {EVENT_CONFIG.presentsText}
-          </div>
-          <div className="font-editorial text-3xl sm:text-5xl font-bold tracking-[0.2em] text-[#F7F5FF] drop-shadow-[0_0_40px_rgba(168,85,247,0.7)]">
-            {EVENT_CONFIG.name}
-          </div>
-          <div className="font-display text-[10px] tracking-[0.3em] uppercase text-[#A6A0B8] mt-2">
-            NATIONAL STUDENT SPACE INNOVATION SPRINT
-          </div>
-        </div>
+          {/* MAJOR TITLE: ORBITAL 26 */}
+          <div className="relative inline-block overflow-hidden py-1 px-4 sm:px-6">
+            <h1 className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-[0.2em] text-[#F7F5FF] leading-none drop-shadow-[0_0_55px_rgba(168,85,247,0.55)]">
+              {EVENT_CONFIG.name}
+            </h1>
 
-        {/* Minimal Progress Bar with Radiant Traveling Indicator */}
-        <div className="mt-10 w-48 h-[2px] bg-white/10 overflow-hidden relative rounded-full">
+            {/* PHASE 11: SPECULAR CINEMATIC LIGHT SWEEP SHEEN ACROSS THE TITLE */}
+            <div
+              className={`absolute inset-0 pointer-events-none transition-transform duration-2000 ease-in-out ${
+                bootPhase >= 11 ? 'translate-x-[200%]' : '-translate-x-[200%]'
+              }`}
+              style={{
+                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0) 25%, rgba(216, 180, 254, 0.8) 50%, rgba(255,255,255,0.95) 55%, rgba(139, 92, 246, 0.4) 65%, transparent 100%)',
+                mixBlendMode: 'screen',
+              }}
+            />
+          </div>
+
+          {/* PHASE 12: EVENT TAGLINE & METADATA */}
           <div
-            className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#7C3AED] to-[#C084FC] transition-all duration-500 ease-out shadow-[0_0_12px_#A855F7]"
-            style={{
-              width: `${(Math.min(bootPhase, 5) / 5) * 100}%`,
-            }}
-          />
+            className={`transition-all duration-1000 ease-out mt-5 sm:mt-7 flex flex-col items-center ${
+              bootPhase >= 12
+                ? 'opacity-100 translate-y-0 filter-none'
+                : 'opacity-0 translate-y-5 blur-sm'
+            }`}
+          >
+            <div className="font-editorial text-base sm:text-xl md:text-2xl font-light tracking-[0.24em] text-[#F7F5FF]/90">
+              BUILD BEYOND THE KNOWN.
+            </div>
+
+            <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4 font-display text-[9px] sm:text-[11px] tracking-[0.32em] text-[#A6A0B8]/80 uppercase">
+              <span>48-HOUR SPACE SPRINT</span>
+              <span className="w-1 h-1 rounded-full bg-[#8B5CF6]" />
+              <span>CHENNAI, INDIA</span>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-3 font-display text-[9px] tracking-[0.25em] text-[#A6A0B8]/60 uppercase">
-          {bootPhase <= 0 && 'STAGE 01 // SINGULARITY GENESIS'}
-          {bootPhase === 1 && 'STAGE 02 // RELATIVISTIC ACCELERATION'}
-          {bootPhase === 2 && 'STAGE 03 // TRAJECTORY VECTOR SYNC'}
-          {bootPhase === 3 && 'STAGE 04 // CELESTIAL SUNRISE'}
-          {bootPhase === 4 && 'STAGE 05 // CHAPTER IDENTITY LOCK'}
-          {bootPhase >= 5 && 'STAGE 06 // MISSION ENVIRONMENT READY'}
-        </div>
       </div>
 
-      {/* 5. Bottom Skip Prompt (Subtle, Responsive) */}
-      <div className="absolute bottom-8 font-display text-[10px] tracking-[0.3em] text-[#A6A0B8]/40 uppercase transition-colors duration-300 hover:text-white">
-        [ Press Space or Click to Enter Directly ]
+      {/* 5. Minimal, Unobtrusive Skip Hint (Discreet, disappears once title appears) */}
+      <div 
+        className={`absolute bottom-8 font-display text-[9px] sm:text-[10px] tracking-[0.32em] text-[#A6A0B8]/40 uppercase transition-all duration-500 hover:text-white ${
+          bootPhase >= 1 && bootPhase < 8 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        [ Click or Space to Enter Directly ]
       </div>
     </div>
   );

@@ -1,6 +1,12 @@
-// Minimalist Web Audio API orbital sound synthesizer
-// Generates an ultra-restrained, cinematic low-frequency orbital resonance (55Hz / 110Hz)
-// Absolutely no harsh noises, purely subtle spatial ambiance.
+/**
+ * CINEMATIC ASTRONOMICAL SOUND SYNTHESIZER (Pure Web Audio API)
+ * 
+ * - Generates low-frequency cosmic resonant drone (44Hz sub-bass, 66Hz harmonic fifth, 0.04Hz respiration LFO)
+ * - Subtle harmonic cues for: The Signal, Planetary Reveal, Light Sweep
+ * - Ultra-low distortion, mastered to -20dB
+ * - 100% compliant with browser autoplay restrictions (requires user toggle/click)
+ * - Zero external asset latency
+ */
 
 let audioCtx = null;
 let masterGain = null;
@@ -9,6 +15,19 @@ let osc2 = null;
 let filter = null;
 let lfo = null;
 let isPlaying = false;
+
+function getContext() {
+  if (typeof window === 'undefined') return null;
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) return null;
+  if (!audioCtx) {
+    audioCtx = new AudioContext();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
 
 export function toggleOrbitalAmbiance() {
   if (!isPlaying) {
@@ -20,51 +39,43 @@ export function toggleOrbitalAmbiance() {
 
 export function startOrbitalAmbiance() {
   try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return false;
+    const ctx = getContext();
+    if (!ctx) return false;
 
-    if (!audioCtx) {
-      audioCtx = new AudioContext();
-    }
+    const now = ctx.currentTime;
 
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
+    // Master Gain (low volume, warm, subtle)
+    masterGain = ctx.createGain();
+    masterGain.gain.setValueAtTime(0.0001, now);
+    masterGain.gain.exponentialRampToValueAtTime(0.045, now + 3.5);
+    masterGain.connect(ctx.destination);
 
-    const now = audioCtx.currentTime;
-
-    // Master Gain (low volume, subtle)
-    masterGain = audioCtx.createGain();
-    masterGain.gain.setValueAtTime(0.001, now);
-    masterGain.gain.exponentialRampToValueAtTime(0.06, now + 3);
-    masterGain.connect(audioCtx.destination);
-
-    // Low-pass filter for warm, dark sound
-    filter = audioCtx.createBiquadFilter();
+    // Warm dark lowpass filter
+    filter = ctx.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(180, now);
-    filter.Q.setValueAtTime(2, now);
+    filter.frequency.setValueAtTime(140, now);
+    filter.Q.setValueAtTime(1.8, now);
     filter.connect(masterGain);
 
-    // Sub-bass fundamental (55Hz - A1 note)
-    osc1 = audioCtx.createOscillator();
+    // Deep sub-bass cosmic fundamental (44Hz - F0)
+    osc1 = ctx.createOscillator();
     osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(55, now);
+    osc1.frequency.setValueAtTime(43.65, now);
     osc1.connect(filter);
     osc1.start();
 
-    // Harmonic fifth / orbital frequency (82.5Hz - E2 note)
-    osc2 = audioCtx.createOscillator();
+    // Cosmic harmonic fifth (65.4Hz - C1)
+    osc2 = ctx.createOscillator();
     osc2.type = 'sine';
-    osc2.frequency.setValueAtTime(82.41, now);
+    osc2.frequency.setValueAtTime(65.41, now);
     osc2.connect(filter);
     osc2.start();
 
-    // Subtle LFO for breathing filter modulation (0.1 Hz)
-    lfo = audioCtx.createOscillator();
-    const lfoGain = audioCtx.createGain();
-    lfo.frequency.setValueAtTime(0.08, now);
-    lfoGain.gain.setValueAtTime(40, now);
+    // Breathing cosmic filter respiration (0.04 Hz)
+    lfo = ctx.createOscillator();
+    const lfoGain = ctx.createGain();
+    lfo.frequency.setValueAtTime(0.04, now);
+    lfoGain.gain.setValueAtTime(35, now);
     lfo.connect(lfoGain);
     lfoGain.connect(filter.frequency);
     lfo.start();
@@ -85,7 +96,7 @@ export function stopOrbitalAmbiance() {
 
   const now = audioCtx.currentTime;
   masterGain.gain.setValueAtTime(masterGain.gain.value, now);
-  masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+  masterGain.gain.exponentialRampToValueAtTime(0.00001, now + 1.2);
 
   setTimeout(() => {
     try {
@@ -98,6 +109,57 @@ export function stopOrbitalAmbiance() {
 
   isPlaying = false;
   return false;
+}
+
+export function playSignalTone() {
+  if (!isPlaying || !audioCtx) return;
+  try {
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    const bp = audioCtx.createBiquadFilter();
+
+    bp.type = 'bandpass';
+    bp.frequency.setValueAtTime(528, now);
+    bp.Q.setValueAtTime(4.0, now);
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(528, now); // Solfeggio frequency
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.012, now + 1.0);
+    gain.gain.exponentialRampToValueAtTime(0.00001, now + 3.2);
+
+    osc.connect(bp);
+    bp.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start(now);
+    osc.stop(now + 3.3);
+  } catch (_) {}
+}
+
+export function playLightSweepTone() {
+  if (!isPlaying || !audioCtx) return;
+  try {
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(330, now);
+    osc.frequency.exponentialRampToValueAtTime(660, now + 1.2);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.015, now + 0.6);
+    gain.gain.exponentialRampToValueAtTime(0.00001, now + 2.5);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start(now);
+    osc.stop(now + 2.6);
+  } catch (_) {}
 }
 
 export function getAudioState() {

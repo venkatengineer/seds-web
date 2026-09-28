@@ -1,21 +1,17 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
+import { playSignalTone, playLightSweepTone } from '../utils/audio';
 
 /**
- * MASTER HIGH-PERFORMANCE CINEMATIC SPACE ENGINE
+ * MASTER CINEMATIC SPACE ENGINE — "THE SIGNAL" & ORBITAL 26
  * 
- * Architecture & Art Direction:
- * - MOUNTS ONCE. Single WebGL context, never destroyed or re-created across phases or sections.
- * - Master GSAP Timeline orchestrates an 8-phase Hollywood-grade Boot Sequence.
- * - Anamorphic Singularity Flare: Central radiant quantum core + horizontal anamorphic laser streak + gravitational wave ripples.
- * - True Relativistic Hyperspace Warp Streaks: 1,600 LineSegments stretching along Z with Doppler chromatic gradient.
- * - Articulated 3U Aerospace CubeSat with solar array deployment animation and dual telemetry beacons.
- * - Photorealistic Earth with custom Rayleigh atmospheric scattering shader, day/night terminator, and drifting clouds.
- * - Continuous 3D orbital trajectory spline tracing around the planet with a traveling luminous pulse.
- * - 5 3D interactive constellation beacon nodes for Challenges sector.
- * - Radiant Singularity Accretion Vortex for Registration climax.
- * - Smooth camera flight paths and 3-layer mouse depth parallax.
+ * Flawless Architecture:
+ * - Single persistent WebGL context mounted once.
+ * - Single primary orbital trajectory around Earth with 100% precision satellite tracking.
+ * - Introductory spacecraft with The Signal emitter swoops past camera into deep space and cleanly vanishes during Phase 4 Earth sunrise.
+ * - Zero stray objects, zero rogue moons without orbits, zero duplicate or stationary floating satellites.
+ * - Completely smooth 60fps render loop with Hermite scroll waypoints and 3-layer parallax.
  */
 
 // Continuous orbital trajectory milestones along scroll progress (0.00 -> 1.00)
@@ -63,33 +59,6 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
   const containerRef = useRef(null);
   const bootTlRef = useRef(null);
 
-  useImperativeHandle(ref, () => ({
-    skipBoot: () => {
-      if (bootTlRef.current) {
-        bootTlRef.current.kill();
-      }
-      gsap.to(motionRef.current, {
-        camZ: 105,
-        fov: 46,
-        sunIntensity: 2.8,
-        atmosphereAlpha: 1.0,
-        orbitDrawProgress: 1.0,
-        solarDeployAngle: 1.57,
-        warpFactor: 0.0,
-        warpOpacity: 0.0,
-        starOpacity: 0.85,
-        singularityAlpha: 0.0,
-        anamorphicAlpha: 0.0,
-        shockwaveAlpha: 0.0,
-        duration: 0.45,
-        ease: 'power2.out',
-        onComplete: () => {
-          if (onBootComplete) onBootComplete();
-        }
-      });
-    }
-  }));
-
   // Live props ref so animation loop reads latest values without triggering re-render
   const propsRef = useRef({
     activeSection,
@@ -111,34 +80,99 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
 
   // Master Boot & Motion State Object driven by GSAP
   const motionRef = useRef({
-    // Camera
-    camZ: isBootComplete ? 105 : 340,
-    fov: isBootComplete ? 46 : 80,
-    
-    // Singularity & Anamorphic Flare
-    singularityScale: isBootComplete ? 0.0 : 1.0,
-    singularityAlpha: isBootComplete ? 0.0 : 1.0,
-    anamorphicScaleX: isBootComplete ? 0.0 : 0.05,
-    anamorphicAlpha: isBootComplete ? 0.0 : 0.0,
-    shockwaveRadius: 0.0,
-    shockwaveAlpha: 0.0,
-    
-    // Warp Streaks
-    warpFactor: 0.0,
-    warpOpacity: 0.0,
-    
-    // Starlight & Environment
-    starOpacity: isBootComplete ? 0.85 : 0.0,
+    // Camera Position & Target
+    camX: 0,
+    camY: 0,
+    camZ: isBootComplete ? 105 : 300,
+    lookX: 0,
+    lookY: 0,
+    lookZ: isBootComplete ? 0 : -35,
+    fov: 46,
+
+    // Phase 1 & 2: The Signal & Stars
+    signalPointAlpha: isBootComplete ? 0.0 : 0.0,
+    signalGlowAlpha: isBootComplete ? 0.0 : 0.0,
+    starDeepAlpha: isBootComplete ? 0.85 : 0.0,
+    starMidAlpha: isBootComplete ? 0.90 : 0.0,
+    nebulaAlpha: isBootComplete ? 0.04 : 0.0,
+
+    // Intro Spacecraft Lifecycle (Active in Phases 1-3, exits in Phase 4)
+    introSatOpacity: isBootComplete ? 0.0 : 1.0,
+    satSilhouetteAlpha: isBootComplete ? 1.0 : 0.0,
+    satRimLight: isBootComplete ? 1.2 : 0.0,
+    satFillLight: isBootComplete ? 0.7 : 0.0,
+    satEmitterLight: isBootComplete ? 0.0 : 0.0,
+    satSolarDeploy: isBootComplete ? 1.57 : 0.0,
+
+    // Phase 4: Earth & Sunlight
+    earthRevealAlpha: isBootComplete ? 1.0 : 0.0,
+    earthPosX: isBootComplete ? 38 : 22,
+    earthPosY: isBootComplete ? 2 : -18,
+    earthPosZ: isBootComplete ? -10 : -15,
+    earthScale: isBootComplete ? 1.0 : 0.9,
     sunIntensity: isBootComplete ? 2.8 : 0.0,
     atmosphereAlpha: isBootComplete ? 1.0 : 0.0,
-    
-    // Orbital path & Spacecraft
+
+    // Phase 5 & 6: Single Orbital Trajectory
     orbitDrawProgress: isBootComplete ? 1.0 : 0.0,
-    solarDeployAngle: isBootComplete ? 1.57 : 0.0, // 0 to PI/2 radians
-    
-    // Registration Singularity Climax
+    orbitLineAlpha: isBootComplete ? 0.45 : 0.0,
+    orbitBeaconAlpha: isBootComplete ? 1.0 : 0.0,
+
+    // Phase 10 & 11: Title Orbit Path & Light Sweep
+    titleOrbitAlpha: 0.0,
+    titleOrbitProgress: 0.0,
+    sweepLightX: -90.0,
+    sweepLightAlpha: 0.0,
+
+    // Post-Boot & Registration Singularities
     singularityFactor: 1.0,
   });
+
+  // Skip boot handler
+  const introSpacecraftRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    skipBoot: () => {
+      if (bootTlRef.current) {
+        bootTlRef.current.kill();
+      }
+      gsap.to(motionRef.current, {
+        camX: 0,
+        camY: 0,
+        camZ: 105,
+        lookX: 0,
+        lookY: 0,
+        lookZ: 0,
+        fov: 46,
+        starDeepAlpha: 0.85,
+        starMidAlpha: 0.90,
+        nebulaAlpha: 0.04,
+        introSatOpacity: 0.0,
+        earthRevealAlpha: 1.0,
+        earthPosX: 38,
+        earthPosY: 2,
+        earthPosZ: -10,
+        earthScale: 1.0,
+        sunIntensity: 2.8,
+        atmosphereAlpha: 1.0,
+        orbitDrawProgress: 1.0,
+        orbitLineAlpha: 0.45,
+        orbitBeaconAlpha: 1.0,
+        signalPointAlpha: 0.0,
+        signalGlowAlpha: 0.0,
+        sweepLightAlpha: 0.0,
+        titleOrbitAlpha: 0.0,
+        duration: 0.45,
+        ease: 'power2.out',
+        onComplete: () => {
+          if (introSpacecraftRef.current) {
+            introSpacecraftRef.current.visible = false;
+          }
+          if (onBootComplete) onBootComplete();
+        }
+      });
+    }
+  }));
 
   useEffect(() => {
     const container = containerRef.current;
@@ -146,18 +180,19 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
 
     let width = window.innerWidth;
     let height = window.innerHeight;
+    const isMobile = width < 768;
 
-    // 1. SCENE & CAMERA SETUP
+    // 1. SCENE SETUP
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x010106, 0.00075);
+    scene.fog = new THREE.FogExp2(0x010106, 0.00065);
 
     const camera = new THREE.PerspectiveCamera(
       motionRef.current.fov,
       width / height,
       0.1,
-      5000
+      6000
     );
-    camera.position.set(0, 0, motionRef.current.camZ);
+    camera.position.set(motionRef.current.camX, motionRef.current.camY, motionRef.current.camZ);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -167,7 +202,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 1.15;
     container.appendChild(renderer.domElement);
 
     // 2. DIRECTIONAL & AMBIENT LIGHTING
@@ -175,12 +210,16 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     sunLight.position.set(95, 34, 75);
     scene.add(sunLight);
 
-    const rimVioletLight = new THREE.DirectionalLight(0x7C3AED, 1.2);
-    rimVioletLight.position.set(-85, -35, -45);
-    scene.add(rimVioletLight);
-
-    const ambientLight = new THREE.AmbientLight(0x05020D, 0.5);
+    const ambientLight = new THREE.AmbientLight(0x04020B, 0.45);
     scene.add(ambientLight);
+
+    const satRimLight = new THREE.DirectionalLight(0xD8B4FE, motionRef.current.satRimLight);
+    satRimLight.position.set(-15, 12, 10);
+    scene.add(satRimLight);
+
+    const satFillLight = new THREE.DirectionalLight(0x7C3AED, motionRef.current.satFillLight);
+    satFillLight.position.set(15, -8, 20);
+    scene.add(satFillLight);
 
     // 3. TEXTURE GENERATORS & LOADERS
     const makeGlowTex = () => {
@@ -190,8 +229,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       const ctx = cvs.getContext('2d');
       const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
       grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      grad.addColorStop(0.18, 'rgba(192, 132, 252, 0.9)');
-      grad.addColorStop(0.5, 'rgba(124, 58, 237, 0.35)');
+      grad.addColorStop(0.18, 'rgba(192, 132, 252, 0.95)');
+      grad.addColorStop(0.45, 'rgba(124, 58, 237, 0.4)');
       grad.addColorStop(1, 'rgba(1, 1, 6, 0)');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 128, 128);
@@ -199,202 +238,23 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     };
     const glowTex = makeGlowTex();
 
-    // Anamorphic horizontal laser streak flare texture
-    const makeAnamorphicTex = () => {
-      const cvs = document.createElement('canvas');
-      cvs.width = 512;
-      cvs.height = 64;
-      const ctx = cvs.getContext('2d');
-      
-      const grad = ctx.createRadialGradient(256, 32, 0, 256, 32, 256);
-      grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      grad.addColorStop(0.12, 'rgba(216, 180, 254, 0.95)');
-      grad.addColorStop(0.35, 'rgba(139, 92, 246, 0.6)');
-      grad.addColorStop(0.7, 'rgba(76, 29, 149, 0.2)');
-      grad.addColorStop(1, 'rgba(1, 1, 6, 0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 512, 64);
-
-      // Central razor laser line
-      const lineGrad = ctx.createLinearGradient(0, 32, 512, 32);
-      lineGrad.addColorStop(0, 'rgba(139, 92, 246, 0)');
-      lineGrad.addColorStop(0.35, 'rgba(192, 132, 252, 0.8)');
-      lineGrad.addColorStop(0.5, 'rgba(255, 255, 255, 1)');
-      lineGrad.addColorStop(0.65, 'rgba(192, 132, 252, 0.8)');
-      lineGrad.addColorStop(1, 'rgba(139, 92, 246, 0)');
-      ctx.fillStyle = lineGrad;
-      ctx.fillRect(0, 30, 512, 4);
-
-      return new THREE.CanvasTexture(cvs);
-    };
-    const anamorphicTex = makeAnamorphicTex();
-
-    // Gravitational shockwave ring texture
-    const makeRingTex = () => {
-      const cvs = document.createElement('canvas');
-      cvs.width = 128;
-      cvs.height = 128;
-      const ctx = cvs.getContext('2d');
-      ctx.beginPath();
-      ctx.arc(64, 64, 58, 0, Math.PI * 2);
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = 'rgba(192, 132, 252, 0.85)';
-      ctx.stroke();
-      return new THREE.CanvasTexture(cvs);
-    };
-    const ringTex = makeRingTex();
-
-    // Planetary texture loader
+    // High-res planetary maps for Earth
     const texLoader = new THREE.TextureLoader();
     const earthAtmosTex = texLoader.load('/textures/planets/earth_atmos.jpg');
     const earthNormalTex = texLoader.load('/textures/planets/earth_normal.jpg');
     const earthSpecTex = texLoader.load('/textures/planets/earth_specular.jpg');
     const earthCloudsTex = texLoader.load('/textures/planets/earth_clouds.png');
-    const moonTex = texLoader.load('/textures/planets/moon.jpg');
 
-    [earthAtmosTex, earthNormalTex, earthSpecTex, earthCloudsTex, moonTex].forEach((t) => {
+    [earthAtmosTex, earthNormalTex, earthSpecTex, earthCloudsTex].forEach((t) => {
       t.wrapS = THREE.RepeatWrapping;
       t.anisotropy = 4;
     });
 
-    // 4. ANAMORPHIC SINGULARITY & GRAVITATIONAL LENSING SYSTEM
-    const singularityGroup = new THREE.Group();
-    scene.add(singularityGroup);
-
-    // Quantum Core
-    const singCoreGeo = new THREE.SphereGeometry(1.6, 32, 32);
-    const singCoreMat = new THREE.MeshBasicMaterial({
-      color: 0xFFFFFF,
-      transparent: true,
-      opacity: motionRef.current.singularityAlpha,
-    });
-    const singCoreMesh = new THREE.Mesh(singCoreGeo, singCoreMat);
-    singularityGroup.add(singCoreMesh);
-
-    // Radiant Corona
-    const singCoronaGeo = new THREE.PlaneGeometry(16, 16);
-    const singCoronaMat = new THREE.MeshBasicMaterial({
-      map: glowTex,
-      color: 0xC084FC,
-      transparent: true,
-      opacity: motionRef.current.singularityAlpha,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const singCoronaMesh = new THREE.Mesh(singCoronaGeo, singCoronaMat);
-    singularityGroup.add(singCoronaMesh);
-
-    // Anamorphic Horizontal Laser Flare Beam
-    const anamorphicGeo = new THREE.PlaneGeometry(280, 2.8);
-    const anamorphicMat = new THREE.MeshBasicMaterial({
-      map: anamorphicTex,
-      transparent: true,
-      opacity: motionRef.current.anamorphicAlpha,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const anamorphicMesh = new THREE.Mesh(anamorphicGeo, anamorphicMat);
-    anamorphicMesh.scale.x = motionRef.current.anamorphicScaleX;
-    singularityGroup.add(anamorphicMesh);
-
-    // Gravitational Wave Expansion Shockwave Rings
-    const shockwaveGeo = new THREE.PlaneGeometry(1, 1);
-    const shockwaveMat = new THREE.MeshBasicMaterial({
-      map: ringTex,
-      transparent: true,
-      opacity: motionRef.current.shockwaveAlpha,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const shockwaveMesh = new THREE.Mesh(shockwaveGeo, shockwaveMat);
-    singularityGroup.add(shockwaveMesh);
-
-    // Quantum Dust Swirl (Converges inward during Phase 0)
-    const dustCount = 350;
-    const dustGeo = new THREE.BufferGeometry();
-    const dustPos = new Float32Array(dustCount * 3);
-    const dustVel = new Float32Array(dustCount * 3);
-    for (let i = 0; i < dustCount; i++) {
-      const rad = 25 + Math.random() * 60;
-      const theta = Math.random() * Math.PI * 2;
-      dustPos[i * 3] = rad * Math.cos(theta);
-      dustPos[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      dustPos[i * 3 + 2] = rad * Math.sin(theta);
-      dustVel[i * 3] = -dustPos[i * 3] * 0.02;
-      dustVel[i * 3 + 1] = -dustPos[i * 3 + 1] * 0.02;
-      dustVel[i * 3 + 2] = -dustPos[i * 3 + 2] * 0.02;
-    }
-    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
-    const dustMat = new THREE.PointsMaterial({
-      size: 1.2,
-      map: glowTex,
-      color: 0xC084FC,
-      transparent: true,
-      opacity: motionRef.current.singularityAlpha * 0.8,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const dustField = new THREE.Points(dustGeo, dustMat);
-    singularityGroup.add(dustField);
-
-    // 5. TRUE RELATIVISTIC HYPERSPACE WARP STREAKS (1,600 LineSegments)
-    const warpCount = 1600;
-    const warpLineGeo = new THREE.BufferGeometry();
-    const warpPositions = new Float32Array(warpCount * 2 * 3); // 2 vertices per line segment
-    const warpColors = new Float32Array(warpCount * 2 * 3);
-    const warpBaseZ = new Float32Array(warpCount);
-
-    const warpColorHead = new THREE.Color('#FFFFFF');
-    const warpColorTail = new THREE.Color('#7C3AED');
-    const warpColorMid = new THREE.Color('#93C5FD');
-
-    for (let i = 0; i < warpCount; i++) {
-      const idx = i * 6;
-      const x = (Math.random() - 0.5) * 2200;
-      const y = (Math.random() - 0.5) * 1600;
-      const z = (Math.random() - 0.5) * 2400 - 200;
-      warpBaseZ[i] = z;
-
-      // Head vertex
-      warpPositions[idx] = x;
-      warpPositions[idx + 1] = y;
-      warpPositions[idx + 2] = z;
-
-      // Tail vertex (initially collapsed)
-      warpPositions[idx + 3] = x;
-      warpPositions[idx + 4] = y;
-      warpPositions[idx + 5] = z;
-
-      // Head color (crystalline white)
-      warpColors[idx] = warpColorHead.r;
-      warpColors[idx + 1] = warpColorHead.g;
-      warpColors[idx + 2] = warpColorHead.b;
-
-      // Tail color (Doppler violet/blue)
-      const tailChoice = i % 2 === 0 ? warpColorTail : warpColorMid;
-      warpColors[idx + 3] = tailChoice.r;
-      warpColors[idx + 4] = tailChoice.g;
-      warpColors[idx + 5] = tailChoice.b;
-    }
-
-    warpLineGeo.setAttribute('position', new THREE.BufferAttribute(warpPositions, 3));
-    warpLineGeo.setAttribute('color', new THREE.BufferAttribute(warpColors, 3));
-
-    const warpMat = new THREE.LineBasicMaterial({
-      vertexColors: true,
-      transparent: true,
-      opacity: motionRef.current.warpOpacity,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const warpStreakMesh = new THREE.LineSegments(warpLineGeo, warpMat);
-    scene.add(warpStreakMesh);
-
-    // 6. PERSISTENT DEEP COSMIC STARFIELD (3,000 background points)
-    const starCount = 3000;
-    const starGeo = new THREE.BufferGeometry();
-    const starPositions = new Float32Array(starCount * 3);
-    const starColors = new Float32Array(starCount * 3);
+    // 4. MULTI-LAYER COSMIC STARFIELD
+    const starDeepCount = isMobile ? 1200 : 2500;
+    const starDeepGeo = new THREE.BufferGeometry();
+    const starDeepPos = new Float32Array(starDeepCount * 3);
+    const starDeepColors = new Float32Array(starDeepCount * 3);
 
     const starPal = [
       new THREE.Color('#F7F5FF'),
@@ -404,104 +264,269 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       new THREE.Color('#93C5FD'),
     ];
 
-    for (let i = 0; i < starCount; i++) {
+    for (let i = 0; i < starDeepCount; i++) {
       const i3 = i * 3;
-      starPositions[i3] = (Math.random() - 0.5) * 3200;
-      starPositions[i3 + 1] = (Math.random() - 0.5) * 2400;
-      starPositions[i3 + 2] = (Math.random() - 0.5) * 3600 - 500;
+      starDeepPos[i3] = (Math.random() - 0.5) * 3600;
+      starDeepPos[i3 + 1] = (Math.random() - 0.5) * 2600;
+      starDeepPos[i3 + 2] = (Math.random() - 0.5) * 3800 - 600;
 
       const c = starPal[Math.floor(Math.random() * starPal.length)];
-      starColors[i3] = c.r;
-      starColors[i3 + 1] = c.g;
-      starColors[i3 + 2] = c.b;
+      starDeepColors[i3] = c.r;
+      starDeepColors[i3 + 1] = c.g;
+      starDeepColors[i3 + 2] = c.b;
     }
 
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-    starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+    starDeepGeo.setAttribute('position', new THREE.BufferAttribute(starDeepPos, 3));
+    starDeepGeo.setAttribute('color', new THREE.BufferAttribute(starDeepColors, 3));
 
-    const starMat = new THREE.PointsMaterial({
-      size: 1.4,
+    const starDeepMat = new THREE.PointsMaterial({
+      size: 1.1,
       map: glowTex,
       vertexColors: true,
       transparent: true,
-      opacity: motionRef.current.starOpacity,
+      opacity: motionRef.current.starDeepAlpha,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
-    const starField = new THREE.Points(starGeo, starMat);
-    scene.add(starField);
+    const starDeepField = new THREE.Points(starDeepGeo, starDeepMat);
+    scene.add(starDeepField);
 
-    // 7. DEEP COSMIC NEBULA CLOUDS
+    // Mid-range stars layer
+    const starMidCount = isMobile ? 400 : 800;
+    const starMidGeo = new THREE.BufferGeometry();
+    const starMidPos = new Float32Array(starMidCount * 3);
+    const starMidColors = new Float32Array(starMidCount * 3);
+
+    for (let i = 0; i < starMidCount; i++) {
+      const i3 = i * 3;
+      starMidPos[i3] = (Math.random() - 0.5) * 2200;
+      starMidPos[i3 + 1] = (Math.random() - 0.5) * 1600;
+      starMidPos[i3 + 2] = (Math.random() - 0.5) * 2000 - 100;
+
+      const c = starPal[Math.floor(Math.random() * starPal.length)];
+      starMidColors[i3] = c.r;
+      starMidColors[i3 + 1] = c.g;
+      starMidColors[i3 + 2] = c.b;
+    }
+
+    starMidGeo.setAttribute('position', new THREE.BufferAttribute(starMidPos, 3));
+    starMidGeo.setAttribute('color', new THREE.BufferAttribute(starMidColors, 3));
+
+    const starMidMat = new THREE.PointsMaterial({
+      size: 1.6,
+      map: glowTex,
+      vertexColors: true,
+      transparent: true,
+      opacity: motionRef.current.starMidAlpha,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const starMidField = new THREE.Points(starMidGeo, starMidMat);
+    scene.add(starMidField);
+
+    // Subtle dark volumetric nebula clouds
     const nebulaGroup = new THREE.Group();
-    const nebulaGeo = new THREE.PlaneGeometry(600, 600);
-    for (let i = 0; i < 7; i++) {
+    const nebulaGeo = new THREE.PlaneGeometry(750, 750);
+    for (let i = 0; i < 5; i++) {
       const nebulaMat = new THREE.MeshBasicMaterial({
         map: glowTex,
-        color: i % 2 === 0 ? new THREE.Color('#1E0B40') : new THREE.Color('#3B0764'),
+        color: i % 2 === 0 ? new THREE.Color('#1A0A38') : new THREE.Color('#2A0A4A'),
         transparent: true,
-        opacity: Math.random() * 0.04 + 0.02,
+        opacity: motionRef.current.nebulaAlpha,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
       });
 
       const mesh = new THREE.Mesh(nebulaGeo, nebulaMat);
       mesh.position.set(
-        (Math.random() - 0.5) * 1000,
-        (Math.random() - 0.5) * 800,
-        (Math.random() - 0.5) * 1400 - 600
+        (Math.random() - 0.5) * 1200,
+        (Math.random() - 0.5) * 900,
+        (Math.random() - 0.5) * 1200 - 800
       );
       mesh.rotation.z = Math.random() * Math.PI * 2;
-      mesh.scale.setScalar(Math.random() * 1.8 + 1.0);
+      mesh.scale.setScalar(Math.random() * 1.6 + 1.1);
       nebulaGroup.add(mesh);
     }
     scene.add(nebulaGroup);
 
-    // 8. MONUMENTAL CELESTIAL SYSTEM (EARTH LIMB ON RIGHT)
-    const celestialSystem = new THREE.Group();
-    scene.add(celestialSystem);
+    // 5. INTRODUCTORY SPACECRAFT WITH "THE SIGNAL" EMITTER (Phases 1-3 only)
+    const introSpacecraftGroup = new THREE.Group();
+    introSpacecraftGroup.position.set(0, 0, -35);
+    scene.add(introSpacecraftGroup);
+    introSpacecraftRef.current = introSpacecraftGroup;
 
-    const updateCelestialBase = (w) => {
-      if (w >= 1024) {
-        celestialSystem.position.set(38, 2, -10);
-      } else {
-        celestialSystem.position.set(0, 18, -25);
-      }
-    };
-    updateCelestialBase(width);
+    // 3U Modular Bus Chassis
+    const satChassisGeo = new THREE.BoxGeometry(1.2, 1.2, 2.8);
+    const satChassisMat = new THREE.MeshStandardMaterial({
+      color: 0x1A1626,
+      metalness: 0.94,
+      roughness: 0.22,
+      transparent: true,
+      opacity: 1.0,
+    });
+    const satChassis = new THREE.Mesh(satChassisGeo, satChassisMat);
+    introSpacecraftGroup.add(satChassis);
+
+    // MLI Gold Kapton Thermal Blanket Facets
+    const mliGeo = new THREE.PlaneGeometry(1.16, 2.7);
+    const mliMat = new THREE.MeshStandardMaterial({
+      color: 0xD4AF37,
+      metalness: 0.88,
+      roughness: 0.32,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 1.0,
+    });
+    const mliTop = new THREE.Mesh(mliGeo, mliMat);
+    mliTop.position.set(0, 0.605, 0);
+    mliTop.rotation.x = -Math.PI / 2;
+    introSpacecraftGroup.add(mliTop);
+
+    // Corner Deployer Rails
+    const railGeo = new THREE.CylinderGeometry(0.04, 0.04, 2.9, 8);
+    const railMat = new THREE.MeshStandardMaterial({
+      color: 0x9388A2,
+      metalness: 0.95,
+      roughness: 0.15,
+      transparent: true,
+      opacity: 1.0,
+    });
+    [
+      [-0.6, -0.6],
+      [0.6, -0.6],
+      [-0.6, 0.6],
+      [0.6, 0.6],
+    ].forEach(([rx, ry]) => {
+      const rail = new THREE.Mesh(railGeo, railMat);
+      rail.position.set(rx, ry, 0);
+      rail.rotation.x = Math.PI / 2;
+      introSpacecraftGroup.add(rail);
+    });
+
+    // Articulated Solar Array Wings
+    const solarHingeLeft = new THREE.Group();
+    solarHingeLeft.position.set(-0.6, 0, 0);
+    introSpacecraftGroup.add(solarHingeLeft);
+
+    const solarHingeRight = new THREE.Group();
+    solarHingeRight.position.set(0.6, 0, 0);
+    introSpacecraftGroup.add(solarHingeRight);
+
+    const panelGeo = new THREE.BoxGeometry(2.2, 0.05, 1.4);
+    const panelMat = new THREE.MeshStandardMaterial({
+      color: 0x12162B,
+      metalness: 0.88,
+      roughness: 0.16,
+      emissive: 0x1D1445,
+      emissiveIntensity: 0.22,
+      transparent: true,
+      opacity: 1.0,
+    });
+
+    const leftPanel = new THREE.Mesh(panelGeo, panelMat);
+    leftPanel.position.set(-1.1, 0, 0);
+    solarHingeLeft.add(leftPanel);
+
+    const rightPanel = new THREE.Mesh(panelGeo, panelMat);
+    rightPanel.position.set(1.1, 0, 0);
+    solarHingeRight.add(rightPanel);
+
+    // High-Gain Parabolic Communications Dish
+    const dishGeo = new THREE.ConeGeometry(0.65, 0.3, 24, 1, true);
+    const dishMat = new THREE.MeshStandardMaterial({
+      color: 0xDFE3E8,
+      metalness: 0.92,
+      roughness: 0.18,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 1.0,
+    });
+    const dish = new THREE.Mesh(dishGeo, dishMat);
+    dish.position.set(0, 0, -1.55);
+    dish.rotation.x = Math.PI;
+    introSpacecraftGroup.add(dish);
+
+    // Forward Optical Telemetry Mast
+    const mastGeo = new THREE.CylinderGeometry(0.08, 0.12, 0.7, 12);
+    const mastMat = new THREE.MeshStandardMaterial({
+      color: 0x2E1065,
+      metalness: 0.9,
+      roughness: 0.2,
+      transparent: true,
+      opacity: 1.0,
+    });
+    const mast = new THREE.Mesh(mastGeo, mastMat);
+    mast.position.set(0, 0, 1.6);
+    mast.rotation.x = Math.PI / 2;
+    introSpacecraftGroup.add(mast);
+
+    // THE SIGNAL EMITTER (Housed directly on the forward mast)
+    const signalCoreGeo = new THREE.SphereGeometry(0.12, 16, 16);
+    const signalCoreMat = new THREE.MeshBasicMaterial({
+      color: 0xF7F5FF,
+      transparent: true,
+      opacity: motionRef.current.signalPointAlpha,
+    });
+    const signalCoreMesh = new THREE.Mesh(signalCoreGeo, signalCoreMat);
+    signalCoreMesh.position.set(0, 0, 2.0);
+    introSpacecraftGroup.add(signalCoreMesh);
+
+    // Atmospheric violet scattering halo
+    const signalHaloGeo = new THREE.PlaneGeometry(6.5, 6.5);
+    const signalHaloMat = new THREE.MeshBasicMaterial({
+      map: glowTex,
+      color: 0x8B5CF6,
+      transparent: true,
+      opacity: motionRef.current.signalGlowAlpha,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const signalHaloMesh = new THREE.Mesh(signalHaloGeo, signalHaloMat);
+    signalHaloMesh.position.set(0, 0, 2.0);
+    introSpacecraftGroup.add(signalHaloMesh);
+
+    const signalPointLight = new THREE.PointLight(0xA855F7, motionRef.current.satEmitterLight, 18);
+    signalPointLight.position.set(0, 0, 2.2);
+    introSpacecraftGroup.add(signalPointLight);
+
+    // 6. MONUMENTAL PLANETARY SYSTEM (Earth Viewed from Orbit)
+    const celestialSystem = new THREE.Group();
+    celestialSystem.position.set(motionRef.current.earthPosX, motionRef.current.earthPosY, motionRef.current.earthPosZ);
+    scene.add(celestialSystem);
 
     // Axial Tilt
     const axialTiltGroup = new THREE.Group();
     axialTiltGroup.rotation.z = THREE.MathUtils.degToRad(-23.5);
     celestialSystem.add(axialTiltGroup);
 
-    // A. PLANETARY BODY (Radius 24)
-    const planetRadius = 24.0;
+    // Photorealistic Earth (Radius 28)
+    const planetRadius = 28.0;
     const planetGeo = new THREE.SphereGeometry(planetRadius, 64, 64);
     const planetMat = new THREE.MeshPhongMaterial({
       map: earthAtmosTex,
       normalMap: earthNormalTex,
-      normalScale: new THREE.Vector2(0.9, 0.9),
+      normalScale: new THREE.Vector2(0.95, 0.95),
       specularMap: earthSpecTex,
       specular: new THREE.Color('#6D28D9'),
-      shininess: 28,
+      shininess: 32,
     });
     const planetMesh = new THREE.Mesh(planetGeo, planetMat);
     axialTiltGroup.add(planetMesh);
 
-    // B. DYNAMIC ATMOSPHERIC CLOUD LAYER
-    const cloudsGeo = new THREE.SphereGeometry(planetRadius + 0.38, 64, 64);
+    // Dynamic Cloud Layer
+    const cloudsGeo = new THREE.SphereGeometry(planetRadius + 0.42, 64, 64);
     const cloudsMat = new THREE.MeshPhongMaterial({
       map: earthCloudsTex,
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.76,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
     const cloudsMesh = new THREE.Mesh(cloudsGeo, cloudsMat);
     axialTiltGroup.add(cloudsMesh);
 
-    // C. PHOTOREALISTIC RAYLEIGH ATMOSPHERIC SCATTERING SHADER
-    const atmosGeo = new THREE.SphereGeometry(planetRadius + 1.45, 64, 64);
+    // Rayleigh Atmospheric Scattering Shader
+    const atmosGeo = new THREE.SphereGeometry(planetRadius + 1.6, 64, 64);
     const atmosUniforms = {
       uSunDirection: { value: new THREE.Vector3(95, 34, 75).normalize() },
       uAtmosphereAlpha: { value: motionRef.current.atmosphereAlpha },
@@ -527,25 +552,25 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         void main() {
           vec3 viewDir = normalize(-vPosition);
           float fresnel = 1.0 - max(0.0, dot(viewDir, vNormal));
-          fresnel = pow(fresnel, 2.7);
+          fresnel = pow(fresnel, 2.8);
 
           vec3 normWorld = normalize(vNormal);
           float sunDot = dot(normWorld, uSunDirection);
 
-          // Atmospheric Rayleigh gradient ramp
-          vec3 deepViolet = vec3(0.20, 0.08, 0.50); // Deep ionosphere
-          vec3 electricViolet = vec3(0.62, 0.38, 1.00); // Luminous limb
-          vec3 terminatorAmber = vec3(0.95, 0.65, 0.45); // Sunrise terminator
+          // Deep aerospace Rayleigh violet ionosphere ramp
+          vec3 deepIonosphere = vec3(0.20, 0.08, 0.50);
+          vec3 electricViolet = vec3(0.58, 0.35, 1.00);
+          vec3 terminatorGold = vec3(0.96, 0.68, 0.42);
 
           float dayFactor = clamp(sunDot * 1.4 + 0.4, 0.0, 1.0);
-          vec3 baseColor = mix(deepViolet, electricViolet, dayFactor);
+          vec3 baseColor = mix(deepIonosphere, electricViolet, dayFactor);
 
-          // Terminator golden-amber accent
-          float terminator = pow(1.0 - abs(sunDot), 2.8);
-          vec3 rimColor = mix(baseColor, terminatorAmber, terminator * 0.4);
+          // Golden-amber terminator accent
+          float terminator = pow(1.0 - abs(sunDot), 2.9);
+          vec3 rimColor = mix(baseColor, terminatorGold, terminator * 0.45);
 
-          float intensity = fresnel * (clamp(sunDot * 1.8 + 0.4, 0.08, 2.2)) * uAtmosphereAlpha;
-          gl_FragColor = vec4(rimColor * 1.8, intensity * 0.95);
+          float intensity = fresnel * (clamp(sunDot * 1.8 + 0.35, 0.08, 2.2)) * uAtmosphereAlpha;
+          gl_FragColor = vec4(rimColor * 1.85, intensity * 0.96);
         }
       `,
       blending: THREE.AdditiveBlending,
@@ -556,21 +581,17 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     const atmosMesh = new THREE.Mesh(atmosGeo, atmosMat);
     celestialSystem.add(atmosMesh);
 
-    // D. DISTANT REALISTIC MOON
-    const moonRadius = 3.2;
-    const moonGeo = new THREE.SphereGeometry(moonRadius, 32, 32);
-    const moonMat = new THREE.MeshPhongMaterial({
-      map: moonTex,
-      bumpMap: moonTex,
-      bumpScale: 0.08,
-      shininess: 2,
-    });
-    const moonMesh = new THREE.Mesh(moonGeo, moonMat);
-    celestialSystem.add(moonMesh);
+    // 7. THE SINGLE ELEGANT ORBITAL TRAJECTORY & SATELLITE (100% Mathematically Aligned)
+    const orbitRadius = 45.0;
+    const orbitPointsCount = 280;
 
-    // E. 3D ORBITAL TRAJECTORY SPLINE
-    const orbitRadius = 38.0;
-    const orbitPointsCount = 240;
+    // Dedicated Orbit Group handles the 3D inclination
+    const orbitGroup = new THREE.Group();
+    orbitGroup.rotation.x = THREE.MathUtils.degToRad(62);
+    orbitGroup.rotation.y = THREE.MathUtils.degToRad(-24);
+    celestialSystem.add(orbitGroup);
+
+    // Orbit Trajectory Line (Defined in orbitGroup local coordinates)
     const orbitPositions = new Float32Array(orbitPointsCount * 3);
     for (let i = 0; i < orbitPointsCount; i++) {
       const theta = (i / (orbitPointsCount - 1)) * Math.PI * 2;
@@ -583,94 +604,153 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     orbitGeo.setDrawRange(0, Math.floor(motionRef.current.orbitDrawProgress * orbitPointsCount));
 
     const orbitMat = new THREE.LineBasicMaterial({
-      color: 0xA855F7,
+      color: 0x8B5CF6,
       transparent: true,
-      opacity: 0.5,
+      opacity: motionRef.current.orbitLineAlpha,
       blending: THREE.AdditiveBlending,
     });
     const orbitLine = new THREE.Line(orbitGeo, orbitMat);
-    orbitLine.rotation.x = THREE.MathUtils.degToRad(64);
-    orbitLine.rotation.y = THREE.MathUtils.degToRad(-26);
-    celestialSystem.add(orbitLine);
+    orbitGroup.add(orbitLine);
 
-    // F. HIGH-TECH 3D CUBESAT WITH ARTICULATING SOLAR ARRAYS
-    const satGroup = new THREE.Group();
+    // Precision Orbital Satellite (Added directly to orbitGroup, locked to the line)
+    const orbitSatellite = new THREE.Group();
 
-    // 3U Satellite Chassis
-    const satChassisGeo = new THREE.BoxGeometry(0.9, 0.9, 2.0);
-    const satChassisMat = new THREE.MeshStandardMaterial({
-      color: 0x231F35,
-      metalness: 0.92,
-      roughness: 0.18,
-    });
-    const satChassis = new THREE.Mesh(satChassisGeo, satChassisMat);
-    satGroup.add(satChassis);
-
-    // Solar Wings Hinges & Panels (Articulate on deploy)
-    const solarHingeLeft = new THREE.Group();
-    solarHingeLeft.position.set(-0.45, 0, 0);
-    satGroup.add(solarHingeLeft);
-
-    const solarHingeRight = new THREE.Group();
-    solarHingeRight.position.set(0.45, 0, 0);
-    satGroup.add(solarHingeRight);
-
-    const panelGeo = new THREE.BoxGeometry(1.7, 0.04, 1.0);
-    const panelMat = new THREE.MeshStandardMaterial({
-      color: 0x1E1B4B,
-      metalness: 0.85,
-      roughness: 0.15,
-      emissive: 0x2E1065,
-      emissiveIntensity: 0.3,
-    });
-
-    const leftPanel = new THREE.Mesh(panelGeo, panelMat);
-    leftPanel.position.set(-0.85, 0, 0);
-    solarHingeLeft.add(leftPanel);
-
-    const rightPanel = new THREE.Mesh(panelGeo, panelMat);
-    rightPanel.position.set(0.85, 0, 0);
-    solarHingeRight.add(rightPanel);
-
-    // High-Gain Parabolic Dish Antenna
-    const dishGeo = new THREE.ConeGeometry(0.5, 0.25, 16, 1, true);
-    const dishMat = new THREE.MeshStandardMaterial({
-      color: 0xE2E8F0,
-      metalness: 0.9,
-      roughness: 0.2,
-      side: THREE.DoubleSide,
-    });
-    const dish = new THREE.Mesh(dishGeo, dishMat);
-    dish.position.set(0, 0, -1.1);
-    dish.rotation.x = Math.PI;
-    satGroup.add(dish);
-
-    // Dual Optical Status Telemetry Beacons
-    const beaconGreen = new THREE.Mesh(
-      new THREE.SphereGeometry(0.2, 16, 16),
-      new THREE.MeshBasicMaterial({ color: 0x34D399 })
-    );
-    beaconGreen.position.set(0.35, 0.5, 0.8);
-    satGroup.add(beaconGreen);
-
-    const beaconViolet = new THREE.Mesh(
-      new THREE.SphereGeometry(0.25, 16, 16),
-      new THREE.MeshBasicMaterial({ color: 0xF7F5FF })
-    );
-    beaconViolet.position.set(-0.35, 0.5, 0.8);
-    satGroup.add(beaconViolet);
-
-    const satHalo = new THREE.Mesh(
-      new THREE.SphereGeometry(2.4, 16, 16),
-      new THREE.MeshBasicMaterial({
-        color: 0x8B5CF6,
-        transparent: true,
-        opacity: 0.35,
-        blending: THREE.AdditiveBlending,
+    // Satellite Bus Chassis
+    const orbSatBody = new THREE.Mesh(
+      new THREE.BoxGeometry(0.85, 0.85, 1.8),
+      new THREE.MeshStandardMaterial({
+        color: 0x1B1828,
+        metalness: 0.94,
+        roughness: 0.2,
       })
     );
-    satGroup.add(satHalo);
-    celestialSystem.add(satGroup);
+    orbitSatellite.add(orbSatBody);
+
+    // Gold Kapton MLI Blanket
+    const orbSatMli = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.8, 1.75),
+      new THREE.MeshStandardMaterial({
+        color: 0xD4AF37,
+        metalness: 0.9,
+        roughness: 0.28,
+        side: THREE.DoubleSide,
+      })
+    );
+    orbSatMli.position.set(0, 0.435, 0);
+    orbSatMli.rotation.x = -Math.PI / 2;
+    orbitSatellite.add(orbSatMli);
+
+    // Dual Solar Array Panels
+    const orbLeftWing = new THREE.Mesh(
+      new THREE.BoxGeometry(1.6, 0.04, 0.9),
+      new THREE.MeshStandardMaterial({
+        color: 0x111628,
+        metalness: 0.88,
+        roughness: 0.15,
+        emissive: 0x241044,
+        emissiveIntensity: 0.35,
+      })
+    );
+    orbLeftWing.position.set(-1.25, 0, 0);
+    orbitSatellite.add(orbLeftWing);
+
+    const orbRightWing = new THREE.Mesh(
+      new THREE.BoxGeometry(1.6, 0.04, 0.9),
+      new THREE.MeshStandardMaterial({
+        color: 0x111628,
+        metalness: 0.88,
+        roughness: 0.15,
+        emissive: 0x241044,
+        emissiveIntensity: 0.35,
+      })
+    );
+    orbRightWing.position.set(1.25, 0, 0);
+    orbitSatellite.add(orbRightWing);
+
+    // Communications Dish
+    const orbDish = new THREE.Mesh(
+      new THREE.ConeGeometry(0.4, 0.2, 16, 1, true),
+      new THREE.MeshStandardMaterial({
+        color: 0xDFE3E8,
+        metalness: 0.9,
+        roughness: 0.2,
+        side: THREE.DoubleSide,
+      })
+    );
+    orbDish.position.set(0, 0, -1.0);
+    orbDish.rotation.x = Math.PI;
+    orbitSatellite.add(orbDish);
+
+    // Telemetry Beacon (The Signal Light traveling on orbit)
+    const orbEmitterCore = new THREE.Mesh(
+      new THREE.SphereGeometry(0.2, 16, 16),
+      new THREE.MeshBasicMaterial({ color: 0xF7F5FF })
+    );
+    orbEmitterCore.position.set(0, 0, 1.0);
+    orbitSatellite.add(orbEmitterCore);
+
+    const orbEmitterHalo = new THREE.Mesh(
+      new THREE.PlaneGeometry(3.2, 3.2),
+      new THREE.MeshBasicMaterial({
+        map: glowTex,
+        color: 0xC084FC,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      })
+    );
+    orbEmitterHalo.position.set(0, 0, 1.0);
+    orbitSatellite.add(orbEmitterHalo);
+
+    orbitGroup.add(orbitSatellite);
+
+    // 8. TITLE ORBITAL PATH & CONTROLLED LIGHT SWEEP (Phases 10-11)
+    const titleOrbitGroup = new THREE.Group();
+    titleOrbitGroup.position.set(0, 0, 15);
+    scene.add(titleOrbitGroup);
+
+    // Thin violet arc behind ORBITAL 26
+    const titleArcRadius = 52.0;
+    const titleArcCount = 120;
+    const titleArcPos = new Float32Array(titleArcCount * 3);
+    for (let i = 0; i < titleArcCount; i++) {
+      const frac = (i / (titleArcCount - 1));
+      const angle = (frac - 0.5) * Math.PI * 0.65;
+      titleArcPos[i * 3] = titleArcRadius * Math.sin(angle);
+      titleArcPos[i * 3 + 1] = -titleArcRadius * Math.cos(angle) + 42.0;
+      titleArcPos[i * 3 + 2] = -5.0;
+    }
+    const titleArcGeo = new THREE.BufferGeometry();
+    titleArcGeo.setAttribute('position', new THREE.BufferAttribute(titleArcPos, 3));
+    titleArcGeo.setDrawRange(0, 0);
+
+    const titleArcMat = new THREE.LineBasicMaterial({
+      color: 0x8B5CF6,
+      transparent: true,
+      opacity: motionRef.current.titleOrbitAlpha,
+      blending: THREE.AdditiveBlending,
+    });
+    const titleArcLine = new THREE.Line(titleArcGeo, titleArcMat);
+    titleOrbitGroup.add(titleArcLine);
+
+    // Controlled Cinematic Light Sweep
+    const sweepPointLight = new THREE.PointLight(0xC084FC, 0, 95);
+    sweepPointLight.position.set(motionRef.current.sweepLightX, 1.5, 10);
+    scene.add(sweepPointLight);
+
+    const sweepBeamGeo = new THREE.PlaneGeometry(35, 1.8);
+    const sweepBeamMat = new THREE.MeshBasicMaterial({
+      map: glowTex,
+      color: 0xD8B4FE,
+      transparent: true,
+      opacity: 0,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const sweepBeamMesh = new THREE.Mesh(sweepBeamGeo, sweepBeamMat);
+    sweepBeamMesh.position.set(motionRef.current.sweepLightX, 1.5, 10);
+    scene.add(sweepBeamMesh);
 
     // 9. 3D CONSTELLATION NODES FOR CHALLENGES SECTOR
     const constellationGroup = new THREE.Group();
@@ -740,7 +820,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     );
     constellationGroup.add(constLineMesh);
 
-    // 10. RADIANT SINGULARITY ACCRETION VORTEX (REGISTRATION PORTAL)
+    // 10. REGISTRATION PORTAL ACCRETION VORTEX
     const portalGroup = new THREE.Group();
     portalGroup.position.set(0, 0, -385);
 
@@ -782,7 +862,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     portalGroup.add(portalAccretion);
     scene.add(portalGroup);
 
-    // 11. MASTER GSAP CINEMATIC BOOT TIMELINE (ZERO-GLITCH ARCHITECTURE)
+    // 11. MASTER GSAP CINEMATIC BOOT TIMELINE — "THE SIGNAL"
     let bootTl = null;
 
     if (!propsRef.current.isBootComplete) {
@@ -793,127 +873,302 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       });
       bootTlRef.current = bootTl;
 
-      // PHASE 01: VOID & QUANTUM SINGULARITY EMERGENCE (0.0s -> 1.0s)
+      // ==========================================
+      // PHASE 0: COMPLETE DARKNESS (0.0s -> 0.5s)
+      // Viewport is almost black. No UI, no buttons, no spinners.
+      // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(0);
       }, null, 0.0);
 
-      bootTl.to(motionRef.current, {
-        singularityScale: 1.8,
-        singularityAlpha: 1.0,
-        anamorphicScaleX: 0.35,
-        anamorphicAlpha: 0.8,
-        duration: 1.0,
-        ease: 'power2.out',
-      }, 0.0);
-
-      // PHASE 02: IGNITION & RELATIVISTIC WARP ACCELERATION (1.0s -> 2.6s)
+      // ==========================================
+      // PHASE 1: THE SIGNAL (0.5s -> 2.8s)
+      // Solitary 1-3px violet point appears at center. Fades in softly.
+      // Camera begins slow, physical forward travel in 3D.
+      // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(1);
-      }, null, 1.0);
+        playSignalTone();
+      }, null, 0.5);
 
       bootTl.to(motionRef.current, {
-        anamorphicScaleX: 1.6,
-        anamorphicAlpha: 1.0,
-        shockwaveRadius: 35.0,
-        shockwaveAlpha: 0.9,
-        duration: 0.6,
-        ease: 'power3.in',
-      }, 1.0);
+        signalPointAlpha: 1.0,
+        signalGlowAlpha: 0.85,
+        duration: 1.4,
+        ease: 'power2.inOut',
+      }, 0.5);
 
       bootTl.to(motionRef.current, {
-        warpFactor: 1.0, // Stretches LineSegments along Z
-        warpOpacity: 0.95,
-        starOpacity: 0.9,
-        camZ: 170,
-        duration: 1.5,
-        ease: 'power3.inOut',
-      }, 1.1);
-
-      // Fade out singularity core after ignition
-      bootTl.to(motionRef.current, {
-        singularityAlpha: 0.0,
-        anamorphicAlpha: 0.0,
-        shockwaveAlpha: 0.0,
-        duration: 0.6,
+        camZ: 190,
+        duration: 2.3,
         ease: 'power2.out',
-      }, 1.8);
+      }, 0.5);
 
-      // PHASE 03: SPACE FORMS & ORBIT REVEAL (2.6s -> 4.2s)
+      // ==========================================
+      // PHASE 2: SPACE REVEALS ITSELF (2.8s -> 5.0s)
+      // Multi-depth stars gradually emerge. Very subtle purple nebula.
+      // Space remains vast and empty.
+      // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(2);
-      }, null, 2.6);
+      }, null, 2.8);
 
       bootTl.to(motionRef.current, {
-        warpFactor: 0.0, // Decelerates warp streaks smoothly back to pinpoint stars
-        warpOpacity: 0.0,
-        orbitDrawProgress: 1.0, // Dynamic trajectory vector drawing
-        solarDeployAngle: 1.57, // Unfolds CubeSat solar arrays
-        camZ: 125,
-        fov: 52,
-        duration: 1.6,
-        ease: 'power2.out',
-      }, 2.6);
+        starDeepAlpha: 0.65,
+        starMidAlpha: 0.70,
+        nebulaAlpha: 0.035,
+        camZ: 130,
+        duration: 2.2,
+        ease: 'power2.inOut',
+      }, 2.8);
 
-      // PHASE 04: ASTRONOMICAL REVEAL (ATMOSPHERIC SUNRISE) (4.2s -> 5.5s)
+      // ==========================================
+      // PHASE 3: THE SIGNAL IS REVEALED (5.0s -> 7.8s)
+      // Point is attached to an orbital spacecraft.
+      // Silhouette -> subtle edge rim light -> surface details -> violet illumination.
+      // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(3);
-      }, null, 4.2);
+      }, null, 5.0);
 
+      // Camera gets close to the spacecraft
       bootTl.to(motionRef.current, {
-        sunIntensity: 2.8,
-        atmosphereAlpha: 1.0,
-        camZ: 108,
-        fov: 46,
-        duration: 1.3,
-        ease: 'power2.out',
-        onUpdate: () => {
-          sunLight.intensity = motionRef.current.sunIntensity;
-          atmosUniforms.uAtmosphereAlpha.value = motionRef.current.atmosphereAlpha;
-        },
-      }, 4.2);
+        camZ: 65,
+        camX: 1.2,
+        camY: 0.6,
+        lookZ: -35,
+        lookX: 0.2,
+        duration: 2.8,
+        ease: 'power2.inOut',
+      }, 5.0);
 
-      // PHASE 05: SEDS REC IDENTITY (5.5s -> 6.5s)
+      // Step A: Silhouette against stars
+      bootTl.to(motionRef.current, {
+        satSilhouetteAlpha: 1.0,
+        duration: 0.8,
+        ease: 'power1.out',
+      }, 5.0);
+
+      // Step B: Subtle edge light
+      bootTl.to(motionRef.current, {
+        satRimLight: 0.9,
+        duration: 1.0,
+        ease: 'power2.out',
+      }, 5.6);
+
+      // Step C & D: Surface details & solar deploy & forward violet illumination
+      bootTl.to(motionRef.current, {
+        satFillLight: 0.6,
+        satSolarDeploy: 1.57,
+        satEmitterLight: 2.2,
+        duration: 1.4,
+        ease: 'power2.out',
+      }, 6.2);
+
+      // ==========================================
+      // PHASE 4: PLANETARY HORIZON (7.8s -> 10.5s)
+      // Camera sweeps forward past the introductory spacecraft.
+      // The introductory spacecraft smoothly glides past camera and exits the scene.
+      // Massive realistic Earth horizon revealed!
+      // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(4);
-      }, null, 5.5);
+      }, null, 7.8);
+
+      // Intro spacecraft glides past camera shoulder and vanishes
+      bootTl.to(introSpacecraftGroup.position, {
+        x: -20,
+        y: 10,
+        z: 85,
+        duration: 2.4,
+        ease: 'power2.in',
+      }, 7.8);
 
       bootTl.to(motionRef.current, {
-        camZ: 105,
-        duration: 1.0,
-        ease: 'power1.out',
-      }, 5.5);
+        introSatOpacity: 0.0,
+        duration: 1.5,
+        ease: 'power2.in',
+        onComplete: () => {
+          introSpacecraftGroup.visible = false;
+        }
+      }, 8.2);
 
-      // PHASE 06: ORBITAL 26 REVEAL (6.5s -> 7.6s)
+      // Camera moves to view Earth from orbit
+      bootTl.to(motionRef.current, {
+        camZ: 42,
+        camX: 6.5,
+        camY: 3.2,
+        lookX: 14.0,
+        lookY: -8.0,
+        lookZ: -20.0,
+        earthRevealAlpha: 1.0,
+        sunIntensity: 2.8,
+        atmosphereAlpha: 1.0,
+        starDeepAlpha: 0.85,
+        starMidAlpha: 0.90,
+        duration: 2.7,
+        ease: 'power3.inOut',
+      }, 7.8);
+
+      // ==========================================
+      // PHASE 5: ORBIT (10.5s -> 13.0s)
+      // Single elegant orbital trajectory curve appears and draws progressively.
+      // Luminous satellite travels along it with 100% precision.
+      // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(5);
-      }, null, 6.5);
+      }, null, 10.5);
 
       bootTl.to(motionRef.current, {
-        duration: 1.1,
-      }, 6.5);
+        orbitLineAlpha: 0.55,
+        orbitDrawProgress: 1.0,
+        orbitBeaconAlpha: 1.0,
+        camX: 9.0,
+        camY: 4.8,
+        camZ: 38.0,
+        duration: 2.5,
+        ease: 'power2.inOut',
+      }, 10.5);
 
-      // PHASE 07: SEAMLESS HERO HANDOFF (7.6s -> 8.5s)
+      // ==========================================
+      // PHASE 6: CAMERA PASS (13.0s -> 15.5s)
+      // Camera travels along trajectory.
+      // Camera glides into darker region of space. Earth moves out of view.
+      // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(6);
-      }, null, 7.6);
+      }, null, 13.0);
 
       bootTl.to(motionRef.current, {
-        duration: 0.9,
-      }, 7.6);
+        camX: -4.0,
+        camY: 1.0,
+        camZ: 55.0,
+        lookX: 0.0,
+        lookY: 0.0,
+        lookZ: 0.0,
+        duration: 2.5,
+        ease: 'power2.inOut',
+      }, 13.0);
 
-      // PHASE 08: LIVE FULL INTERACTIVE STATE (8.5s)
+      // ==========================================
+      // PHASE 7: EVERYTHING GOES DARK AGAIN (15.5s -> 16.8s)
+      // Environment dims down. Orbital line fades. Brief cosmic pause.
+      // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(7);
-      }, null, 8.5);
-    }
+      }, null, 15.5);
 
-    // High-speed skip handler without visual pop
-    container.__skipBoot = () => {
-      if (bootTl && bootTl.isActive()) {
-        bootTl.timeScale(8.0); // Ultra-fast smooth scrub
-      }
-    };
+      bootTl.to(motionRef.current, {
+        orbitLineAlpha: 0.0,
+        orbitBeaconAlpha: 0.0,
+        signalPointAlpha: 0.0,
+        signalGlowAlpha: 0.0,
+        sunIntensity: 0.35,
+        atmosphereAlpha: 0.3,
+        duration: 1.0,
+        ease: 'power2.out',
+      }, 15.5);
+
+      // ==========================================
+      // PHASE 8: SEDS REC REVEAL (16.8s -> 18.6s)
+      // Typography appears in center: "SEDS REC" & "RAJALAKSHMI ENGINEERING COLLEGE"
+      // ==========================================
+      bootTl.call(() => {
+        if (onBootProgress) onBootProgress(8);
+      }, null, 16.8);
+
+      bootTl.to(motionRef.current, {
+        camX: 0,
+        camY: 0,
+        camZ: 68,
+        lookX: 0,
+        lookY: 0,
+        lookZ: 0,
+        duration: 1.8,
+        ease: 'power1.out',
+      }, 16.8);
+
+      // ==========================================
+      // PHASE 9: PRESENTS (18.6s -> 19.6s)
+      // Subtle violet typography appears beneath SEDS REC.
+      // ==========================================
+      bootTl.call(() => {
+        if (onBootProgress) onBootProgress(9);
+      }, null, 18.6);
+
+      // ==========================================
+      // PHASE 10: ORBITAL 26 (19.6s -> 21.8s)
+      // Thin orbital path forms behind title. Large premium typography reveal.
+      // ==========================================
+      bootTl.call(() => {
+        if (onBootProgress) onBootProgress(10);
+      }, null, 19.6);
+
+      bootTl.to(motionRef.current, {
+        titleOrbitAlpha: 0.5,
+        titleOrbitProgress: 1.0,
+        duration: 1.8,
+        ease: 'power2.out',
+      }, 19.6);
+
+      // ==========================================
+      // PHASE 11: THE LIGHT SWEEP (21.8s -> 23.8s)
+      // Soft violet light source sweeps across trajectory behind "ORBITAL 26".
+      // Space catches subtle illumination.
+      // ==========================================
+      bootTl.call(() => {
+        if (onBootProgress) onBootProgress(11);
+        playLightSweepTone();
+      }, null, 21.8);
+
+      bootTl.to(motionRef.current, {
+        sweepLightX: 90.0,
+        sweepLightAlpha: 1.0,
+        sunIntensity: 1.8,
+        atmosphereAlpha: 0.8,
+        duration: 2.0,
+        ease: 'power2.inOut',
+      }, 21.8);
+
+      // ==========================================
+      // PHASE 12: EVENT TAGLINE (23.8s -> 25.4s)
+      // "BUILD BEYOND THE KNOWN." + "48-HOUR SPACE SPRINT • CHENNAI, INDIA"
+      // ==========================================
+      bootTl.call(() => {
+        if (onBootProgress) onBootProgress(12);
+      }, null, 23.8);
+
+      // ==========================================
+      // PHASE 13: TRANSITION INTO WEBSITE HERO (25.4s -> 27.2s)
+      // Camera moves forward into Hero composition.
+      // Earth settles into hero position on the right (38, 2, -10).
+      // Website hero typography takes over seamlessly.
+      // ==========================================
+      bootTl.call(() => {
+        if (onBootProgress) onBootProgress(13);
+      }, null, 25.4);
+
+      bootTl.to(motionRef.current, {
+        camX: 0,
+        camY: 0,
+        camZ: 105,
+        lookX: 0,
+        lookY: 0,
+        lookZ: 0,
+        earthPosX: 38,
+        earthPosY: 2,
+        earthPosZ: -10,
+        earthScale: 1.0,
+        sunIntensity: 2.8,
+        atmosphereAlpha: 1.0,
+        orbitLineAlpha: 0.45,
+        orbitBeaconAlpha: 1.0,
+        titleOrbitAlpha: 0.0,
+        sweepLightAlpha: 0.0,
+        duration: 1.8,
+        ease: 'power3.inOut',
+      }, 25.4);
+    }
 
     // 12. WINDOW RESIZE HANDLER
     const handleResize = () => {
@@ -922,7 +1177,6 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
-      updateCelestialBase(width);
     };
     window.addEventListener('resize', handleResize);
 
@@ -930,7 +1184,6 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     let animId;
     let clock = new THREE.Clock();
     let satAngle = 0;
-    let moonAngle = 0.4;
     let smoothScroll = 0;
     const currentCamPos = new THREE.Vector3(0, 0, motionRef.current.camZ);
     const targetCamPos = new THREE.Vector3(0, 0, motionRef.current.camZ);
@@ -944,81 +1197,81 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       const p = propsRef.current;
       const m = motionRef.current;
 
-      // 1. Update Singularity & Anamorphic Flare
-      singCoreMesh.scale.setScalar(m.singularityScale);
-      singCoreMat.opacity = m.singularityAlpha;
-      singCoronaMesh.scale.setScalar(m.singularityScale * 1.5);
-      singCoronaMat.opacity = m.singularityAlpha * 0.9;
-      anamorphicMesh.scale.x = m.anamorphicScaleX;
-      anamorphicMat.opacity = m.anamorphicAlpha;
-
-      if (m.shockwaveAlpha > 0.01) {
-        shockwaveMesh.scale.setScalar(m.shockwaveRadius);
-        shockwaveMat.opacity = m.shockwaveAlpha;
+      // 1. Introductory spacecraft updates
+      introSpacecraftGroup.visible = m.introSatOpacity > 0.01;
+      if (introSpacecraftGroup.visible) {
+        signalCoreMat.opacity = m.signalPointAlpha * m.introSatOpacity;
+        signalHaloMat.opacity = m.signalGlowAlpha * m.introSatOpacity;
+        signalPointLight.intensity = m.satEmitterLight * m.introSatOpacity;
+        satRimLight.intensity = m.satRimLight;
+        satFillLight.intensity = m.satFillLight;
+        solarHingeLeft.rotation.y = -m.satSolarDeploy;
+        solarHingeRight.rotation.y = m.satSolarDeploy;
+        introSpacecraftGroup.rotation.y = elapsed * 0.04;
+        introSpacecraftGroup.rotation.x = Math.sin(elapsed * 0.02) * 0.08;
+        signalHaloMesh.quaternion.copy(camera.quaternion);
       }
 
-      // Swirl stardust into singularity during Phase 0
-      if (m.singularityAlpha > 0.05) {
-        const dPos = dustGeo.attributes.position.array;
-        for (let i = 0; i < dustCount; i++) {
-          const i3 = i * 3;
-          dPos[i3] += dustVel[i3];
-          dPos[i3 + 1] += dustVel[i3 + 1];
-          dPos[i3 + 2] += dustVel[i3 + 2];
-        }
-        dustGeo.attributes.position.needsUpdate = true;
-        dustMat.opacity = m.singularityAlpha * 0.75;
-      }
+      // 2. Stars & Nebula opacity
+      starDeepMat.opacity = m.starDeepAlpha;
+      starMidMat.opacity = m.starMidAlpha;
+      nebulaGroup.children.forEach((mesh) => {
+        mesh.material.opacity = m.nebulaAlpha;
+      });
 
-      // 2. Update Relativistic Warp Line Streaks
-      warpMat.opacity = m.warpOpacity;
-      if (m.warpOpacity > 0.01) {
-        const warpPosArr = warpLineGeo.attributes.position.array;
-        const stretchZ = m.warpFactor * 135.0;
+      // 3. Earth & Atmosphere shader updates
+      sunLight.intensity = m.sunIntensity;
+      atmosUniforms.uAtmosphereAlpha.value = m.atmosphereAlpha;
 
-        for (let i = 0; i < warpCount; i++) {
-          const idx = i * 6;
-          const bz = warpBaseZ[i];
-          // Head
-          warpPosArr[idx + 2] = bz;
-          // Tail stretches forward along Z vector
-          warpPosArr[idx + 5] = bz + stretchZ;
-        }
-        warpLineGeo.attributes.position.needsUpdate = true;
-      }
-
-      // 3. Update Orbital Trajectory Spline & Satellite Deployment
+      // 4. Single Orbital Trajectory & Precision Satellite Tracking
+      orbitMat.opacity = m.orbitLineAlpha;
       orbitGeo.setDrawRange(0, Math.floor(m.orbitDrawProgress * orbitPointsCount));
-      solarHingeLeft.rotation.y = -m.solarDeployAngle;
-      solarHingeRight.rotation.y = m.solarDeployAngle;
+      
+      satAngle += 0.0055;
+      const ox = orbitRadius * Math.cos(satAngle);
+      const oz = orbitRadius * Math.sin(satAngle);
+      orbitSatellite.position.set(ox, 0, oz);
+      orbitSatellite.rotation.y = -satAngle + Math.PI / 2;
+      orbEmitterHalo.quaternion.copy(camera.quaternion);
+      orbitSatellite.visible = m.orbitBeaconAlpha > 0.01;
 
-      // 4. Continuous Smooth Scroll Calculation (Direct from window scroll, 60fps true sync)
+      // 5. Title Orbit & Light Sweep
+      titleArcMat.opacity = m.titleOrbitAlpha;
+      titleArcGeo.setDrawRange(0, Math.floor(m.titleOrbitProgress * titleArcCount));
+      sweepPointLight.position.x = m.sweepLightX;
+      sweepPointLight.intensity = m.sweepLightAlpha * 3.5;
+      sweepBeamMesh.position.x = m.sweepLightX;
+      sweepBeamMat.opacity = m.sweepLightAlpha * 0.85;
+      sweepBeamMesh.quaternion.copy(camera.quaternion);
+
+      // 6. Scroll & Interactive Hero Tracking
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const rawScroll = docHeight > 0 ? Math.max(0, Math.min(1, window.scrollY / docHeight)) : 0;
       smoothScroll = THREE.MathUtils.lerp(smoothScroll, rawScroll, 0.075);
 
-      // Continuous Hermite Waypoint targets
       const wp = getScrollWaypoint(smoothScroll);
 
       const targetSingularity = (p.isModalOpen || p.activeSection === 'register') ? 0.04 : 1.0;
       m.singularityFactor = THREE.MathUtils.lerp(m.singularityFactor, targetSingularity, 0.06);
 
-      if (p.isBootComplete || m.camZ <= 112) {
+      if (p.isBootComplete) {
         targetCamPos.copy(wp.cam);
         targetLookAt.copy(wp.look);
         targetEarthPos.copy(wp.earth);
         targetEarthScale = wp.scale;
       } else {
-        targetCamPos.set(0, 0, m.camZ);
-        targetLookAt.set(0, 0, 0);
-        targetEarthPos.set(38, 2, -10);
-        targetEarthScale = 1.0;
+        targetCamPos.set(m.camX, m.camY, m.camZ);
+        targetLookAt.set(m.lookX, m.lookY, m.lookZ);
+        targetEarthPos.set(m.earthPosX, m.earthPosY, m.earthPosZ);
+        targetEarthScale = m.earthScale;
       }
 
       // Responsive adjustments for mobile/tablet (< 1024px)
       if (width < 1024) {
-        targetEarthPos.set(0, 18, -25);
-        targetEarthScale *= 0.75;
+        if (p.isBootComplete) {
+          targetEarthPos.set(0, 18, -25);
+          targetEarthScale *= 0.75;
+        }
       }
 
       // 3-Layer Mouse Parallax
@@ -1038,49 +1291,20 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       camera.fov = m.fov;
       camera.updateProjectionMatrix();
 
-      // Celestial position lerp - 100% continuous and smooth!
-      if (p.isBootComplete || m.sunIntensity > 0.8) {
-        celestialSystem.position.lerp(targetEarthPos, 0.06);
-      }
-
-      // Celestial scale with singularity collapse
+      // Celestial position lerp
+      celestialSystem.position.lerp(targetEarthPos, 0.06);
       const currentScale = targetEarthScale * m.singularityFactor;
       celestialSystem.scale.setScalar(currentScale);
 
-      // Parallax layer 1: background stars
-      starField.position.x = mouseFactorX * -3.0;
-      starField.position.y = mouseFactorY * 2.2;
-      starMat.opacity = m.starOpacity;
-
-      // Parallax layer 2: PHYSICAL PLANETARY SCROLL ROLL
-      // Earth rolls smoothly on its axis with scroll inertia + time drift!
+      // Planetary rotation & cloud drift
       planetMesh.rotation.y = elapsed * 0.012 + smoothScroll * 2.2;
       cloudsMesh.rotation.y = elapsed * 0.018 + smoothScroll * 2.6;
 
-      // Parallax layer 3: orbiting satellite
-      satAngle += 0.0065;
-      const sx = orbitRadius * Math.cos(satAngle);
-      const sz = orbitRadius * Math.sin(satAngle);
-      const satPos = new THREE.Vector3(sx, 0, sz);
-      satPos.applyAxisAngle(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(64));
-      satPos.applyAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(-26));
-      satGroup.position.copy(satPos);
-
-      // Satellite beacons blinking
-      const pulseGreen = Math.sin(elapsed * 8.0) > 0.3 ? 1.0 : 0.2;
-      const pulseViolet = Math.sin(elapsed * 4.0) > 0.1 ? 1.0 : 0.15;
-      beaconGreen.scale.setScalar(pulseGreen * 1.2 + 0.2);
-      beaconViolet.scale.setScalar(pulseViolet * 1.3 + 0.2);
-
-      // Distant Moon
-      moonAngle += 0.003;
-      const lunarDist = 60;
-      moonMesh.position.set(
-        lunarDist * Math.cos(moonAngle),
-        lunarDist * 0.25 * Math.sin(moonAngle),
-        lunarDist * 0.7 * Math.sin(moonAngle) - 25
-      );
-      moonMesh.rotation.y = elapsed * 0.01;
+      // Parallax star drift
+      starDeepField.position.x = mouseFactorX * -2.5;
+      starDeepField.position.y = mouseFactorY * 1.8;
+      starDeepField.rotation.y = elapsed * 0.0004;
+      nebulaGroup.rotation.z = elapsed * 0.0006;
 
       // Constellation Sector Visibility & Active Node Highlighting
       const inChallenges = p.activeSection === 'challenges';
@@ -1089,9 +1313,9 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         constellationGroup.rotation.z = elapsed * 0.0008;
         challengeNodeMeshes.forEach((meshObj, idx) => {
           const isSelected = p.activeChallengeIndex === idx;
-          const targetScale = isSelected ? 1.45 : 1.0;
+          const targetNodeScale = isSelected ? 1.45 : 1.0;
           meshObj.group.scale.setScalar(
-            THREE.MathUtils.lerp(meshObj.group.scale.x, targetScale, 0.08)
+            THREE.MathUtils.lerp(meshObj.group.scale.x, targetNodeScale, 0.08)
           );
           meshObj.halo.material.opacity = isSelected ? 0.7 : 0.25;
         });
@@ -1110,10 +1334,6 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         portalHalo.material.opacity = THREE.MathUtils.lerp(portalHalo.material.opacity, 0.0, 0.08);
         portalAccretion.material.opacity = THREE.MathUtils.lerp(portalAccretion.material.opacity, 0.0, 0.08);
       }
-
-      // Ambient star & nebula drift
-      starField.rotation.y = elapsed * 0.0005;
-      nebulaGroup.rotation.z = elapsed * 0.0008;
 
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);

@@ -23,8 +23,8 @@ export default function HeroSection({
   const parallaxX = (mousePos.x - 0.5) * 4;
   const parallaxY = (mousePos.y - 0.5) * 3;
 
-  const isRevealing = bootPhase >= 6;
-  const isFullyLive = bootPhase >= 7;
+  const isRevealing = bootPhase >= 12;
+  const isFullyLive = bootPhase >= 13;
 
   return (
     <section 
