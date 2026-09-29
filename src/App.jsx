@@ -15,35 +15,12 @@ import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import BootSequence from './components/BootSequence';
 import RegistrationPortal from './components/RegistrationPortal';
-import AdminPortal from './components/AdminPortal';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [activeChallengeIndex, setActiveChallengeIndex] = useState(0);
-
-  // Check URL parameters for organizer direct access (?admin=1 or #admin)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('admin') === '1' || params.get('admin') === 'true' || window.location.hash === '#admin') {
-        setIsAdminOpen(true);
-      }
-
-      // Keyboard shortcut: Ctrl+Shift+A or Cmd+Shift+A
-      const handleKeyDown = (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
-          e.preventDefault();
-          setIsAdminOpen((prev) => !prev);
-        }
-      };
-
-      window.addEventListener('keydown', handleKeyDown);
-      return () => window.removeEventListener('keydown', handleKeyDown);
-    }
-  }, []);
 
   // Boot sequence state
   const isAlreadyBooted = typeof window !== 'undefined' && sessionStorage.getItem('seds_boot_completed') === 'true';
@@ -219,7 +196,6 @@ export default function App() {
         <Footer
           onNavigate={handleNavigate}
           onOpenRegister={() => setIsRegisterOpen(true)}
-          onOpenAdmin={() => setIsAdminOpen(true)}
         />
       </div>
 
@@ -227,12 +203,6 @@ export default function App() {
       <RegistrationPortal
         isOpen={isRegisterOpen}
         onClose={() => setIsRegisterOpen(false)}
-      />
-
-      {/* Restricted Organizer Telemetry Clearance Desk */}
-      <AdminPortal
-        isOpen={isAdminOpen}
-        onClose={() => setIsAdminOpen(false)}
       />
     </div>
   );

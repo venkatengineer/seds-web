@@ -35,21 +35,6 @@ export default function CountdownSection() {
     };
   });
 
-  useEffect(() => {
-    fetch('/api/settings')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.registration_phase_1_deadline) {
-          const parsed = new Date(data.registration_phase_1_deadline).getTime();
-          if (!isNaN(parsed)) {
-            setTargetDate(parsed);
-          }
-        }
-      })
-      .catch(() => {
-        // Fallback target date already initialized
-      });
-  }, []);
 
   useEffect(() => {
     const updateCountdown = () => {

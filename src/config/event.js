@@ -87,12 +87,17 @@ export const SEDS_PROJECTS = [
   },
 ];
 
+export const REGISTRATION_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfEC7Sndyksvk125Jr8TzwKhKVcqiFLFZwL3chNYuNbataJRg/viewform?usp=sharing&ouid=105886379411425310581";
+export const REGISTRATION_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfEC7Sndyksvk125Jr8TzwKhKVcqiFLFZwL3chNYuNbataJRg/viewform?embedded=true";
+
 export const EVENT_CONFIG = {
   name: "ORBITAL 26",
   presentsText: "PRESENTS",
   heroHeadline: ["BUILD", "BEYOND", "THE KNOWN."],
   manifesto: "A 48-hour student space technology hackathon bringing together engineers, computational architects, and physical scientists to build the software, hardware, and algorithms that belong in space.",
   edition: "2026 EDITION // 48-HOUR SPRINT",
+  registrationFormUrl: REGISTRATION_FORM_URL,
+  registrationFormEmbedUrl: REGISTRATION_FORM_EMBED_URL,
   prizeSummary: "₹50,000",
   grandPrize: "₹50,000",
   grandPrizeNumeric: "₹50,000",
