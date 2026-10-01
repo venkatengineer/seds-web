@@ -92,13 +92,18 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             </button>
           </div>
           <div>
+            <button onClick={() => onNavigate('partners')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
+              06 — Academic & Chapter Alliance
+            </button>
+          </div>
+          <div>
             <button onClick={() => onNavigate('mission')} className="text-[#E2DEEC]/80 hover:text-white transition-colors cursor-pointer">
-              06 — Chapter Mission
+              07 — Chapter Mission
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('identity')} className="text-[#E2DEEC]/80 hover:text-white transition-colors cursor-pointer">
-              07 — SEDS REC Identity
+              08 — SEDS REC Identity
             </button>
           </div>
         </div>

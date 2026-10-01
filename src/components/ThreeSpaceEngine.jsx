@@ -17,7 +17,7 @@ import { playSignalTone, playLightSweepTone } from '../utils/audio';
 // Continuous orbital trajectory milestones along scroll progress (0.00 -> 1.00)
 // Restores the dynamic, prominent Earth movement and deep-space orbital sweep from the 1st prototype
 // Harmonized with the Hackathon-First layout:
-// Hero -> Tracks -> Prizes -> Timeline -> Countdown -> FAQ -> Mission/Identity -> Partners/Footer
+// Hero -> Tracks -> Prizes -> Timeline -> Countdown -> FAQ -> Partners -> Mission & Identity -> Footer
 const SCROLL_MILESTONES = [
   // 0.00: HERO APEX — Monumental Earth limb on the right with atmospheric rim glow
   { t: 0.00, cam: new THREE.Vector3(0, 0, 105), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(36, 1.5, -10), scale: 1.00 },
@@ -25,15 +25,17 @@ const SCROLL_MILESTONES = [
   { t: 0.16, cam: new THREE.Vector3(2, -2, 98), look: new THREE.Vector3(-2, -1, 0), earth: new THREE.Vector3(43, -6, -20), scale: 0.94 },
   // 0.30: PRIZES & REWARDS — Earth sweeps majestically into view with brilliant specular ocean shine
   { t: 0.30, cam: new THREE.Vector3(-3, 2, 92), look: new THREE.Vector3(2, 1, 0), earth: new THREE.Vector3(34, 4, -13), scale: 1.02 },
-  // 0.45: TIMELINE TRAJECTORY — Earth aligns with the traveling orbital flight trajectory beacon
-  { t: 0.45, cam: new THREE.Vector3(3, -2, 88), look: new THREE.Vector3(-2, -1, 0), earth: new THREE.Vector3(44, -4, -18), scale: 0.95 },
-  // 0.60: COUNTDOWN HORIZON — Earth aligns with the astronomical circular horizon arc
-  { t: 0.60, cam: new THREE.Vector3(0, -3, 89), look: new THREE.Vector3(1, -1, 0), earth: new THREE.Vector3(37, -4, -13), scale: 0.99 },
-  // 0.75: DIRECTIVES & FAQ — Wide orbit traverse, Earth sweeps horizontally across background depth
-  { t: 0.75, cam: new THREE.Vector3(-2, 2, 87), look: new THREE.Vector3(2, 0, 0), earth: new THREE.Vector3(43, -5, -19), scale: 0.94 },
-  // 0.88: SEDS CHAPTER MISSION & IDENTITY — Ascending perspective, Earth glides higher and closer, revealing southern hemisphere
-  { t: 0.88, cam: new THREE.Vector3(-4, 3, 92), look: new THREE.Vector3(3, 1, 0), earth: new THREE.Vector3(33, 6, -14), scale: 1.00 },
-  // 1.00: PARTNERS & FOOTER — Smooth orbital return into stable apex perspective
+  // 0.44: TIMELINE TRAJECTORY — Earth aligns with the traveling orbital flight trajectory beacon
+  { t: 0.44, cam: new THREE.Vector3(3, -2, 88), look: new THREE.Vector3(-2, -1, 0), earth: new THREE.Vector3(44, -4, -18), scale: 0.95 },
+  // 0.58: COUNTDOWN HORIZON — Earth aligns with the astronomical circular horizon arc
+  { t: 0.58, cam: new THREE.Vector3(0, -3, 89), look: new THREE.Vector3(1, -1, 0), earth: new THREE.Vector3(37, -4, -13), scale: 0.99 },
+  // 0.72: DIRECTIVES & FAQ — Wide orbit traverse, Earth sweeps horizontally across background depth
+  { t: 0.72, cam: new THREE.Vector3(-2, 2, 87), look: new THREE.Vector3(2, 0, 0), earth: new THREE.Vector3(43, -5, -19), scale: 0.94 },
+  // 0.84: PARTNERS & ALLIANCE — Smooth orbital sweep showcasing institutional alliance
+  { t: 0.84, cam: new THREE.Vector3(2, -1, 90), look: new THREE.Vector3(-1, 0, 0), earth: new THREE.Vector3(41, -2, -16), scale: 0.97 },
+  // 0.92: SEDS MISSION & IDENTITY — Ascending perspective, Earth glides higher and closer, revealing southern hemisphere
+  { t: 0.92, cam: new THREE.Vector3(-4, 3, 92), look: new THREE.Vector3(3, 1, 0), earth: new THREE.Vector3(33, 6, -14), scale: 1.00 },
+  // 1.00: FOOTER — Smooth orbital return into stable apex perspective
   { t: 1.00, cam: new THREE.Vector3(0, 0, 102), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(36, 1.5, -11), scale: 1.00 },
 ];
 

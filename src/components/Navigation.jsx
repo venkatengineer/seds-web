@@ -20,6 +20,7 @@ const NAV_LINKS = [
   { id: 'timeline', label: 'TIMELINE' },
   { id: 'countdown', label: 'DEADLINE' },
   { id: 'faq', label: 'FAQ' },
+  { id: 'partners', label: 'PARTNERS' },
   { id: 'mission', label: 'ABOUT SEDS' },
 ];
 

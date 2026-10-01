@@ -48,9 +48,9 @@ export default function App() {
       'timeline',
       'countdown',
       'faq',
+      'partners',
       'mission',
       'identity',
-      'partners',
     ];
 
     const observer = new IntersectionObserver(
@@ -179,16 +179,16 @@ export default function App() {
         {/* 5. Hackathon Directives & Clarification FAQs */}
         <FaqSection />
 
+        {/* 6. Institutional & Industry Collaboration Network */}
+        <SponsorsWall />
+
         {/* --- NON-HACKATHON / SEDS CHAPTER HERITAGE (Placed Last) --- */}
 
-        {/* 6. SEDS REC Chapter Mission */}
+        {/* 7. SEDS REC Chapter Mission */}
         <MissionSection onNavigate={handleNavigate} />
 
-        {/* 7. SEDS REC Student Identity & Laboratory Documentary */}
+        {/* 8. SEDS REC Student Identity & Laboratory Documentary */}
         <IdentitySection onNavigate={handleNavigate} />
-
-        {/* 8. Institutional & Industry Collaboration Network */}
-        <SponsorsWall />
 
         {/* 9. Chapter Lineage & Student Coordinator Footer */}
         <Footer
