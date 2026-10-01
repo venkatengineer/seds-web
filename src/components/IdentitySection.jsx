@@ -75,7 +75,7 @@ export default function IdentitySection({ onNavigate }) {
           </h2>
         </div>
         <div className="font-display text-xs tracking-[0.2em] text-[#C084FC] uppercase">
-          EVIDENCE OF REAL ENGINEERING
+          STUDENT SPACE EXPLORATION
         </div>
       </div>
 
@@ -181,7 +181,7 @@ export default function IdentitySection({ onNavigate }) {
             </div>
           </div>
 
-          {/* Sub-strip with authentic engineering proof */}
+          {/* Sub-strip with authentic student engineering metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-white/[0.06] text-[#A6A0B8] font-display text-[11px] tracking-wider uppercase">
             <div>
               <span className="text-[#8B5CF6] block text-base font-bold">100%</span>

@@ -33,10 +33,10 @@ export default function ProjectShowcaseSection({ onOpenRegister }) {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-16">
         <div>
           <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold">
-            // STUDENT HARDWARE PORTFOLIO
+            // SEDS REC HARDWARE PORTFOLIO
           </span>
           <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
-            ENGINEERING PROOF.
+            STUDENT PROJECTS.
           </h2>
         </div>
         <div className="font-display text-xs tracking-[0.2em] text-[#A6A0B8] uppercase">

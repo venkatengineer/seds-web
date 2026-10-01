@@ -6,8 +6,6 @@ import {
   Recycle, 
   Lightbulb, 
   ArrowUpRight, 
-  CheckCircle2, 
-  Sparkles,
   Layers
 } from 'lucide-react';
 import { EVENT_CONFIG } from '../config/event';
@@ -21,6 +19,12 @@ import { EVENT_CONFIG } from '../config/event';
  * 03. Autonomous & Communication Technology
  * 04. Sustainability in Space
  * 05. Miscellaneous / Open Innovation
+ * 
+ * Layout & Alignment Architecture:
+ * - 6-column symmetrical desktop grid (3 cards top row, 2 cards centered bottom row).
+ * - Identical card widths across all 5 tracks (33.3% each).
+ * - Exact vertical alignment baselines for Title, Subtitle, Description, Domain Badges, and CTA.
+ * - Interactive filter bar to spotlight specific tracks or view all 5 simultaneously.
  */
 
 const TRACK_ICONS = {
@@ -60,12 +64,16 @@ const TRACK_THEMES = {
 };
 
 export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
-  const [activeTrackId, setActiveTrackId] = useState(EVENT_CONFIG.tracks[0].id);
+  const [activeTrackId, setActiveTrackId] = useState(null);
   const tracks = EVENT_CONFIG.tracks;
 
   const handleTrackHover = (idx, id) => {
     setActiveTrackId(id);
     if (onNodeSelect) onNodeSelect(idx);
+  };
+
+  const handleFilterClick = (id) => {
+    setActiveTrackId(prev => (prev === id ? null : id));
   };
 
   return (
@@ -77,7 +85,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
       <span id="challenges" className="absolute -top-20" />
 
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-16">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-12">
         <div>
           <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
@@ -93,7 +101,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
       </div>
 
       {/* Overview Manifesto Banner */}
-      <div className="mb-12 p-6 sm:p-8 rounded-2xl border border-white/[0.08] bg-[#07030F]/60 backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="mb-10 p-6 sm:p-8 rounded-2xl border border-white/[0.08] bg-[#07030F]/60 backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1.5 max-w-3xl">
           <span className="font-display text-[10px] uppercase tracking-[0.25em] text-[#C084FC] font-semibold">
             INNOVATION DIRECTIVES
@@ -114,34 +122,81 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
         </div>
       </div>
 
-      {/* The 5 Tracks: High-Impact Editorial Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-        
+      {/* Interactive Domain Navigation Filter Pills */}
+      <div className="mb-12 flex flex-wrap items-center gap-2.5 pb-2">
+        <button
+          onClick={() => setActiveTrackId(null)}
+          className={`px-4 py-2 rounded-full border font-display text-xs uppercase tracking-wider transition-all duration-200 ${
+            activeTrackId === null
+              ? 'border-[#8B5CF6] bg-[#6D28D9]/25 text-[#F7F5FF] shadow-[0_0_15px_rgba(139,92,246,0.25)]'
+              : 'border-white/10 bg-white/[0.02] text-[#A6A0B8] hover:border-white/20 hover:text-[#F7F5FF]'
+          }`}
+        >
+          ALL TRACKS (5)
+        </button>
+
+        {tracks.map((track) => (
+          <button
+            key={track.id}
+            onClick={() => handleFilterClick(track.id)}
+            className={`px-4 py-2 rounded-full border font-display text-xs uppercase tracking-wider transition-all duration-200 flex items-center gap-2 ${
+              activeTrackId === track.id
+                ? 'border-[#8B5CF6] bg-[#6D28D9]/25 text-[#F7F5FF] shadow-[0_0_15px_rgba(139,92,246,0.25)]'
+                : 'border-white/10 bg-white/[0.02] text-[#A6A0B8] hover:border-white/20 hover:text-[#F7F5FF]'
+            }`}
+          >
+            <span className="text-[#8B5CF6] font-semibold">{track.number}.</span>
+            <span>{track.title}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* The 5 Tracks: Symmetrical 6-Column Layout (3 Cards Row 1, 2 Centered Cards Row 2) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-8 items-stretch">
         {tracks.map((track, idx) => {
           const Icon = TRACK_ICONS[track.id] || Layers;
           const theme = TRACK_THEMES[track.id] || TRACK_THEMES['space-defence'];
-          const isFeatured = idx === 0 || idx === 1;
+          const isHighlighted = activeTrackId === track.id;
+          const isDimmed = activeTrackId !== null && !isHighlighted;
+
+          // Responsive grid layout:
+          // Desktop (lg): 6 columns. Row 1 has items 0, 1, 2 (span 2 each). Row 2 has item 3 (col-start-2 span 2) and item 4 (span 2).
+          // Tablet (md): 2 columns. Items 0, 1, 2, 3 take 1 col. Item 4 spans 2 columns and centers at 50% width.
+          const gridPlacement = 
+            idx < 3
+              ? 'lg:col-span-2 md:col-span-1'
+              : idx === 3
+              ? 'lg:col-start-2 lg:col-span-2 md:col-span-1'
+              : 'lg:col-span-2 md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto w-full';
 
           return (
             <div
               key={track.id}
+              id={`track-card-${track.id}`}
               onMouseEnter={() => handleTrackHover(idx, track.id)}
-              className={`group relative rounded-3xl border bg-[#07030F]/80 backdrop-blur-xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-400 hover:-translate-y-1.5 overflow-hidden ${
-                idx === 4 ? 'md:col-span-2 lg:col-span-2' : ''
-              } ${theme.border} hover:border-[#8B5CF6] hover:shadow-[0_20px_60px_rgba(109,40,217,0.25)]`}
+              className={`group relative rounded-3xl border bg-[#07030F]/85 backdrop-blur-xl p-8 sm:p-9 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 overflow-hidden ${gridPlacement} ${
+                isHighlighted 
+                  ? 'border-[#8B5CF6] shadow-[0_20px_60px_rgba(109,40,217,0.35)] scale-[1.01]' 
+                  : isDimmed 
+                  ? 'border-white/[0.06] opacity-70' 
+                  : `${theme.border} hover:border-[#8B5CF6] hover:shadow-[0_20px_60px_rgba(109,40,217,0.25)]`
+              }`}
             >
-              {/* Soft Ambient Radial Light Behind Card on Hover */}
+              {/* Soft Ambient Radial Light Behind Card */}
               <div 
-                className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none -z-10 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+                className={`absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none -z-10 transition-opacity duration-500 ${
+                  isHighlighted ? 'opacity-40' : 'opacity-0 group-hover:opacity-30'
+                }`}
                 style={{
                   background: `radial-gradient(circle, ${theme.glow} 0%, transparent 70%)`,
                   filter: 'blur(50px)',
                 }}
               />
 
-              {/* Card Top: Track Number, Icon & Chapter Badge */}
-              <div>
-                <div className="flex items-center justify-between mb-6">
+              {/* Card Main Body */}
+              <div className="flex flex-col flex-1">
+                {/* 1. Card Top: Icon, Track Number & Track Badge */}
+                <div className="flex items-center justify-between mb-5 h-10">
                   <div className="flex items-center gap-3">
                     <span className="w-10 h-10 rounded-2xl border border-white/10 bg-white/[0.03] flex items-center justify-center text-[#C084FC] group-hover:border-[#8B5CF6]/50 group-hover:bg-[#4C1D95]/20 group-hover:text-white transition-all duration-300">
                       <Icon size={18} />
@@ -156,33 +211,31 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
                   </span>
                 </div>
 
-                {/* Track Title (Verbatim from DOCX) */}
-                <h3 className="font-editorial text-2xl sm:text-3xl font-bold tracking-tight text-[#F7F5FF] leading-snug group-hover:text-white transition-colors">
+                {/* 2. Track Title: Locked min-height for uniform alignment */}
+                <h3 className="font-editorial text-2xl sm:text-[1.65rem] font-bold tracking-tight text-[#F7F5FF] leading-snug group-hover:text-white transition-colors min-h-[4.25rem] flex items-start">
                   {track.name}
                 </h3>
 
-                {/* Subtitle description */}
-                {track.subtitle && (
-                  <div className="font-display text-xs text-[#8B5CF6] uppercase tracking-wider mt-2 font-medium">
-                    {track.subtitle}
-                  </div>
-                )}
+                {/* 3. Subtitle description: Locked min-height */}
+                <div className="font-display text-xs text-[#8B5CF6] uppercase tracking-wider font-medium min-h-[2.5rem] flex items-center mt-1 leading-normal">
+                  {track.subtitle}
+                </div>
 
-                {/* Track Core Description (Verbatim from DOCX) */}
-                <p className="font-sans text-sm sm:text-base text-[#A6A0B8] font-light leading-relaxed mt-4">
+                {/* 4. Track Core Description: Locked min-height */}
+                <p className="font-sans text-sm text-[#A6A0B8] font-light leading-relaxed mt-3 min-h-[4.75rem]">
                   {track.desc}
                 </p>
 
-                {/* Key Ideation & Domain Badges */}
-                <div className="mt-6 pt-6 border-t border-white/[0.06] space-y-2">
-                  <span className="font-display text-[9px] uppercase tracking-widest text-[#C084FC] block font-semibold">
+                {/* 5. Key Focus Domains: Locked layout */}
+                <div className="mt-6 pt-5 border-t border-white/[0.08] flex-1 flex flex-col justify-start">
+                  <span className="font-display text-[9px] uppercase tracking-widest text-[#C084FC] block font-semibold mb-2.5">
                     FOCUS DOMAINS:
                   </span>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 min-h-[5.5rem] content-start">
                     {track.domains.map((dom, dIdx) => (
                       <span
                         key={dIdx}
-                        className="px-2.5 py-1 rounded-lg border border-white/[0.06] bg-white/[0.02] text-xs font-sans text-[#F7F5FF]/85 group-hover:border-white/15 transition-colors"
+                        className="px-2.5 py-1 rounded-lg border border-white/[0.08] bg-white/[0.02] text-xs font-sans text-[#F7F5FF]/85 group-hover:border-white/15 transition-colors"
                       >
                         {dom}
                       </span>
@@ -191,8 +244,8 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
                 </div>
               </div>
 
-              {/* Card Footer: Action */}
-              <div className="pt-8 mt-8 border-t border-white/[0.06] flex items-center justify-between gap-4">
+              {/* 6. Card Footer: Pinned at the bottom */}
+              <div className="pt-5 mt-6 border-t border-white/[0.08] flex items-center justify-between gap-4 shrink-0">
                 <span className="font-display text-[10px] text-[#A6A0B8] uppercase tracking-wider">
                   Open for All Crews (3–4 Members)
                 </span>
