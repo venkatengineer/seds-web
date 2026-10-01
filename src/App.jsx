@@ -42,10 +42,10 @@ export default function App() {
   useEffect(() => {
     const sections = [
       'hero',
-      'mission',
-      'identity',
       'tracks',
       'challenges',
+      'mission',
+      'identity',
       'timeline',
       'countdown',
       'prizes',
@@ -158,17 +158,17 @@ export default function App() {
           bootPhase={bootPhase}
         />
 
+        {/* 5 Official Hackathon Tracks: Positioned first right after Hero for instant discovery */}
+        <ChallengesSection
+          onOpenRegister={() => setIsRegisterOpen(true)}
+          onNodeSelect={(idx) => setActiveChallengeIndex(idx)}
+        />
+
         {/* SEDS REC Mission: Staggered sequential reveals */}
         <MissionSection onNavigate={handleNavigate} />
 
         {/* SEDS REC Identity: Real documentary evidence with image masks */}
         <IdentitySection onNavigate={handleNavigate} />
-
-        {/* 5 Official Hackathon Tracks */}
-        <ChallengesSection
-          onOpenRegister={() => setIsRegisterOpen(true)}
-          onNodeSelect={(idx) => setActiveChallengeIndex(idx)}
-        />
 
         {/* Orbital Trajectory Timeline: Single Curve with Traveling Luminous Beacon */}
         <TimelineSection />

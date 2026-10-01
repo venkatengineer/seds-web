@@ -178,12 +178,48 @@ export default function HeroSection({
           </button>
 
           <button
-            onClick={() => onNavigate('mission')}
-            className="flex items-center gap-2 font-display text-xs uppercase tracking-[0.2em] text-[#A6A0B8] hover:text-[#F7F5FF] transition-colors py-3 px-2 focus:outline-none"
+            onClick={() => onNavigate('tracks')}
+            className="group flex items-center gap-2.5 px-6 py-4 rounded-full border border-white/10 hover:border-[#8B5CF6]/60 bg-white/[0.03] hover:bg-[#8B5CF6]/15 font-display text-xs uppercase tracking-[0.18em] text-[#F7F5FF] hover:text-white transition-all duration-200 focus:outline-none shadow-[0_0_20px_rgba(0,0,0,0.5)]"
           >
-            <span>Explore Mission</span>
-            <ArrowDown size={13} className="text-[#8B5CF6]" />
+            <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
+            <span>View 5 Tracks</span>
+            <ArrowDown size={13} className="text-[#C084FC] group-hover:translate-y-0.5 transition-transform" />
           </button>
+        </div>
+
+        {/* Prominent Tracks Highlighting Strip: Instant Recognition Right on Hero */}
+        <div
+          className="mt-8 pt-5 border-t border-white/[0.08] transition-all duration-800 ease-out"
+          style={{
+            opacity: isRevealing ? 1 : 0,
+            transform: isRevealing ? 'translateY(0)' : 'translateY(20px)',
+            transitionDelay: '1400ms',
+          }}
+        >
+          <div className="flex items-center justify-between gap-2 mb-3">
+            <span className="font-display text-[10px] tracking-[0.25em] uppercase text-[#8B5CF6] font-semibold flex items-center gap-1.5">
+              <span>// 5 HACKATHON TRACKS</span>
+            </span>
+            <span className="font-mono text-[10px] text-[#A6A0B8]">Free Phase 1 • 3–4 Members</span>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {EVENT_CONFIG.tracks.map((track) => (
+              <button
+                key={track.id}
+                onClick={() => onNavigate('tracks')}
+                className="group px-3 py-1.5 rounded-lg border border-white/10 bg-[#0B0616]/90 hover:border-[#8B5CF6]/60 hover:bg-[#4C1D95]/25 text-left text-xs font-sans text-[#F7F5FF]/90 hover:text-white transition-all duration-200 flex items-center gap-2"
+              >
+                <span className="font-editorial text-[#8B5CF6] font-bold text-xs">
+                  {track.number}
+                </span>
+                <span className="truncate max-w-[210px] font-medium text-[11px]">
+                  {track.title}
+                </span>
+                <ArrowDown size={10} className="text-[#C084FC] opacity-40 group-hover:opacity-100 transition-opacity shrink-0" />
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

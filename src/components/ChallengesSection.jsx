@@ -201,14 +201,16 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
           <div>
             <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
-              <span>// SEDS REC PRESENTS {EVENT_CONFIG.name}</span>
+              <span>// PRIMARY CHALLENGE DOMAINS</span>
             </span>
             <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
               HACKATHON TRACKS.
             </h2>
           </div>
-          <div className="font-display text-xs tracking-[0.2em] text-[#A6A0B8] uppercase">
-            5 OFFICIAL DOMAINS // OPEN TO ALL DISCIPLINES
+          <div className="flex items-center gap-2.5">
+            <span className="px-3.5 py-1.5 rounded-full border border-[#8B5CF6]/40 bg-[#6D28D9]/20 font-display text-[10px] tracking-[0.2em] text-[#C084FC] uppercase font-semibold shadow-[0_0_15px_rgba(139,92,246,0.25)]">
+              5 OFFICIAL TRACKS • ₹10,000 PRIZE POOL
+            </span>
           </div>
         </div>
 

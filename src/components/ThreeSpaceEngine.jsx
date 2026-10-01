@@ -17,11 +17,11 @@ import { playSignalTone, playLightSweepTone } from '../utils/audio';
 // Continuous orbital trajectory milestones along scroll progress (0.00 -> 1.00)
 const SCROLL_MILESTONES = [
   { t: 0.00, cam: new THREE.Vector3(0, 0, 105), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(38, 2, -10), scale: 1.0 },
-  { t: 0.12, cam: new THREE.Vector3(-6, 2, 98), look: new THREE.Vector3(4, 0, 0), earth: new THREE.Vector3(39, 0, -12), scale: 0.98 },
-  { t: 0.25, cam: new THREE.Vector3(4, -3, 92), look: new THREE.Vector3(-3, -1, 0), earth: new THREE.Vector3(42, -3, -16), scale: 0.96 },
-  { t: 0.38, cam: new THREE.Vector3(0, 2, 98), look: new THREE.Vector3(-2, 0, 0), earth: new THREE.Vector3(54, 2, -24), scale: 0.92 },
-  { t: 0.52, cam: new THREE.Vector3(0, 2, 96), look: new THREE.Vector3(-2, 0, 0), earth: new THREE.Vector3(56, 3, -25), scale: 0.90 },
-  { t: 0.66, cam: new THREE.Vector3(4, -2, 90), look: new THREE.Vector3(-1, 0, 0), earth: new THREE.Vector3(48, -2, -18), scale: 0.94 },
+  { t: 0.12, cam: new THREE.Vector3(0, 2, 98), look: new THREE.Vector3(-2, 0, 0), earth: new THREE.Vector3(54, 2, -24), scale: 0.92 },
+  { t: 0.25, cam: new THREE.Vector3(0, 2, 96), look: new THREE.Vector3(-2, 0, 0), earth: new THREE.Vector3(56, 1, -25), scale: 0.90 },
+  { t: 0.38, cam: new THREE.Vector3(4, -3, 92), look: new THREE.Vector3(-3, -1, 0), earth: new THREE.Vector3(44, -2, -16), scale: 0.95 },
+  { t: 0.52, cam: new THREE.Vector3(-3, 2, 90), look: new THREE.Vector3(2, 0, 0), earth: new THREE.Vector3(42, 2, -15), scale: 0.95 },
+  { t: 0.66, cam: new THREE.Vector3(4, -2, 90), look: new THREE.Vector3(-1, 0, 0), earth: new THREE.Vector3(46, -2, -18), scale: 0.94 },
   { t: 0.78, cam: new THREE.Vector3(0, -4, 90), look: new THREE.Vector3(1, -1, 0), earth: new THREE.Vector3(39, -4, -13), scale: 0.96 },
   { t: 0.88, cam: new THREE.Vector3(4, -2, 94), look: new THREE.Vector3(-2, 0, 0), earth: new THREE.Vector3(39, -2, -12), scale: 0.98 },
   { t: 1.00, cam: new THREE.Vector3(0, 0, 100), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(38, 2, -10), scale: 1.0 },
