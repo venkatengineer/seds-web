@@ -24,9 +24,9 @@ function SlidingDigit({ value }) {
 }
 
 export default function CountdownSection() {
-  const [targetDate, setTargetDate] = useState(() => new Date('2026-04-10T23:59:59+05:30').getTime());
+  const [targetDate] = useState(() => new Date('2026-10-12T09:00:00+05:30').getTime());
   const [timeLeft, setTimeLeft] = useState(() => {
-    const diff = Math.max(0, new Date('2026-04-10T23:59:59+05:30').getTime() - Date.now());
+    const diff = Math.max(0, new Date('2026-10-12T09:00:00+05:30').getTime() - Date.now());
     return {
       days: Math.floor(diff / (1000 * 60 * 60 * 24)),
       hours: Math.floor((diff / (1000 * 60 * 60)) % 24),

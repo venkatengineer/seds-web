@@ -77,7 +77,7 @@ export default function SponsorsWall() {
         <div className="p-8 sm:p-10 rounded-2xl border border-dashed border-white/15 bg-white/[0.01] flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
             <div className="font-display text-xs uppercase tracking-[0.2em] text-[#C084FC] font-semibold">
-              // PARTNER WITH ORBITAL 26
+              // COLLABORATE WITH {EVENT_CONFIG.name}
             </div>
             <h4 className="font-editorial text-2xl font-bold text-[#F7F5FF]">
               Support Student Space Engineering.

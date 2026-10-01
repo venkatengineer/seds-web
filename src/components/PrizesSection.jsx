@@ -1,15 +1,14 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Award, Briefcase, Sparkles, CheckCircle2 } from 'lucide-react';
 import { EVENT_CONFIG } from '../config/event';
 
 /**
- * SPATIAL PRIZE COMPOSITION
+ * REWARD & INCENTIVES SECTION — "WHY PARTICIPATE"
  * 
- * Target:
- * - NOT three cards.
- * - Huge spatial composition with depth, light, and monumental typography.
- * - ₹50,000 GRAND PRIZE as the primary destination.
- * - Secondary awards placed in orbit around the primary capital pool.
+ * Based directly on SEDS REC Hackathon 2026 Content:
+ * 1. ₹10,000 Prize Pool: Compete, innovate and get recognised for your solution.
+ * 2. Internship Opportunities: Top 3 teams receive internship opportunities through
+ *    industry collaboration with Aeroin Space Tech (subject to selection process).
  */
 
 export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 0.5 } }) {
@@ -25,102 +24,173 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-16">
         <div>
           <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold">
-            // ORBITAL 26 CAPITAL ALLOCATION
+            // {EVENT_CONFIG.name} INCENTIVES
           </span>
           <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
-            PRIZE MONUMENTS.
+            WHY PARTICIPATE.
           </h2>
         </div>
-        <div className="font-display text-xs tracking-[0.2em] text-[#A6A0B8] uppercase">
-          NON-DILUTIVE FELLOWSHIP POOL
+        <div className="font-display text-xs tracking-[0.2em] text-[#C084FC] uppercase">
+          PRIZES × INDUSTRY INTERNSHIPS
         </div>
       </div>
 
-      {/* Monumental Spatial Destination: ₹50,000 Grand Prize */}
-      <div className="relative text-center my-8 py-12 flex flex-col items-center justify-center">
-        
-        {/* Soft Volumetric Purple Halo */}
-        <div 
-          className="absolute w-[480px] h-[480px] sm:w-[620px] sm:h-[620px] rounded-full pointer-events-none -z-10 opacity-25"
-          style={{
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, rgba(76, 29, 149, 0.1) 50%, rgba(2, 1, 7, 0) 80%)',
-            filter: 'blur(90px)',
-            transform: `translate(${depthX * -0.6}px, ${depthY * -0.6}px)`,
-          }}
-        />
-
-        {/* Delicate Slow Rotating Horizon Arc */}
-        <div className="absolute w-[360px] h-[360px] sm:w-[540px] sm:h-[540px] rounded-full border border-white/[0.04] pointer-events-none -z-10" />
-
-        <div className="inline-flex items-center gap-2 mb-3 font-display text-xs tracking-[0.3em] uppercase text-[#8B5CF6]">
-          <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
-          <span>PRIMARY MONUMENT // FIRST POSITION</span>
-        </div>
-
-        {/* Monumental ₹50,000 */}
-        <div 
-          className="font-editorial text-7xl sm:text-9xl md:text-[10rem] lg:text-[11.5rem] font-bold tracking-tight text-[#F7F5FF] leading-none my-2"
-          style={{
-            textShadow: '0 0 60px rgba(139, 92, 246, 0.25)',
-          }}
-        >
-          {EVENT_CONFIG.grandPrize}
-        </div>
-
-        <div className="font-display text-xl sm:text-2xl font-light tracking-[0.2em] uppercase text-[#F7F5FF] mt-2">
-          GRAND PRIZE & SEDS INCUBATION
-        </div>
-
-        <p className="max-w-md mx-auto text-xs sm:text-sm text-[#A6A0B8] font-light mt-3 leading-relaxed">
-          Awarded unconditionally to the team demonstrating outstanding engineering rigor, mathematical fidelity, and flight-ready software architecture.
-        </p>
-      </div>
-
-      {/* Secondary Awards In Orbit (Depth Tier 2) */}
+      {/* Dual Core Monuments: Prize Pool + Internship Opportunities */}
       <div 
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 max-w-4xl mx-auto w-full mt-4 transition-transform duration-500 ease-out"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch max-w-6xl mx-auto w-full transition-transform duration-500 ease-out"
         style={{
           transform: `translate3d(${depthX * 0.4}px, ${depthY * 0.4}px, 0)`,
         }}
       >
-        <div className="p-8 rounded-2xl border border-white/[0.08] bg-[#07030F]/60 backdrop-blur-md text-center space-y-2 hover:border-[#8B5CF6]/40 transition-all duration-300">
-          <span className="font-display text-[10px] tracking-[0.25em] text-[#A6A0B8] uppercase block">
-            SECOND POSITION // RUNNER-UP
-          </span>
-          <div className="font-editorial text-4xl sm:text-5xl font-bold tracking-tight text-[#F7F5FF]">
-            {EVENT_CONFIG.secondPrize}
+        {/* Monument 1: ₹10,000 Prize Pool */}
+        <div className="lg:col-span-6 relative p-8 sm:p-12 rounded-3xl border border-white/[0.12] bg-[#07030F]/70 backdrop-blur-xl flex flex-col justify-between overflow-hidden group hover:border-[#8B5CF6]/50 transition-all duration-400">
+          
+          {/* Volumetric Purple Ambient Light */}
+          <div 
+            className="absolute top-0 right-0 w-[320px] h-[320px] rounded-full pointer-events-none -z-10 opacity-30"
+            style={{
+              background: 'radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, rgba(76, 29, 149, 0.1) 60%, transparent 80%)',
+              filter: 'blur(70px)',
+            }}
+          />
+
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/20 font-display text-[11px] tracking-[0.2em] text-[#C084FC] uppercase font-semibold">
+                <Award size={13} />
+                <span>CAPITAL POOL</span>
+              </span>
+              <span className="font-display text-xs text-[#A6A0B8] tracking-widest uppercase">
+                01 // REWARD
+              </span>
+            </div>
+
+            <div 
+              className="font-editorial text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-[#F7F5FF] leading-none my-4"
+              style={{
+                textShadow: '0 0 45px rgba(139, 92, 246, 0.35)',
+              }}
+            >
+              {EVENT_CONFIG.prizePool}
+            </div>
+
+            <h3 className="font-display text-xl sm:text-2xl font-light tracking-[0.16em] uppercase text-[#F7F5FF] mt-3">
+              CASH PRIZE POOL
+            </h3>
+
+            <p className="font-sans text-sm sm:text-base text-[#A6A0B8] font-light mt-4 leading-relaxed">
+              Compete, innovate and get recognised for your solution across space applications, defence, medical biology, autonomous tech, and open innovation.
+            </p>
           </div>
-          <div className="font-display text-xs uppercase tracking-widest text-[#8B5CF6]">
-            Flight Software Runner-Up
+
+          <div className="pt-8 mt-8 border-t border-white/[0.08] flex items-center justify-between text-xs font-display text-[#C084FC]">
+            <span>Official SEDS REC Merit Grants</span>
+            <span className="text-white/40">•</span>
+            <span>Award Certificates</span>
           </div>
         </div>
 
-        <div className="p-8 rounded-2xl border border-white/[0.08] bg-[#07030F]/60 backdrop-blur-md text-center space-y-2 hover:border-[#8B5CF6]/40 transition-all duration-300">
-          <span className="font-display text-[10px] tracking-[0.25em] text-[#A6A0B8] uppercase block">
-            THIRD POSITION // INNOVATION MERIT
-          </span>
-          <div className="font-editorial text-4xl sm:text-5xl font-bold tracking-tight text-[#F7F5FF]">
-            {EVENT_CONFIG.thirdPrize}
+        {/* Monument 2: Internship Opportunities at Aeroin Space Tech */}
+        <div className="lg:col-span-6 relative p-8 sm:p-12 rounded-3xl border border-white/[0.12] bg-[#07030F]/70 backdrop-blur-xl flex flex-col justify-between overflow-hidden group hover:border-[#8B5CF6]/50 transition-all duration-400">
+          
+          {/* Volumetric Purple Ambient Light */}
+          <div 
+            className="absolute bottom-0 left-0 w-[320px] h-[320px] rounded-full pointer-events-none -z-10 opacity-30"
+            style={{
+              background: 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(50, 16, 95, 0.1) 60%, transparent 80%)',
+              filter: 'blur(70px)',
+            }}
+          />
+
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/20 font-display text-[11px] tracking-[0.2em] text-[#C084FC] uppercase font-semibold">
+                <Briefcase size={13} />
+                <span>CAREER LAUNCH</span>
+              </span>
+              <span className="font-display text-xs text-[#A6A0B8] tracking-widest uppercase">
+                02 // INTERNSHIPS
+              </span>
+            </div>
+
+            <div 
+              className="font-editorial text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#F7F5FF] leading-none my-4"
+              style={{
+                textShadow: '0 0 45px rgba(168, 85, 247, 0.35)',
+              }}
+            >
+              TOP 3 TEAMS
+            </div>
+
+            <h3 className="font-display text-xl sm:text-2xl font-light tracking-[0.16em] uppercase text-[#F7F5FF] mt-3">
+              AEROIN SPACE TECH INTERNSHIPS
+            </h3>
+
+            <p className="font-sans text-sm sm:text-base text-[#A6A0B8] font-light mt-4 leading-relaxed">
+              {EVENT_CONFIG.internshipDetails}
+            </p>
           </div>
-          <div className="font-display text-xs uppercase tracking-widest text-[#8B5CF6]">
-            Aerospace Innovation Award
+
+          <div className="pt-8 mt-8 border-t border-white/[0.08] flex items-center justify-between text-xs font-display text-[#C084FC]">
+            <span>Industry Collaboration</span>
+            <span className="text-white/40">•</span>
+            <span>Subject to Selection Process</span>
           </div>
         </div>
       </div>
 
-      {/* Track Grants Strip */}
-      <div className="max-w-4xl mx-auto w-full mt-8 pt-8 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs font-display text-[#A6A0B8]">
+      {/* Additional Value Pillars */}
+      <div className="max-w-6xl mx-auto w-full mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="p-6 rounded-2xl border border-white/[0.06] bg-[#07030F]/40 flex items-start gap-3">
+          <CheckCircle2 size={16} className="text-[#8B5CF6] shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <h4 className="font-display text-xs uppercase tracking-wider text-[#F7F5FF] font-semibold">
+              Industry Perspectives
+            </h4>
+            <p className="font-sans text-xs text-[#A6A0B8] leading-relaxed">
+              Direct exposure to aerospace industry mentors and commercial space engineering practices.
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-white/[0.06] bg-[#07030F]/40 flex items-start gap-3">
+          <CheckCircle2 size={16} className="text-[#8B5CF6] shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <h4 className="font-display text-xs uppercase tracking-wider text-[#F7F5FF] font-semibold">
+              SEDS Community Network
+            </h4>
+            <p className="font-sans text-xs text-[#A6A0B8] leading-relaxed">
+              Platform to collaborate across multidisciplinary software, hardware, and space research domains.
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-white/[0.06] bg-[#07030F]/40 flex items-start gap-3">
+          <CheckCircle2 size={16} className="text-[#8B5CF6] shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <h4 className="font-display text-xs uppercase tracking-wider text-[#F7F5FF] font-semibold">
+              Autonomous Host Facilities
+            </h4>
+            <p className="font-sans text-xs text-[#A6A0B8] leading-relaxed">
+              Organized at Rajalakshmi Engineering College, Chennai with state-of-the-art labs and testbeds.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom CTA to Register */}
+      <div className="max-w-6xl mx-auto w-full mt-10 pt-6 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs font-display text-[#A6A0B8]">
         <div className="flex items-center gap-2">
-          <span className="text-[#8B5CF6] font-semibold">TRACK GRANTS:</span>
-          <span>₹10,000 awarded across each of the 4 individual challenge chapters</span>
+          <span className="text-[#8B5CF6] font-semibold">SEDHACKS '26 INCENTIVES:</span>
+          <span>Cash rewards & industry internships for top student innovators</span>
         </div>
 
         <button
           onClick={onOpenRegister}
-          className="inline-flex items-center gap-1.5 text-[#F7F5FF] hover:text-[#C084FC] uppercase tracking-wider transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 hover:bg-[#6D28D9]/50 text-[#F7F5FF] text-xs font-display uppercase tracking-wider font-semibold transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)]"
         >
-          <span>Compete for Capital Grants</span>
-          <ArrowUpRight size={13} className="text-[#8B5CF6]" />
+          <span>Register for SEDHACKS '26</span>
+          <ArrowUpRight size={14} className="text-[#C084FC]" />
         </button>
       </div>
     </section>

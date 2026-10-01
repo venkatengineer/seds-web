@@ -1,8 +1,9 @@
-# SEDS REC presents ORBITAL 26
+# SEDS REC presents SEDHACKS '26
 ### *Continuous 3D Space Environment & Celestial Navigation Engine*
 
 > **Primary Organization:** **SEDS REC** (Students for the Exploration and Development of Space, Rajalakshmi Engineering College)  
-> **Secondary Event:** **ORBITAL 26** (Configurable Mock Hackathon Name in `src/config/event.js`)
+> **Secondary Event:** **SEDHACKS '26** (Student Space & Technology Hackathon)  
+> **Tagline:** *Innovate. Build. Explore Beyond the Sky.*
 
 ---
 

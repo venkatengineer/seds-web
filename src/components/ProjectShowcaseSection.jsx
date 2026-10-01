@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, X, Cpu, Radio, Flame, Compass } from 'lucide-react';
-import { SEDS_PROJECTS } from '../config/event';
+import { SEDS_PROJECTS, EVENT_CONFIG } from '../config/event';
 
 /**
  * PREMIUM PROJECT SHOWCASE SECTION
@@ -192,7 +192,7 @@ export default function ProjectShowcaseSection({ onOpenRegister }) {
 
             <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between">
               <span className="font-display text-xs text-[#A6A0B8]">
-                Open for collaboration at ORBITAL 26
+                Open for collaboration at {EVENT_CONFIG.name}
               </span>
               <button
                 onClick={() => {

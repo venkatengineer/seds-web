@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { SEDS_CONFIG } from '../config/event';
+import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 import { ArrowUpRight } from 'lucide-react';
 
 /**
@@ -29,7 +29,7 @@ const PILLARS_DETAIL = [
     id: 'events',
     title: 'EVENTS & SPRINT HACKATHONS',
     tag: 'INTENSIVE TECHNICAL CONVENING',
-    desc: 'Organizers and hosts of ORBITAL 26, university avionics soldering bootcamps, high-altitude meteorological balloon launches, and rocketry recovery workshops that gather hundreds of student engineers from across the country.',
+    desc: `Organizers and hosts of ${EVENT_CONFIG.name}, university avionics soldering bootcamps, high-altitude meteorological balloon launches, and rocketry recovery workshops that gather hundreds of student engineers from across the country.`,
   },
   {
     id: 'outreach',

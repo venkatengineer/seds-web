@@ -19,11 +19,11 @@ import { EVENT_CONFIG } from '../config/event';
  */
 
 const NODE_POSITIONS = [
-  { id: 'propulsion', angle: -90, cx: 250, cy: 75 },
-  { id: 'satellites', angle: -18, cx: 405, cy: 170 },
-  { id: 'astrodynamics', angle: 54, cx: 350, cy: 360 },
-  { id: 'exploration', angle: 126, cx: 150, cy: 360 },
-  { id: 'climate', angle: 198, cx: 95, cy: 170 },
+  { id: 'space-defence', angle: -90, cx: 250, cy: 75 },
+  { id: 'medical-bio', angle: -18, cx: 405, cy: 170 },
+  { id: 'autonomous-comms', angle: 54, cx: 350, cy: 360 },
+  { id: 'sustainability', angle: 126, cx: 150, cy: 360 },
+  { id: 'open-innovation', angle: 198, cx: 95, cy: 170 },
 ];
 
 export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
@@ -56,7 +56,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-12">
         <div>
           <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold">
-            // ORBITAL 26 SPRINT CHAPTERS
+            // {EVENT_CONFIG.name} TRACKS
           </span>
           <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
             CHALLENGE TAXONOMY.

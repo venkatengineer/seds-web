@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Mail, MapPin } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 
 export default function Footer({ onNavigate, onOpenRegister }) {
@@ -43,7 +43,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
           </div>
 
           <p className="max-w-md text-xs sm:text-sm font-sans font-light text-[#A6A0B8] leading-relaxed">
-            Advancing student-led aerospace engineering, sounding rocketry, CubeSat avionics, and computational astrodynamics. Official organizing chapter of <strong className="text-[#F7F5FF]">{EVENT_CONFIG.name}</strong>.
+            Advancing student-led space technology, rocketry, CubeSat avionics, and computational astrodynamics. Official organizing community of <strong className="text-[#F7F5FF]">{EVENT_CONFIG.name}</strong>.
           </p>
 
           <div className="pt-2 font-display text-xs text-[#F7F5FF]">
@@ -73,7 +73,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
           </div>
           <div>
             <button onClick={() => onNavigate('challenges')} className="hover:text-[#F7F5FF] transition-colors">
-              04 — Challenge Chapters
+              04 — Challenge Tracks
             </button>
           </div>
           <div>
@@ -83,7 +83,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
           </div>
           <div>
             <button onClick={() => onNavigate('prizes')} className="hover:text-[#F7F5FF] transition-colors">
-              06 — Prize Monuments
+              06 — Why Participate
             </button>
           </div>
         </div>
@@ -94,10 +94,10 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             // AFFILIATIONS
           </div>
           <div className="text-[#A6A0B8]">
-            SEDS India Official Chapter
+            Industry Partner: {EVENT_CONFIG.industryPartner}
           </div>
           <div className="text-[#A6A0B8]">
-            SEDS Global Network Member
+            SEDS India Official Chapter
           </div>
           <div className="text-[#A6A0B8]">
             REC Aerospace Department
@@ -107,8 +107,61 @@ export default function Footer({ onNavigate, onOpenRegister }) {
               onClick={onOpenRegister} 
               className="text-[#8B5CF6] hover:text-[#C084FC] transition-colors font-medium"
             >
-              Register for Orbital 26 ↗
+              Register for {EVENT_CONFIG.name} ↗
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Us & Queries Desk (From Official Event Charter) */}
+      <div className="py-12 border-b border-white/[0.06] grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div className="md:col-span-5 space-y-2">
+          <div className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] font-semibold">
+            // CONTACT US & INQUIRIES
+          </div>
+          <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-[#F7F5FF]">
+            Questions About {EVENT_CONFIG.name}?
+          </h3>
+          <p className="font-sans text-xs sm:text-sm text-[#A6A0B8] font-light leading-relaxed">
+            Reach out to the {SEDS_CONFIG.name} organizing team at {SEDS_CONFIG.institution}, Chennai for team registration, problem statements, or event logistics.
+          </p>
+        </div>
+
+        <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-5 rounded-xl border border-white/[0.08] bg-[#07030F]/60 space-y-2">
+            <span className="font-display text-[10px] tracking-widest uppercase text-[#8B5CF6] block">
+              STUDENT COORDINATION
+            </span>
+            <div className="font-display text-sm font-semibold text-[#F7F5FF]">
+              SEDS REC Leadership
+            </div>
+            <div className="font-sans text-xs text-[#A6A0B8]">
+              {SEDS_CONFIG.institution}, Chennai
+            </div>
+            <div className="pt-1 flex items-center gap-1.5 text-xs text-[#C084FC]">
+              <Mail size={12} />
+              <a href="mailto:sedsrec@rajalakshmi.edu.in" className="hover:underline font-mono">
+                sedsrec@rajalakshmi.edu.in
+              </a>
+            </div>
+          </div>
+
+          <div className="p-5 rounded-xl border border-white/[0.08] bg-[#07030F]/60 space-y-2">
+            <span className="font-display text-[10px] tracking-widest uppercase text-[#8B5CF6] block">
+              HACKATHON QUERY DESK
+            </span>
+            <div className="font-display text-sm font-semibold text-[#F7F5FF]">
+              {EVENT_CONFIG.name} Query Support
+            </div>
+            <div className="font-sans text-xs text-[#A6A0B8]">
+              Event Operations & Helpdesk
+            </div>
+            <div className="pt-1 flex items-center gap-1.5 text-xs text-[#C084FC]">
+              <Mail size={12} />
+              <a href="mailto:queries.sedshacks@gmail.com" className="hover:underline font-mono">
+                queries.sedshacks@gmail.com
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -120,7 +173,10 @@ export default function Footer({ onNavigate, onOpenRegister }) {
         </div>
 
         <div className="flex items-center gap-6">
-          <span>CHENNAI, TAMIL NADU, INDIA</span>
+          <span className="flex items-center gap-1">
+            <MapPin size={12} className="text-[#8B5CF6]" />
+            <span>CHENNAI, TAMIL NADU, INDIA</span>
+          </span>
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1.5 text-[#A6A0B8] hover:text-[#F7F5FF] transition-colors"

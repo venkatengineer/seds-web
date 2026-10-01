@@ -1,6 +1,9 @@
-# ORBITAL 26 — Phase 1 Registration Google Form Specification
+# SEDHACKS '26 — Phase 1 Registration Google Form Specification
 **Host Division:** SEDS REC (Students for the Exploration and Development of Space, Rajalakshmi Engineering College)  
-**Event:** ORBITAL 26 — 48-Hour Space Technology Hackathon  
+**Event:** SEDHACKS '26 — Student Space & Technology Hackathon  
+**Tagline:** Innovate. Build. Explore Beyond the Sky.  
+**Dates:** 12–13 October 2026  
+**Venue:** Rajalakshmi Engineering College, Chennai  
 **Phase:** Phase 1 Initial Submission (100% Free)  
 **Target Audience:** University Engineering & Science Students (Teams of 3–4)
 
@@ -10,26 +13,26 @@
 
 | Setting Option | Recommended Configuration | Purpose / Notes |
 | :--- | :--- | :--- |
-| **Form Title** | `ORBITAL 26 — Phase 1 Project Registration \| SEDS REC` | Clear event branding and official chapter affiliation |
+| **Form Title** | `SEDHACKS '26 — Phase 1 Project Registration \| SEDS REC` | Clear event branding and official chapter affiliation |
 | **Responses → Collect Email Addresses** | **Verified** or **Responder Input** | Ensures email receipt and contact integrity |
 | **Responses → Send Responders a Copy** | **Always** | Provides applicants with instant submission proof |
 | **Responses → Allow Response Editing** | **Turn ON** *(until submission deadline)* | Allows teams to update presentation decks or typos |
 | **Responses → Limit to 1 Response** | **Turn ON** (Requires Google Sign-in) | Prevents accidental duplicate submissions |
 | **Presentation → Confirmation Message** | *(See confirmation text below)* | Gives next steps regarding evaluation & Phase 2 |
-| **File Upload Destination** | Dedicated Google Drive Folder: `ORBITAL_26_PHASE_1_DECKS` | Ensures organized collection of candidate slides |
+| **File Upload Destination** | Dedicated Google Drive Folder: `SEDHACKS_26_PHASE_1_DECKS` | Ensures organized collection of candidate slides |
 
 ### Official Form Header Description
 ```text
-ORBITAL 26 is the premier 48-hour student space technology hackathon organized by SEDS REC (Department of Aerospace Engineering, Rajalakshmi Engineering College).
+SEDHACKS '26 is the premier student space and technology hackathon organized by SEDS REC at Rajalakshmi Engineering College, Chennai, conducted with industry collaboration from Aeroin Space Tech.
 
 MISSION DIRECTIVES:
 • Phase 1 Registration: 100% FREE.
 • Team Size: Strictly 3 to 4 members (1 Team Lead + 2 or 3 Members).
 • Evaluation: SEDS REC faculty and aerospace evaluators will review all proposals and shortlist approximately 30 teams.
-• Phase 2: Shortlisted teams will be invited to the final 48-hour sprint (Registration fee: ₹300 per person).
-• Standard Presentation Template: [Insert Drive / Template Link Here]
+• Phase 2: Shortlisted teams will be invited to the final sprint at REC Chennai (Registration fee: ₹300 per person).
+• Prize Pool: ₹10,000 cash prizes + Internship opportunities for Top 3 teams through Aeroin Space Tech.
 
-All submissions are evaluated on engineering rigor, mathematical depth, feasibility, and aerospace relevance.
+All submissions are evaluated on engineering rigor, feasibility, and innovation across space, technology and sustainability.
 ```
 
 ---
@@ -64,9 +67,6 @@ flowchart TD
 | 1.6 | **Team Lead — Academic Year** | Multiple choice | • 1st Year<br>• 2nd Year<br>• 3rd Year<br>• 4th Year<br>• Postgraduate (M.E. / M.Tech / M.Sc) | **Yes** |
 | 1.7 | **Team Lead — Department** | Short answer | Text (e.g., *Aerospace Engineering*, *CSE*, *ECE*) | **Yes** |
 | 1.8 | **Total Crew Size (Including Team Lead)** | Multiple choice | • `3 Members (Lead + 2 Members)`<br>• `4 Members (Lead + 3 Members)` | **Yes** |
-
-> [!IMPORTANT]
-> **Enforcing 3–4 Members**: Do not provide options for 1, 2, or 5+ members. The event strictly requires 3 or 4 members.
 
 ---
 
@@ -106,7 +106,7 @@ flowchart TD
 
 | # | Field Title / Prompt | Question Type | Response Validation / Options | Required? |
 | :-: | :--- | :--- | :--- | :-: |
-| 4.1 | **Challenge Domain / Track** | Dropdown | 1. `Track 01: Propulsion & Avionics`<br>2. `Track 02: Satellite Systems & CubeSats`<br>3. `Track 03: Astrodynamics & Space Compute`<br>4. `Track 04: Space Exploration & Robotics`<br>5. `Track 05: Climate & Earth Observation` | **Yes** |
+| 4.1 | **Challenge Domain / Track** | Dropdown | 1. `Track 01: Space Applications & Defence Technology`<br>2. `Track 02: Medical, Food & Agriculture in Space`<br>3. `Track 03: Autonomous & Communication Technology`<br>4. `Track 04: Sustainability in Space`<br>5. `Track 05: Miscellaneous / Open Innovation` | **Yes** |
 | 4.2 | **Project Title** | Short answer | Text (Concise name of proposed system) | **Yes** |
 | 4.3 | **Project Abstract & Technical Approach** | Paragraph | Text (Minimum 50 words / ~250 characters)<br>*Description: Outline the problem statement, proposed hardware/software architecture, and expected mission output.* | **Yes** |
 | 4.4 | **Upload Technical Presentation Deck** | **File upload** | • Allow specific file types: **Presentation (.ppt, .pptx)** and **PDF**<br>• Maximum number of files: **1**<br>• Maximum file size: **100 MB** | **Yes** |
@@ -120,23 +120,12 @@ Paste this under **Settings → Presentation → Confirmation message**:
 ```text
 ✓ Phase 1 Application Recorded.
 
-Your preliminary project submission for ORBITAL 26 has been received by SEDS REC.
+Your preliminary project submission for SEDHACKS '26 has been received by SEDS REC.
 
 NEXT PHASES:
 1. Technical Evaluation: The SEDS REC review panel and aerospace faculty are evaluating all submissions.
 2. Shortlist Announcement: Approximately 30 shortlisted teams will be officially announced and notified via email.
 3. Phase 2 Registration: Shortlisted teams will unlock the final sprint entry (₹300 per person).
 
-For inquiries, contact the SEDS REC organizing committee.
+For inquiries, contact the SEDS REC organizing committee at sedsrec@rajalakshmi.edu.in or queries.sedshacks@gmail.com.
 ```
-
----
-
-## 5. Website Embedding Instructions
-
-Once you create the Google Form:
-
-1. Click **Send** (top right) in Google Forms.
-2. Select the **`< >` (Embed HTML)** tab or the **Link** tab.
-3. Copy the URL (e.g. `https://docs.google.com/forms/d/e/.../viewform?embedded=true`).
-4. We will replace the current backend modal with a clean, high-performance embedded modal or direct trigger matching the website's deep violet/space aesthetic.

@@ -171,12 +171,12 @@ export default function BootSequence({ bootPhase, onSkip }) {
                 : 'opacity-0 translate-y-5 blur-sm'
             }`}
           >
-            <div className="font-editorial text-base sm:text-xl md:text-2xl font-light tracking-[0.24em] text-[#F7F5FF]/90">
-              BUILD BEYOND THE KNOWN.
+            <div className="font-editorial text-base sm:text-xl md:text-2xl font-light tracking-[0.24em] text-[#F7F5FF]/90 text-center px-4">
+              {EVENT_CONFIG.tagline}
             </div>
 
             <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4 font-display text-[9px] sm:text-[11px] tracking-[0.32em] text-[#A6A0B8]/80 uppercase">
-              <span>48-HOUR SPACE SPRINT</span>
+              <span>{EVENT_CONFIG.dates}</span>
               <span className="w-1 h-1 rounded-full bg-[#8B5CF6]" />
               <span>CHENNAI, INDIA</span>
             </div>

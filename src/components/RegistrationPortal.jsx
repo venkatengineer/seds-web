@@ -152,7 +152,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
           {/* Embedded Google Form */}
           <iframe
             src={REGISTRATION_FORM_EMBED_URL}
-            title="ORBITAL 26 Registration Form"
+            title={`${EVENT_CONFIG.name} Registration Form`}
             width="100%"
             height="100%"
             className="w-full h-full border-0 bg-white"

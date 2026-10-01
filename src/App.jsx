@@ -180,7 +180,7 @@ export default function App() {
         {/* Launch Countdown: Smooth Sliding Numbers */}
         <CountdownSection />
 
-        {/* Monumental Prize Destination: ₹50,000 Spatial Composition */}
+        {/* Why Participate: ₹10,000 Prize Pool & Aeroin Space Tech Internships */}
         <PrizesSection
           onOpenRegister={() => setIsRegisterOpen(true)}
           mousePos={mousePos}

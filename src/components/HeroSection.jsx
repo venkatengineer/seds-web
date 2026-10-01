@@ -57,7 +57,7 @@ export default function HeroSection({
         <div className="flex items-center gap-4">
           <span className="text-[#C084FC] font-medium">{EVENT_CONFIG.name}</span>
           <span className="text-white/20">/</span>
-          <span>APRIL 2026</span>
+          <span>{EVENT_CONFIG.dates}</span>
         </div>
       </div>
 
@@ -102,8 +102,8 @@ export default function HeroSection({
         </div>
 
         {/* PRIMARY HEADLINE: Staggered Stately Reveal (600–900ms per line) */}
-        <h1 className="font-editorial text-5xl sm:text-7xl lg:text-[5.5rem] xl:text-[6.25rem] font-bold tracking-tight leading-[0.92] text-[#F7F5FF]">
-          {/* Line 1: BUILD */}
+        <h1 className="font-editorial text-4xl sm:text-6xl lg:text-[4.5rem] xl:text-[5.25rem] font-bold tracking-tight leading-[0.94] text-[#F7F5FF]">
+          {/* Line 1: INNOVATE */}
           <div 
             className="transition-all duration-800 ease-out"
             style={{
@@ -116,7 +116,7 @@ export default function HeroSection({
             {EVENT_CONFIG.heroHeadline[0]}
           </div>
 
-          {/* Line 2: BEYOND */}
+          {/* Line 2: BUILD */}
           <div 
             className="text-white/90 transition-all duration-800 ease-out"
             style={{
@@ -129,7 +129,7 @@ export default function HeroSection({
             {EVENT_CONFIG.heroHeadline[1]}
           </div>
 
-          {/* Line 3: THE KNOWN */}
+          {/* Line 3: EXPLORE BEYOND THE SKY */}
           <div 
             className="flex items-baseline gap-3 transition-all duration-800 ease-out"
             style={{
@@ -172,7 +172,7 @@ export default function HeroSection({
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
             <div className="relative flex items-center gap-2">
-              <span>Register for Orbital 26</span>
+              <span>Register for {EVENT_CONFIG.name}</span>
               <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
             </div>
           </button>
@@ -194,11 +194,11 @@ export default function HeroSection({
         }`}
       >
         <div className="flex items-center gap-3">
-          <span className="text-[#F7F5FF]">48-HOUR SPACE SPRINT</span>
+          <span className="text-[#F7F5FF]">{EVENT_CONFIG.dates}</span>
           <span className="text-white/20">•</span>
           <span>CHENNAI, INDIA</span>
           <span className="text-white/20">•</span>
-          <span className="text-[#C084FC]">₹50,000 PRIZE POOL</span>
+          <span className="text-[#C084FC]">{EVENT_CONFIG.prizeSummary} PRIZE POOL</span>
         </div>
 
         <button 
