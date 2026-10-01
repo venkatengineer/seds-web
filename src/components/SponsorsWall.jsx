@@ -49,7 +49,9 @@ export default function SponsorsWall() {
               {group.items.map((item, idx) => (
                 <div
                   key={idx}
-                  className="group relative p-8 rounded-2xl border border-white/[0.08] bg-[#07030F]/40 hover:bg-[#07030F]/80 hover:border-[#8B5CF6]/40 transition-all duration-300 flex flex-col justify-between min-h-[140px]"
+                  className={`group relative p-8 rounded-2xl border border-white/[0.08] bg-[#07030F]/40 hover:bg-[#07030F]/80 hover:border-[#8B5CF6]/40 transition-all duration-300 flex flex-col justify-between min-h-[140px] ${
+                    group.items.length === 1 ? 'sm:col-span-2' : ''
+                  }`}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
