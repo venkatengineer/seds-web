@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Calendar } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 
 /**
@@ -54,10 +54,13 @@ export default function HeroSection({
           <span className="hidden sm:inline text-[#A6A0B8]">{SEDS_CONFIG.institution}</span>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <span className="text-[#C084FC] font-medium">{EVENT_CONFIG.name}</span>
           <span className="text-white/20">/</span>
-          <span>{EVENT_CONFIG.dates}</span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-[#8B5CF6]/70 bg-[#4C1D95]/40 text-[#F7F5FF] font-semibold tracking-[0.16em] shadow-[0_0_12px_rgba(139,92,246,0.35)]">
+            <Calendar size={11} className="text-[#C084FC]" />
+            <span>{EVENT_CONFIG.dates}</span>
+          </span>
         </div>
       </div>
 
@@ -83,7 +86,7 @@ export default function HeroSection({
           </div>
 
           <div 
-            className="flex items-center gap-2 pt-0.5 transition-all duration-800 ease-out"
+            className="flex flex-wrap items-center gap-2.5 pt-0.5 transition-all duration-800 ease-out"
             style={{
               opacity: isRevealing ? 1 : 0,
               transform: isRevealing ? 'translateY(0)' : 'translateY(20px)',
@@ -97,6 +100,12 @@ export default function HeroSection({
             <span className="text-white/20 font-display text-xs">/</span>
             <span className="font-display text-sm sm:text-base font-medium tracking-[0.18em] text-[#F7F5FF]">
               {EVENT_CONFIG.name}
+            </span>
+            <span className="text-white/20 font-display text-xs hidden sm:inline">•</span>
+            {/* Prominently Highlighted Hackathon Date */}
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6] bg-gradient-to-r from-[#4C1D95] via-[#6D28D9]/80 to-[#8B5CF6]/50 text-white font-display text-xs uppercase tracking-[0.18em] font-bold shadow-[0_0_20px_rgba(139,92,246,0.6)] backdrop-blur-sm">
+              <Calendar size={12} className="text-[#E9D5FF]" />
+              <span>{EVENT_CONFIG.dates}</span>
             </span>
           </div>
         </div>
@@ -172,7 +181,7 @@ export default function HeroSection({
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
             <div className="relative flex items-center gap-2">
-              <span>Register for {EVENT_CONFIG.name}</span>
+              <span>Register for {EVENT_CONFIG.name} (Free)</span>
               <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
             </div>
           </button>
@@ -185,6 +194,13 @@ export default function HeroSection({
             <span>View 5 Tracks</span>
             <ArrowDown size={13} className="text-[#C084FC] group-hover:translate-y-0.5 transition-transform" />
           </button>
+
+          <div className="w-full flex items-center gap-2 pt-1 font-mono text-[11px] text-emerald-400">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-semibold tracking-wider uppercase">100% Completely Free of Cost (₹0 Entry Fee)</span>
+            <span className="text-white/20">•</span>
+            <span className="text-[#A6A0B8]">Strictly 4 Members Only</span>
+          </div>
         </div>
 
         {/* Prominent Tracks Highlighting Strip: Instant Recognition Right on Hero */}
@@ -200,7 +216,7 @@ export default function HeroSection({
             <span className="font-display text-[10px] tracking-[0.25em] uppercase text-[#8B5CF6] font-semibold flex items-center gap-1.5">
               <span>// 5 HACKATHON TRACKS</span>
             </span>
-            <span className="font-mono text-[10px] text-[#A6A0B8]">Free Phase 1 • 4 Members Only</span>
+            <span className="font-mono text-[10px] text-emerald-400 font-medium">100% Free of Cost (₹0) • 4 Members Only</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -230,11 +246,16 @@ export default function HeroSection({
         }`}
       >
         <div className="flex items-center gap-3">
-          <span className="text-[#F7F5FF]">{EVENT_CONFIG.dates}</span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/70 bg-[#4C1D95]/40 text-[#F7F5FF] font-semibold tracking-[0.16em] shadow-[0_0_15px_rgba(139,92,246,0.35)]">
+            <Calendar size={12} className="text-[#C084FC]" />
+            <span>{EVENT_CONFIG.dates}</span>
+          </span>
           <span className="text-white/20">•</span>
           <span>CHENNAI, INDIA</span>
           <span className="text-white/20">•</span>
-          <span className="text-[#C084FC]">{EVENT_CONFIG.prizeSummary} PRIZE POOL</span>
+          <span className="text-[#C084FC] font-semibold">{EVENT_CONFIG.prizeSummary} PRIZE POOL</span>
+          <span className="text-white/20">•</span>
+          <span className="text-emerald-400 font-semibold">100% FREE ENTRY (₹0)</span>
         </div>
 
         <button 

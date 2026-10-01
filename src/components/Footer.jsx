@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowUp, Mail, MapPin, Phone, Calendar } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 
 export default function Footer({ onNavigate, onOpenRegister }) {
@@ -45,6 +45,16 @@ export default function Footer({ onNavigate, onOpenRegister }) {
           <p className="max-w-md text-xs sm:text-sm font-sans font-light text-[#A6A0B8] leading-relaxed">
             Advancing student-led space technology, rocketry, CubeSat avionics, and computational astrodynamics. Official organizing community of <strong className="text-[#F7F5FF]">{EVENT_CONFIG.name}</strong>.
           </p>
+
+          <div className="pt-1 flex flex-wrap items-center gap-2.5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/70 bg-[#4C1D95]/40 text-[#F7F5FF] font-display text-xs tracking-wider font-semibold shadow-[0_0_12px_rgba(139,92,246,0.3)]">
+              <Calendar size={12} className="text-[#C084FC]" />
+              <span>{EVENT_CONFIG.dates}</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/40 bg-emerald-950/30 text-emerald-300 font-display text-[11px] tracking-wider font-semibold">
+              <span>100% FREE REGISTRATION (₹0)</span>
+            </span>
+          </div>
 
           <div className="pt-2 font-display text-xs text-[#F7F5FF]">
             FLIGHT CLOCK: <span className="text-[#8B5CF6] font-medium">{utcTime || 'SYNCHRONIZING...'}</span>
@@ -102,13 +112,13 @@ export default function Footer({ onNavigate, onOpenRegister }) {
               onClick={onOpenRegister} 
               className="text-[#8B5CF6] hover:text-[#C084FC] transition-colors font-medium"
             >
-              Register for {EVENT_CONFIG.name} ↗
+              Register for {EVENT_CONFIG.name} (Free Entry) ↗
             </button>
           </div>
         </div>
       </div>
 
-      {/* Contact Us & Queries Desk (From Official Event Charter) */}
+      {/* Contact Us & Queries Desk */}
       <div className="py-12 border-b border-white/[0.06] grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
         <div className="md:col-span-5 space-y-2">
           <div className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] font-semibold">
@@ -118,64 +128,35 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             Questions About {EVENT_CONFIG.name}?
           </h3>
           <p className="font-sans text-xs sm:text-sm text-[#A6A0B8] font-light leading-relaxed">
-            Reach out to the {SEDS_CONFIG.name} organizing team at {SEDS_CONFIG.institution}, Chennai for team registration, problem statements, or event logistics.
+            Reach out to Student Coordinator Sruthi Nisha.J.S at {SEDS_CONFIG.institution}, Chennai for team registration, problem statements, or event logistics.
           </p>
         </div>
 
-        <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-5 rounded-xl border border-white/[0.08] bg-[#07030F]/60 space-y-2">
+        <div className="md:col-span-7 flex justify-start md:justify-end">
+          <div className="w-full max-w-md p-6 rounded-2xl border border-white/[0.08] bg-[#07030F]/60 space-y-2.5">
             <span className="font-display text-[10px] tracking-widest uppercase text-[#8B5CF6] block font-semibold">
-              STUDENT COORDINATOR
+              OFFICIAL STUDENT COORDINATOR
             </span>
-            <div className="font-display text-base font-semibold text-[#F7F5FF]">
+            <div className="font-display text-lg font-semibold text-[#F7F5FF]">
               Sruthi Nisha.J.S
             </div>
             <div className="font-sans text-xs text-[#A6A0B8]">
               {SEDS_CONFIG.institution}, Chennai
             </div>
-            <div className="pt-2 space-y-1.5">
-              <div className="flex items-center gap-2 text-xs text-[#C084FC]">
+            <div className="pt-2 space-y-2 border-t border-white/[0.06]">
+              <div className="flex items-center gap-2.5 text-xs text-[#C084FC]">
                 <Phone size={13} className="shrink-0 text-[#8B5CF6]" />
-                <a href="tel:9884464389" className="hover:underline font-mono text-[#F7F5FF]">
+                <a href="tel:9884464389" className="hover:underline font-mono text-[#F7F5FF] text-sm">
                   +91 98844 64389
                 </a>
               </div>
-              <div className="flex items-start gap-2 text-xs text-[#C084FC]">
+              <div className="flex items-start gap-2.5 text-xs text-[#C084FC]">
                 <Mail size={13} className="shrink-0 text-[#8B5CF6] mt-0.5" />
                 <a 
                   href="mailto:sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in" 
-                  className="hover:underline font-mono text-[11px] leading-snug break-all text-[#A6A0B8] hover:text-[#F7F5FF]"
+                  className="hover:underline font-mono text-xs leading-snug break-all text-[#A6A0B8] hover:text-[#F7F5FF]"
                 >
                   sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-5 rounded-xl border border-white/[0.08] bg-[#07030F]/60 space-y-2">
-            <span className="font-display text-[10px] tracking-widest uppercase text-[#8B5CF6] block font-semibold">
-              HACKATHON QUERY DESK
-            </span>
-            <div className="font-display text-base font-semibold text-[#F7F5FF]">
-              {EVENT_CONFIG.name} Operations Desk
-            </div>
-            <div className="font-sans text-xs text-[#A6A0B8]">
-              Event Operations & Helpdesk
-            </div>
-            <div className="pt-2 space-y-1.5">
-              <div className="flex items-center gap-2 text-xs text-[#C084FC]">
-                <Phone size={13} className="shrink-0 text-[#8B5CF6]" />
-                <a href="tel:9884464389" className="hover:underline font-mono text-[#F7F5FF]">
-                  +91 98844 64389
-                </a>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-[#C084FC]">
-                <Mail size={13} className="shrink-0 text-[#8B5CF6]" />
-                <a 
-                  href="mailto:queries.sedshacks@gmail.com" 
-                  className="hover:underline font-mono text-xs text-[#A6A0B8] hover:text-[#F7F5FF]"
-                >
-                  queries.sedshacks@gmail.com
                 </a>
               </div>
             </div>

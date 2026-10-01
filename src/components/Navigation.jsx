@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, Volume2, VolumeX, Menu, X, RotateCcw } from 'lucide-react';
+import { ArrowUpRight, Volume2, VolumeX, Menu, X, RotateCcw, Calendar } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 import { toggleOrbitalAmbiance } from '../utils/audio';
 
@@ -110,6 +110,12 @@ export default function Navigation({
 
           {/* Right: Audio Ambiance & Register */}
           <div className="flex items-center gap-3 sm:gap-4">
+            {/* Highlighted Hackathon Date in Navbar */}
+            <span className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/70 bg-[#4C1D95]/40 text-[#F7F5FF] font-display text-[10px] uppercase tracking-[0.16em] font-semibold shadow-[0_0_12px_rgba(139,92,246,0.3)]">
+              <Calendar size={11} className="text-[#C084FC]" />
+              <span>{EVENT_CONFIG.dates}</span>
+            </span>
+
             {/* Replay Cinematic Boot */}
             {onReplayBoot && (
               <button
@@ -139,7 +145,7 @@ export default function Navigation({
               className="group relative overflow-hidden px-5 py-2.5 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/20 hover:bg-[#6D28D9]/40 text-[#F7F5FF] hover:border-[#8B5CF6] hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:-translate-y-0.5 transition-all duration-300 focus:outline-none"
             >
               <div className="flex items-center gap-1.5 font-display text-xs uppercase tracking-[0.2em] font-medium">
-                <span>Register</span>
+                <span>Register (Free)</span>
                 <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               </div>
             </button>
@@ -158,13 +164,19 @@ export default function Navigation({
       {/* Mobile Dark Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50 bg-[#020107]/98 backdrop-blur-2xl flex flex-col justify-between p-8 pt-24 animate-in fade-in duration-300">
-          <div className="border-b border-white/[0.08] pb-4">
-            <div className="font-editorial text-2xl font-bold tracking-[0.2em] text-[#F7F5FF]">
-              {SEDS_CONFIG.name}
+          <div className="border-b border-white/[0.08] pb-4 flex items-center justify-between">
+            <div>
+              <div className="font-editorial text-2xl font-bold tracking-[0.2em] text-[#F7F5FF]">
+                {SEDS_CONFIG.name}
+              </div>
+              <div className="font-display text-xs tracking-wider text-[#A6A0B8]">
+                {SEDS_CONFIG.institution}
+              </div>
             </div>
-            <div className="font-display text-xs tracking-wider text-[#A6A0B8]">
-              {SEDS_CONFIG.institution}
-            </div>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/80 bg-[#4C1D95]/60 text-white font-semibold text-xs tracking-wider font-display shadow-[0_0_15px_rgba(139,92,246,0.4)]">
+              <Calendar size={12} className="text-[#C084FC]" />
+              <span>{EVENT_CONFIG.dates}</span>
+            </span>
           </div>
 
           <div className="space-y-4 my-auto">
@@ -195,7 +207,7 @@ export default function Navigation({
               }}
               className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#4C1D95] to-[#8B5CF6] text-white font-display text-xs uppercase tracking-[0.22em] font-semibold text-center shadow-[0_0_20px_rgba(139,92,246,0.3)]"
             >
-              Register for {EVENT_CONFIG.name}
+              Register for {EVENT_CONFIG.name} (Free of Cost)
             </button>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, ExternalLink, ShieldCheck, Users, Sparkles, RefreshCw, FileText } from 'lucide-react';
+import { X, ExternalLink, ShieldCheck, Users, Sparkles, RefreshCw, FileText, Calendar } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG, REGISTRATION_FORM_URL, REGISTRATION_FORM_EMBED_URL } from '../config/event';
 
 /**
@@ -65,8 +65,8 @@ export default function RegistrationPortal({ isOpen, onClose }) {
               <span className="font-display text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#8B5CF6] font-semibold">
                 {SEDS_CONFIG.name} // OFFICIAL SUBMISSION
               </span>
-              <span className="hidden sm:inline-block px-2 py-0.5 rounded-full border border-[#8B5CF6]/30 bg-[#8B5CF6]/10 text-[10px] font-mono text-[#C084FC]">
-                PHASE 1: FREE
+              <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-950/40 text-[10px] font-mono text-emerald-300 font-semibold">
+                100% FREE OF COST (₹0)
               </span>
             </div>
             <h2 className="font-editorial text-xl sm:text-2xl font-bold tracking-tight text-[#F7F5FF]">
@@ -101,14 +101,18 @@ export default function RegistrationPortal({ isOpen, onClose }) {
 
         {/* Quick Requirement Directives Bar */}
         <div className="relative z-10 px-5 sm:px-8 py-2.5 bg-[#0C091C]/90 border-b border-white/[0.05] flex flex-wrap items-center justify-between gap-2 text-xs font-sans text-[#A6A0B8] shrink-0">
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-[11px] sm:text-xs">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[11px] sm:text-xs">
+            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full border border-[#8B5CF6]/80 bg-[#4C1D95]/60 text-white font-semibold font-display tracking-wider shadow-[0_0_12px_rgba(139,92,246,0.35)]">
+              <Calendar size={12} className="text-[#C084FC]" />
+              <span>{EVENT_CONFIG.dates}</span>
+            </span>
             <span className="flex items-center gap-1.5 text-[#F7F5FF]/90">
               <Users size={13} className="text-[#8B5CF6]" />
               <strong>Team Size:</strong> Strictly 4 Members Only
             </span>
-            <span className="flex items-center gap-1.5 text-[#F7F5FF]/90">
+            <span className="flex items-center gap-1.5 text-emerald-300 font-medium">
               <ShieldCheck size={13} className="text-emerald-400" />
-              <strong>Fee:</strong> 100% Free Entry
+              <strong>Fee:</strong> Completely Free of Cost (₹0 Entry Fee)
             </span>
             <span className="hidden md:flex items-center gap-1.5 text-[#A6A0B8]">
               <FileText size={13} className="text-[#C084FC]" />

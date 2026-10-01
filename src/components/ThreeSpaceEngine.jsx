@@ -15,16 +15,24 @@ import { playSignalTone, playLightSweepTone } from '../utils/audio';
  */
 
 // Continuous orbital trajectory milestones along scroll progress (0.00 -> 1.00)
+// Restores the dynamic, prominent Earth movement and deep-space orbital sweep from the 1st prototype
 const SCROLL_MILESTONES = [
-  { t: 0.00, cam: new THREE.Vector3(0, 0, 105), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(38, 2, -10), scale: 1.0 },
-  { t: 0.12, cam: new THREE.Vector3(0, 2, 98), look: new THREE.Vector3(-2, 0, 0), earth: new THREE.Vector3(54, 2, -24), scale: 0.92 },
-  { t: 0.25, cam: new THREE.Vector3(0, 2, 96), look: new THREE.Vector3(-2, 0, 0), earth: new THREE.Vector3(56, 1, -25), scale: 0.90 },
-  { t: 0.38, cam: new THREE.Vector3(4, -3, 92), look: new THREE.Vector3(-3, -1, 0), earth: new THREE.Vector3(44, -2, -16), scale: 0.95 },
-  { t: 0.52, cam: new THREE.Vector3(-3, 2, 90), look: new THREE.Vector3(2, 0, 0), earth: new THREE.Vector3(42, 2, -15), scale: 0.95 },
-  { t: 0.66, cam: new THREE.Vector3(4, -2, 90), look: new THREE.Vector3(-1, 0, 0), earth: new THREE.Vector3(46, -2, -18), scale: 0.94 },
-  { t: 0.78, cam: new THREE.Vector3(0, -4, 90), look: new THREE.Vector3(1, -1, 0), earth: new THREE.Vector3(39, -4, -13), scale: 0.96 },
-  { t: 0.88, cam: new THREE.Vector3(4, -2, 94), look: new THREE.Vector3(-2, 0, 0), earth: new THREE.Vector3(39, -2, -12), scale: 0.98 },
-  { t: 1.00, cam: new THREE.Vector3(0, 0, 100), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(38, 2, -10), scale: 1.0 },
+  // 0.00: HERO APEX — Monumental Earth limb on the right with atmospheric rim glow
+  { t: 0.00, cam: new THREE.Vector3(0, 0, 105), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(36, 1.5, -10), scale: 1.00 },
+  // 0.16: HACKATHON TRACKS — Earth dips gracefully lower and deeper, opening spatial clearance for track cards
+  { t: 0.16, cam: new THREE.Vector3(2, -2, 98), look: new THREE.Vector3(-2, -1, 0), earth: new THREE.Vector3(43, -6, -20), scale: 0.94 },
+  // 0.32: SEDS MISSION — Ascending perspective, Earth glides higher and closer, revealing southern hemisphere
+  { t: 0.32, cam: new THREE.Vector3(-4, 3, 92), look: new THREE.Vector3(3, 1, 0), earth: new THREE.Vector3(33, 6, -15), scale: 0.98 },
+  // 0.48: SEDS IDENTITY — Wide orbit traverse, Earth sweeps horizontally across background depth
+  { t: 0.48, cam: new THREE.Vector3(3, -2, 88), look: new THREE.Vector3(-2, -1, 0), earth: new THREE.Vector3(44, -4, -19), scale: 0.93 },
+  // 0.62: TIMELINE TRAJECTORY — Earth aligns with the traveling orbital flight beacon
+  { t: 0.62, cam: new THREE.Vector3(-2, 2, 86), look: new THREE.Vector3(2, 0, 0), earth: new THREE.Vector3(34, 4, -14), scale: 0.97 },
+  // 0.76: COUNTDOWN HORIZON — Earth aligns with the astronomical circular horizon arc
+  { t: 0.76, cam: new THREE.Vector3(0, -3, 89), look: new THREE.Vector3(1, -1, 0), earth: new THREE.Vector3(37, -4, -13), scale: 0.99 },
+  // 0.88: PRIZES & REWARDS — Earth looms majestically large with brilliant specular ocean shine
+  { t: 0.88, cam: new THREE.Vector3(3, 1, 93), look: new THREE.Vector3(-1, 0, 0), earth: new THREE.Vector3(35, 2, -11), scale: 1.03 },
+  // 1.00: DIRECTIVES & FOOTER — Smooth orbital return into stable apex perspective
+  { t: 1.00, cam: new THREE.Vector3(0, 0, 102), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(36, 1.5, -11), scale: 1.00 },
 ];
 
 function getScrollWaypoint(progress) {
@@ -1259,7 +1267,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       const targetSingularity = (p.isModalOpen || p.activeSection === 'register') ? 0.04 : 1.0;
       m.singularityFactor = THREE.MathUtils.lerp(m.singularityFactor, targetSingularity, 0.06);
 
-      if (p.isBootComplete) {
+      const isScrollActive = p.isBootComplete || smoothScroll > 0.005 || m.sunIntensity > 1.0;
+      if (isScrollActive) {
         targetCamPos.copy(wp.cam);
         targetLookAt.copy(wp.look);
         targetEarthPos.copy(wp.earth);
@@ -1272,11 +1281,12 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       }
 
       // Responsive adjustments for mobile/tablet (< 1024px)
+      // Maintains smooth vertical scroll drift & dynamic perspective without freezing
       if (width < 1024) {
-        if (p.isBootComplete) {
-          targetEarthPos.set(0, 18, -25);
-          targetEarthScale *= 0.75;
-        }
+        targetEarthPos.x = THREE.MathUtils.lerp(targetEarthPos.x * 0.25, 2, 0.75);
+        targetEarthPos.y = THREE.MathUtils.lerp(targetEarthPos.y, 14 - smoothScroll * 12, 0.75);
+        targetEarthPos.z = THREE.MathUtils.lerp(targetEarthPos.z, -22 - smoothScroll * 5, 0.75);
+        targetEarthScale *= 0.78;
       }
 
       // 3-Layer Mouse Parallax
@@ -1296,14 +1306,16 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       camera.fov = m.fov;
       camera.updateProjectionMatrix();
 
-      // Celestial position lerp
+      // Celestial position lerp: Continuous and silky smooth 3D Earth travel
       celestialSystem.position.lerp(targetEarthPos, 0.06);
       const currentScale = targetEarthScale * m.singularityFactor;
       celestialSystem.scale.setScalar(currentScale);
 
-      // Planetary rotation & cloud drift
-      planetMesh.rotation.y = elapsed * 0.012 + smoothScroll * 2.2;
-      cloudsMesh.rotation.y = elapsed * 0.018 + smoothScroll * 2.6;
+      // Physical planetary scroll roll & atmospheric cloud drift from 1st prototype
+      planetMesh.rotation.y = elapsed * 0.015 + smoothScroll * 3.5;
+      cloudsMesh.rotation.y = elapsed * 0.022 + smoothScroll * 4.2;
+      axialTiltGroup.rotation.z = THREE.MathUtils.degToRad(-23.5) + Math.sin(smoothScroll * Math.PI) * 0.07;
+      axialTiltGroup.rotation.x = Math.sin(smoothScroll * Math.PI * 2) * 0.04;
 
       // Parallax star drift
       starDeepField.position.x = mouseFactorX * -2.5;

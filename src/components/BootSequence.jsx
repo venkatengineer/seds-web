@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 import { toggleOrbitalAmbiance, getAudioState } from '../utils/audio';
-import { Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX, Calendar } from 'lucide-react';
 
 /**
  * MASTER CINEMATIC BOOT SEQUENCE OVERLAY — "THE SIGNAL"
@@ -175,10 +175,13 @@ export default function BootSequence({ bootPhase, onSkip }) {
               {EVENT_CONFIG.tagline}
             </div>
 
-            <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4 font-display text-[9px] sm:text-[11px] tracking-[0.32em] text-[#A6A0B8]/80 uppercase">
-              <span>{EVENT_CONFIG.dates}</span>
-              <span className="w-1 h-1 rounded-full bg-[#8B5CF6]" />
-              <span>CHENNAI, INDIA</span>
+            <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4 font-display text-[9px] sm:text-[11px] tracking-[0.24em] text-[#A6A0B8] uppercase">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-[#8B5CF6] bg-[#4C1D95]/70 text-white font-bold tracking-[0.18em] shadow-[0_0_20px_rgba(139,92,246,0.6)]">
+                <Calendar size={12} className="text-[#C084FC]" />
+                <span>{EVENT_CONFIG.dates}</span>
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
+              <span className="text-[#F7F5FF]/90 font-medium">CHENNAI, INDIA</span>
             </div>
           </div>
         </div>

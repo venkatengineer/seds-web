@@ -167,8 +167,8 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
 
         {/* 6. Card Footer: Pinned at the bottom */}
         <div className="pt-3 mt-3 border-t border-white/[0.08] flex items-center justify-between gap-2 shrink-0">
-          <span className="font-display text-[9px] text-[#A6A0B8] uppercase tracking-wider">
-            4 Members Only • Free Phase 1
+          <span className="font-display text-[9px] text-emerald-400 uppercase tracking-wider font-medium">
+            4 Members Only • 100% Free Entry (₹0)
           </span>
 
           <button
@@ -208,8 +208,8 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
             </h2>
           </div>
           <div className="flex items-center gap-2.5">
-            <span className="px-3.5 py-1.5 rounded-full border border-[#8B5CF6]/40 bg-[#6D28D9]/20 font-display text-[10px] tracking-[0.2em] text-[#C084FC] uppercase font-semibold shadow-[0_0_15px_rgba(139,92,246,0.25)]">
-              5 OFFICIAL TRACKS • ₹10,000 PRIZE POOL
+            <span className="px-3.5 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-950/30 font-display text-[10px] tracking-[0.2em] text-emerald-300 uppercase font-semibold shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+              5 TRACKS • ₹10,000 PRIZES • 100% FREE ENTRY
             </span>
           </div>
         </div>
@@ -230,7 +230,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
               onClick={onOpenRegister}
               className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#8B5CF6]/50 bg-gradient-to-r from-[#4C1D95] via-[#6D28D9] to-[#8B5CF6] text-white font-display text-xs uppercase tracking-wider font-semibold hover:shadow-[0_0_25px_rgba(139,92,246,0.35)] transition-all"
             >
-              <span>Register Your Team</span>
+              <span>Register Your Team (Free)</span>
               <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
           </div>
@@ -286,7 +286,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
         <div className="mt-10 pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4 text-xs font-display text-[#A6A0B8]">
           <div className="flex items-center gap-3">
             <span className="text-[#8B5CF6] font-semibold">SEDHACKS '26 TRACKS:</span>
-            <span>5 official domains • Free Phase 1 submission • Cash prizes & Aeroin Space Tech internships</span>
+            <span>5 official domains • Completely Free of Cost (₹0 Entry Fee) • Cash prizes & Aeroin Space Tech internships</span>
           </div>
 
           <button

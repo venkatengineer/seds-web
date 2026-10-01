@@ -19,8 +19,8 @@ const FAQS = [
     a: `${SEDS_CONFIG.name} (${SEDS_CONFIG.fullName}) is the student-led space technology community established at ${SEDS_CONFIG.institution}, affiliated with the national SEDS India network. Participation in ${EVENT_CONFIG.name} is open to all university undergraduate and postgraduate students. Crews must strictly consist of 4 members only.`,
   },
   {
-    q: 'How does the Two-Phase registration and evaluation process work?',
-    a: 'Registration is structured in two distinct phases: Phase 1 is completely FREE. Teams submit their team composition (strictly 4 members), selected hackathon track, project title, brief description, and presentation deck (.ppt / .pptx). After evaluation by the SEDS REC review panel and domain experts, approximately 30 shortlisted teams will be invited to Phase 2. The Phase 2 registration fee is ₹300 per person (₹1,200 per 4-member team).',
+    q: `Is there any registration fee for ${EVENT_CONFIG.name}?`,
+    a: `No, registration is COMPLETELY FREE OF COST for all participating teams! There is zero (₹0) registration fee. Both initial submission and subsequent evaluation rounds are 100% free of charge. Crews strictly consist of 4 members who submit their selected track, project title, brief description, and presentation deck (.ppt / .pptx). Neither SEDS REC nor the host institution charges any entry fee.`,
   },
   {
     q: `What are the 5 official hackathon tracks in ${EVENT_CONFIG.name}?`,
@@ -48,11 +48,11 @@ const FAQS = [
   },
   {
     q: 'What format should our initial presentation deck be in?',
-    a: 'Phase 1 accepts presentation files in Microsoft PowerPoint (.ppt or .pptx) format up to 25 MB in size. A standardized SEDS template is linked directly within the registration portal.',
+    a: 'Teams submit presentation files in Microsoft PowerPoint (.ppt or .pptx) format up to 25 MB in size. A standardized template is linked directly within the registration portal.',
   },
   {
     q: `Who can I contact for queries regarding ${EVENT_CONFIG.name}?`,
-    a: 'For any questions regarding team registration, problem statements, or event logistics, reach out to Student Coordinator Sruthi Nisha.J.S at +91 98844 64389 (sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in) or contact the hackathon desk at queries.sedshacks@gmail.com.',
+    a: 'For any questions regarding team registration, problem statements, or event logistics, reach out to Student Coordinator Sruthi Nisha.J.S at +91 98844 64389 (sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in).',
   },
 ];
 

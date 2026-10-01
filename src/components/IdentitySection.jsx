@@ -51,7 +51,7 @@ export default function IdentitySection({ onNavigate }) {
       if (entry.isIntersecting) {
         setIsRevealed(true);
       }
-    }, { threshold: 0.15 });
+    }, { threshold: 0.08 });
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
@@ -148,32 +148,34 @@ export default function IdentitySection({ onNavigate }) {
               transition: 'clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease-out',
             }}
           >
-            <img 
-              src="/images/team/students_lab.jpg" 
-              alt="SEDS REC Student Engineering Team in Space Robotics and Satellite Workshop at Rajalakshmi Engineering College" 
-              className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-              loading="lazy"
-            />
-            {/* Subtle Vignette Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#020107] via-transparent to-transparent opacity-60 pointer-events-none" />
+            <div className="relative overflow-hidden w-full">
+              <img 
+                src="/images/team/students_lab.jpg" 
+                alt="SEDS REC Student Engineering Team in Space Robotics and Satellite Workshop at Rajalakshmi Engineering College" 
+                className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+              {/* Subtle Vignette Gradient for Desktop Overlay */}
+              <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#020107] via-transparent to-transparent opacity-60 pointer-events-none" />
+            </div>
             
-            {/* Caption Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            {/* Caption: Non-overlapping normal flow below picture on mobile; cinematic absolute overlay on md+ */}
+            <div className="p-5 sm:p-6 md:p-8 md:absolute md:bottom-0 md:left-0 md:right-0 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-t border-white/[0.08] md:border-t-0 bg-[#07030F] md:bg-transparent z-10">
               <div>
-                <span className="font-display text-[10px] tracking-[0.25em] uppercase text-[#8B5CF6] font-semibold block">
+                <span className="font-display text-[10px] tracking-[0.25em] uppercase text-[#8B5CF6] font-semibold block mb-1">
                   DOCUMENTARY PHOTOGRAPHY
                 </span>
                 <div className="font-display text-sm sm:text-base font-medium text-[#F7F5FF]">
                   Student Space Robotics & Satellite Technology Lab
                 </div>
-                <div className="font-sans text-xs text-[#A6A0B8]">
+                <div className="font-sans text-xs text-[#A6A0B8] mt-0.5">
                   Rajalakshmi Engineering College // SEDS REC Chapter
                 </div>
               </div>
 
               <button
                 onClick={() => onNavigate('tracks')}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-[#020107]/80 backdrop-blur-md text-xs font-display uppercase tracking-wider text-white hover:border-[#8B5CF6] transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-[#020107]/80 backdrop-blur-md text-xs font-display uppercase tracking-wider text-white hover:border-[#8B5CF6] transition-colors self-start sm:self-auto shrink-0"
               >
                 <span>View Hackathon Tracks</span>
                 <ArrowUpRight size={13} />

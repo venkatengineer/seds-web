@@ -53,6 +53,7 @@ export const EVENT_CONFIG = {
   datesFormatted: "October 12–13, 2026",
   venue: "Rajalakshmi Engineering College, Chennai",
   edition: "2026 EDITION // STUDENT SPACE HACKATHON",
+  registrationFee: "100% Free of Cost (₹0 Entry Fee)",
   registrationFormUrl: REGISTRATION_FORM_URL,
   registrationFormEmbedUrl: REGISTRATION_FORM_EMBED_URL,
   prizePool: "₹10,000",
@@ -167,6 +168,11 @@ export const EVENT_CONFIG = {
       desc: "The Top 3 teams will receive internship opportunities through our industry collaboration with Aeroin Space Tech, subject to the organisation's selection process.",
     },
     {
+      title: "100% Free Registration",
+      highlight: "₹0 Cost",
+      desc: "Registration is completely free of cost for all student teams. Zero participation fee, zero hidden charges.",
+    },
+    {
       title: "Industry Collaboration",
       highlight: "Aeroin Space Tech",
       desc: "Interact with real aerospace industry perspectives and explore direct professional growth pathways.",
@@ -183,13 +189,6 @@ export const EVENT_CONFIG = {
       name: "Sruthi Nisha.J.S",
       institution: "Rajalakshmi Engineering College, Chennai",
       email: "sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in",
-      phone: "+91 98844 64389",
-    },
-    {
-      role: "SEDHACKS '26 Query Desk",
-      name: "Event Operations & Support",
-      institution: "Rajalakshmi Engineering College, Chennai",
-      email: "queries.sedshacks@gmail.com",
       phone: "+91 98844 64389",
     },
   ],

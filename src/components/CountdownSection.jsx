@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Calendar } from 'lucide-react';
 import { EVENT_CONFIG } from '../config/event';
 
 /**
@@ -78,12 +79,18 @@ export default function CountdownSection() {
 
         {/* Content Centered in Space */}
         <div className="relative z-10 space-y-4">
-          <div className="space-y-1">
+          <div className="space-y-2">
             <span className="font-display text-xs tracking-[0.3em] uppercase text-[#8B5CF6] font-semibold block">
               // LAUNCH HORIZON
             </span>
             <div className="font-editorial text-2xl sm:text-3xl font-bold tracking-[0.2em] text-[#F7F5FF]">
               {EVENT_CONFIG.name}
+            </div>
+            <div className="pt-1">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#8B5CF6] bg-gradient-to-r from-[#4C1D95]/80 to-[#6D28D9]/60 text-white font-display text-xs tracking-[0.18em] font-semibold shadow-[0_0_20px_rgba(139,92,246,0.45)]">
+                <Calendar size={13} className="text-[#E9D5FF]" />
+                <span>{EVENT_CONFIG.dates}</span>
+              </span>
             </div>
           </div>
 
@@ -107,11 +114,11 @@ export default function CountdownSection() {
           </div>
 
           <div className="pt-2">
-            <div className="font-display text-xs tracking-[0.25em] uppercase text-[#C084FC] font-semibold">
-              REGISTRATION CLOSES IN
+            <div className="font-display text-xs tracking-[0.25em] uppercase text-emerald-400 font-semibold">
+              FREE REGISTRATION CLOSES IN
             </div>
             <p className="max-w-xs mx-auto font-sans text-xs text-[#A6A0B8] font-light leading-relaxed mt-1">
-              Synchronized with Indian Standard Time (IST). Final registration cutoff upon crew slot capacity.
+              100% Free of Cost Entry (₹0). Synchronized with Indian Standard Time (IST). Final cutoff upon crew capacity.
             </p>
           </div>
         </div>

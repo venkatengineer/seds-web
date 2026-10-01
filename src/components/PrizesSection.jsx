@@ -182,14 +182,14 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
       <div className="max-w-6xl mx-auto w-full mt-10 pt-6 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs font-display text-[#A6A0B8]">
         <div className="flex items-center gap-2">
           <span className="text-[#8B5CF6] font-semibold">SEDHACKS '26 INCENTIVES:</span>
-          <span>Cash rewards & industry internships for top student innovators</span>
+          <span>Cash rewards & industry internships • Completely Free of Cost (₹0 Fee)</span>
         </div>
 
         <button
           onClick={onOpenRegister}
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 hover:bg-[#6D28D9]/50 text-[#F7F5FF] text-xs font-display uppercase tracking-wider font-semibold transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)]"
         >
-          <span>Register for SEDHACKS '26</span>
+          <span>Register for SEDHACKS '26 (Free)</span>
           <ArrowUpRight size={14} className="text-[#C084FC]" />
         </button>
       </div>
