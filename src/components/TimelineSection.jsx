@@ -22,12 +22,20 @@ export default function TimelineSection() {
   const progressWeights = [0.12, 0.38, 0.68, 0.94];
 
   useEffect(() => {
-    if (!pathRef.current) return;
-    const path = pathRef.current;
-    const totalLength = path.getTotalLength();
-    const targetLength = totalLength * progressWeights[activeStageIndex];
-    const point = path.getPointAtLength(targetLength);
-    setParticleCoord({ x: point.x, y: point.y });
+    try {
+      if (!pathRef.current) return;
+      const path = pathRef.current;
+      if (typeof path.getTotalLength !== 'function' || typeof path.getPointAtLength !== 'function') return;
+      const totalLength = path.getTotalLength();
+      if (typeof totalLength !== 'number' || isNaN(totalLength)) return;
+      const targetLength = totalLength * progressWeights[activeStageIndex];
+      const point = path.getPointAtLength(targetLength);
+      if (point && typeof point.x === 'number' && typeof point.y === 'number') {
+        setParticleCoord({ x: point.x, y: point.y });
+      }
+    } catch (err) {
+      console.warn('Timeline trajectory calculation notice:', err);
+    }
   }, [activeStageIndex]);
 
   return (

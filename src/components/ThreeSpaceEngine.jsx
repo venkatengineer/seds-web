@@ -178,32 +178,38 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     const container = containerRef.current;
     if (!container) return;
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    const isMobile = width < 768;
+    let animId = null;
+    let renderer = null;
+    let bootTl = null;
+    let handleResize = null;
 
-    // 1. SCENE SETUP
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x010106, 0.00065);
+    try {
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      const isMobile = width < 768;
 
-    const camera = new THREE.PerspectiveCamera(
-      motionRef.current.fov,
-      width / height,
-      0.1,
-      6000
-    );
-    camera.position.set(motionRef.current.camX, motionRef.current.camY, motionRef.current.camZ);
+      // 1. SCENE SETUP
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x010106, 0.00065);
 
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance',
-    });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
-    container.appendChild(renderer.domElement);
+      const camera = new THREE.PerspectiveCamera(
+        motionRef.current.fov,
+        width / height,
+        0.1,
+        6000
+      );
+      camera.position.set(motionRef.current.camX, motionRef.current.camY, motionRef.current.camZ);
+
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        powerPreference: 'high-performance',
+      });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      container.appendChild(renderer.domElement);
 
     // 2. DIRECTIONAL & AMBIENT LIGHTING
     const sunLight = new THREE.DirectionalLight(0xffffff, motionRef.current.sunIntensity);
@@ -1171,17 +1177,16 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     }
 
     // 12. WINDOW RESIZE HANDLER
-    const handleResize = () => {
+    handleResize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+      if (renderer) renderer.setSize(width, height);
     };
     window.addEventListener('resize', handleResize);
 
     // 13. MASTER CONTINUOUS 60FPS RENDER LOOP
-    let animId;
     let clock = new THREE.Clock();
     let satAngle = 0;
     let smoothScroll = 0;
@@ -1339,24 +1344,33 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       animId = requestAnimationFrame(animate);
     };
 
-    animate();
+      animate();
+    } catch (err) {
+      console.warn("ThreeSpaceEngine WebGL initialization notice:", err);
+    }
 
     return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', handleResize);
-      if (bootTl) bootTl.kill();
-      if (container && renderer.domElement) {
-        container.removeChild(renderer.domElement);
+      if (animId) cancelAnimationFrame(animId);
+      if (handleResize) window.removeEventListener('resize', handleResize);
+      if (bootTl) {
+        try { bootTl.kill(); } catch (_) {}
       }
-      renderer.dispose();
+      if (container && renderer && renderer.domElement && container.contains(renderer.domElement)) {
+        try { container.removeChild(renderer.domElement); } catch (_) {}
+      }
+      if (renderer) {
+        try { renderer.dispose(); } catch (_) {}
+      }
     };
   }, []); // MOUNTS ONCE! NEVER RE-MOUNTS!
 
   return (
     <div 
       ref={containerRef} 
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden" 
-      style={{ background: '#010106' }}
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#010106]" 
+      style={{
+        backgroundImage: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.15), rgba(255, 255, 255, 0))'
+      }}
     />
   );
 });

@@ -13,7 +13,8 @@ export default function CustomCursor({ isPointer }) {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia('(pointer: coarse)').matches) return;
+    if (typeof window === 'undefined') return;
+    if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
 
     const handleMouseMove = (e) => {
       setPos({ x: e.clientX, y: e.clientY });
