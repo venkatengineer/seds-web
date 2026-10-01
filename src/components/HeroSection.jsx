@@ -200,7 +200,7 @@ export default function HeroSection({
             <span className="font-display text-[10px] tracking-[0.25em] uppercase text-[#8B5CF6] font-semibold flex items-center gap-1.5">
               <span>// 5 HACKATHON TRACKS</span>
             </span>
-            <span className="font-mono text-[10px] text-[#A6A0B8]">Free Phase 1 • 3–4 Members</span>
+            <span className="font-mono text-[10px] text-[#A6A0B8]">Free Phase 1 • 4 Members Only</span>
           </div>
 
           <div className="flex flex-wrap gap-2">

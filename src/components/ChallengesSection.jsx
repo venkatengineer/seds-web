@@ -168,7 +168,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
         {/* 6. Card Footer: Pinned at the bottom */}
         <div className="pt-3 mt-3 border-t border-white/[0.08] flex items-center justify-between gap-2 shrink-0">
           <span className="font-display text-[9px] text-[#A6A0B8] uppercase tracking-wider">
-            3–4 Members • Free Phase 1
+            4 Members Only • Free Phase 1
           </span>
 
           <button

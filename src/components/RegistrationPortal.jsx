@@ -104,7 +104,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-[11px] sm:text-xs">
             <span className="flex items-center gap-1.5 text-[#F7F5FF]/90">
               <Users size={13} className="text-[#8B5CF6]" />
-              <strong>Team Size:</strong> Strictly 3–4 Members
+              <strong>Team Size:</strong> Strictly 4 Members Only
             </span>
             <span className="flex items-center gap-1.5 text-[#F7F5FF]/90">
               <ShieldCheck size={13} className="text-emerald-400" />
