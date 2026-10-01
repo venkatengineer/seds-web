@@ -32,6 +32,15 @@ export default function Navigation({
 }) {
   const [isAudioActive, setIsAudioActive] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleAudioToggle = () => {
     const active = toggleOrbitalAmbiance();
@@ -48,8 +57,12 @@ export default function Navigation({
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 z-40 px-6 sm:px-12 lg:px-16 py-6 pointer-events-none transition-all duration-1000 ease-out ${
+        className={`fixed top-0 left-0 right-0 z-40 px-6 sm:px-12 lg:px-16 py-4 pointer-events-none transition-all duration-300 ease-out ${
           isNavVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6'
+        } ${
+          isScrolled 
+            ? 'bg-[#020107]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_10px_35px_rgba(0,0,0,0.6)]' 
+            : 'bg-transparent'
         }`}
       >
         <div className="w-full flex items-center justify-between pointer-events-auto">
