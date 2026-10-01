@@ -50,6 +50,10 @@ const FAQS = [
     q: 'What format should our initial presentation deck be in?',
     a: 'Phase 1 accepts presentation files in Microsoft PowerPoint (.ppt or .pptx) format up to 25 MB in size. A standardized SEDS template is linked directly within the registration portal.',
   },
+  {
+    q: `Who can I contact for queries regarding ${EVENT_CONFIG.name}?`,
+    a: 'For any questions regarding team registration, problem statements, or event logistics, reach out to Student Coordinator Sruthi Nisha.J.S at +91 98844 64389 (sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in) or contact the hackathon desk at queries.sedshacks@gmail.com.',
+  },
 ];
 
 export default function FaqSection() {

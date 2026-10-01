@@ -179,18 +179,18 @@ export const EVENT_CONFIG = {
   ],
   contacts: [
     {
-      role: "Student Coordinating Committee",
-      name: "SEDS REC Student Leadership",
+      role: "Student Coordinator",
+      name: "Sruthi Nisha.J.S",
       institution: "Rajalakshmi Engineering College, Chennai",
-      email: "sedsrec@rajalakshmi.edu.in",
-      phone: "+91 44 6718 1111",
+      email: "sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in",
+      phone: "+91 98844 64389",
     },
     {
       role: "SEDHACKS '26 Query Desk",
       name: "Event Operations & Support",
       institution: "Rajalakshmi Engineering College, Chennai",
       email: "queries.sedshacks@gmail.com",
-      phone: "+91 94440 00000",
+      phone: "+91 98844 64389",
     },
   ],
 };

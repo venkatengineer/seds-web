@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUp, Mail, MapPin } from 'lucide-react';
+import { ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 
 export default function Footer({ onNavigate, onOpenRegister }) {
@@ -124,38 +124,60 @@ export default function Footer({ onNavigate, onOpenRegister }) {
 
         <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="p-5 rounded-xl border border-white/[0.08] bg-[#07030F]/60 space-y-2">
-            <span className="font-display text-[10px] tracking-widest uppercase text-[#8B5CF6] block">
-              STUDENT COORDINATION
+            <span className="font-display text-[10px] tracking-widest uppercase text-[#8B5CF6] block font-semibold">
+              STUDENT COORDINATOR
             </span>
-            <div className="font-display text-sm font-semibold text-[#F7F5FF]">
-              SEDS REC Leadership
+            <div className="font-display text-base font-semibold text-[#F7F5FF]">
+              Sruthi Nisha.J.S
             </div>
             <div className="font-sans text-xs text-[#A6A0B8]">
               {SEDS_CONFIG.institution}, Chennai
             </div>
-            <div className="pt-1 flex items-center gap-1.5 text-xs text-[#C084FC]">
-              <Mail size={12} />
-              <a href="mailto:sedsrec@rajalakshmi.edu.in" className="hover:underline font-mono">
-                sedsrec@rajalakshmi.edu.in
-              </a>
+            <div className="pt-2 space-y-1.5">
+              <div className="flex items-center gap-2 text-xs text-[#C084FC]">
+                <Phone size={13} className="shrink-0 text-[#8B5CF6]" />
+                <a href="tel:9884464389" className="hover:underline font-mono text-[#F7F5FF]">
+                  +91 98844 64389
+                </a>
+              </div>
+              <div className="flex items-start gap-2 text-xs text-[#C084FC]">
+                <Mail size={13} className="shrink-0 text-[#8B5CF6] mt-0.5" />
+                <a 
+                  href="mailto:sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in" 
+                  className="hover:underline font-mono text-[11px] leading-snug break-all text-[#A6A0B8] hover:text-[#F7F5FF]"
+                >
+                  sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in
+                </a>
+              </div>
             </div>
           </div>
 
           <div className="p-5 rounded-xl border border-white/[0.08] bg-[#07030F]/60 space-y-2">
-            <span className="font-display text-[10px] tracking-widest uppercase text-[#8B5CF6] block">
+            <span className="font-display text-[10px] tracking-widest uppercase text-[#8B5CF6] block font-semibold">
               HACKATHON QUERY DESK
             </span>
-            <div className="font-display text-sm font-semibold text-[#F7F5FF]">
-              {EVENT_CONFIG.name} Query Support
+            <div className="font-display text-base font-semibold text-[#F7F5FF]">
+              {EVENT_CONFIG.name} Operations Desk
             </div>
             <div className="font-sans text-xs text-[#A6A0B8]">
               Event Operations & Helpdesk
             </div>
-            <div className="pt-1 flex items-center gap-1.5 text-xs text-[#C084FC]">
-              <Mail size={12} />
-              <a href="mailto:queries.sedshacks@gmail.com" className="hover:underline font-mono">
-                queries.sedshacks@gmail.com
-              </a>
+            <div className="pt-2 space-y-1.5">
+              <div className="flex items-center gap-2 text-xs text-[#C084FC]">
+                <Phone size={13} className="shrink-0 text-[#8B5CF6]" />
+                <a href="tel:9884464389" className="hover:underline font-mono text-[#F7F5FF]">
+                  +91 98844 64389
+                </a>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-[#C084FC]">
+                <Mail size={13} className="shrink-0 text-[#8B5CF6]" />
+                <a 
+                  href="mailto:queries.sedshacks@gmail.com" 
+                  className="hover:underline font-mono text-xs text-[#A6A0B8] hover:text-[#F7F5FF]"
+                >
+                  queries.sedshacks@gmail.com
+                </a>
+              </div>
             </div>
           </div>
         </div>
