@@ -9,7 +9,7 @@ import { SEDS_CONFIG, EVENT_CONFIG, PARTNERS_CONFIG } from '../config/event';
  * - NO fake constellation of random dots.
  * - NO fake companies or fabricated GPU claims.
  * - Dignified editorial logo wall with clear hierarchy and generous negative space.
- * - Real academic and institutional partners: REC, REC Aerospace Dept, SEDS India.
+ * - Real academic and institutional partners: REC, SEDS India.
  * - Clearly marked honest callout for event sponsor inquiries.
  */
 

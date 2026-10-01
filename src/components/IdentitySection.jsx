@@ -71,7 +71,7 @@ export default function IdentitySection({ onNavigate }) {
             // SEDS REC DIVISION IDENTITY
           </span>
           <h2 className="font-display text-xs tracking-[0.2em] uppercase text-[#A6A0B8]">
-            RAJALAKSHMI ENGINEERING COLLEGE // STUDENTS IN AEROSPACE
+            RAJALAKSHMI ENGINEERING COLLEGE // STUDENT SPACE DIVISION
           </h2>
         </div>
         <div className="font-display text-xs tracking-[0.2em] text-[#C084FC] uppercase">
@@ -150,7 +150,7 @@ export default function IdentitySection({ onNavigate }) {
           >
             <img 
               src="/images/team/students_lab.jpg" 
-              alt="SEDS REC Student Engineering Team in Aerospace Robotics and Satellite Workshop at Rajalakshmi Engineering College" 
+              alt="SEDS REC Student Engineering Team in Space Robotics and Satellite Workshop at Rajalakshmi Engineering College" 
               className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               loading="lazy"
             />
@@ -164,7 +164,7 @@ export default function IdentitySection({ onNavigate }) {
                   DOCUMENTARY PHOTOGRAPHY
                 </span>
                 <div className="font-display text-sm sm:text-base font-medium text-[#F7F5FF]">
-                  Aerospace Robotics & Satellite Technology Lab
+                  Student Space Robotics & Satellite Technology Lab
                 </div>
                 <div className="font-sans text-xs text-[#A6A0B8]">
                   Rajalakshmi Engineering College // SEDS REC Chapter
@@ -193,7 +193,7 @@ export default function IdentitySection({ onNavigate }) {
             </div>
             <div>
               <span className="text-[#8B5CF6] block text-base font-bold">REC</span>
-              <span>Aero Dept Labs</span>
+              <span>Campus Labs</span>
             </div>
             <div>
               <span className="text-[#8B5CF6] block text-base font-bold">SEDS</span>

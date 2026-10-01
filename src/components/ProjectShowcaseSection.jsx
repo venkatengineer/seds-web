@@ -173,7 +173,7 @@ export default function ProjectShowcaseSection({ onOpenRegister }) {
             </div>
 
             <p className="font-sans text-sm text-[#F7F5FF]/90 font-light leading-relaxed">
-              {selectedProject.desc} Constructed and benchmarked at Rajalakshmi Engineering College aerospace workshops in accordance with student sounding rocket and CubeSat development standards.
+              {selectedProject.desc} Constructed and benchmarked at Rajalakshmi Engineering College campus engineering workshops in accordance with student sounding rocket and CubeSat development standards.
             </p>
 
             <div className="space-y-2">

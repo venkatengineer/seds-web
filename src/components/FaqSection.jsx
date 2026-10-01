@@ -16,11 +16,11 @@ import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 const FAQS = [
   {
     q: `What is ${SEDS_CONFIG.name} and who can participate in ${EVENT_CONFIG.name}?`,
-    a: `${SEDS_CONFIG.name} (${SEDS_CONFIG.fullName}) is the student aerospace and space technology division established at ${SEDS_CONFIG.institution}, affiliated with the national SEDS India network. Participation in ${EVENT_CONFIG.name} is open to all university undergraduate and postgraduate students. Crews must strictly consist of 3 to 4 members.`,
+    a: `${SEDS_CONFIG.name} (${SEDS_CONFIG.fullName}) is the student-led space technology community established at ${SEDS_CONFIG.institution}, affiliated with the national SEDS India network. Participation in ${EVENT_CONFIG.name} is open to all university undergraduate and postgraduate students. Crews must strictly consist of 3 to 4 members.`,
   },
   {
     q: 'How does the Two-Phase registration and evaluation process work?',
-    a: 'Registration is structured in two distinct phases: Phase 1 is completely FREE. Teams submit their team composition (3–4 members), selected hackathon track, project title, brief description, and presentation deck (.ppt / .pptx). After evaluation by SEDS REC faculty and aerospace evaluators, approximately 30 shortlisted teams will be invited to Phase 2. The Phase 2 registration fee is ₹300 per person (₹900 for a 3-member team, ₹1,200 for a 4-member team).',
+    a: 'Registration is structured in two distinct phases: Phase 1 is completely FREE. Teams submit their team composition (3–4 members), selected hackathon track, project title, brief description, and presentation deck (.ppt / .pptx). After evaluation by the SEDS REC review panel and domain experts, approximately 30 shortlisted teams will be invited to Phase 2. The Phase 2 registration fee is ₹300 per person (₹900 for a 3-member team, ₹1,200 for a 4-member team).',
   },
   {
     q: `What are the 5 official hackathon tracks in ${EVENT_CONFIG.name}?`,
@@ -40,7 +40,7 @@ const FAQS = [
   },
   {
     q: `What is the role of ${SEDS_CONFIG.institution}?`,
-    a: `${SEDS_CONFIG.institution} is the autonomous host university providing laboratory testbeds, campus avionics fabrication facilities, compute infrastructure, and academic faculty mentorship from the Department of Aerospace Engineering.`,
+    a: `${SEDS_CONFIG.institution} is the autonomous host institution providing campus facilities, laboratory testbeds, compute infrastructure, and institutional support for SEDS REC initiatives.`,
   },
   {
     q: 'Who retains the intellectual property developed during the sprint?',

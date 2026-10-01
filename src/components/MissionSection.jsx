@@ -50,7 +50,7 @@ export default function MissionSection({ onNavigate }) {
             {SEDS_CONFIG.name} // CHAPTER CHARTER
           </span>
           <h2 className="font-display text-xs tracking-[0.2em] uppercase text-[#A6A0B8]">
-            {SEDS_CONFIG.institution} • {SEDS_CONFIG.department}
+            {SEDS_CONFIG.institution} • {SEDS_CONFIG.location}
           </h2>
         </div>
         <div className="font-display text-xs tracking-[0.2em] text-[#C084FC] uppercase">
@@ -110,7 +110,7 @@ export default function MissionSection({ onNavigate }) {
                 Students for the Exploration and Development of Space
               </div>
               <p className="font-sans text-xs text-[#A6A0B8] leading-relaxed">
-                Operating autonomously at {SEDS_CONFIG.institution}, bridging academic aerospace education and real flight hardware execution.
+                Operating as an autonomous student space community at {SEDS_CONFIG.institution}, bridging interdisciplinary engineering education and real flight hardware execution.
               </p>
             </div>
 

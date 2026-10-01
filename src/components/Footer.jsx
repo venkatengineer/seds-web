@@ -38,7 +38,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
               {SEDS_CONFIG.fullName}
             </div>
             <div className="font-display text-xs text-[#A6A0B8]">
-              {SEDS_CONFIG.institution} • {SEDS_CONFIG.department}
+              {SEDS_CONFIG.institution} • {SEDS_CONFIG.location}
             </div>
           </div>
 
@@ -100,7 +100,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             SEDS India Official Chapter
           </div>
           <div className="text-[#A6A0B8]">
-            REC Aerospace Department
+            {SEDS_CONFIG.institution}
           </div>
           <div className="pt-2">
             <button 

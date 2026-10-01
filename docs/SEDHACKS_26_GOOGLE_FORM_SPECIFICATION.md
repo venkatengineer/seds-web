@@ -28,7 +28,7 @@ SEDHACKS '26 is the premier student space and technology hackathon organized by 
 MISSION DIRECTIVES:
 • Phase 1 Registration: 100% FREE.
 • Team Size: Strictly 3 to 4 members (1 Team Lead + 2 or 3 Members).
-• Evaluation: SEDS REC faculty and aerospace evaluators will review all proposals and shortlist approximately 30 teams.
+• Evaluation: The SEDS REC review panel and domain experts will review all proposals and shortlist approximately 30 teams.
 • Phase 2: Shortlisted teams will be invited to the final sprint at REC Chennai (Registration fee: ₹300 per person).
 • Prize Pool: ₹10,000 cash prizes + Internship opportunities for Top 3 teams through Aeroin Space Tech.
 
@@ -123,7 +123,7 @@ Paste this under **Settings → Presentation → Confirmation message**:
 Your preliminary project submission for SEDHACKS '26 has been received by SEDS REC.
 
 NEXT PHASES:
-1. Technical Evaluation: The SEDS REC review panel and aerospace faculty are evaluating all submissions.
+1. Technical Evaluation: The SEDS REC review panel and domain mentors are evaluating all submissions.
 2. Shortlist Announcement: Approximately 30 shortlisted teams will be officially announced and notified via email.
 3. Phase 2 Registration: Shortlisted teams will unlock the final sprint entry (₹300 per person).
 
