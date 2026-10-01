@@ -172,10 +172,10 @@ export default function IdentitySection({ onNavigate }) {
               </div>
 
               <button
-                onClick={() => onNavigate('projects')}
+                onClick={() => onNavigate('tracks')}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-[#020107]/80 backdrop-blur-md text-xs font-display uppercase tracking-wider text-white hover:border-[#8B5CF6] transition-colors"
               >
-                <span>View Projects</span>
+                <span>View Hackathon Tracks</span>
                 <ArrowUpRight size={13} />
               </button>
             </div>

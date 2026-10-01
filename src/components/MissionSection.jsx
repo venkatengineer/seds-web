@@ -115,10 +115,10 @@ export default function MissionSection({ onNavigate }) {
             </div>
 
             <button
-              onClick={() => onNavigate('projects')}
+              onClick={() => onNavigate('tracks')}
               className="inline-flex items-center gap-2 font-display text-xs uppercase tracking-[0.2em] text-[#F7F5FF] hover:text-[#C084FC] transition-colors"
             >
-              <span>Explore Student Hardware ↗</span>
+              <span>Explore Hackathon Tracks ↗</span>
             </button>
           </div>
         </div>

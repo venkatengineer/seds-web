@@ -17,7 +17,6 @@ import { toggleOrbitalAmbiance } from '../utils/audio';
 const NAV_LINKS = [
   { id: 'mission', label: 'MISSION' },
   { id: 'identity', label: 'IDENTITY' },
-  { id: 'projects', label: 'PROJECTS' },
   { id: 'tracks', label: 'TRACKS' },
   { id: 'timeline', label: 'TIMELINE' },
   { id: 'prizes', label: 'WHY PARTICIPATE' },

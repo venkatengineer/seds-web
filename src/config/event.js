@@ -40,53 +40,6 @@ export const SEDS_CONFIG = {
   ],
 };
 
-export const SEDS_PROJECTS = [
-  {
-    id: "astra-4",
-    name: "PROJECT ASTRA-4",
-    year: "2025–2026",
-    category: "PROPULSION & AVIONICS",
-    status: "FLIGHT TESTED",
-    tagline: "Sub-orbital Sounding Rocket Telemetry & Static Thrust Bench",
-    desc: "A custom-engineered solid rocket propulsion static test stand with real-time strain gauge thrust measurement, dual-redundant flight computer, barometric apogee detection, and dual-deployment parachute recovery.",
-    image: "/images/projects/rocketry_launch.jpg",
-    subsystems: ["Dual-core STM32 Flight Computer", "1000 Hz Telemetry Link", "Pyrotechnic Deployment Controller", "Cryogenic/Solid Static Load Cell"],
-  },
-  {
-    id: "rec-sat",
-    name: "REC-SAT 1U",
-    year: "2025–2026",
-    category: "SATELLITE SYSTEMS",
-    status: "LAB TESTBED",
-    tagline: "1U CubeSat Flight Computer & Sensor Payload Architecture",
-    desc: "Modular 1U CubeSat engineering model featuring gold-plated bus backplanes, magnetic torquer coils for attitude control, UHF ground telemetry, and radiation-hardened memory logging for low Earth orbit payloads.",
-    image: "/images/projects/cubesat_avionics.jpg",
-    subsystems: ["PC104 Form-factor Bus", "UHF/VHF Transceiver (437 MHz)", "3-Axis Magnetorquer Coils", "Solar Maximum Power Tracking"],
-  },
-  {
-    id: "aura-rover",
-    name: "AURA-ROVER",
-    year: "2024–2026",
-    category: "PLANETARY ROBOTICS",
-    status: "PROTOTYPE TESTING",
-    tagline: "Autonomous Lunar Surface Exploration Rover Prototype",
-    desc: "Field-tested six-wheeled rocker-bogie mobility rover built for extreme terrain traversal, featuring stereo computer vision hazard avoidance, robotic sample manipulation arm, and remote telemetry streaming.",
-    image: "/images/projects/planetary_rover.jpg",
-    subsystems: ["Rocker-Bogie Articulation", "Stereo Depth Point-Cloud Navigation", "5-DOF Robotic Sampling Arm", "Low-latency Mesh Telemetry"],
-  },
-  {
-    id: "apogee-gs",
-    name: "APOGEE GROUND STATION",
-    year: "2023–2026",
-    category: "COMMUNICATIONS",
-    status: "OPERATIONAL",
-    tagline: "Automated Dual-Axis Satellite Tracking Array",
-    desc: "Autonomous campus ground station utilizing azimuth-elevation rotators to track amateur satellite passes (NOAA, CubeSats, ISS), decoding telemetry and Earth observation weather imagery in real-time.",
-    image: "/images/projects/ground_station.jpg",
-    subsystems: ["Dual-axis Azimuth/Elevation Rotator", "High-gain Yagi & Parabolic Array", "Software Defined Radio (SDR)", "Automated TLE Ephemeris Tracking"],
-  },
-];
-
 export const REGISTRATION_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfEC7Sndyksvk125Jr8TzwKhKVcqiFLFZwL3chNYuNbataJRg/viewform?usp=sharing&ouid=105886379411425310581";
 export const REGISTRATION_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfEC7Sndyksvk125Jr8TzwKhKVcqiFLFZwL3chNYuNbataJRg/viewform?embedded=true";
 

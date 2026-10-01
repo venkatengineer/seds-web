@@ -67,23 +67,18 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             </button>
           </div>
           <div>
-            <button onClick={() => onNavigate('projects')} className="hover:text-[#F7F5FF] transition-colors">
-              03 — Student Projects
-            </button>
-          </div>
-          <div>
-            <button onClick={() => onNavigate('challenges')} className="hover:text-[#F7F5FF] transition-colors">
-              04 — Challenge Tracks
+            <button onClick={() => onNavigate('tracks')} className="hover:text-[#F7F5FF] transition-colors">
+              03 — Hackathon Tracks
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('timeline')} className="hover:text-[#F7F5FF] transition-colors">
-              05 — Flight Trajectory
+              04 — Flight Trajectory
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('prizes')} className="hover:text-[#F7F5FF] transition-colors">
-              06 — Why Participate
+              05 — Why Participate
             </button>
           </div>
         </div>

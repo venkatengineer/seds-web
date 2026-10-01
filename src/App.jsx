@@ -5,7 +5,6 @@ import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
 import MissionSection from './components/MissionSection';
 import IdentitySection from './components/IdentitySection';
-import ProjectShowcaseSection from './components/ProjectShowcaseSection';
 import ChallengesSection from './components/ChallengesSection';
 import TimelineSection from './components/TimelineSection';
 import CountdownSection from './components/CountdownSection';
@@ -46,7 +45,6 @@ export default function App() {
       'hero',
       'mission',
       'identity',
-      'projects',
       'tracks',
       'challenges',
       'timeline',
@@ -163,11 +161,6 @@ export default function App() {
 
         {/* SEDS REC Identity: Real documentary evidence with image masks */}
         <IdentitySection onNavigate={handleNavigate} />
-
-        {/* Student Project Showcase: Real hardware with physical depth */}
-        <ProjectShowcaseSection
-          onOpenRegister={() => setIsRegisterOpen(true)}
-        />
 
         {/* 5 Official Hackathon Tracks */}
         <ChallengesSection

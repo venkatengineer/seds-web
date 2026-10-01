@@ -1307,8 +1307,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       nebulaGroup.rotation.z = elapsed * 0.0006;
 
       // Constellation Sector Visibility & Active Node Highlighting
-      const inChallenges = p.activeSection === 'challenges';
-      constellationGroup.visible = inChallenges || p.activeSection === 'projects';
+      const inChallenges = p.activeSection === 'challenges' || p.activeSection === 'tracks';
+      constellationGroup.visible = inChallenges;
       if (constellationGroup.visible) {
         constellationGroup.rotation.z = elapsed * 0.0008;
         challengeNodeMeshes.forEach((meshObj, idx) => {
