@@ -20,7 +20,15 @@ const FAQS = [
   },
   {
     q: 'How does the Two-Phase registration and evaluation process work?',
-    a: 'Registration is structured in two distinct phases: Phase 1 is completely FREE. Teams submit their team composition (3–4 members), problem statement domain, project title, brief description, and presentation deck (.ppt / .pptx). After evaluation by SEDS REC faculty and aerospace evaluators, approximately 30 shortlisted teams will be invited to Phase 2. The Phase 2 registration fee is ₹300 per person (₹900 for a 3-member team, ₹1,200 for a 4-member team).',
+    a: 'Registration is structured in two distinct phases: Phase 1 is completely FREE. Teams submit their team composition (3–4 members), selected hackathon track, project title, brief description, and presentation deck (.ppt / .pptx). After evaluation by SEDS REC faculty and aerospace evaluators, approximately 30 shortlisted teams will be invited to Phase 2. The Phase 2 registration fee is ₹300 per person (₹900 for a 3-member team, ₹1,200 for a 4-member team).',
+  },
+  {
+    q: `What are the 5 official hackathon tracks in ${EVENT_CONFIG.name}?`,
+    a: "The hackathon features 5 official tracks: 01. Space Applications & Defence Technology, 02. Medical, Food & Agriculture in Space, 03. Autonomous & Communication Technology, 04. Sustainability in Space, and 05. Miscellaneous / Open Innovation. Teams can submit solutions for any of these domains.",
+  },
+  {
+    q: 'What are the prizes and internship opportunities?',
+    a: "SEDHACKS '26 features a ₹10,000 cash prize pool. In addition, through our industry collaboration with Aeroin Space Tech, the Top 3 teams will receive internship opportunities, subject to the organisation's selection process.",
   },
   {
     q: 'Can individuals register solo or with fewer than 3 members?',
@@ -28,7 +36,7 @@ const FAQS = [
   },
   {
     q: 'Do I need prior experience in aerospace engineering or rocketry?',
-    a: `No prior aerospace background is required. ${EVENT_CONFIG.name} brings software developers, mathematicians, robotics designers, and physics students together. SEDS REC technical mentors provide starter ephemeris APIs, CubeSat telemetry datasets, and baseline astrodynamics libraries at the opening briefing.`,
+    a: `No prior aerospace background is required. ${EVENT_CONFIG.name} brings software developers, mathematicians, robotics designers, and physics students together. SEDS REC technical mentors provide guidance, datasets, and baseline libraries across all tracks.`,
   },
   {
     q: `What is the role of ${SEDS_CONFIG.institution}?`,

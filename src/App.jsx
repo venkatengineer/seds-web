@@ -47,6 +47,7 @@ export default function App() {
       'mission',
       'identity',
       'projects',
+      'tracks',
       'challenges',
       'timeline',
       'countdown',
@@ -168,7 +169,7 @@ export default function App() {
           onOpenRegister={() => setIsRegisterOpen(true)}
         />
 
-        {/* 5-Node Interactive Spatial Constellation */}
+        {/* 5 Official Hackathon Tracks */}
         <ChallengesSection
           onOpenRegister={() => setIsRegisterOpen(true)}
           onNodeSelect={(idx) => setActiveChallengeIndex(idx)}

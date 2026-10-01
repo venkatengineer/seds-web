@@ -18,9 +18,9 @@ const NAV_LINKS = [
   { id: 'mission', label: 'MISSION' },
   { id: 'identity', label: 'IDENTITY' },
   { id: 'projects', label: 'PROJECTS' },
-  { id: 'challenges', label: 'CHALLENGES' },
+  { id: 'tracks', label: 'TRACKS' },
   { id: 'timeline', label: 'TIMELINE' },
-  { id: 'prizes', label: 'PRIZES' },
+  { id: 'prizes', label: 'WHY PARTICIPATE' },
   { id: 'faq', label: 'FAQ' },
 ];
 
