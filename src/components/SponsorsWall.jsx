@@ -20,16 +20,16 @@ export default function SponsorsWall() {
       className="relative min-h-[80vh] w-full flex flex-col justify-center py-32 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-16">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
         <div>
-          <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold">
+          <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] block mb-1 font-semibold">
             // INSTITUTIONAL BACKING & NETWORK
           </span>
           <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
             ACADEMIC & CHAPTER ALLIANCE.
           </h2>
         </div>
-        <div className="font-display text-xs tracking-[0.2em] text-[#A6A0B8] uppercase">
+        <div className="font-display text-xs tracking-[0.2em] text-[#E2DEEC] uppercase font-medium">
           {SEDS_CONFIG.name} × {EVENT_CONFIG.name}
         </div>
       </div>
@@ -39,8 +39,8 @@ export default function SponsorsWall() {
         {PARTNERS_CONFIG.map((group, groupIdx) => (
           <div key={groupIdx} className="space-y-6">
             <div className="flex items-center gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
-              <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A6A0B8] font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C084FC]" />
+              <span className="font-display text-xs tracking-[0.25em] uppercase text-[#E2DEEC] font-semibold">
                 {group.category}
               </span>
             </div>
@@ -49,7 +49,7 @@ export default function SponsorsWall() {
               {group.items.map((item, idx) => (
                 <div
                   key={idx}
-                  className={`group relative p-8 rounded-2xl border border-white/[0.08] bg-[#07030F]/40 hover:bg-[#07030F]/80 hover:border-[#8B5CF6]/40 transition-all duration-300 flex flex-col justify-between min-h-[140px] ${
+                  className={`group relative p-8 rounded-2xl border border-white/[0.12] bg-[#07030F]/70 hover:bg-[#07030F]/90 hover:border-[#8B5CF6]/60 transition-all duration-300 flex flex-col justify-between min-h-[140px] shadow-[0_0_20px_rgba(76,29,149,0.15)] ${
                     group.items.length === 1 ? 'sm:col-span-2' : ''
                   }`}
                 >
@@ -58,15 +58,15 @@ export default function SponsorsWall() {
                       <h3 className="font-editorial text-2xl font-bold text-[#F7F5FF] group-hover:text-white transition-colors">
                         {item.name}
                       </h3>
-                      <div className="font-display text-xs text-[#8B5CF6] uppercase tracking-wider mt-1">
+                      <div className="font-display text-xs text-[#C084FC] uppercase tracking-wider mt-1 font-semibold">
                         {item.type} • {item.location}
                       </div>
                     </div>
 
-                    <span className="w-2 h-2 rounded-full bg-white/10 group-hover:bg-[#8B5CF6] transition-colors" />
+                    <span className="w-2 h-2 rounded-full bg-white/20 group-hover:bg-[#A855F7] transition-colors" />
                   </div>
 
-                  <p className="font-sans text-xs text-[#A6A0B8] font-light leading-relaxed mt-4 pt-3 border-t border-white/[0.06]">
+                  <p className="font-sans text-xs text-[#E2DEEC] font-normal leading-relaxed mt-4 pt-3 border-t border-white/[0.12]">
                     {item.role}
                   </p>
                 </div>
@@ -76,7 +76,7 @@ export default function SponsorsWall() {
         ))}
 
         {/* Transparent & Honest Sponsor Callout */}
-        <div className="p-8 sm:p-10 rounded-2xl border border-dashed border-white/15 bg-white/[0.01] flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="p-8 sm:p-10 rounded-2xl border border-dashed border-white/25 bg-white/[0.02] flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
             <div className="font-display text-xs uppercase tracking-[0.2em] text-[#C084FC] font-semibold">
               // COLLABORATE WITH {EVENT_CONFIG.name}
@@ -84,14 +84,14 @@ export default function SponsorsWall() {
             <h4 className="font-editorial text-2xl font-bold text-[#F7F5FF]">
               Support Student Space Engineering.
             </h4>
-            <p className="font-sans text-xs sm:text-sm text-[#A6A0B8] font-light leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm text-[#E2DEEC] font-normal leading-relaxed">
               We welcome aerospace industry organizations, software tool providers, and research laboratories to sponsor challenges, mentor teams, or offer specialized tooling licenses to student finalists.
             </p>
           </div>
 
           <a
             href="mailto:partnerships@sedsrec.in"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/20 hover:bg-[#6D28D9]/40 text-[#F7F5FF] text-xs font-display uppercase tracking-widest font-semibold transition-all shrink-0"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#8B5CF6] bg-[#6D28D9]/40 hover:bg-[#6D28D9] text-[#F7F5FF] text-xs font-display uppercase tracking-widest font-bold transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] shrink-0"
           >
             <span>Inquire for Sponsorship</span>
             <ArrowUpRight size={14} />

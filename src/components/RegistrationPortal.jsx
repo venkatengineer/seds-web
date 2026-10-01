@@ -56,17 +56,20 @@ export default function RegistrationPortal({ isOpen, onClose }) {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-[#8B5CF6]/15 via-transparent to-transparent pointer-events-none" />
 
         {/* Top Control Header */}
-        <header className="relative z-10 flex flex-wrap items-center justify-between gap-3 px-5 sm:px-8 py-4 border-b border-white/[0.08] bg-[#090615]/80 backdrop-blur-md shrink-0">
+        <header className="relative z-10 flex flex-wrap items-center justify-between gap-3 px-5 sm:px-8 py-4 border-b border-white/[0.12] bg-[#090615]/90 backdrop-blur-md shrink-0">
           
           {/* Left: Branding & Directives */}
           <div className="space-y-1">
-            <div className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
-              <span className="font-display text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#8B5CF6] font-semibold">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-pulse" />
+              <span className="font-display text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#C084FC] font-semibold">
                 {SEDS_CONFIG.name} // OFFICIAL SUBMISSION
               </span>
-              <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-950/40 text-[10px] font-mono text-emerald-300 font-semibold">
+              <span className="inline-block px-2.5 py-0.5 rounded-full border border-emerald-500/50 bg-emerald-950/50 text-[10px] font-mono text-emerald-300 font-bold">
                 100% FREE OF COST (₹0)
+              </span>
+              <span className="inline-block px-2.5 py-0.5 rounded-full border border-amber-500/60 bg-amber-950/50 text-[10px] font-mono text-amber-300 font-bold animate-pulse">
+                DEADLINE: 10 OCT 2026 // 23:59 IST
               </span>
             </div>
             <h2 className="font-editorial text-xl sm:text-2xl font-bold tracking-tight text-[#F7F5FF]">
@@ -81,17 +84,17 @@ export default function RegistrationPortal({ isOpen, onClose }) {
               href={REGISTRATION_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 hover:bg-[#6D28D9]/50 text-[#F7F5FF] text-xs font-display uppercase tracking-[0.15em] font-medium shadow-[0_0_20px_rgba(139,92,246,0.25)] hover:border-[#8B5CF6] transition-all duration-200"
+              className="group flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-[#8B5CF6] bg-[#6D28D9]/40 hover:bg-[#6D28D9] text-[#F7F5FF] text-xs font-display uppercase tracking-[0.15em] font-bold shadow-[0_0_20px_rgba(139,92,246,0.35)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all duration-200"
               title="Open Google Form in a new tab"
             >
               <span>Open in Full Tab</span>
-              <ExternalLink size={13} className="text-[#C084FC] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ExternalLink size={13} className="text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
 
             {/* Close Portal */}
             <button
               onClick={onClose}
-              className="p-2 sm:p-2.5 rounded-full border border-white/10 hover:border-white/30 text-[#A6A0B8] hover:text-[#F7F5FF] hover:bg-white/[0.05] transition-all duration-200 focus:outline-none"
+              className="p-2 sm:p-2.5 rounded-full border border-white/20 hover:border-white/50 text-[#E2DEEC] hover:text-white hover:bg-white/[0.1] transition-all duration-200 focus:outline-none cursor-pointer"
               aria-label="Close registration portal"
             >
               <X size={18} />
@@ -100,27 +103,27 @@ export default function RegistrationPortal({ isOpen, onClose }) {
         </header>
 
         {/* Quick Requirement Directives Bar */}
-        <div className="relative z-10 px-5 sm:px-8 py-2.5 bg-[#0C091C]/90 border-b border-white/[0.05] flex flex-wrap items-center justify-between gap-2 text-xs font-sans text-[#A6A0B8] shrink-0">
+        <div className="relative z-10 px-5 sm:px-8 py-3 bg-[#0C091C] border-b border-white/[0.1] flex flex-wrap items-center justify-between gap-2 text-xs font-sans text-[#E2DEEC] shrink-0">
           <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[11px] sm:text-xs">
-            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full border border-[#8B5CF6]/80 bg-[#4C1D95]/60 text-white font-semibold font-display tracking-wider shadow-[0_0_12px_rgba(139,92,246,0.35)]">
-              <Calendar size={12} className="text-[#C084FC]" />
-              <span>{EVENT_CONFIG.dates}</span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/60 bg-amber-500/20 text-amber-300 font-bold font-display tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+              <span>REGISTRATION CLOSES: 10 OCT 2026 // 23:59 IST</span>
             </span>
-            <span className="flex items-center gap-1.5 text-[#F7F5FF]/90">
-              <Users size={13} className="text-[#8B5CF6]" />
-              <strong>Team Size:</strong> Strictly 4 Members Only
+            <span className="flex items-center gap-1.5 text-white font-medium">
+              <Users size={13} className="text-[#C084FC]" />
+              <strong>Squad Size:</strong> Strictly 4 Members Only
             </span>
-            <span className="flex items-center gap-1.5 text-emerald-300 font-medium">
+            <span className="flex items-center gap-1.5 text-emerald-300 font-bold">
               <ShieldCheck size={13} className="text-emerald-400" />
               <strong>Fee:</strong> Completely Free of Cost (₹0 Entry Fee)
             </span>
-            <span className="hidden md:flex items-center gap-1.5 text-[#A6A0B8]">
+            <span className="hidden md:flex items-center gap-1.5 text-[#E2DEEC]">
               <FileText size={13} className="text-[#C084FC]" />
-              Presentation Deck (.ppt / .pptx) Upload Required
+              PPT / PPTX Presentation Deck Upload Required
             </span>
           </div>
 
-          <div className="text-[11px] text-[#A6A0B8]/80 font-mono hidden lg:block">
+          <div className="text-[11px] text-[#E2DEEC] font-mono-tech hidden lg:block font-medium">
             DIRECT G-FORM TRANSMISSION
           </div>
         </div>
@@ -130,22 +133,22 @@ export default function RegistrationPortal({ isOpen, onClose }) {
           
           {/* Loading Animation Overlay */}
           {iframeLoading && (
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-[#030208] text-[#A6A0B8]">
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-[#030208] text-[#E2DEEC]">
               <div className="relative w-12 h-12">
-                <div className="absolute inset-0 rounded-full border border-[#8B5CF6]/20 border-t-[#8B5CF6] animate-spin" />
-                <div className="absolute inset-2 rounded-full border border-[#C084FC]/30 border-b-[#C084FC] animate-[spin_1.5s_linear_infinite_reverse]" />
+                <div className="absolute inset-0 rounded-full border border-[#8B5CF6]/30 border-t-[#8B5CF6] animate-spin" />
+                <div className="absolute inset-2 rounded-full border border-[#C084FC]/40 border-b-[#C084FC] animate-[spin_1.5s_linear_infinite_reverse]" />
               </div>
-              <div className="font-display text-xs tracking-[0.2em] uppercase text-[#F7F5FF]">
+              <div className="font-display text-xs tracking-[0.2em] uppercase text-[#F7F5FF] font-semibold">
                 INITIALIZING SECURE REGISTRATION FORM...
               </div>
-              <p className="text-xs text-[#A6A0B8]/70 max-w-sm text-center px-4 font-sans font-light">
+              <p className="text-xs text-[#E2DEEC] max-w-sm text-center px-4 font-sans font-normal">
                 Connecting to Google Forms telemetry channel. If loading takes longer, you can open it directly in a new tab.
               </p>
               <a
                 href={REGISTRATION_FORM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center gap-1.5 text-xs text-[#8B5CF6] hover:text-[#C084FC] transition-colors"
+                className="mt-2 inline-flex items-center gap-1.5 text-xs text-[#C084FC] hover:text-white transition-colors font-medium"
               >
                 <span>Launch in Separate Tab</span>
                 <ExternalLink size={12} />
@@ -166,9 +169,9 @@ export default function RegistrationPortal({ isOpen, onClose }) {
         </div>
 
         {/* Bottom Status / Fallback Notice Footer */}
-        <footer className="relative z-10 px-5 sm:px-8 py-3 bg-[#080514] border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#A6A0B8] shrink-0">
+        <footer className="relative z-10 px-5 sm:px-8 py-3 bg-[#080514] border-t border-white/[0.12] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#E2DEEC] shrink-0">
           <div className="flex items-center gap-2 text-center sm:text-left">
-            <Sparkles size={13} className="text-[#8B5CF6] shrink-0" />
+            <Sparkles size={13} className="text-[#C084FC] shrink-0" />
             <span className="font-sans text-[11px] sm:text-xs">
               Google Account required for PPT file attachment. If browser restricts sign-in in embedded frame, open in full tab.
             </span>

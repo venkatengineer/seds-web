@@ -44,16 +44,22 @@ export default function TimelineSection() {
       className="relative min-h-screen w-full flex flex-col justify-center py-32 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-16">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
         <div>
-          <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold">
-            // ORBITAL FLIGHT TRAJECTORY
-          </span>
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold">
+              // ORBITAL FLIGHT TRAJECTORY
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-[11px] font-bold tracking-wider uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+              LAST DATE TO REGISTER: 10 OCT 2026
+            </span>
+          </div>
           <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
             MISSION STAGES.
           </h2>
         </div>
-        <div className="font-display text-xs tracking-[0.2em] text-[#A6A0B8] uppercase">
+        <div className="font-display text-xs tracking-[0.2em] text-[#E2DEEC] uppercase font-medium">
           48-HOUR SPRINT SEQUENCE
         </div>
       </div>
@@ -101,33 +107,33 @@ export default function TimelineSection() {
         </div>
 
         {/* 2. Four Stage Selectors Along Path (Clean Open Layout) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-4 border-t border-white/[0.08]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-4 border-t border-white/[0.12]">
           {stages.map((stage, idx) => {
             const isActive = idx === activeStageIndex;
             return (
               <button
                 key={stage.stage}
                 onClick={() => setActiveStageIndex(idx)}
-                className="group text-left space-y-2 focus:outline-none transition-all duration-300"
+                className="group text-left space-y-2 focus:outline-none transition-all duration-300 cursor-pointer"
               >
                 <div className="flex items-center gap-2">
                   <span className={`w-2 h-2 rounded-full transition-all duration-400 ${
-                    isActive ? 'bg-[#8B5CF6] shadow-[0_0_12px_#8B5CF6] scale-125' : 'bg-white/20 group-hover:bg-white/50'
+                    isActive ? 'bg-[#A855F7] shadow-[0_0_12px_#A855F7] scale-125' : 'bg-white/30 group-hover:bg-white/60'
                   }`} />
                   <span className={`font-display text-xs tracking-[0.2em] uppercase transition-colors ${
-                    isActive ? 'text-[#8B5CF6] font-semibold' : 'text-[#A6A0B8]'
+                    isActive ? 'text-[#C084FC] font-bold' : 'text-[#E2DEEC]/70 group-hover:text-[#E2DEEC]'
                   }`}>
                     STAGE {stage.stage}
                   </span>
                 </div>
 
                 <div className={`font-editorial text-2xl sm:text-3xl font-bold tracking-tight transition-colors ${
-                  isActive ? 'text-white' : 'text-[#A6A0B8] group-hover:text-[#F7F5FF]'
+                  isActive ? 'text-white' : 'text-[#E2DEEC]/80 group-hover:text-white'
                 }`}>
                   {stage.title}
                 </div>
 
-                <div className="font-display text-[11px] text-[#A6A0B8] uppercase tracking-wider">
+                <div className="font-display text-[11px] text-[#E2DEEC] uppercase tracking-wider font-mono-tech">
                   {stage.time}
                 </div>
               </button>
@@ -136,18 +142,30 @@ export default function TimelineSection() {
         </div>
 
         {/* 3. Active Stage Content Reveal (Clean Editorial Display) */}
-        <div className="pt-8 border-t border-white/[0.08] flex flex-col md:flex-row md:items-baseline justify-between gap-6">
+        <div className="pt-8 border-t border-white/[0.12] flex flex-col md:flex-row md:items-baseline justify-between gap-6">
           <div key={currentStage.stage} className="max-w-2xl space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-400">
             <div className="font-display text-xs uppercase tracking-[0.2em] text-[#C084FC] font-semibold">
               // {currentStage.tagline}
             </div>
-            <p className="font-sans text-base sm:text-lg text-[#F7F5FF]/90 font-light leading-relaxed">
+            <p className="font-sans text-base sm:text-lg text-white font-normal leading-relaxed">
               {currentStage.desc}
             </p>
           </div>
 
-          <div className="font-display text-xs text-[#A6A0B8] shrink-0 tracking-wider">
+          <div className="font-display text-xs text-[#E2DEEC] shrink-0 tracking-wider font-mono-tech">
             T+ PHASE {currentStage.stage} OF 04 // FLIGHT PROTOCOL
+          </div>
+        </div>
+
+        {/* 4. Registration Cutoff Strip */}
+        <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/[0.05] flex flex-wrap items-center justify-between gap-4 text-xs font-display">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span className="text-amber-300 font-bold uppercase tracking-wider">REGISTRATION DEADLINE:</span>
+            <span className="text-[#F7F5FF] font-semibold">{EVENT_CONFIG.registrationDeadline} // 23:59 IST</span>
+          </div>
+          <div className="text-emerald-400 font-semibold uppercase tracking-wider">
+            100% FREE ENTRY (₹0 FEE) • 4 PARTICIPANTS PER SQUAD
           </div>
         </div>
       </div>

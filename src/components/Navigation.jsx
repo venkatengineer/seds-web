@@ -16,11 +16,11 @@ import { toggleOrbitalAmbiance } from '../utils/audio';
 
 const NAV_LINKS = [
   { id: 'tracks', label: 'TRACKS' },
-  { id: 'mission', label: 'MISSION' },
-  { id: 'identity', label: 'IDENTITY' },
+  { id: 'prizes', label: 'PRIZES' },
   { id: 'timeline', label: 'TIMELINE' },
-  { id: 'prizes', label: 'WHY PARTICIPATE' },
+  { id: 'countdown', label: 'DEADLINE' },
   { id: 'faq', label: 'FAQ' },
+  { id: 'mission', label: 'ABOUT SEDS' },
 ];
 
 export default function Navigation({ 
@@ -61,7 +61,7 @@ export default function Navigation({
           isNavVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6'
         } ${
           isScrolled 
-            ? 'bg-[#020107]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_10px_35px_rgba(0,0,0,0.6)]' 
+            ? 'bg-[#020107]/90 backdrop-blur-xl border-b border-white/[0.12] shadow-[0_10px_35px_rgba(0,0,0,0.8)]' 
             : 'bg-transparent'
         }`}
       >
@@ -78,7 +78,7 @@ export default function Navigation({
                 {SEDS_CONFIG.name}
               </span>
             </div>
-            <span className="pl-4 font-display text-[9px] uppercase tracking-[0.16em] text-[#A6A0B8]">
+            <span className="pl-4 font-display text-[9px] uppercase tracking-[0.16em] text-[#E2DEEC] font-medium">
               {SEDS_CONFIG.institution}
             </span>
           </button>
@@ -92,7 +92,7 @@ export default function Navigation({
                   key={item.id}
                   onClick={() => handleLinkClick(item.id)}
                   className={`relative group font-display text-xs tracking-[0.22em] uppercase transition-colors duration-300 py-1 focus:outline-none ${
-                    isSelected ? 'text-[#F7F5FF] font-medium' : 'text-[#A6A0B8] hover:text-[#F7F5FF]'
+                    isSelected ? 'text-[#F7F5FF] font-semibold' : 'text-[#E2DEEC] hover:text-[#FFFFFF]'
                   }`}
                 >
                   <span>{item.label}</span>
@@ -111,9 +111,15 @@ export default function Navigation({
           {/* Right: Audio Ambiance & Register */}
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Highlighted Hackathon Date in Navbar */}
-            <span className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/70 bg-[#4C1D95]/40 text-[#F7F5FF] font-display text-[10px] uppercase tracking-[0.16em] font-semibold shadow-[0_0_12px_rgba(139,92,246,0.3)]">
+            <span className="hidden 2xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/70 bg-[#4C1D95]/40 text-[#F7F5FF] font-display text-[10px] uppercase tracking-[0.16em] font-semibold shadow-[0_0_12px_rgba(139,92,246,0.3)]">
               <Calendar size={11} className="text-[#C084FC]" />
               <span>{EVENT_CONFIG.dates}</span>
+            </span>
+
+            {/* Prominently Highlighted Registration Deadline Badge */}
+            <span className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-400/80 bg-amber-950/40 text-amber-300 font-display text-[10px] uppercase tracking-[0.16em] font-bold shadow-[0_0_15px_rgba(251,191,36,0.35)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+              <span>CLOSES: {EVENT_CONFIG.registrationDeadline}</span>
             </span>
 
             {/* Replay Cinematic Boot */}
@@ -121,7 +127,7 @@ export default function Navigation({
               <button
                 onClick={onReplayBoot}
                 title="Replay Cinematic Boot Experience"
-                className="p-2 rounded-full border border-white/10 bg-transparent text-[#A6A0B8] hover:text-[#F7F5FF] hover:border-white/20 transition-all duration-300 focus:outline-none hidden sm:flex items-center gap-1.5 text-[10px] font-display uppercase tracking-wider"
+                className="p-2 rounded-full border border-white/20 bg-transparent text-[#E2DEEC] hover:text-[#FFFFFF] hover:border-white/40 transition-all duration-300 focus:outline-none hidden sm:flex items-center gap-1.5 text-[10px] font-display uppercase tracking-wider"
               >
                 <RotateCcw size={12} />
                 <span className="hidden xl:inline">Boot</span>
@@ -134,7 +140,7 @@ export default function Navigation({
               className={`p-2 rounded-full border transition-all duration-300 focus:outline-none ${
                 isAudioActive
                   ? 'border-[#8B5CF6]/50 bg-[#4C1D95]/20 text-[#C084FC]'
-                  : 'border-white/10 bg-transparent text-[#A6A0B8] hover:text-[#F7F5FF] hover:border-white/20'
+                  : 'border-white/20 bg-transparent text-[#E2DEEC] hover:text-[#FFFFFF] hover:border-white/40'
               }`}
             >
               {isAudioActive ? <Volume2 size={13} /> : <VolumeX size={13} />}
@@ -153,7 +159,7 @@ export default function Navigation({
             {/* Mobile menu trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-full border border-white/10 text-[#F7F5FF] hover:border-white/20 focus:outline-none"
+              className="lg:hidden p-2 rounded-full border border-white/20 text-[#F7F5FF] hover:border-white/40 focus:outline-none"
             >
               {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
@@ -169,7 +175,7 @@ export default function Navigation({
               <div className="font-editorial text-2xl font-bold tracking-[0.2em] text-[#F7F5FF]">
                 {SEDS_CONFIG.name}
               </div>
-              <div className="font-display text-xs tracking-wider text-[#A6A0B8]">
+              <div className="font-display text-xs tracking-wider text-[#E2DEEC]">
                 {SEDS_CONFIG.institution}
               </div>
             </div>

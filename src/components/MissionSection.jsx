@@ -38,7 +38,7 @@ export default function MissionSection({ onNavigate }) {
     >
       {/* Top Editorial Eyebrow */}
       <div 
-        className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6 mb-16 transition-all duration-800 ease-out"
+        className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16 transition-all duration-800 ease-out"
         style={{
           opacity: inView ? 1 : 0,
           transform: inView ? 'translateY(0)' : 'translateY(20px)',
@@ -46,14 +46,14 @@ export default function MissionSection({ onNavigate }) {
         }}
       >
         <div>
-          <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold">
+          <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] block mb-1 font-semibold">
             {SEDS_CONFIG.name} // CHAPTER CHARTER
           </span>
-          <h2 className="font-display text-xs tracking-[0.2em] uppercase text-[#A6A0B8]">
+          <h2 className="font-display text-xs tracking-[0.2em] uppercase text-[#E2DEEC] font-medium">
             {SEDS_CONFIG.institution} • {SEDS_CONFIG.location}
           </h2>
         </div>
-        <div className="font-display text-xs tracking-[0.2em] text-[#C084FC] uppercase">
+        <div className="font-display text-xs tracking-[0.2em] text-[#E2DEEC] uppercase font-medium">
           SEDS INDIA OFFICIAL CHAPTER // DIVISION {SEDS_CONFIG.founded}
         </div>
       </div>
@@ -70,14 +70,14 @@ export default function MissionSection({ onNavigate }) {
           }}
         >
           <div>SPACE IS NOT</div>
-          <div className="text-white/80">JUST TO BE OBSERVED.</div>
-          <div className="text-[#8B5CF6] flex items-baseline gap-4">
+          <div className="text-white">JUST TO BE OBSERVED.</div>
+          <div className="text-[#C084FC] flex items-baseline gap-4">
             <span>IT IS TO BE BUILT.</span>
-            <span className="inline-block w-3 h-3 rounded-full bg-[#8B5CF6] opacity-80 shadow-[0_0_15px_#8B5CF6]" />
+            <span className="inline-block w-3 h-3 rounded-full bg-[#A855F7] shadow-[0_0_15px_#A855F7]" />
           </div>
         </h3>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-12 pt-8 border-t border-white/[0.06]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-12 pt-8 border-t border-white/[0.12]">
           <div 
             className="lg:col-span-7 transition-all duration-800 ease-out"
             style={{
@@ -86,16 +86,16 @@ export default function MissionSection({ onNavigate }) {
               transitionDelay: '350ms',
             }}
           >
-            <p className="font-sans text-base sm:text-lg text-[#F7F5FF]/90 font-light leading-relaxed">
+            <p className="font-sans text-base sm:text-lg text-white font-normal leading-relaxed">
               {SEDS_CONFIG.missionStatement}
             </p>
-            <p className="font-sans text-sm sm:text-base text-[#A6A0B8] font-light leading-relaxed mt-4">
-              As an official university division of the global SEDS network, our student engineers construct sub-orbital rocket avionics, CubeSat payloads, autonomous planetary rover testbeds, and astrodynamic flight code. We organize <strong className="text-[#F7F5FF]">{EVENT_CONFIG.name}</strong> to bring ambitious student builders together for 48 hours of pure engineering.
+            <p className="font-sans text-sm sm:text-base text-[#E2DEEC] font-normal leading-relaxed mt-4">
+              As an official university division of the global SEDS network, our student engineers construct sub-orbital rocket avionics, CubeSat payloads, autonomous planetary rover testbeds, and astrodynamic flight code. We organize <strong className="text-white font-semibold">{EVENT_CONFIG.name}</strong> to bring ambitious student builders together for 48 hours of pure engineering.
             </p>
           </div>
 
           <div 
-            className="lg:col-span-5 flex flex-col justify-between border-l border-white/[0.06] pl-0 lg:pl-8 space-y-6 transition-all duration-800 ease-out"
+            className="lg:col-span-5 flex flex-col justify-between border-l border-white/[0.12] pl-0 lg:pl-8 space-y-6 transition-all duration-800 ease-out"
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? 'translateY(0)' : 'translateY(25px)',
@@ -103,20 +103,20 @@ export default function MissionSection({ onNavigate }) {
             }}
           >
             <div className="space-y-2">
-              <span className="font-display text-xs uppercase tracking-[0.22em] text-[#8B5CF6]">
+              <span className="font-display text-xs uppercase tracking-[0.22em] text-[#C084FC] font-semibold">
                 ORGANIZATIONAL IDENTITY
               </span>
               <div className="font-editorial text-xl font-bold text-[#F7F5FF]">
                 Students for the Exploration and Development of Space
               </div>
-              <p className="font-sans text-xs text-[#A6A0B8] leading-relaxed">
+              <p className="font-sans text-xs text-[#E2DEEC] leading-relaxed">
                 Operating as an autonomous student space community at {SEDS_CONFIG.institution}, bridging interdisciplinary engineering education and real flight hardware execution.
               </p>
             </div>
 
             <button
               onClick={() => onNavigate('tracks')}
-              className="inline-flex items-center gap-2 font-display text-xs uppercase tracking-[0.2em] text-[#F7F5FF] hover:text-[#C084FC] transition-colors"
+              className="inline-flex items-center gap-2 font-display text-xs uppercase tracking-[0.2em] text-white hover:text-[#C084FC] transition-colors cursor-pointer"
             >
               <span>Explore Hackathon Tracks ↗</span>
             </button>
@@ -125,9 +125,9 @@ export default function MissionSection({ onNavigate }) {
       </div>
 
       {/* 4 Actual Categories: Projects, Research, Outreach, Leadership (Sequence 4: Staggered) */}
-      <div className="mt-20 pt-8 border-t border-white/[0.08]">
+      <div className="mt-20 pt-8 border-t border-white/[0.12]">
         <div 
-          className="font-display text-xs tracking-[0.25em] uppercase text-[#A6A0B8] mb-8 transition-all duration-600 ease-out"
+          className="font-display text-xs tracking-[0.25em] uppercase text-[#E2DEEC] mb-8 transition-all duration-600 ease-out font-medium"
           style={{
             opacity: inView ? 1 : 0,
             transitionDelay: '650ms',
@@ -147,18 +147,18 @@ export default function MissionSection({ onNavigate }) {
                 transitionDelay: `${750 + idx * 150}ms`,
               }}
             >
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
-                <span className="font-display text-xs tracking-[0.2em] text-[#8B5CF6] font-semibold">
+              <div className="flex items-center justify-between border-b border-white/[0.12] pb-3">
+                <span className="font-display text-xs tracking-[0.2em] text-[#C084FC] font-semibold">
                   0{idx + 1} // {pillar.tag}
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-[#8B5CF6] transition-colors" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white/30 group-hover:bg-[#A855F7] transition-colors" />
               </div>
 
               <h4 className="font-display text-lg font-bold tracking-tight text-[#F7F5FF] group-hover:text-[#C084FC] transition-colors">
                 {pillar.title}
               </h4>
 
-              <p className="font-sans text-xs text-[#A6A0B8] font-light leading-relaxed">
+              <p className="font-sans text-xs text-[#E2DEEC] font-normal leading-relaxed">
                 {pillar.desc}
               </p>
             </div>

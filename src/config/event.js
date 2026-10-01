@@ -51,6 +51,8 @@ export const EVENT_CONFIG = {
   manifesto: "SEDS REC presents a student-led hackathon bringing together young innovators from diverse disciplines to develop solutions for challenges related to space, technology and sustainability.",
   dates: "12–13 OCTOBER 2026",
   datesFormatted: "October 12–13, 2026",
+  registrationDeadline: "10 OCTOBER 2026",
+  registrationDeadlineFormatted: "October 10, 2026 // 23:59 IST",
   venue: "Rajalakshmi Engineering College, Chennai",
   edition: "2026 EDITION // STUDENT SPACE HACKATHON",
   registrationFee: "100% Free of Cost (₹0 Entry Fee)",

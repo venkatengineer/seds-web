@@ -20,75 +20,85 @@ export default function Footer({ onNavigate, onOpenRegister }) {
   };
 
   return (
-    <footer className="relative w-full z-20 border-t border-white/[0.08] bg-[#020107] pt-24 pb-14 px-6 sm:px-12 lg:px-16 text-[#A6A0B8] select-none">
+    <footer className="relative w-full z-20 border-t border-white/[0.12] bg-[#020107] pt-24 pb-14 px-6 sm:px-12 lg:px-16 text-[#E2DEEC] select-none">
       
       {/* Top Footer Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 border-b border-white/[0.06]">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 border-b border-white/[0.12]">
         
         {/* Brand & Chapter Lineage */}
         <div className="md:col-span-2 space-y-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+              <span className="w-2 h-2 rounded-full bg-[#C084FC]" />
               <span className="font-editorial text-2xl font-bold tracking-[0.2em] text-[#F7F5FF]">
                 {SEDS_CONFIG.name}
               </span>
             </div>
-            <div className="font-display text-xs uppercase tracking-wider text-[#8B5CF6] font-medium">
+            <div className="font-display text-xs uppercase tracking-wider text-[#C084FC] font-semibold">
               {SEDS_CONFIG.fullName}
             </div>
-            <div className="font-display text-xs text-[#A6A0B8]">
+            <div className="font-display text-xs text-[#E2DEEC] font-medium">
               {SEDS_CONFIG.institution} • {SEDS_CONFIG.location}
             </div>
           </div>
 
-          <p className="max-w-md text-xs sm:text-sm font-sans font-light text-[#A6A0B8] leading-relaxed">
-            Advancing student-led space technology, rocketry, CubeSat avionics, and computational astrodynamics. Official organizing community of <strong className="text-[#F7F5FF]">{EVENT_CONFIG.name}</strong>.
+          <p className="max-w-md text-xs sm:text-sm font-sans font-normal text-[#E2DEEC] leading-relaxed">
+            Advancing student-led space technology, rocketry, CubeSat avionics, and computational astrodynamics. Official organizing community of <strong className="text-white font-semibold">{EVENT_CONFIG.name}</strong>.
           </p>
 
           <div className="pt-1 flex flex-wrap items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/70 bg-[#4C1D95]/40 text-[#F7F5FF] font-display text-xs tracking-wider font-semibold shadow-[0_0_12px_rgba(139,92,246,0.3)]">
-              <Calendar size={12} className="text-[#C084FC]" />
-              <span>{EVENT_CONFIG.dates}</span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-[11px] tracking-wider font-bold uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+              <span>CLOSES: {EVENT_CONFIG.registrationDeadline} // 23:59 IST</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/40 bg-emerald-950/30 text-emerald-300 font-display text-[11px] tracking-wider font-semibold">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/50 bg-emerald-950/40 text-emerald-300 font-display text-[11px] tracking-wider font-bold">
               <span>100% FREE REGISTRATION (₹0)</span>
             </span>
           </div>
 
           <div className="pt-2 font-display text-xs text-[#F7F5FF]">
-            FLIGHT CLOCK: <span className="text-[#8B5CF6] font-medium">{utcTime || 'SYNCHRONIZING...'}</span>
+            FLIGHT CLOCK: <span className="text-[#C084FC] font-medium font-mono-tech">{utcTime || 'SYNCHRONIZING...'}</span>
           </div>
         </div>
 
-        {/* Directory Column */}
+        {/* Directory Column - Updated to match hackathon-first layout */}
         <div className="space-y-3 font-display text-xs tracking-wider uppercase">
           <div className="text-[11px] tracking-[0.25em] text-[#F7F5FF] font-semibold mb-4">
             // SECTOR DIRECTORY
           </div>
           <div>
-            <button onClick={() => onNavigate('mission')} className="hover:text-[#F7F5FF] transition-colors">
-              01 — Chapter Mission
+            <button onClick={() => onNavigate('tracks')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
+              01 — Hackathon Tracks
             </button>
           </div>
           <div>
-            <button onClick={() => onNavigate('identity')} className="hover:text-[#F7F5FF] transition-colors">
-              02 — SEDS REC Identity
+            <button onClick={() => onNavigate('prizes')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
+              02 — Why Participate / Prizes
             </button>
           </div>
           <div>
-            <button onClick={() => onNavigate('tracks')} className="hover:text-[#F7F5FF] transition-colors">
-              03 — Hackathon Tracks
+            <button onClick={() => onNavigate('timeline')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
+              03 — Flight Trajectory
             </button>
           </div>
           <div>
-            <button onClick={() => onNavigate('timeline')} className="hover:text-[#F7F5FF] transition-colors">
-              04 — Flight Trajectory
+            <button onClick={() => onNavigate('deadline')} className="text-amber-300 hover:text-amber-200 transition-colors cursor-pointer font-semibold">
+              04 — Deadline Countdown
             </button>
           </div>
           <div>
-            <button onClick={() => onNavigate('prizes')} className="hover:text-[#F7F5FF] transition-colors">
-              05 — Why Participate
+            <button onClick={() => onNavigate('faq')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
+              05 — Directives & FAQ
+            </button>
+          </div>
+          <div>
+            <button onClick={() => onNavigate('mission')} className="text-[#E2DEEC]/80 hover:text-white transition-colors cursor-pointer">
+              06 — Chapter Mission
+            </button>
+          </div>
+          <div>
+            <button onClick={() => onNavigate('identity')} className="text-[#E2DEEC]/80 hover:text-white transition-colors cursor-pointer">
+              07 — SEDS REC Identity
             </button>
           </div>
         </div>
@@ -98,63 +108,63 @@ export default function Footer({ onNavigate, onOpenRegister }) {
           <div className="text-[11px] tracking-[0.25em] text-[#F7F5FF] font-semibold mb-4">
             // AFFILIATIONS
           </div>
-          <div className="text-[#A6A0B8]">
-            Industry Partner: {EVENT_CONFIG.industryPartner}
+          <div className="text-[#E2DEEC]">
+            Industry Partner: <strong className="text-white">{EVENT_CONFIG.industryPartner}</strong>
           </div>
-          <div className="text-[#A6A0B8]">
+          <div className="text-[#E2DEEC]">
             SEDS India Official Chapter
           </div>
-          <div className="text-[#A6A0B8]">
+          <div className="text-[#E2DEEC]">
             {SEDS_CONFIG.institution}
           </div>
           <div className="pt-2">
             <button 
               onClick={onOpenRegister} 
-              className="text-[#8B5CF6] hover:text-[#C084FC] transition-colors font-medium"
+              className="inline-flex items-center gap-1.5 text-white hover:text-[#C084FC] transition-colors font-bold underline cursor-pointer"
             >
-              Register for {EVENT_CONFIG.name} (Free Entry) ↗
+              <span>Register for {EVENT_CONFIG.name} (Free Entry) ↗</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* Contact Us & Queries Desk */}
-      <div className="py-12 border-b border-white/[0.06] grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      <div className="py-12 border-b border-white/[0.12] grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
         <div className="md:col-span-5 space-y-2">
-          <div className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] font-semibold">
+          <div className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold">
             // CONTACT US & INQUIRIES
           </div>
           <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-[#F7F5FF]">
             Questions About {EVENT_CONFIG.name}?
           </h3>
-          <p className="font-sans text-xs sm:text-sm text-[#A6A0B8] font-light leading-relaxed">
+          <p className="font-sans text-xs sm:text-sm text-[#E2DEEC] font-normal leading-relaxed">
             Reach out to Student Coordinator Sruthi Nisha.J.S at {SEDS_CONFIG.institution}, Chennai for team registration, problem statements, or event logistics.
           </p>
         </div>
 
         <div className="md:col-span-7 flex justify-start md:justify-end">
-          <div className="w-full max-w-md p-6 rounded-2xl border border-white/[0.08] bg-[#07030F]/60 space-y-2.5">
-            <span className="font-display text-[10px] tracking-widest uppercase text-[#8B5CF6] block font-semibold">
+          <div className="w-full max-w-md p-6 rounded-2xl border border-white/[0.12] bg-[#07030F]/80 space-y-2.5 shadow-[0_0_25px_rgba(76,29,149,0.15)]">
+            <span className="font-display text-[10px] tracking-widest uppercase text-[#C084FC] block font-semibold">
               OFFICIAL STUDENT COORDINATOR
             </span>
-            <div className="font-display text-lg font-semibold text-[#F7F5FF]">
+            <div className="font-display text-lg font-bold text-[#F7F5FF]">
               Sruthi Nisha.J.S
             </div>
-            <div className="font-sans text-xs text-[#A6A0B8]">
+            <div className="font-sans text-xs text-[#E2DEEC]">
               {SEDS_CONFIG.institution}, Chennai
             </div>
-            <div className="pt-2 space-y-2 border-t border-white/[0.06]">
+            <div className="pt-2 space-y-2 border-t border-white/[0.12]">
               <div className="flex items-center gap-2.5 text-xs text-[#C084FC]">
-                <Phone size={13} className="shrink-0 text-[#8B5CF6]" />
-                <a href="tel:9884464389" className="hover:underline font-mono text-[#F7F5FF] text-sm">
+                <Phone size={13} className="shrink-0 text-[#C084FC]" />
+                <a href="tel:9884464389" className="hover:underline font-mono text-[#F7F5FF] text-sm font-semibold">
                   +91 98844 64389
                 </a>
               </div>
               <div className="flex items-start gap-2.5 text-xs text-[#C084FC]">
-                <Mail size={13} className="shrink-0 text-[#8B5CF6] mt-0.5" />
+                <Mail size={13} className="shrink-0 text-[#C084FC] mt-0.5" />
                 <a 
                   href="mailto:sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in" 
-                  className="hover:underline font-mono text-xs leading-snug break-all text-[#A6A0B8] hover:text-[#F7F5FF]"
+                  className="hover:underline font-mono text-xs leading-snug break-all text-[#E2DEEC] hover:text-white"
                 >
                   sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in
                 </a>
@@ -165,19 +175,19 @@ export default function Footer({ onNavigate, onOpenRegister }) {
       </div>
 
       {/* Bottom Legal Baseline */}
-      <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-display text-xs text-[#A6A0B8]/70">
+      <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-display text-xs text-[#E2DEEC] font-medium">
         <div>
           © 2026 {SEDS_CONFIG.name} // {SEDS_CONFIG.institution}. ALL RIGHTS RESERVED.
         </div>
 
         <div className="flex items-center gap-6">
-          <span className="flex items-center gap-1">
-            <MapPin size={12} className="text-[#8B5CF6]" />
+          <span className="flex items-center gap-1 text-[#E2DEEC]">
+            <MapPin size={12} className="text-[#C084FC]" />
             <span>CHENNAI, TAMIL NADU, INDIA</span>
           </span>
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 text-[#A6A0B8] hover:text-[#F7F5FF] transition-colors"
+            className="flex items-center gap-1.5 text-[#E2DEEC] hover:text-white transition-colors cursor-pointer"
           >
             <span>RETURN TO APEX</span>
             <ArrowUp size={12} />

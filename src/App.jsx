@@ -44,13 +44,13 @@ export default function App() {
       'hero',
       'tracks',
       'challenges',
-      'mission',
-      'identity',
+      'prizes',
       'timeline',
       'countdown',
-      'prizes',
-      'partners',
       'faq',
+      'mission',
+      'identity',
+      'partners',
     ];
 
     const observer = new IntersectionObserver(
@@ -158,37 +158,39 @@ export default function App() {
           bootPhase={bootPhase}
         />
 
-        {/* 5 Official Hackathon Tracks: Positioned first right after Hero for instant discovery */}
+        {/* 1. 5 Official Hackathon Tracks: Positioned first right after Hero */}
         <ChallengesSection
           onOpenRegister={() => setIsRegisterOpen(true)}
           onNodeSelect={(idx) => setActiveChallengeIndex(idx)}
         />
 
-        {/* SEDS REC Mission: Staggered sequential reveals */}
-        <MissionSection onNavigate={handleNavigate} />
-
-        {/* SEDS REC Identity: Real documentary evidence with image masks */}
-        <IdentitySection onNavigate={handleNavigate} />
-
-        {/* Orbital Trajectory Timeline: Single Curve with Traveling Luminous Beacon */}
-        <TimelineSection />
-
-        {/* Launch Countdown: Smooth Sliding Numbers */}
-        <CountdownSection />
-
-        {/* Why Participate: ₹10,000 Prize Pool & Aeroin Space Tech Internships */}
+        {/* 2. Hackathon Rewards: ₹10,000 Prize Pool & Aeroin Space Tech Internships */}
         <PrizesSection
           onOpenRegister={() => setIsRegisterOpen(true)}
           mousePos={mousePos}
         />
 
-        {/* Institutional & Chapter Partners Logo Wall */}
-        <SponsorsWall />
+        {/* 3. 48-Hour Hackathon Mission Trajectory */}
+        <TimelineSection />
 
-        {/* SEDS REC Directives & Operational FAQ */}
+        {/* 4. Launch & Registration Deadline Countdown */}
+        <CountdownSection />
+
+        {/* 5. Hackathon Directives & Clarification FAQs */}
         <FaqSection />
 
-        {/* Chapter Lineage Footer */}
+        {/* --- NON-HACKATHON / SEDS CHAPTER HERITAGE (Placed Last) --- */}
+
+        {/* 6. SEDS REC Chapter Mission */}
+        <MissionSection onNavigate={handleNavigate} />
+
+        {/* 7. SEDS REC Student Identity & Laboratory Documentary */}
+        <IdentitySection onNavigate={handleNavigate} />
+
+        {/* 8. Institutional & Industry Collaboration Network */}
+        <SponsorsWall />
+
+        {/* 9. Chapter Lineage & Student Coordinator Footer */}
         <Footer
           onNavigate={handleNavigate}
           onOpenRegister={() => setIsRegisterOpen(true)}

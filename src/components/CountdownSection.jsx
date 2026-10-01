@@ -25,9 +25,9 @@ function SlidingDigit({ value }) {
 }
 
 export default function CountdownSection() {
-  const [targetDate] = useState(() => new Date('2026-10-12T09:00:00+05:30').getTime());
+  const [targetDate] = useState(() => new Date('2026-10-10T23:59:59+05:30').getTime());
   const [timeLeft, setTimeLeft] = useState(() => {
-    const diff = Math.max(0, new Date('2026-10-12T09:00:00+05:30').getTime() - Date.now());
+    const diff = Math.max(0, new Date('2026-10-10T23:59:59+05:30').getTime() - Date.now());
     return {
       days: Math.floor(diff / (1000 * 60 * 60 * 24)),
       hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
@@ -73,52 +73,56 @@ export default function CountdownSection() {
       />
 
       {/* Subtle Slow Astronomical Framing Arc */}
-      <div className="relative w-[340px] h-[340px] max-w-[92vw] max-h-[92vw] sm:w-[460px] sm:h-[460px] md:w-[560px] md:h-[560px] rounded-full flex flex-col items-center justify-center text-center p-6">
-        <div className="absolute inset-0 rounded-full border border-white/[0.04]" />
-        <div className="absolute inset-10 rounded-full border border-[#8B5CF6]/15 border-dashed animate-[spin_180s_linear_infinite]" />
+      <div className="relative w-[360px] h-[360px] max-w-[94vw] max-h-[94vw] sm:w-[480px] sm:h-[480px] md:w-[580px] md:h-[580px] rounded-full flex flex-col items-center justify-center text-center p-6">
+        <div className="absolute inset-0 rounded-full border border-white/[0.08]" />
+        <div className="absolute inset-10 rounded-full border border-[#8B5CF6]/25 border-dashed animate-[spin_180s_linear_infinite]" />
 
         {/* Content Centered in Space */}
         <div className="relative z-10 space-y-4">
           <div className="space-y-2">
-            <span className="font-display text-xs tracking-[0.3em] uppercase text-[#8B5CF6] font-semibold block">
-              // LAUNCH HORIZON
+            <span className="font-display text-xs tracking-[0.3em] uppercase text-[#C084FC] font-bold block">
+              // REGISTRATION COUNTDOWN
             </span>
             <div className="font-editorial text-2xl sm:text-3xl font-bold tracking-[0.2em] text-[#F7F5FF]">
               {EVENT_CONFIG.name}
             </div>
-            <div className="pt-1">
+            <div className="pt-1 flex flex-wrap items-center justify-center gap-2">
               <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#8B5CF6] bg-gradient-to-r from-[#4C1D95]/80 to-[#6D28D9]/60 text-white font-display text-xs tracking-[0.18em] font-semibold shadow-[0_0_20px_rgba(139,92,246,0.45)]">
                 <Calendar size={13} className="text-[#E9D5FF]" />
                 <span>{EVENT_CONFIG.dates}</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-amber-400 bg-amber-950/70 text-amber-200 font-display text-xs tracking-[0.16em] font-bold shadow-[0_0_20px_rgba(251,191,36,0.4)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                <span>DEADLINE: {EVENT_CONFIG.registrationDeadline}</span>
               </span>
             </div>
           </div>
 
           {/* Monumental Digits with Smooth Vertical Slide */}
-          <div className="font-editorial text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#F7F5FF] flex items-center justify-center gap-2 sm:gap-4 my-2">
+          <div className="font-editorial text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#FFFFFF] flex items-center justify-center gap-2 sm:gap-4 my-2">
             <SlidingDigit value={dStr} />
-            <span className="text-[#8B5CF6]/40 font-light text-2xl sm:text-4xl">:</span>
+            <span className="text-[#8B5CF6] font-light text-2xl sm:text-4xl">:</span>
             <SlidingDigit value={hStr} />
-            <span className="text-[#8B5CF6]/40 font-light text-2xl sm:text-4xl">:</span>
+            <span className="text-[#8B5CF6] font-light text-2xl sm:text-4xl">:</span>
             <SlidingDigit value={mStr} />
-            <span className="text-[#8B5CF6]/40 font-light text-2xl sm:text-4xl">:</span>
+            <span className="text-[#8B5CF6] font-light text-2xl sm:text-4xl">:</span>
             <SlidingDigit value={sStr} />
           </div>
 
-          {/* Unit Labels */}
-          <div className="flex items-center justify-center gap-7 sm:gap-11 font-display text-[11px] sm:text-xs tracking-[0.22em] text-[#A6A0B8] uppercase">
+          {/* Unit Labels: Bright and clear */}
+          <div className="flex items-center justify-center gap-7 sm:gap-11 font-display text-[11px] sm:text-xs tracking-[0.22em] text-[#E2DEEC] uppercase font-semibold">
             <span>DAYS</span>
             <span>HOURS</span>
             <span>MINS</span>
             <span>SECS</span>
           </div>
 
-          <div className="pt-2">
-            <div className="font-display text-xs tracking-[0.25em] uppercase text-emerald-400 font-semibold">
-              FREE REGISTRATION CLOSES IN
+          <div className="pt-2 space-y-1">
+            <div className="font-display text-xs sm:text-sm tracking-[0.25em] uppercase text-amber-300 font-extrabold">
+              FREE REGISTRATION CLOSES: 10 OCTOBER 2026 // 23:59 IST
             </div>
-            <p className="max-w-xs mx-auto font-sans text-xs text-[#A6A0B8] font-light leading-relaxed mt-1">
-              100% Free of Cost Entry (₹0). Synchronized with Indian Standard Time (IST). Final cutoff upon crew capacity.
+            <p className="max-w-sm mx-auto font-sans text-xs text-[#E2DEEC] font-normal leading-relaxed">
+              100% Free of Cost Entry (₹0 Fee). Synchronized with Indian Standard Time (IST). Team slot registration closes strictly at cutoff.
             </p>
           </div>
         </div>

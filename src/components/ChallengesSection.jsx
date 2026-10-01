@@ -142,8 +142,8 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
             {track.subtitle}
           </div>
 
-          {/* 4. Description: Locked height */}
-          <p className="font-sans text-xs text-[#A6A0B8] font-light leading-relaxed mt-2 h-14 overflow-hidden">
+          {/* 4. Description: Locked height, bright and readable */}
+          <p className="font-sans text-xs sm:text-[13px] text-[#E2DEEC] font-normal leading-relaxed mt-2 h-14 overflow-hidden">
             {track.desc}
           </p>
 
@@ -156,7 +156,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
               {track.domains.map((dom, dIdx) => (
                 <span
                   key={dIdx}
-                  className="px-2 py-0.5 rounded-md border border-white/[0.08] bg-white/[0.02] text-[11px] font-sans text-[#F7F5FF]/90 group-hover:border-white/20 transition-colors"
+                  className="px-2 py-0.5 rounded-md border border-white/10 bg-white/[0.05] text-[11px] font-sans text-white font-medium group-hover:border-white/20 transition-colors"
                 >
                   {dom}
                 </span>
@@ -167,7 +167,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
 
         {/* 6. Card Footer: Pinned at the bottom */}
         <div className="pt-3 mt-3 border-t border-white/[0.08] flex items-center justify-between gap-2 shrink-0">
-          <span className="font-display text-[9px] text-emerald-400 uppercase tracking-wider font-medium">
+          <span className="font-display text-[9px] text-emerald-400 uppercase tracking-wider font-semibold">
             4 Members Only • 100% Free Entry (₹0)
           </span>
 
@@ -199,7 +199,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
         {/* Top Eyebrow & Headline */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-5 mb-8">
           <div>
-            <span className="font-display text-xs tracking-[0.25em] uppercase text-[#8B5CF6] block mb-1 font-semibold flex items-center gap-2">
+            <span className="font-display text-xs tracking-[0.25em] uppercase text-[#C084FC] block mb-1 font-bold flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
               <span>// PRIMARY CHALLENGE DOMAINS</span>
             </span>
@@ -207,20 +207,27 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
               HACKATHON TRACKS.
             </h2>
           </div>
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="px-3.5 py-1.5 rounded-full border border-amber-400/80 bg-amber-950/40 font-display text-[10px] tracking-[0.2em] text-amber-200 uppercase font-bold shadow-[0_0_15px_rgba(251,191,36,0.35)]">
+              DEADLINE: 10 OCT 2026 • 100% FREE (₹0)
+            </span>
             <span className="px-3.5 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-950/30 font-display text-[10px] tracking-[0.2em] text-emerald-300 uppercase font-semibold shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-              5 TRACKS • ₹10,000 PRIZES • 100% FREE ENTRY
+              ₹10,000 PRIZES
             </span>
           </div>
         </div>
 
         {/* Overview Manifesto Banner */}
-        <div className="mb-6 p-5 sm:p-6 rounded-2xl border border-white/[0.08] bg-[#0B0616]/95 backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-5 shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
-          <div className="space-y-1 max-w-2xl">
-            <span className="font-display text-[9px] uppercase tracking-[0.25em] text-[#C084FC] font-semibold">
-              INNOVATION DIRECTIVES
-            </span>
-            <p className="font-sans text-xs sm:text-sm text-[#F7F5FF]/90 font-light leading-relaxed">
+        <div className="mb-6 p-5 sm:p-6 rounded-2xl border border-white/[0.12] bg-[#0B0616]/95 backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-5 shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
+          <div className="space-y-1.5 max-w-2xl">
+            <div className="flex items-center gap-2">
+              <span className="font-display text-[9px] uppercase tracking-[0.25em] text-[#C084FC] font-bold">
+                INNOVATION DIRECTIVES
+              </span>
+              <span className="text-white/30">•</span>
+              <span className="text-[10px] font-mono text-amber-300 font-bold">LAST DATE: 10 OCTOBER 2026</span>
+            </div>
+            <p className="font-sans text-xs sm:text-sm text-[#F7F5FF] font-normal leading-relaxed">
               Select any of the 5 official hackathon tracks below to build and deploy your solution. Projects are evaluated on technical feasibility, engineering innovation, and real-world impact across space, technology, and sustainability.
             </p>
           </div>
