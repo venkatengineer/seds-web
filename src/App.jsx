@@ -21,9 +21,9 @@ export default function App() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [activeChallengeIndex, setActiveChallengeIndex] = useState(0);
 
-  // Website is immediately visible and interactive on initial load (Zero delay)
-  const [bootPhase, setBootPhase] = useState(13);
-  const [isBootComplete, setIsBootComplete] = useState(true);
+  // Master Cinematic Boot Sequence: Begins at Phase 0 on initial visit
+  const [bootPhase, setBootPhase] = useState(0);
+  const [isBootComplete, setIsBootComplete] = useState(false);
   const engineRef = useRef(null);
 
   // Mouse coordinate tracker for 3D camera parallax drift
@@ -95,28 +95,22 @@ export default function App() {
     setTimeout(() => {
       setBootPhase(13);
       setIsBootComplete(true);
-      try { sessionStorage.setItem('seds_boot_completed', 'true'); } catch (_) {}
     }, 450);
   };
 
   const handleReplayBoot = () => {
-    setBootPhase(0);
-    setIsBootComplete(false);
-    if (engineRef.current && engineRef.current.replayBoot) {
-      engineRef.current.replayBoot();
-    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.location.reload();
   };
 
   return (
     <div className="relative min-h-screen bg-[#010106] text-[#F7F5FF] overflow-x-hidden selection:bg-[#8B5CF6]/30 selection:text-white">
       
-      {/* 1. MASTER CINEMATIC BOOT SEQUENCE (Optional overlay when replayed) */}
-      {bootPhase < 13 && (
-        <BootSequence
-          bootPhase={bootPhase}
-          onSkip={handleSkipBoot}
-        />
-      )}
+      {/* 1. MASTER CINEMATIC BOOT SEQUENCE (Synchronized with ThreeSpaceEngine) */}
+      <BootSequence
+        bootPhase={bootPhase}
+        onSkip={handleSkipBoot}
+      />
 
       {/* 2. Custom Minimal Circular Cursor with Violet Expansion */}
       <CustomCursor isPointer={false} />
@@ -141,8 +135,12 @@ export default function App() {
         }}
       />
 
-      {/* 5. FOREGROUND EDITORIAL UI (Always rendered and interactive) */}
-      <div className="relative z-20 opacity-100">
+      {/* 5. FOREGROUND EDITORIAL UI (Fades in smoothly as boot completes) */}
+      <div 
+        className={`relative z-20 transition-opacity duration-1000 ${
+          bootPhase >= 12 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
         {/* Floating Minimal Navigation Dock */}
         <Navigation
           activeSection={activeSection}
