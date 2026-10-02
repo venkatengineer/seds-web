@@ -68,14 +68,14 @@ export default function FaqSection({ onOpenRegister }) {
               // FREQUENTLY ASKED DIRECTIVES
             </span>
 
-            {/* High-visibility deadline badge */}
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/70 bg-amber-500/15 text-amber-300 font-display text-[11px] font-bold tracking-wider uppercase shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+            {/* Registration deadline badge */}
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
               LAST DATE TO REGISTER: 10 OCT 2026 // 23:59 IST
             </span>
 
             {/* 100% Free badge */}
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/60 bg-emerald-950/40 text-emerald-300 font-display text-[11px] font-bold tracking-wider uppercase">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/40 bg-emerald-950/30 text-emerald-300 font-display text-[11px] font-semibold tracking-wider uppercase">
               100% FREE REGISTRATION (₹0)
             </span>
           </div>

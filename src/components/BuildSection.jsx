@@ -83,8 +83,8 @@ export default function BuildSection({ onOpenRegister }) {
       {/* The Key Requirement: Demonstrate It Banner */}
       <div className="max-w-6xl mx-auto w-full p-8 sm:p-10 rounded-2xl border border-[#8B5CF6]/40 bg-gradient-to-r from-[#17092c] via-[#0b0417] to-[#04010a] shadow-[0_0_40px_rgba(139,92,246,0.2)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 text-xs font-display tracking-widest uppercase text-amber-300 font-bold">
-            <CheckCircle2 size={14} className="text-amber-400" />
+          <div className="inline-flex items-center gap-2 text-xs font-display tracking-widest uppercase text-[#C084FC] font-bold">
+            <CheckCircle2 size={14} className="text-[#C084FC]" />
             <span>CRITICAL JURY CRITERIA</span>
           </div>
           <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-white">

@@ -65,10 +65,10 @@ export default function RegistrationPortal({ isOpen, onClose }) {
               <span className="font-display text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#C084FC] font-semibold">
                 {SEDS_CONFIG.name} // OFFICIAL SUBMISSION
               </span>
-              <span className="inline-block px-2.5 py-0.5 rounded-full border border-emerald-500/50 bg-emerald-950/50 text-[10px] font-mono text-emerald-300 font-bold">
+              <span className="inline-block px-2.5 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-950/40 text-[10px] font-mono text-emerald-300 font-semibold">
                 100% FREE OF COST (₹0)
               </span>
-              <span className="inline-block px-2.5 py-0.5 rounded-full border border-amber-500/60 bg-amber-950/50 text-[10px] font-mono text-amber-300 font-bold animate-pulse">
+              <span className="inline-block px-2.5 py-0.5 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/40 text-[10px] font-mono text-[#E2DEEC] font-semibold">
                 DEADLINE: 10 OCT 2026 // 23:59 IST
               </span>
             </div>
@@ -105,8 +105,8 @@ export default function RegistrationPortal({ isOpen, onClose }) {
         {/* Quick Requirement Directives Bar */}
         <div className="relative z-10 px-5 sm:px-8 py-3 bg-[#0C091C] border-b border-white/[0.1] flex flex-wrap items-center justify-between gap-2 text-xs font-sans text-[#E2DEEC] shrink-0">
           <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[11px] sm:text-xs">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/60 bg-amber-500/20 text-amber-300 font-bold font-display tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 text-[#F7F5FF] font-semibold font-display tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
               <span>REGISTRATION CLOSES: 10 OCT 2026 // 23:59 IST</span>
             </span>
             <span className="flex items-center gap-1.5 text-white font-medium">

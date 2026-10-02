@@ -51,8 +51,8 @@ export default function TimelineSection() {
               <Sparkles size={13} className="text-[#C084FC]" />
               // YOUR JOURNEY AT {EVENT_CONFIG.name}
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-[11px] font-bold tracking-wider uppercase">
-              <Clock size={11} className="text-amber-400" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
+              <Clock size={11} className="text-[#C084FC]" />
               LAST DATE TO REGISTER: 10 OCT 2026
             </span>
           </div>
@@ -84,7 +84,7 @@ export default function TimelineSection() {
                 key={item.num}
                 className={`p-5 rounded-2xl border bg-[#07030F]/80 backdrop-blur-md flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
                   idx === 6 
-                    ? 'border-amber-400/50 sm:col-span-2 lg:col-span-2 bg-gradient-to-br from-[#1b0d2d] to-[#07030F]' 
+                    ? 'border-[#8B5CF6]/50 sm:col-span-2 lg:col-span-2 bg-gradient-to-br from-[#1b0d2d] to-[#07030F] shadow-[0_0_20px_rgba(139,92,246,0.2)]' 
                     : 'border-white/[0.12] hover:border-[#8B5CF6]/50'
                 }`}
               >
@@ -219,10 +219,10 @@ export default function TimelineSection() {
         </div>
 
         {/* Registration Cutoff Strip */}
-        <div className="p-4 sm:p-5 rounded-xl border border-amber-500/40 bg-amber-500/[0.08] flex flex-wrap items-center justify-between gap-4 text-xs font-display">
+        <div className="p-4 sm:p-5 rounded-xl border border-[#8B5CF6]/40 bg-[#160A2C]/80 flex flex-wrap items-center justify-between gap-4 text-xs font-display">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            <span className="text-amber-300 font-bold uppercase tracking-wider">REGISTRATION DEADLINE:</span>
+            <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-pulse" />
+            <span className="text-[#C084FC] font-bold uppercase tracking-wider">REGISTRATION DEADLINE:</span>
             <span className="text-[#F7F5FF] font-semibold">{EVENT_CONFIG.registrationDeadline} // 23:59 IST</span>
           </div>
           <div className="text-emerald-400 font-semibold uppercase tracking-wider">

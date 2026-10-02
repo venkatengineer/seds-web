@@ -91,8 +91,8 @@ export default function CountdownSection() {
                 <Calendar size={13} className="text-[#E9D5FF]" />
                 <span>{EVENT_CONFIG.dates}</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-amber-400 bg-amber-950/70 text-amber-200 font-display text-xs tracking-[0.16em] font-bold shadow-[0_0_20px_rgba(251,191,36,0.4)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[#E2DEEC] font-display text-xs tracking-[0.16em] font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
                 <span>DEADLINE: {EVENT_CONFIG.registrationDeadline}</span>
               </span>
             </div>
@@ -118,8 +118,8 @@ export default function CountdownSection() {
           </div>
 
           <div className="pt-2 space-y-1">
-            <div className="font-display text-xs sm:text-sm tracking-[0.25em] uppercase text-amber-300 font-extrabold">
-              FREE REGISTRATION CLOSES: 10 OCTOBER 2026 // 23:59 IST
+            <div className="font-display text-xs sm:text-sm tracking-[0.25em] uppercase text-[#F7F5FF] font-bold">
+              FREE REGISTRATION CLOSES: <span className="text-[#C084FC]">10 OCTOBER 2026 // 23:59 IST</span>
             </div>
             <p className="max-w-sm mx-auto font-sans text-xs text-[#E2DEEC] font-normal leading-relaxed">
               100% Free of Cost Entry (₹0 Fee). Synchronized with Indian Standard Time (IST). Team slot registration closes strictly at cutoff.

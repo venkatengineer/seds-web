@@ -198,13 +198,13 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
             </h2>
           </div>
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="px-3.5 py-1.5 rounded-full border border-cyan-400/80 bg-cyan-950/60 font-display text-[10px] tracking-[0.2em] text-cyan-200 uppercase font-extrabold shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+            <span className="px-3.5 py-1.5 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 font-display text-[10px] tracking-[0.2em] text-[#F7F5FF] uppercase font-bold shadow-[0_0_15px_rgba(139,92,246,0.3)]">
               TOP 2 TEAMS: AEROIN INTERNSHIPS
             </span>
-            <span className="px-3.5 py-1.5 rounded-full border border-amber-400/80 bg-amber-950/40 font-display text-[10px] tracking-[0.2em] text-amber-200 uppercase font-bold shadow-[0_0_15px_rgba(251,191,36,0.35)]">
-              DEADLINE: 10 OCT 2026 • FREE (₹0)
+            <span className="px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.04] font-display text-[10px] tracking-[0.2em] text-[#E2DEEC] uppercase font-semibold">
+              DEADLINE: 10 OCT • 100% FREE (₹0)
             </span>
-            <span className="px-3.5 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-950/30 font-display text-[10px] tracking-[0.2em] text-emerald-300 uppercase font-semibold shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+            <span className="px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.04] font-display text-[10px] tracking-[0.2em] text-[#C084FC] uppercase font-semibold">
               ₹10,000 PRIZES
             </span>
           </div>
@@ -218,7 +218,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
                 FIVE DOMAINS. COUNTLESS WAYS TO BUILD.
               </span>
               <span className="text-white/30">•</span>
-              <span className="text-[10px] font-mono text-amber-300 font-bold">LAST DATE: 10 OCTOBER 2026</span>
+              <span className="text-[10px] font-mono text-[#E2DEEC]">LAST DATE: 10 OCTOBER 2026</span>
             </div>
             <p className="font-sans text-xs sm:text-sm text-[#F7F5FF] font-normal leading-relaxed">
               Explore technologies that support space missions, health in orbit, autonomous rovers, space sustainability, or open innovation. Hardware prototypes, software platforms, AI tools, and simulations are all welcomed.

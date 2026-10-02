@@ -43,8 +43,8 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
               <Sparkles size={13} className="text-[#C084FC]" />
               // WHAT YOU TAKE AWAY
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-[11px] font-bold tracking-wider uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
               LAST DATE TO REGISTER: 10 OCT 2026
             </span>
           </div>
@@ -113,24 +113,24 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
         </div>
 
         {/* Monument 2: Internship Opportunities at Aeroin Space Tech */}
-        <div className="lg:col-span-6 relative p-8 sm:p-12 rounded-3xl border border-cyan-400/50 bg-gradient-to-br from-[#0c051a] via-[#04010a] to-[#040b17] backdrop-blur-xl flex flex-col justify-between overflow-hidden group hover:border-cyan-400 transition-all duration-400 shadow-[0_0_40px_rgba(6,182,212,0.25)]">
+        <div className="lg:col-span-6 relative p-8 sm:p-12 rounded-3xl border border-[#8B5CF6]/40 bg-[#0B0618]/90 backdrop-blur-xl flex flex-col justify-between overflow-hidden group hover:border-[#8B5CF6]/80 transition-all duration-400 shadow-[0_0_35px_rgba(139,92,246,0.25)]">
           
-          {/* Volumetric Cyan/Purple Ambient Light */}
+          {/* Volumetric Purple Ambient Light */}
           <div 
-            className="absolute bottom-0 right-0 w-[350px] h-[350px] rounded-full pointer-events-none -z-10 opacity-35"
+            className="absolute bottom-0 right-0 w-[350px] h-[350px] rounded-full pointer-events-none -z-10 opacity-30"
             style={{
-              background: 'radial-gradient(circle, rgba(34, 211, 238, 0.35) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 80%)',
+              background: 'radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(76, 29, 149, 0.12) 50%, transparent 80%)',
               filter: 'blur(75px)',
             }}
           />
 
           <div>
             <div className="flex items-center justify-between mb-6">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-400/80 bg-cyan-950/60 font-display text-[11px] tracking-[0.2em] text-cyan-200 uppercase font-extrabold shadow-[0_0_15px_rgba(34,211,238,0.4)]">
-                <Briefcase size={14} className="text-cyan-400" />
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 font-display text-[11px] tracking-[0.2em] text-[#F7F5FF] uppercase font-bold shadow-[0_0_15px_rgba(139,92,246,0.3)]">
+                <Briefcase size={14} className="text-[#C084FC]" />
                 <span>EXCLUSIVE CAREER LAUNCHPAD</span>
               </span>
-              <span className="font-display text-xs text-cyan-300 tracking-widest uppercase font-mono-tech">
+              <span className="font-display text-xs text-[#C084FC] tracking-widest uppercase font-mono-tech">
                 02 // INTERNSHIPS
               </span>
             </div>
@@ -138,24 +138,24 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
             <div 
               className="font-editorial text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-none my-4"
               style={{
-                textShadow: '0 0 45px rgba(34, 211, 238, 0.45)',
+                textShadow: '0 0 45px rgba(168, 85, 247, 0.4)',
               }}
             >
               TOP 2 TEAMS
             </div>
 
-            <h3 className="font-display text-xl sm:text-2xl font-bold tracking-[0.16em] uppercase text-cyan-300 mt-3">
+            <h3 className="font-display text-xl sm:text-2xl font-bold tracking-[0.16em] uppercase text-[#F7F5FF] mt-3">
               AEROIN SPACE TECH INTERNSHIPS
             </h3>
 
-            <p className="font-sans text-sm sm:text-base text-[#F7F5FF] font-normal mt-4 leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-[#E2DEEC] font-normal mt-4 leading-relaxed">
               {EVENT_CONFIG.internshipDetails}
             </p>
           </div>
 
-          <div className="pt-8 mt-8 border-t border-cyan-400/20 flex items-center justify-between text-xs font-display text-cyan-200 font-medium">
-            <span className="flex items-center gap-1.5 font-bold text-white">
-              <Sparkles size={12} className="text-cyan-400" />
+          <div className="pt-8 mt-8 border-t border-white/[0.12] flex items-center justify-between text-xs font-display text-[#E2DEEC] font-medium">
+            <span className="flex items-center gap-1.5 font-semibold text-white">
+              <Sparkles size={12} className="text-[#C084FC]" />
               Direct Aerospace Industry Integration
             </span>
             <span className="text-white/40">•</span>

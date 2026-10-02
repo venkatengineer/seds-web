@@ -22,13 +22,13 @@ export default function CallToActionSection({ onOpenRegister }) {
         />
 
         <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-cyan-400 bg-cyan-950/70 text-cyan-200 font-display text-xs font-extrabold tracking-widest uppercase shadow-[0_0_20px_rgba(34,211,238,0.45)]">
-            <Sparkles size={12} className="text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 text-[#F7F5FF] font-display text-xs font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(139,92,246,0.3)]">
+            <Sparkles size={12} className="text-[#C084FC]" />
             <span>TOP 2 TEAMS WIN AEROIN INTERNSHIPS</span>
           </div>
 
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-xs font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-            <Clock size={12} className="text-amber-400" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-[#E2DEEC] font-display text-xs font-semibold tracking-widest uppercase">
+            <Clock size={12} className="text-[#C084FC]" />
             <span>CLOSING: 10 OCTOBER 2026 // 23:59 IST</span>
           </div>
         </div>
@@ -60,7 +60,7 @@ export default function CallToActionSection({ onOpenRegister }) {
               {EVENT_CONFIG.venue}
             </span>
             <span className="text-white/30">•</span>
-            <span className="text-emerald-300 font-bold uppercase">
+            <span className="text-emerald-400 font-semibold uppercase">
               {cta.feeText} (₹0)
             </span>
           </div>

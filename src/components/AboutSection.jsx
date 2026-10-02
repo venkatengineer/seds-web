@@ -30,11 +30,11 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
               <Sparkles size={12} className="text-[#C084FC]" />
               // ABOUT {EVENT_CONFIG.name}
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-[11px] font-bold tracking-wider uppercase">
-              <Clock size={11} className="text-amber-400" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
+              <Clock size={11} className="text-[#C084FC]" />
               LAST DATE TO REGISTER: 10 OCT 2026
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/50 bg-emerald-950/40 text-emerald-300 font-display text-[11px] font-bold tracking-wider uppercase">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/40 bg-emerald-950/30 text-emerald-300 font-display text-[11px] font-semibold tracking-wider uppercase">
               100% FREE ENTRY (₹0)
             </span>
           </div>
@@ -99,12 +99,12 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
             </p>
           </div>
 
-          <div className="p-5 rounded-xl border border-cyan-400/60 bg-gradient-to-r from-cyan-950/40 via-[#2e0954]/50 to-[#07030F] backdrop-blur-md space-y-1.5 shadow-[0_0_25px_rgba(6,182,212,0.25)]">
-            <div className="flex items-center gap-2 text-cyan-300 font-display text-xs tracking-wider uppercase font-extrabold">
-              <Sparkles size={14} className="text-cyan-400 animate-pulse" />
+          <div className="p-5 rounded-xl border border-[#8B5CF6]/50 bg-[#160A2C]/85 backdrop-blur-md space-y-1.5 shadow-[0_0_20px_rgba(139,92,246,0.25)]">
+            <div className="flex items-center gap-2 text-white font-display text-xs tracking-wider uppercase font-bold">
+              <Sparkles size={14} className="text-[#C084FC] animate-pulse" />
               <span>Top 2 Teams Win Aeroin Internships</span>
             </div>
-            <p className="font-sans text-xs text-white/95 leading-relaxed font-medium">
+            <p className="font-sans text-xs text-[#E2DEEC] leading-relaxed font-normal">
               Direct aerospace industry exposure and internship opportunities through collaboration with Aeroin Space Tech (subject to selection process).
             </p>
           </div>

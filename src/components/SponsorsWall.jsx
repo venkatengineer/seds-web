@@ -49,7 +49,7 @@ export default function SponsorsWall() {
 
         <div className="pt-4 border-t border-white/[0.12] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="font-display text-xs uppercase tracking-widest text-amber-300 font-bold block">
+            <span className="font-display text-xs uppercase tracking-widest text-[#C084FC] font-bold block">
               AND THERE IS MORE:
             </span>
             <p className="font-sans text-sm text-[#F7F5FF] font-semibold mt-0.5">

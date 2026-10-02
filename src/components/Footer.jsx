@@ -47,11 +47,11 @@ export default function Footer({ onNavigate, onOpenRegister }) {
           </p>
 
           <div className="pt-1 flex flex-wrap items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-[11px] tracking-wider font-bold uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] tracking-wider font-semibold uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
               <span>CLOSES: {EVENT_CONFIG.registrationDeadline} // 23:59 IST</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/50 bg-emerald-950/40 text-emerald-300 font-display text-[11px] tracking-wider font-bold">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/40 bg-emerald-950/30 text-emerald-300 font-display text-[11px] tracking-wider font-semibold">
               <span>100% FREE REGISTRATION (₹0)</span>
             </span>
           </div>
@@ -92,7 +92,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             </button>
           </div>
           <div>
-            <button onClick={() => onNavigate('countdown')} className="text-amber-300 hover:text-amber-200 transition-colors cursor-pointer font-semibold">
+            <button onClick={() => onNavigate('countdown')} className="text-[#C084FC] hover:text-white transition-colors cursor-pointer font-semibold">
               06 — Deadline Countdown
             </button>
           </div>
