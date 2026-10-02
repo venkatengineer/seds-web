@@ -25,9 +25,9 @@ function SlidingDigit({ value }) {
 }
 
 export default function CountdownSection() {
-  const [targetDate] = useState(() => new Date('2026-10-10T23:59:59+05:30').getTime());
+  const [targetDate] = useState(() => new Date('2026-10-09T18:00:00+05:30').getTime());
   const [timeLeft, setTimeLeft] = useState(() => {
-    const diff = Math.max(0, new Date('2026-10-10T23:59:59+05:30').getTime() - Date.now());
+    const diff = Math.max(0, new Date('2026-10-09T18:00:00+05:30').getTime() - Date.now());
     return {
       days: Math.floor(diff / (1000 * 60 * 60 * 24)),
       hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
@@ -119,7 +119,7 @@ export default function CountdownSection() {
 
           <div className="pt-2 space-y-1">
             <div className="font-display text-xs sm:text-sm tracking-[0.25em] uppercase text-[#F7F5FF] font-bold">
-              FREE REGISTRATION CLOSES: <span className="text-[#C084FC]">10 OCTOBER 2026 // 23:59 IST</span>
+              FREE REGISTRATION CLOSES: <span className="text-[#C084FC]">9 OCTOBER 2026 // 18:00 IST</span>
             </div>
             <p className="max-w-sm mx-auto font-sans text-xs text-[#E2DEEC] font-normal leading-relaxed">
               100% Free of Cost Entry (₹0 Fee). Synchronized with Indian Standard Time (IST). Team slot registration closes strictly at cutoff.

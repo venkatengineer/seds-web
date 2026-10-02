@@ -69,7 +69,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
                 100% FREE OF COST (₹0)
               </span>
               <span className="inline-block px-2.5 py-0.5 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/40 text-[10px] font-mono text-[#E2DEEC] font-semibold">
-                DEADLINE: 10 OCT 2026 // 23:59 IST
+                DEADLINE: 9 OCT 2026 // 18:00 IST
               </span>
             </div>
             <h2 className="font-editorial text-xl sm:text-2xl font-bold tracking-tight text-[#F7F5FF]">
@@ -120,7 +120,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
           <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[11px] sm:text-xs">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 text-[#F7F5FF] font-semibold font-display tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
-              <span>REGISTRATION CLOSES: 10 OCT 2026 // 23:59 IST</span>
+              <span>REGISTRATION CLOSES: 9 OCT 2026 // 18:00 IST</span>
             </span>
             <span className="flex items-center gap-1.5 text-white font-medium">
               <Users size={13} className="text-[#C084FC]" />

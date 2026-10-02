@@ -53,7 +53,7 @@ export default function TimelineSection() {
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
               <Clock size={11} className="text-[#C084FC]" />
-              LAST DATE TO REGISTER: 10 OCT 2026
+              LAST DATE TO REGISTER: 9 OCT 2026 // 18:00 IST
             </span>
           </div>
           <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
@@ -223,7 +223,7 @@ export default function TimelineSection() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-pulse" />
             <span className="text-[#C084FC] font-bold uppercase tracking-wider">REGISTRATION DEADLINE:</span>
-            <span className="text-[#F7F5FF] font-semibold">{EVENT_CONFIG.registrationDeadline} // 23:59 IST</span>
+            <span className="text-[#F7F5FF] font-semibold">{EVENT_CONFIG.registrationDeadline} // 18:00 IST</span>
           </div>
           <div className="text-white font-medium uppercase tracking-wider font-mono text-[11px]">
             100% FREE ENTRY (₹0 FEE) • STRICTLY 4 MEMBERS ONLY

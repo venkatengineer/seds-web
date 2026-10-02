@@ -32,7 +32,7 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
               <Clock size={11} className="text-[#C084FC]" />
-              LAST DATE TO REGISTER: 10 OCT 2026
+              LAST DATE TO REGISTER: 9 OCT 2026 // 18:00 IST
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
               100% FREE ENTRY (₹0)

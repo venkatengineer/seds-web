@@ -71,7 +71,7 @@ export default function FaqSection({ onOpenRegister }) {
             {/* Registration deadline badge */}
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
-              LAST DATE TO REGISTER: 10 OCT 2026 // 23:59 IST
+              LAST DATE TO REGISTER: 9 OCT 2026 // 18:00 IST
             </span>
 
             {/* 100% Free badge */}

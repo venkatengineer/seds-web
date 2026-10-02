@@ -25,13 +25,13 @@ export const FAQ_CATEGORIES = [
       {
         num: "03",
         q: "When and where is SEDHACKS ’26 being conducted?",
-        a: "SEDHACKS ’26 takes place on 12–13 October 2026 at Rajalakshmi Engineering College, Chennai, Tamil Nadu, India. The registration deadline is strictly 10 October 2026 // 23:59 IST.",
+        a: "SEDHACKS ’26 takes place on 12–13 October 2026 at Rajalakshmi Engineering College, Chennai, Tamil Nadu, India. The registration deadline is strictly 9 October 2026 // 18:00 IST.",
         officialId: 15
       },
       {
         num: "04",
         q: "How do I register and is there any fee after submitting?",
-        a: "Click 'Register Now' on the website and complete the official Google Form with your team details before the 10 October 2026 // 23:59 IST cutoff. There is no fee required after submitting—registration is 100% free.",
+        a: "Click 'Register Now' on the website and complete the official Google Form with your team details before the 9 October 2026 // 18:00 IST cutoff. There is no fee required after submitting—registration is 100% free.",
         officialId: 17
       },
       {

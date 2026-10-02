@@ -214,7 +214,7 @@ export default function HeroSection({
             <span className="text-white/30">•</span>
             <span className="inline-flex items-center gap-1 text-[#C084FC] font-semibold tracking-wider uppercase">
               <Clock size={11} className="text-[#C084FC]" />
-              <span>Last Date: {EVENT_CONFIG.registrationDeadline} (23:59 IST)</span>
+              <span>Last Date: {EVENT_CONFIG.registrationDeadline} (18:00 IST)</span>
             </span>
           </div>
         </div>
