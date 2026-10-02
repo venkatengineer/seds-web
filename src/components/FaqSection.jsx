@@ -1,130 +1,283 @@
-import React, { useState } from 'react';
-import { Plus, Minus } from 'lucide-react';
-import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
+import React, { useState, useMemo } from 'react';
+import { Plus, Minus, Search, X, HelpCircle, Phone, Mail, ArrowUpRight, Sparkles } from 'lucide-react';
+import { SEDS_CONFIG, EVENT_CONFIG, FAQ_CATEGORIES, ALL_FAQS } from '../config/event';
 
 /**
- * EDITORIAL FAQ SECTION
+ * COMPREHENSIVE EDITORIAL FAQ SECTION
+ * Transcribed directly from SEDS_Space_Hackathon_Stronger_FAQs.docx
  * 
- * Target:
- * - Large title: "QUESTIONS?"
- * - Generous vertical spacing.
- * - Very subtle dividers.
- * - Large typography.
- * - No excessive containers or dashboard cards.
+ * Features:
+ * - Complete 38 original questions + event parameters (41 total)
+ * - Category filter pills with count badges
+ * - Instant keyword search across questions and answers
+ * - High-contrast, legible typography (#FFFFFF questions, #E2DEEC answers)
+ * - Highlighted registration deadline and ₹0 fee reminders
+ * - Student Coordinator contact card
  */
 
-const FAQS = [
-  {
-    q: `What is the last date to register for ${EVENT_CONFIG.name}?`,
-    a: `The final registration deadline is strictly ${EVENT_CONFIG.registrationDeadlineFormatted} (10 October 2026 at 23:59 IST). Registration is 100% COMPLETELY FREE OF COST (₹0 entry fee) for all teams. All teams must submit their team details and pitch deck (.ppt / .pptx) before this cutoff to be eligible for evaluation.`,
-  },
-  {
-    q: `What is ${SEDS_CONFIG.name} and who can participate in ${EVENT_CONFIG.name}?`,
-    a: `${SEDS_CONFIG.name} (${SEDS_CONFIG.fullName}) is the student-led space technology community established at ${SEDS_CONFIG.institution}, affiliated with the national SEDS India network. Participation in ${EVENT_CONFIG.name} is open to all university undergraduate and postgraduate students. Crews must strictly consist of 4 members only.`,
-  },
-  {
-    q: `Is there any registration fee for ${EVENT_CONFIG.name}?`,
-    a: `No, registration is COMPLETELY FREE OF COST for all participating teams! There is zero (₹0) registration fee. Both initial submission and subsequent evaluation rounds are 100% free of charge. Crews strictly consist of 4 members who submit their selected track, project title, brief description, and presentation deck (.ppt / .pptx). Neither SEDS REC nor the host institution charges any entry fee.`,
-  },
-  {
-    q: `What are the 5 official hackathon tracks in ${EVENT_CONFIG.name}?`,
-    a: "The hackathon features 5 official tracks: 01. Space Applications & Defence Technology, 02. Medical, Food & Agriculture in Space, 03. Autonomous & Communication Technology, 04. Sustainability in Space, and 05. Miscellaneous / Open Innovation. Teams can submit solutions for any of these domains.",
-  },
-  {
-    q: 'What are the prizes and internship opportunities?',
-    a: "SEDHACKS '26 features a ₹10,000 cash prize pool. In addition, through our industry collaboration with Aeroin Space Tech, the Top 3 teams will receive internship opportunities, subject to the organisation's selection process.",
-  },
-  {
-    q: 'Can individuals register solo or with fewer than 4 members?',
-    a: 'No. All teams must register with strictly 4 members (1 Team Lead plus 3 team members) to ensure cross-disciplinary capability across aerospace software, hardware, and algorithms.',
-  },
-  {
-    q: 'Do I need prior experience in aerospace engineering or rocketry?',
-    a: `No prior aerospace background is required. ${EVENT_CONFIG.name} brings software developers, mathematicians, robotics designers, and physics students together. SEDS REC technical mentors provide guidance, datasets, and baseline libraries across all tracks.`,
-  },
-  {
-    q: `What is the role of ${SEDS_CONFIG.institution}?`,
-    a: `${SEDS_CONFIG.institution} is the autonomous host institution providing campus facilities, laboratory testbeds, compute infrastructure, and institutional support for SEDS REC initiatives.`,
-  },
-  {
-    q: 'Who retains the intellectual property developed during the sprint?',
-    a: `100% of all intellectual property, flight code, algorithms, and designs remain exclusively with the participating students. Neither ${SEDS_CONFIG.name} nor ${SEDS_CONFIG.institution} claims any ownership or licensing over your creations.`,
-  },
-  {
-    q: 'What format should our initial presentation deck be in?',
-    a: 'Teams submit presentation files in Microsoft PowerPoint (.ppt or .pptx) format up to 25 MB in size. A standardized template is linked directly within the registration portal.',
-  },
-  {
-    q: `Who can I contact for queries regarding ${EVENT_CONFIG.name}?`,
-    a: 'For any questions regarding team registration, problem statements, or event logistics, reach out to Student Coordinator Sruthi Nisha.J.S at +91 98844 64389 (sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in).',
-  },
-];
-
-export default function FaqSection() {
+export default function FaqSection({ onOpenRegister }) {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [openIndex, setOpenIndex] = useState(0);
+
+  // Filtered FAQs based on category and search query
+  const filteredFaqs = useMemo(() => {
+    let list = ALL_FAQS;
+
+    if (activeCategory !== 'all') {
+      list = list.filter((item) => item.categoryId === activeCategory);
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      list = list.filter(
+        (item) =>
+          item.q.toLowerCase().includes(q) ||
+          item.a.toLowerCase().includes(q) ||
+          item.categoryLabel.toLowerCase().includes(q)
+      );
+    }
+
+    return list;
+  }, [activeCategory, searchQuery]);
 
   const toggle = (idx) => {
     setOpenIndex(openIndex === idx ? null : idx);
   };
 
+  const handleCategorySelect = (catId) => {
+    setActiveCategory(catId);
+    setOpenIndex(0); // auto-open first result in new category
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery('');
+  };
+
   return (
     <section 
       id="faq" 
-      className="relative min-h-[75vh] w-full flex flex-col justify-center py-32 px-6 sm:px-12 lg:px-16 z-20"
+      className="relative min-h-[85vh] w-full flex flex-col justify-center py-32 px-6 sm:px-12 lg:px-16 z-20"
     >
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
-        <div>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
-            <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold">
-              // FREQUENTLY INQUIRED DIRECTIVES
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/[0.12] pb-8 mb-12">
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold flex items-center gap-1.5">
+              <Sparkles size={13} className="text-[#C084FC]" />
+              // FREQUENTLY ASKED DIRECTIVES
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-[11px] font-bold tracking-wider uppercase">
+
+            {/* High-visibility deadline badge */}
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/70 bg-amber-500/15 text-amber-300 font-display text-[11px] font-bold tracking-wider uppercase shadow-[0_0_15px_rgba(245,158,11,0.2)]">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
-              LAST DATE TO REGISTER: 10 OCT 2026
+              LAST DATE TO REGISTER: 10 OCT 2026 // 23:59 IST
+            </span>
+
+            {/* 100% Free badge */}
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/60 bg-emerald-950/40 text-emerald-300 font-display text-[11px] font-bold tracking-wider uppercase">
+              100% FREE REGISTRATION (₹0)
             </span>
           </div>
+
           <h2 className="font-editorial text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#F7F5FF]">
             QUESTIONS?
           </h2>
+
+          <p className="font-sans text-sm sm:text-base text-[#E2DEEC] max-w-2xl leading-relaxed">
+            Everything you need to know about <strong className="text-white font-semibold">{EVENT_CONFIG.name}</strong>, team formation rules, problem scopes, hardware/AI allowances, intellectual property rights, and presentation guidelines.
+          </p>
         </div>
-        <div className="font-display text-xs tracking-[0.2em] text-[#E2DEEC] uppercase font-medium">
-          OPERATIONAL CLARIFICATIONS
+
+        <div className="text-right flex flex-col items-start lg:items-end gap-1">
+          <span className="font-display text-xs tracking-[0.2em] text-[#C084FC] uppercase font-semibold">
+            {ALL_FAQS.length} DIRECTIVES INDEXED
+          </span>
+          <span className="font-sans text-xs text-[#E2DEEC]">
+            From SEDS REC Space Hackathon Handbook
+          </span>
         </div>
       </div>
 
-      {/* Editorial Accordion: Generous Spacing, Subtle Dividers, Large Typography */}
-      <div className="max-w-4xl divide-y divide-white/[0.12]">
-        {FAQS.map((item, idx) => {
-          const isOpen = openIndex === idx;
-          return (
-            <div key={idx} className="py-8 sm:py-10">
+      {/* Search & Category Filter Controls */}
+      <div className="mb-10 space-y-6">
+        
+        {/* Instant Search Bar */}
+        <div className="relative max-w-2xl">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#C084FC]">
+            <Search size={16} />
+          </div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search questions (e.g. registration fee, AI tools, team size, hardware, prizes, IP)..."
+            className="w-full pl-11 pr-10 py-3.5 rounded-xl border border-white/[0.16] bg-[#07030F]/90 text-white placeholder-[#9E9AA7] font-sans text-sm sm:text-base focus:outline-none focus:border-[#A855F7] focus:ring-2 focus:ring-[#A855F7]/30 transition-all duration-200"
+          />
+          {searchQuery && (
+            <button
+              onClick={handleClearSearch}
+              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#E2DEEC] hover:text-white transition-colors"
+            >
+              <X size={16} />
+            </button>
+          )}
+        </div>
+
+        {/* Category Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-purple-900">
+          <button
+            onClick={() => handleCategorySelect('all')}
+            className={`px-3.5 py-1.5 rounded-full font-display text-xs tracking-wider uppercase whitespace-nowrap transition-all duration-200 cursor-pointer ${
+              activeCategory === 'all'
+                ? 'bg-[#8B5CF6] text-white font-bold shadow-[0_0_15px_rgba(139,92,246,0.5)]'
+                : 'border border-white/[0.12] bg-[#090514]/60 text-[#E2DEEC] hover:text-white hover:border-white/30'
+            }`}
+          >
+            All Questions ({ALL_FAQS.length})
+          </button>
+
+          {FAQ_CATEGORIES.map((cat) => {
+            const isSelected = activeCategory === cat.id;
+            return (
               <button
-                onClick={() => toggle(idx)}
-                className="w-full flex items-start justify-between text-left gap-6 group focus:outline-none cursor-pointer"
+                key={cat.id}
+                onClick={() => handleCategorySelect(cat.id)}
+                className={`px-3.5 py-1.5 rounded-full font-display text-xs tracking-wider uppercase whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                  isSelected
+                    ? 'bg-[#8B5CF6] text-white font-bold shadow-[0_0_15px_rgba(139,92,246,0.5)]'
+                    : 'border border-white/[0.12] bg-[#090514]/60 text-[#E2DEEC] hover:text-white hover:border-white/30'
+                }`}
               >
-                <div className="flex items-baseline gap-4 sm:gap-6">
-                  <span className="font-display text-xs tracking-widest text-[#C084FC] font-bold font-mono-tech">
-                    {idx < 9 ? `0${idx + 1}` : idx + 1}
-                  </span>
-                  <span className="font-display text-xl sm:text-2xl font-medium text-white group-hover:text-[#C084FC] transition-colors">
-                    {item.q}
-                  </span>
-                </div>
-
-                <div className="p-2 rounded-full border border-white/20 group-hover:border-[#8B5CF6] text-[#E2DEEC] group-hover:text-white transition-colors shrink-0 mt-1">
-                  {isOpen ? <Minus size={14} /> : <Plus size={14} />}
-                </div>
+                {cat.label} ({cat.faqs.length})
               </button>
+            );
+          })}
+        </div>
 
-              {isOpen && (
-                <div className="mt-6 pl-8 sm:pl-12 pr-4 sm:pr-12 text-[#E2DEEC] font-sans text-base sm:text-lg font-normal leading-relaxed animate-in fade-in duration-300">
-                  {item.a}
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {/* Active Filter Status */}
+        <div className="flex items-center justify-between text-xs font-display text-[#E2DEEC] pt-1">
+          <div>
+            Showing <strong className="text-white">{filteredFaqs.length}</strong> {filteredFaqs.length === 1 ? 'result' : 'results'}
+            {searchQuery && <span> for &ldquo;{searchQuery}&rdquo;</span>}
+          </div>
+          {searchQuery && (
+            <button
+              onClick={handleClearSearch}
+              className="text-[#C084FC] hover:underline cursor-pointer"
+            >
+              Reset search
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Accordion Content */}
+      {filteredFaqs.length === 0 ? (
+        <div className="py-16 text-center max-w-xl mx-auto space-y-4">
+          <HelpCircle size={40} className="mx-auto text-[#A855F7] opacity-60" />
+          <h3 className="font-editorial text-2xl font-bold text-white">
+            No matching questions found
+          </h3>
+          <p className="font-sans text-sm text-[#E2DEEC]">
+            We couldn't find an answer matching &ldquo;{searchQuery}&rdquo;. Try using broader terms like &ldquo;team&rdquo;, &ldquo;hardware&rdquo;, &ldquo;fee&rdquo;, or contact our Student Coordinator directly.
+          </p>
+          <button
+            onClick={handleClearSearch}
+            className="px-5 py-2 rounded-full border border-[#8B5CF6] bg-[#8B5CF6]/20 text-white font-display text-xs tracking-wider uppercase hover:bg-[#8B5CF6]/40 transition-colors"
+          >
+            Show All Questions
+          </button>
+        </div>
+      ) : (
+        <div className="max-w-4xl divide-y divide-white/[0.12]">
+          {filteredFaqs.map((item, idx) => {
+            const isOpen = openIndex === idx;
+            return (
+              <div key={item.num || idx} className="py-7 sm:py-8 transition-colors">
+                <button
+                  onClick={() => toggle(idx)}
+                  className="w-full flex items-start justify-between text-left gap-4 sm:gap-6 group focus:outline-none cursor-pointer"
+                >
+                  <div className="flex items-start gap-3 sm:gap-5">
+                    {/* Index Number */}
+                    <span className="font-mono-tech text-xs sm:text-sm tracking-wider text-[#C084FC] font-bold mt-1 shrink-0">
+                      {item.num}
+                    </span>
+
+                    {/* Question + Category Badge */}
+                    <div className="space-y-1">
+                      <div className="inline-block font-display text-[10px] uppercase tracking-wider text-[#A855F7] font-semibold">
+                        {item.categoryLabel}
+                      </div>
+                      <h3 className="font-display text-lg sm:text-xl md:text-2xl font-semibold text-[#FFFFFF] group-hover:text-[#C084FC] transition-colors leading-snug">
+                        {item.q}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Expand/Collapse Toggle Button */}
+                  <div className="p-2 sm:p-2.5 rounded-full border border-white/20 group-hover:border-[#8B5CF6] text-[#E2DEEC] group-hover:text-white transition-colors shrink-0 mt-1">
+                    {isOpen ? <Minus size={15} /> : <Plus size={15} />}
+                  </div>
+                </button>
+
+                {/* Answer Content */}
+                {isOpen && (
+                  <div className="mt-5 pl-7 sm:pl-10 pr-2 sm:pr-8 text-[#E2DEEC] font-sans text-base sm:text-lg font-normal leading-relaxed animate-in fade-in duration-200">
+                    <p className="bg-white/[0.02] p-5 sm:p-6 rounded-xl border border-white/[0.08]">
+                      {item.a}
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Student Coordinator Contact & Help Desk Card */}
+      <div className="mt-20 max-w-4xl p-8 rounded-2xl border border-white/[0.14] bg-gradient-to-br from-[#0c051a] to-[#04010a] shadow-[0_0_35px_rgba(139,92,246,0.15)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl">
+          <div className="inline-flex items-center gap-1.5 text-xs font-display tracking-widest uppercase text-[#C084FC] font-semibold">
+            <Sparkles size={12} />
+            DIRECT HUMAN ASSISTANCE
+          </div>
+          <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-white">
+            Have a question not listed here?
+          </h3>
+          <p className="font-sans text-sm text-[#E2DEEC] leading-relaxed">
+            Reach out to official Student Coordinator <strong className="text-white">Sruthi Nisha.J.S</strong> at {SEDS_CONFIG.institution}, Chennai for queries regarding team registration, tracks, presentation deck formatting, or hackathon logistics.
+          </p>
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <a 
+              href="tel:9884464389" 
+              className="inline-flex items-center gap-2 font-mono text-sm text-white hover:text-[#C084FC] transition-colors"
+            >
+              <Phone size={14} className="text-[#A855F7]" />
+              <span>+91 98844 64389</span>
+            </a>
+            <a 
+              href="mailto:sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in" 
+              className="inline-flex items-center gap-2 font-mono text-xs text-[#E2DEEC] hover:text-white transition-colors"
+            >
+              <Mail size={14} className="text-[#A855F7]" />
+              <span>sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="shrink-0 flex flex-col sm:flex-row md:flex-col gap-3 w-full md:w-auto">
+          {onOpenRegister && (
+            <button
+              onClick={onOpenRegister}
+              className="px-6 py-3 rounded-full border border-[#8B5CF6] bg-[#8B5CF6]/30 hover:bg-[#8B5CF6]/50 text-white font-display text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(139,92,246,0.3)] cursor-pointer"
+            >
+              <span>REGISTER (FREE ₹0)</span>
+              <ArrowUpRight size={14} />
+            </button>
+          )}
+        </div>
       </div>
     </section>
   );

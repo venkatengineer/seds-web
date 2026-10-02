@@ -82,7 +82,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             </button>
           </div>
           <div>
-            <button onClick={() => onNavigate('deadline')} className="text-amber-300 hover:text-amber-200 transition-colors cursor-pointer font-semibold">
+            <button onClick={() => onNavigate('countdown')} className="text-amber-300 hover:text-amber-200 transition-colors cursor-pointer font-semibold">
               04 — Deadline Countdown
             </button>
           </div>

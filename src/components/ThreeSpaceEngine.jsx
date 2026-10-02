@@ -16,26 +16,22 @@ import { playSignalTone, playLightSweepTone } from '../utils/audio';
 
 // Continuous orbital trajectory milestones along scroll progress (0.00 -> 1.00)
 // Restores the dynamic, prominent Earth movement and deep-space orbital sweep from the 1st prototype
-// Harmonized with the Hackathon-First layout:
-// Hero -> Tracks -> Prizes -> Timeline -> Countdown -> FAQ -> Partners -> Mission & Identity -> Footer
 const SCROLL_MILESTONES = [
   // 0.00: HERO APEX — Monumental Earth limb on the right with atmospheric rim glow
   { t: 0.00, cam: new THREE.Vector3(0, 0, 105), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(36, 1.5, -10), scale: 1.00 },
   // 0.16: HACKATHON TRACKS — Earth dips gracefully lower and deeper, opening spatial clearance for track cards
   { t: 0.16, cam: new THREE.Vector3(2, -2, 98), look: new THREE.Vector3(-2, -1, 0), earth: new THREE.Vector3(43, -6, -20), scale: 0.94 },
-  // 0.30: PRIZES & REWARDS — Earth sweeps majestically into view with brilliant specular ocean shine
-  { t: 0.30, cam: new THREE.Vector3(-3, 2, 92), look: new THREE.Vector3(2, 1, 0), earth: new THREE.Vector3(34, 4, -13), scale: 1.02 },
-  // 0.44: TIMELINE TRAJECTORY — Earth aligns with the traveling orbital flight trajectory beacon
-  { t: 0.44, cam: new THREE.Vector3(3, -2, 88), look: new THREE.Vector3(-2, -1, 0), earth: new THREE.Vector3(44, -4, -18), scale: 0.95 },
-  // 0.58: COUNTDOWN HORIZON — Earth aligns with the astronomical circular horizon arc
-  { t: 0.58, cam: new THREE.Vector3(0, -3, 89), look: new THREE.Vector3(1, -1, 0), earth: new THREE.Vector3(37, -4, -13), scale: 0.99 },
-  // 0.72: DIRECTIVES & FAQ — Wide orbit traverse, Earth sweeps horizontally across background depth
-  { t: 0.72, cam: new THREE.Vector3(-2, 2, 87), look: new THREE.Vector3(2, 0, 0), earth: new THREE.Vector3(43, -5, -19), scale: 0.94 },
-  // 0.84: PARTNERS & ALLIANCE — Smooth orbital sweep showcasing institutional alliance
-  { t: 0.84, cam: new THREE.Vector3(2, -1, 90), look: new THREE.Vector3(-1, 0, 0), earth: new THREE.Vector3(41, -2, -16), scale: 0.97 },
-  // 0.92: SEDS MISSION & IDENTITY — Ascending perspective, Earth glides higher and closer, revealing southern hemisphere
-  { t: 0.92, cam: new THREE.Vector3(-4, 3, 92), look: new THREE.Vector3(3, 1, 0), earth: new THREE.Vector3(33, 6, -14), scale: 1.00 },
-  // 1.00: FOOTER — Smooth orbital return into stable apex perspective
+  // 0.32: SEDS MISSION — Ascending perspective, Earth glides higher and closer, revealing southern hemisphere
+  { t: 0.32, cam: new THREE.Vector3(-4, 3, 92), look: new THREE.Vector3(3, 1, 0), earth: new THREE.Vector3(33, 6, -15), scale: 0.98 },
+  // 0.48: SEDS IDENTITY — Wide orbit traverse, Earth sweeps horizontally across background depth
+  { t: 0.48, cam: new THREE.Vector3(3, -2, 88), look: new THREE.Vector3(-2, -1, 0), earth: new THREE.Vector3(44, -4, -19), scale: 0.93 },
+  // 0.62: TIMELINE TRAJECTORY — Earth aligns with the traveling orbital flight beacon
+  { t: 0.62, cam: new THREE.Vector3(-2, 2, 86), look: new THREE.Vector3(2, 0, 0), earth: new THREE.Vector3(34, 4, -14), scale: 0.97 },
+  // 0.76: COUNTDOWN HORIZON — Earth aligns with the astronomical circular horizon arc
+  { t: 0.76, cam: new THREE.Vector3(0, -3, 89), look: new THREE.Vector3(1, -1, 0), earth: new THREE.Vector3(37, -4, -13), scale: 0.99 },
+  // 0.88: PRIZES & REWARDS — Earth looms majestically large with brilliant specular ocean shine
+  { t: 0.88, cam: new THREE.Vector3(3, 1, 93), look: new THREE.Vector3(-1, 0, 0), earth: new THREE.Vector3(35, 2, -11), scale: 1.03 },
+  // 1.00: DIRECTIVES & FOOTER — Smooth orbital return into stable apex perspective
   { t: 1.00, cam: new THREE.Vector3(0, 0, 102), look: new THREE.Vector3(0, 0, 0), earth: new THREE.Vector3(36, 1.5, -11), scale: 1.00 },
 ];
 
@@ -118,8 +114,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
 
     // Phase 4: Earth & Sunlight
     earthRevealAlpha: isBootComplete ? 1.0 : 0.0,
-    earthPosX: isBootComplete ? 38 : 22,
-    earthPosY: isBootComplete ? 2 : -18,
+    earthPosX: isBootComplete ? 36 : 22,
+    earthPosY: isBootComplete ? 1.5 : -18,
     earthPosZ: isBootComplete ? -10 : -15,
     earthScale: isBootComplete ? 1.0 : 0.9,
     sunIntensity: isBootComplete ? 2.8 : 0.0,
@@ -161,8 +157,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         nebulaAlpha: 0.04,
         introSatOpacity: 0.0,
         earthRevealAlpha: 1.0,
-        earthPosX: 38,
-        earthPosY: 2,
+        earthPosX: 36,
+        earthPosY: 1.5,
         earthPosZ: -10,
         earthScale: 1.0,
         sunIntensity: 2.8,
@@ -1173,8 +1169,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         lookX: 0,
         lookY: 0,
         lookZ: 0,
-        earthPosX: 38,
-        earthPosY: 2,
+        earthPosX: 36,
+        earthPosY: 1.5,
         earthPosZ: -10,
         earthScale: 1.0,
         sunIntensity: 2.8,

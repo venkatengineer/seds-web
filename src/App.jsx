@@ -177,7 +177,7 @@ export default function App() {
         <CountdownSection />
 
         {/* 5. Hackathon Directives & Clarification FAQs */}
-        <FaqSection />
+        <FaqSection onOpenRegister={() => setIsRegisterOpen(true)} />
 
         {/* 6. Institutional & Industry Collaboration Network */}
         <SponsorsWall />

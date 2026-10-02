@@ -237,3 +237,7 @@ export const PARTNERS_CONFIG = [
     ],
   },
 ];
+
+// Re-export comprehensive FAQ registry
+export * from './faqs';
+
