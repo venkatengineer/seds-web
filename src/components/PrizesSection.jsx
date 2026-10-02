@@ -36,7 +36,7 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
       className="relative min-h-screen w-full flex flex-col justify-center py-28 sm:py-36 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
+      <div data-reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold flex items-center gap-1.5">
@@ -58,7 +58,7 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
       </div>
 
       {/* Dual Core Monuments: Prize Pool + Internship Opportunities */}
-      <div 
+      <div data-reveal-stagger 
         className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch max-w-6xl mx-auto w-full transition-transform duration-500 ease-out mb-16"
         style={{
           transform: `translate3d(${depthX * 0.4}px, ${depthY * 0.4}px, 0)`,
@@ -166,7 +166,7 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
 
       {/* 6 Key Takeaways Grid from Document */}
       <div className="max-w-6xl mx-auto w-full">
-        <div className="mb-6 flex items-center justify-between">
+        <div data-reveal className="mb-6 flex items-center justify-between">
           <span className="font-display text-xs tracking-[0.2em] uppercase text-[#C084FC] font-semibold">
             // ALL PARTICIPANT TAKEAWAYS
           </span>
@@ -175,7 +175,7 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div data-reveal-stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {EVENT_CONFIG.whyParticipate.map((item) => {
             const Icon = TAKEAWAY_ICONS[item.num] || CheckCircle2;
             return (

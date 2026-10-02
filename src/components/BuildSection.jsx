@@ -20,7 +20,7 @@ export default function BuildSection({ onOpenRegister }) {
       className="relative min-h-[75vh] w-full flex flex-col justify-center py-24 sm:py-32 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-12">
+      <div data-reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-12">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold flex items-center gap-1.5">
@@ -40,12 +40,12 @@ export default function BuildSection({ onOpenRegister }) {
         </div>
       </div>
 
-      <p className="font-sans text-base sm:text-lg text-[#E2DEEC] max-w-2xl mb-10 leading-relaxed">
+      <p data-reveal className="font-sans text-base sm:text-lg text-[#E2DEEC] max-w-2xl mb-10 leading-relaxed">
         {buildInfo.intro} Choose whatever format brings your space innovation to life effectively.
       </p>
 
       {/* 6 Build Modality Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto w-full mb-12">
+      <div data-reveal-stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto w-full mb-12">
         {buildInfo.types.map((type, idx) => {
           const Icon = BUILD_ICONS[type.id] || Cpu;
           return (
@@ -81,7 +81,7 @@ export default function BuildSection({ onOpenRegister }) {
       </div>
 
       {/* The Key Requirement: Demonstrate It Banner */}
-      <div className="max-w-6xl mx-auto w-full p-8 sm:p-10 rounded-2xl border border-[#8B5CF6]/40 bg-gradient-to-r from-[#17092c] via-[#0b0417] to-[#04010a] shadow-[0_0_40px_rgba(139,92,246,0.2)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div data-reveal="scale" className="max-w-6xl mx-auto w-full p-8 sm:p-10 rounded-2xl border border-[#8B5CF6]/40 bg-gradient-to-r from-[#17092c] via-[#0b0417] to-[#04010a] shadow-[0_0_40px_rgba(139,92,246,0.2)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
           <div className="inline-flex items-center gap-2 text-xs font-display tracking-widest uppercase text-[#C084FC] font-bold">
             <CheckCircle2 size={14} className="text-[#C084FC]" />

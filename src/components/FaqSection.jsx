@@ -60,7 +60,7 @@ export default function FaqSection({ onOpenRegister }) {
       className="relative min-h-[85vh] w-full flex flex-col justify-center py-32 px-6 sm:px-12 lg:px-16 z-20"
     >
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/[0.12] pb-8 mb-12">
+      <div data-reveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/[0.12] pb-8 mb-12">
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold flex items-center gap-1.5">
@@ -100,7 +100,7 @@ export default function FaqSection({ onOpenRegister }) {
       </div>
 
       {/* Search & Category Filter Controls */}
-      <div className="mb-10 space-y-6">
+      <div data-reveal className="mb-10 space-y-6">
         
         {/* Instant Search Bar */}
         <div className="relative max-w-2xl">
@@ -190,7 +190,7 @@ export default function FaqSection({ onOpenRegister }) {
           </button>
         </div>
       ) : (
-        <div className="max-w-4xl divide-y divide-white/[0.12]">
+        <div data-reveal className="max-w-4xl divide-y divide-white/[0.12]">
           {filteredFaqs.map((item, idx) => {
             const isOpen = openIndex === idx;
             return (
@@ -237,7 +237,7 @@ export default function FaqSection({ onOpenRegister }) {
       )}
 
       {/* Student Coordinator Contact & Help Desk Card */}
-      <div className="mt-20 max-w-4xl p-8 rounded-2xl border border-white/[0.14] bg-gradient-to-br from-[#0c051a] to-[#04010a] shadow-[0_0_35px_rgba(139,92,246,0.15)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div data-reveal className="mt-20 max-w-4xl p-8 rounded-2xl border border-white/[0.14] bg-gradient-to-br from-[#0c051a] to-[#04010a] shadow-[0_0_35px_rgba(139,92,246,0.15)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-xl">
           <div className="inline-flex items-center gap-1.5 text-xs font-display tracking-widest uppercase text-[#C084FC] font-semibold">
             <Sparkles size={12} />

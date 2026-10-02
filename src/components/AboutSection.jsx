@@ -23,7 +23,7 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
       className="relative min-h-[70vh] w-full flex flex-col justify-center py-24 sm:py-32 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-12">
+      <div data-reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-12">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold flex items-center gap-1.5">
@@ -51,7 +51,7 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center max-w-6xl mx-auto w-full">
         
         {/* Left Column: Editorial Paragraphs */}
-        <div className="lg:col-span-7 space-y-6">
+        <div data-reveal className="lg:col-span-7 space-y-6">
           <p className="font-editorial text-xl sm:text-2xl text-white font-medium leading-snug">
             {about.lead}
           </p>
@@ -88,7 +88,7 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
         </div>
 
         {/* Right Column: Key Takeaway Cards */}
-        <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+        <div data-reveal-stagger className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
           <div className="p-5 rounded-xl border border-white/[0.12] bg-[#07030F]/80 backdrop-blur-md space-y-1.5">
             <div className="flex items-center gap-2 text-[#C084FC] font-display text-xs tracking-wider uppercase font-semibold">
               <Award size={14} />

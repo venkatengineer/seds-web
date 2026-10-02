@@ -199,7 +199,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
       {/* Centered Editorial Container */}
       <div className="max-w-6xl mx-auto w-full">
         {/* Top Eyebrow & Headline */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-5 mb-8">
+        <div data-reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-5 mb-8">
           <div>
             <span className="font-display text-xs tracking-[0.25em] uppercase text-[#C084FC] block mb-1 font-bold flex items-center gap-2">
               <Sparkles size={13} className="text-[#8B5CF6]" />
@@ -223,7 +223,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
         </div>
 
         {/* Overview Manifesto Banner */}
-        <div className="mb-10 p-5 sm:p-6 rounded-2xl border border-white/[0.12] bg-[#0B0616]/95 backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-5 shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
+        <div data-reveal className="mb-10 p-5 sm:p-6 rounded-2xl border border-white/[0.12] bg-[#0B0616]/95 backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-5 shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
           <div className="space-y-1.5 max-w-2xl">
             <div className="flex items-center gap-2">
               <span className="font-display text-[10px] uppercase tracking-[0.25em] text-[#C084FC] font-bold">
@@ -251,12 +251,12 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
         {/* Symmetrical Grid: Row 1 (3 cards) + Row 2 (2 cards centered) */}
         <div className="space-y-6">
           {/* Top Row: 3 Tracks */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          <div data-reveal-stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
             {tracks.slice(0, 3).map((track, idx) => renderTrackCard(track, idx))}
           </div>
 
           {/* Bottom Row: 2 Tracks Centered */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          <div data-reveal-stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
             <div className="hidden lg:block opacity-0 pointer-events-none" />
             {tracks.slice(3, 5).map((track, idx) => renderTrackCard(track, idx + 3))}
             <div className="hidden lg:block opacity-0 pointer-events-none" />

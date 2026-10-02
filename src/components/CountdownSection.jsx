@@ -73,7 +73,7 @@ export default function CountdownSection() {
       />
 
       {/* Subtle Slow Astronomical Framing Arc */}
-      <div className="relative w-[360px] h-[360px] max-w-[94vw] max-h-[94vw] sm:w-[480px] sm:h-[480px] md:w-[580px] md:h-[580px] rounded-full flex flex-col items-center justify-center text-center p-6">
+      <div data-reveal="scale" className="relative w-[360px] h-[360px] max-w-[94vw] max-h-[94vw] sm:w-[480px] sm:h-[480px] md:w-[580px] md:h-[580px] rounded-full flex flex-col items-center justify-center text-center p-6">
         <div className="absolute inset-0 rounded-full border border-white/[0.08]" />
         <div className="absolute inset-10 rounded-full border border-[#8B5CF6]/25 border-dashed animate-[spin_180s_linear_infinite]" />
 

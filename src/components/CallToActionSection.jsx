@@ -10,7 +10,7 @@ export default function CallToActionSection({ onOpenRegister }) {
       id="cta" 
       className="relative w-full py-28 sm:py-36 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto w-full relative rounded-3xl border border-white/[0.16] bg-gradient-to-br from-[#130726] via-[#080213] to-[#020107] p-8 sm:p-14 lg:p-20 shadow-[0_0_60px_rgba(139,92,246,0.25)] overflow-hidden text-center flex flex-col items-center">
+      <div data-reveal="scale" className="max-w-5xl mx-auto w-full relative rounded-3xl border border-white/[0.16] bg-gradient-to-br from-[#130726] via-[#080213] to-[#020107] p-8 sm:p-14 lg:p-20 shadow-[0_0_60px_rgba(139,92,246,0.25)] overflow-hidden text-center flex flex-col items-center">
         
         {/* Ambient Glow */}
         <div 
