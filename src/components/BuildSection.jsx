@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, Globe, Smartphone, Bot, Binary, FlaskConical, CheckCircle2, Sparkles, ArrowUpRight } from 'lucide-react';
+import { Cpu, Globe, Smartphone, Bot, Binary, FlaskConical, CheckCircle2, Sparkles, ArrowUpRight, Download } from 'lucide-react';
 import { EVENT_CONFIG } from '../config/event';
 
 const BUILD_ICONS = {
@@ -95,15 +95,27 @@ export default function BuildSection({ onOpenRegister }) {
           </p>
         </div>
 
-        {onOpenRegister && (
-          <button
-            onClick={onOpenRegister}
-            className="shrink-0 px-7 py-3.5 rounded-full border border-[#8B5CF6] bg-[#8B5CF6]/30 hover:bg-[#8B5CF6]/50 text-white font-display text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center gap-2 shadow-[0_0_20px_rgba(139,92,246,0.3)] cursor-pointer"
+        <div className="shrink-0 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <a
+            href={EVENT_CONFIG.pptTemplateUrl}
+            download={EVENT_CONFIG.pptTemplateFilename}
+            className="px-6 py-3.5 rounded-full border border-white/20 hover:border-[#C084FC] bg-white/[0.05] hover:bg-white/[0.1] text-white font-display text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.4)]"
+            title="Download official presentation deck template (.pptx)"
           >
-            <span>REGISTER NOW (FREE ₹0)</span>
-            <ArrowUpRight size={14} />
-          </button>
-        )}
+            <Download size={14} className="text-[#C084FC]" />
+            <span>PPT TEMPLATE (.PPTX)</span>
+          </a>
+
+          {onOpenRegister && (
+            <button
+              onClick={onOpenRegister}
+              className="px-7 py-3.5 rounded-full border border-[#8B5CF6] bg-[#8B5CF6]/30 hover:bg-[#8B5CF6]/50 text-white font-display text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(139,92,246,0.3)] cursor-pointer"
+            >
+              <span>REGISTER NOW (FREE ₹0)</span>
+              <ArrowUpRight size={14} />
+            </button>
+          )}
+        </div>
       </div>
     </section>
   );

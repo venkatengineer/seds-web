@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowDown, ArrowUpRight, Calendar, Clock, Briefcase, Sparkles } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Calendar, Clock, Briefcase, Sparkles, Download } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 
 /**
@@ -183,12 +183,22 @@ export default function HeroSection({
 
           <button
             onClick={() => onNavigate('tracks')}
-            className="group flex items-center gap-2.5 px-6 py-4 rounded-full border border-white/15 hover:border-[#8B5CF6]/60 bg-white/[0.04] hover:bg-[#8B5CF6]/20 font-display text-xs uppercase tracking-[0.18em] text-[#F7F5FF] hover:text-white transition-all duration-200 focus:outline-none shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+            className="group flex items-center gap-2.5 px-6 py-4 rounded-full border border-white/15 hover:border-[#8B5CF6]/60 bg-white/[0.04] hover:bg-[#8B5CF6]/20 font-display text-xs uppercase tracking-[0.18em] text-[#F7F5FF] hover:text-white transition-all duration-200 focus:outline-none shadow-[0_0_20px_rgba(0,0,0,0.5)] cursor-pointer"
           >
             <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
             <span>Explore 5 Tracks</span>
             <ArrowDown size={13} className="text-[#C084FC] group-hover:translate-y-0.5 transition-transform" />
           </button>
+
+          <a
+            href={EVENT_CONFIG.pptTemplateUrl}
+            download={EVENT_CONFIG.pptTemplateFilename}
+            className="group flex items-center gap-2 px-6 py-4 rounded-full border border-white/20 hover:border-[#C084FC] bg-[#16092E]/80 hover:bg-[#2A104E] font-display text-xs uppercase tracking-[0.16em] text-[#F7F5FF] hover:text-white transition-all duration-200 focus:outline-none shadow-[0_0_20px_rgba(139,92,246,0.2)] hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] cursor-pointer"
+            title="Download official presentation deck template (.pptx)"
+          >
+            <Download size={14} className="text-[#C084FC] group-hover:translate-y-0.5 transition-transform" />
+            <span>PPT Template</span>
+          </a>
 
           {/* Clean, Restrained Directives Bar: Dual-tone readable and cohesive */}
           <div className="w-full flex flex-wrap items-center gap-2.5 pt-2 font-mono text-[11px] sm:text-xs text-[#E2DEEC]">
