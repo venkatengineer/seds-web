@@ -226,7 +226,7 @@ export default function TimelineSection() {
             <span className="text-[#F7F5FF] font-semibold">{EVENT_CONFIG.registrationDeadline} // 18:00 IST</span>
           </div>
           <div className="text-white font-medium uppercase tracking-wider font-mono text-[11px]">
-            100% FREE ENTRY (₹0 FEE) • STRICTLY 4 MEMBERS ONLY
+            100% FREE ENTRY (₹0 FEE) • ONLY 4 MEMBERS
           </div>
         </div>
       </div>

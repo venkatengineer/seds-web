@@ -170,7 +170,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
         {/* Card Footer: Pinned at bottom */}
         <div className="pt-4 mt-5 border-t border-white/[0.08] flex items-center justify-between gap-2 shrink-0">
           <span className="font-mono text-[10px] text-[#E2DEEC] uppercase tracking-wider font-medium">
-            Strictly 4 Members • ₹0 Entry (Free)
+            Only 4 Members • ₹0 Entry (Free)
           </span>
 
           <button
@@ -233,7 +233,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
               <span className="text-[10px] font-mono text-[#E2DEEC]">LAST DATE: 9 OCTOBER 2026</span>
             </div>
             <p className="font-sans text-xs sm:text-sm text-[#F7F5FF] font-normal leading-relaxed">
-              Explore technologies that support space missions, health in orbit, autonomous rovers, space sustainability, or open innovation. Hardware prototypes, software platforms, AI tools, and simulations are all welcomed.
+              Explore technologies that support space missions & defence, medical & agriculture in space, space instrumentation, sustainability & energy management, or open innovation. Hardware prototypes, software platforms, AI tools, and simulations are all welcomed.
             </p>
           </div>
 

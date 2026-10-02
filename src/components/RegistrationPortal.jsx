@@ -124,7 +124,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
             </span>
             <span className="flex items-center gap-1.5 text-white font-medium">
               <Users size={13} className="text-[#C084FC]" />
-              <strong>Squad Size:</strong> Strictly 4 Members Only
+              <strong>Squad Size:</strong> Only 4 Members
             </span>
             <span className="flex items-center gap-1.5 text-white font-medium">
               <ShieldCheck size={13} className="text-[#C084FC]" />

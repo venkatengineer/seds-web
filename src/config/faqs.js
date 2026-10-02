@@ -56,7 +56,7 @@ export const FAQ_CATEGORIES = [
       {
         num: "07",
         q: "How many members can be in one team?",
-        a: "All teams must register with strictly 4 members (1 Team Leader plus 3 team members) to ensure balanced multidisciplinary capabilities across software, hardware, and engineering.",
+        a: "All teams must register with only 4 members (1 Team Leader plus 3 team members) to ensure balanced multidisciplinary capabilities across software, hardware, and engineering.",
         officialId: 4
       },
       {

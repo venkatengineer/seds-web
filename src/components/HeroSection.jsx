@@ -210,7 +210,7 @@ export default function HeroSection({
               <span>100% Free of Cost (₹0 Entry Fee)</span>
             </span>
             <span className="text-white/30">•</span>
-            <span className="text-[#F7F5FF] font-medium">Strictly 4 Members Only</span>
+            <span className="text-[#F7F5FF] font-medium">Only 4 Members</span>
             <span className="text-white/30">•</span>
             <span className="inline-flex items-center gap-1 text-[#C084FC] font-semibold tracking-wider uppercase">
               <Clock size={11} className="text-[#C084FC]" />
@@ -239,13 +239,20 @@ export default function HeroSection({
             {EVENT_CONFIG.tracks.map((track) => (
               <button
                 key={track.id}
-                onClick={() => onNavigate('tracks')}
-                className="group px-3 py-1.5 rounded-lg border border-white/10 bg-[#0B0616]/90 hover:border-[#8B5CF6]/60 hover:bg-[#4C1D95]/25 text-left text-xs font-sans text-white transition-all duration-200 flex items-center gap-2"
+                onClick={() => {
+                  const card = document.getElementById(`track-card-${track.id}`);
+                  if (card) {
+                    onNavigate(`track-card-${track.id}`);
+                  } else {
+                    onNavigate('tracks');
+                  }
+                }}
+                className="group px-3 py-1.5 rounded-lg border border-white/10 bg-[#0B0616]/90 hover:border-[#8B5CF6]/60 hover:bg-[#4C1D95]/25 text-left text-xs font-sans text-white transition-all duration-200 flex items-center gap-2 cursor-pointer"
               >
-                <span className="font-editorial text-[#8B5CF6] font-bold text-xs">
+                <span className="font-editorial text-[#8B5CF6] font-bold text-xs shrink-0">
                   {track.number}
                 </span>
-                <span className="truncate max-w-[210px] font-semibold text-[11px] text-[#F7F5FF]">
+                <span className="font-semibold text-[11px] text-[#F7F5FF] tracking-wide">
                   {track.title}
                 </span>
                 <ArrowDown size={10} className="text-[#C084FC] opacity-40 group-hover:opacity-100 transition-opacity shrink-0" />

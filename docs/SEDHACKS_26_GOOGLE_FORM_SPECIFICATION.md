@@ -27,10 +27,10 @@ SEDHACKS '26 is the premier student space and technology hackathon organized by 
 
 MISSION DIRECTIVES:
 • Phase 1 Registration: 100% FREE.
-• Team Size: Strictly 3 to 4 members (1 Team Lead + 2 or 3 Members).
+• Team Size: Only 4 members (1 Team Lead + 3 Members).
 • Evaluation: The SEDS REC review panel and domain experts will review all proposals and shortlist approximately 30 teams.
 • Phase 2: Shortlisted teams will be invited to the final sprint at REC Chennai (Registration fee: ₹300 per person).
-• Prize Pool: ₹10,000 cash prizes + Internship opportunities for Top 3 teams through Aeroin Space Tech.
+• Prize Pool: ₹10,000 cash prizes + Internship opportunities for Top 2 teams through Aeroin Space Tech.
 
 All submissions are evaluated on engineering rigor, feasibility, and innovation across space, technology and sustainability.
 ```
@@ -106,7 +106,7 @@ flowchart TD
 
 | # | Field Title / Prompt | Question Type | Response Validation / Options | Required? |
 | :-: | :--- | :--- | :--- | :-: |
-| 4.1 | **Challenge Domain / Track** | Dropdown | 1. `Track 01: Space Applications & Defence Technology`<br>2. `Track 02: Medical, Food & Agriculture in Space`<br>3. `Track 03: Autonomous & Communication Technology`<br>4. `Track 04: Sustainability in Space`<br>5. `Track 05: Miscellaneous / Open Innovation` | **Yes** |
+| 4.1 | **Challenge Domain / Track** | Dropdown | 1. `Track 01: Space Applications & Defence Technology`<br>2. `Track 02: Medical, Food & Agriculture in Space`<br>3. `Track 03: Space Instrumentation`<br>4. `Track 04: Sustainability and Energy Management`<br>5. `Track 05: Open Innovation` | **Yes** |
 | 4.2 | **Project Title** | Short answer | Text (Concise name of proposed system) | **Yes** |
 | 4.3 | **Project Abstract & Technical Approach** | Paragraph | Text (Minimum 50 words / ~250 characters)<br>*Description: Outline the problem statement, proposed hardware/software architecture, and expected mission output.* | **Yes** |
 | 4.4 | **Upload Technical Presentation Deck** | **File upload** | • Allow specific file types: **Presentation (.ppt, .pptx)** and **PDF**<br>• Maximum number of files: **1**<br>• Maximum file size: **100 MB** | **Yes** |
