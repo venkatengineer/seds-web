@@ -102,7 +102,7 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
           <div className="p-5 rounded-xl border border-white/[0.12] bg-[#07030F]/80 backdrop-blur-md space-y-1.5">
             <div className="flex items-center gap-2 text-[#C084FC] font-display text-xs tracking-wider uppercase font-semibold">
               <Sparkles size={14} />
-              <span>Top 3 Teams Internships</span>
+              <span>Top 2 Teams Internships</span>
             </div>
             <p className="font-sans text-xs text-[#E2DEEC] leading-relaxed">
               Industry exposure through collaboration with Aeroin Space Tech (subject to selection process).

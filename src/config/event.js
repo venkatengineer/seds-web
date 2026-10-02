@@ -65,10 +65,10 @@ export const EVENT_CONFIG = {
   prizeSummary: "₹10,000",
   grandPrize: "₹10,000",
   grandPrizeNumeric: "₹10,000",
-  internshipHeadline: "Top 3 Teams Internship Opportunities",
-  internshipDetails: "Top 3 teams will receive internship opportunities through our collaboration with Aeroin Space Tech, subject to the applicable selection process.",
+  internshipHeadline: "Top 2 Teams Internship Opportunities",
+  internshipDetails: "Top 2 teams will receive internship opportunities through our collaboration with Aeroin Space Tech, subject to the applicable selection process.",
   industryPartner: "Aeroin Space Tech",
-  industryCollaboration: "SEDS REC is collaborating with Aeroin Space Tech to bring industry exposure into SEDHACKS ’26. Through this collaboration, participants get an opportunity to present their ideas in an environment that connects student innovation with industry perspectives. Top 3 teams will receive internship opportunities through Aeroin Space Tech, subject to the applicable selection process.",
+  industryCollaboration: "SEDS REC is collaborating with Aeroin Space Tech to bring industry exposure into SEDHACKS ’26. Through this collaboration, participants get an opportunity to present their ideas in an environment that connects student innovation with industry perspectives. Top 2 teams will receive internship opportunities through Aeroin Space Tech, subject to the applicable selection process.",
   
   // Section: About SEDHACKS '26 (Where Ideas Take Shape)
   about: {
@@ -97,8 +97,8 @@ export const EVENT_CONFIG = {
     },
     {
       num: "03",
-      title: "Top 3 Teams — Internship Opportunities",
-      desc: "Top three teams will receive internship opportunities through our collaboration with Aeroin Space Tech, subject to the applicable selection process.",
+      title: "Top 2 Teams — Internship Opportunities",
+      desc: "Top two teams will receive internship opportunities through our collaboration with Aeroin Space Tech, subject to the applicable selection process.",
       tag: "INDUSTRY CAREER",
       highlight: "Aeroin Space Tech",
     },
@@ -285,7 +285,7 @@ export const EVENT_CONFIG = {
     {
       num: "07",
       step: "RECOGNITION",
-      desc: "Compete for the ₹10,000 prize pool and internship opportunities for the Top 3 teams.",
+      desc: "Compete for the ₹10,000 prize pool and internship opportunities for the Top 2 teams.",
       timing: "Awards Ceremony",
     },
   ],
@@ -318,7 +318,7 @@ export const EVENT_CONFIG = {
       title: "LAUNCH",
       time: "13 OCT // 15:00 IST",
       tagline: "Prototype Demos, Jury Evaluation & Awards",
-      desc: "Final live pitch presentations before the SEDS REC & Aeroin Space Tech jury panel. Awards allocation from the ₹10,000 prize pool and top 3 internship selections.",
+      desc: "Final live pitch presentations before the SEDS REC & Aeroin Space Tech jury panel. Awards allocation from the ₹10,000 prize pool and top 2 internship selections.",
     },
   ],
 
@@ -356,8 +356,8 @@ export const PARTNERS_CONFIG = [
         name: "Aeroin Space Tech",
         type: "Aerospace Industry Partner",
         location: "India",
-        role: "Industry Collaboration & Internship Opportunities Provider for Top 3 Teams",
-        desc: "SEDS REC is collaborating with Aeroin Space Tech to bring industry exposure into SEDHACKS ’26. Through this collaboration, participants get an opportunity to present their ideas in an environment that connects student innovation with industry perspectives. Top 3 teams will receive internship opportunities through Aeroin Space Tech, subject to the applicable selection process.",
+        role: "Industry Collaboration & Internship Opportunities Provider for Top 2 Teams",
+        desc: "SEDS REC is collaborating with Aeroin Space Tech to bring industry exposure into SEDHACKS ’26. Through this collaboration, participants get an opportunity to present their ideas in an environment that connects student innovation with industry perspectives. Top 2 teams will receive internship opportunities through Aeroin Space Tech, subject to the applicable selection process.",
       },
     ],
   },

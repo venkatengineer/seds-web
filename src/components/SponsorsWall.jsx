@@ -53,12 +53,12 @@ export default function SponsorsWall() {
               AND THERE IS MORE:
             </span>
             <p className="font-sans text-sm text-[#F7F5FF] font-semibold mt-0.5">
-              Top 3 teams will receive internship opportunities through Aeroin Space Tech, subject to the applicable selection process.
+              Top 2 teams will receive internship opportunities through Aeroin Space Tech, subject to the applicable selection process.
             </p>
           </div>
 
           <span className="px-3.5 py-1.5 rounded-full border border-purple-500/50 bg-purple-950/40 text-purple-200 text-xs font-display uppercase tracking-wider shrink-0 font-semibold">
-            TOP 3 TEAMS ELIGIBLE
+            TOP 2 TEAMS ELIGIBLE
           </span>
         </div>
       </div>

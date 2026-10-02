@@ -156,7 +156,7 @@ export const FAQ_CATEGORIES = [
       {
         num: "21",
         q: "Are there internship opportunities?",
-        a: "Yes! Top 3 teams will receive internship opportunities through our collaboration with Aeroin Space Tech, subject to the applicable selection process.",
+        a: "Yes! Top 2 teams will receive internship opportunities through our collaboration with Aeroin Space Tech, subject to the applicable selection process.",
         officialId: 12
       },
       {

@@ -11,7 +11,7 @@ import { EVENT_CONFIG } from '../config/event';
  * 6 Takeaways:
  * 1. Build Something Real
  * 2. Compete & Get Recognised (₹10,000 Prize Pool)
- * 3. Top 3 Teams — Internship Opportunities (Aeroin Space Tech)
+ * 3. Top 2 Teams — Internship Opportunities (Aeroin Space Tech)
  * 4. Learn Beyond the Classroom
  * 5. Get Industry Exposure
  * 6. Earn Your Certificate
@@ -141,7 +141,7 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
                 textShadow: '0 0 45px rgba(168, 85, 247, 0.35)',
               }}
             >
-              TOP 3 TEAMS
+              TOP 2 TEAMS
             </div>
 
             <h3 className="font-display text-xl sm:text-2xl font-medium tracking-[0.16em] uppercase text-[#F7F5FF] mt-3">
