@@ -17,7 +17,7 @@ export default function SponsorsWall() {
       className="relative min-h-[80vh] w-full flex flex-col justify-center py-28 sm:py-36 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
+      <div data-reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
         <div>
           <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] block mb-1 font-semibold flex items-center gap-1.5">
             <Sparkles size={13} className="text-[#C084FC]" />
@@ -33,7 +33,7 @@ export default function SponsorsWall() {
       </div>
 
       {/* Featured Industry Collaboration Hero Banner (From Document) */}
-      <div className="mb-14 p-8 sm:p-10 rounded-3xl border border-[#8B5CF6]/40 bg-gradient-to-br from-[#1b0a33] via-[#090314] to-[#04010a] shadow-[0_0_40px_rgba(139,92,246,0.2)]">
+      <div data-reveal="scale" className="mb-14 p-8 sm:p-10 rounded-3xl border border-[#8B5CF6]/40 bg-gradient-to-br from-[#1b0a33] via-[#090314] to-[#04010a] shadow-[0_0_40px_rgba(139,92,246,0.2)]">
         <div className="flex items-center gap-2 font-display text-xs tracking-[0.25em] uppercase text-[#C084FC] font-bold mb-3">
           <Briefcase size={14} />
           <span>OFFICIAL INDUSTRY PARTNER // AEROIN SPACE TECH</span>
@@ -74,7 +74,7 @@ export default function SponsorsWall() {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div data-reveal-stagger className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {group.items.map((item, idx) => (
                 <div
                   key={idx}

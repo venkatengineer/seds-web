@@ -24,6 +24,7 @@ import { Volume2, VolumeX, Calendar } from 'lucide-react';
 
 export default function BootSequence({ bootPhase, onSkip }) {
   const [isAudioActive, setIsAudioActive] = useState(false);
+  const isHandoff = bootPhase >= 13;
 
   // Sync initial audio state
   useEffect(() => {
@@ -38,6 +39,8 @@ export default function BootSequence({ bootPhase, onSkip }) {
 
   // Keyboard shortcut listener to skip or advance
   useEffect(() => {
+    // Only while the intro is playing — otherwise Space/Enter on the live site would re-trigger the skip
+    if (isHandoff) return;
     const handleKeyDown = (e) => {
       if (e.code === 'Space' || e.code === 'Escape' || e.key === 'Enter') {
         if (onSkip) onSkip();
@@ -45,20 +48,18 @@ export default function BootSequence({ bootPhase, onSkip }) {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onSkip]);
-
-  const isHandoff = bootPhase >= 13;
+  }, [onSkip, isHandoff]);
 
   return (
     <div
       onClick={onSkip}
-      className={`fixed inset-0 z-50 flex items-center justify-center select-none cursor-pointer transition-opacity duration-1200 ease-out ${
+      className={`fixed inset-0 z-50 flex items-center justify-center select-none cursor-pointer transition-opacity duration-500 ease-out ${
         isHandoff ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
       }`}
     >
       {/* 1. Deep Space Black Backdrop (Fades out softly after Phase 0 so 3D Canvas shines through) */}
       <div 
-        className="absolute inset-0 bg-[#010106] transition-opacity duration-1000 ease-out pointer-events-none"
+        className="absolute inset-0 bg-[#010106] transition-opacity duration-600 ease-out pointer-events-none"
         style={{
           opacity: bootPhase === 0 ? 1 : 0,
         }}
@@ -87,7 +88,7 @@ export default function BootSequence({ bootPhase, onSkip }) {
 
       {/* 3. Center Atmospheric Glow Dome for Title Illumination */}
       <div
-        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none transition-all duration-1400 ease-out ${
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none transition-all duration-900 ease-out ${
           bootPhase >= 10 && bootPhase < 13
             ? 'w-[70vw] h-[50vw] opacity-40 scale-100'
             : 'w-[20vw] h-[20vw] opacity-0 scale-50'
@@ -99,13 +100,17 @@ export default function BootSequence({ bootPhase, onSkip }) {
       />
 
       {/* 4. MASTER TYPOGRAPHIC STAGING AREA */}
-      <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 pointer-events-none max-w-5xl w-full">
+      <div
+        className={`relative z-20 flex flex-col items-center justify-center text-center px-6 pointer-events-none max-w-5xl w-full transition-all duration-500 ease-in ${
+          isHandoff ? 'opacity-0 -translate-y-6 scale-[1.04] blur-md' : ''
+        }`}
+      >
         
         {/* ============================================================ */}
         {/* PHASES 8 & 9: SEDS REC & RAJALAKSHMI ENGINEERING COLLEGE & PRESENTS */}
         {/* ============================================================ */}
         <div
-          className={`flex flex-col items-center justify-center transition-all duration-1000 ease-out ${
+          className={`flex flex-col items-center justify-center transition-all duration-600 ease-out ${
             bootPhase >= 8
               ? 'opacity-100 translate-y-0 filter-none'
               : 'opacity-0 translate-y-6 blur-lg pointer-events-none'
@@ -123,7 +128,7 @@ export default function BootSequence({ bootPhase, onSkip }) {
 
           {/* PHASE 9: PRESENTS */}
           <div
-            className={`transition-all duration-800 ease-out mt-4 sm:mt-5 ${
+            className={`transition-all duration-500 ease-out mt-4 sm:mt-5 ${
               bootPhase >= 9
                 ? 'opacity-100 translate-y-0 filter-none'
                 : 'opacity-0 translate-y-3 blur-sm'
@@ -139,33 +144,45 @@ export default function BootSequence({ bootPhase, onSkip }) {
         {/* PHASES 10, 11, 12: ORBITAL 26 & THE LIGHT SWEEP & TAGLINE */}
         {/* ============================================================ */}
         <div
-          className={`flex flex-col items-center justify-center transition-all duration-1200 ease-out ${
+          className={`flex flex-col items-center justify-center transition-all duration-700 ease-out ${
             bootPhase >= 10
               ? 'opacity-100 translate-y-0 filter-none'
               : 'opacity-0 translate-y-8 blur-xl pointer-events-none'
           }`}
         >
           {/* MAJOR TITLE: ORBITAL 26 */}
-          <div className="relative inline-block overflow-hidden py-1 px-4 sm:px-6">
-            <h1 className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-[0.2em] text-[#F7F5FF] leading-none drop-shadow-[0_0_55px_rgba(168,85,247,0.55)]">
+          <div className="relative inline-block py-1 px-4 sm:px-6">
+            <h1 className="font-editorial text-[2.6rem] sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-[0.12em] sm:tracking-[0.2em] text-[#F7F5FF] leading-none drop-shadow-[0_0_55px_rgba(168,85,247,0.55)]">
               {EVENT_CONFIG.name}
             </h1>
 
             {/* PHASE 11: SPECULAR CINEMATIC LIGHT SWEEP SHEEN ACROSS THE TITLE */}
+            {/* The sheen is clipped by its own layer so the title's glow is never cut into a hard rectangle */}
             <div
-              className={`absolute inset-0 pointer-events-none transition-transform duration-2000 ease-in-out ${
-                bootPhase >= 11 ? 'translate-x-[200%]' : '-translate-x-[200%]'
-              }`}
+              className="absolute inset-0 overflow-hidden pointer-events-none"
               style={{
-                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0) 25%, rgba(216, 180, 254, 0.8) 50%, rgba(255,255,255,0.95) 55%, rgba(139, 92, 246, 0.4) 65%, transparent 100%)',
-                mixBlendMode: 'screen',
+                // Soft on all four edges so the sweeping band never shows a hard clip line
+                maskImage: 'linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%)',
+                maskComposite: 'intersect',
+                WebkitMaskComposite: 'source-in',
               }}
-            />
+            >
+              <div
+                className={`absolute inset-0 transition-transform duration-1100 ease-in-out ${
+                  bootPhase >= 11 ? 'translate-x-[200%]' : '-translate-x-[200%]'
+                }`}
+                style={{
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0) 25%, rgba(216, 180, 254, 0.8) 50%, rgba(255,255,255,0.95) 55%, rgba(139, 92, 246, 0.4) 65%, transparent 100%)',
+                  mixBlendMode: 'screen',
+                }}
+              />
+            </div>
           </div>
 
           {/* PHASE 12: EVENT TAGLINE & METADATA */}
           <div
-            className={`transition-all duration-1000 ease-out mt-5 sm:mt-7 flex flex-col items-center ${
+            className={`transition-all duration-600 ease-out mt-5 sm:mt-7 flex flex-col items-center ${
               bootPhase >= 12
                 ? 'opacity-100 translate-y-0 filter-none'
                 : 'opacity-0 translate-y-5 blur-sm'

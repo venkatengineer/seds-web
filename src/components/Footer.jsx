@@ -23,7 +23,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
     <footer className="relative w-full z-20 border-t border-white/[0.12] bg-[#020107] pt-24 pb-14 px-6 sm:px-12 lg:px-16 text-[#E2DEEC] select-none">
       
       {/* Top Footer Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 border-b border-white/[0.12]">
+      <div data-reveal-stagger className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 border-b border-white/[0.12]">
         
         {/* Brand & Chapter Lineage */}
         <div className="md:col-span-2 space-y-4">
@@ -144,7 +144,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
       </div>
 
       {/* Contact Us & Queries Desk */}
-      <div className="py-12 border-b border-white/[0.12] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div data-reveal className="py-12 border-b border-white/[0.12] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div className="lg:col-span-5 space-y-2">
           <div className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold">
             // CONTACT US & INQUIRIES
@@ -202,7 +202,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
       </div>
 
       {/* Bottom Legal Baseline */}
-      <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-display text-xs text-[#E2DEEC] font-medium">
+      <div data-reveal className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-display text-xs text-[#E2DEEC] font-medium">
         <div>
           © 2026 {SEDS_CONFIG.name} // {SEDS_CONFIG.institution}. ALL RIGHTS RESERVED.
         </div>

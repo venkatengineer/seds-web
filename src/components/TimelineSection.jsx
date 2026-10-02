@@ -44,7 +44,7 @@ export default function TimelineSection() {
       className="relative min-h-screen w-full flex flex-col justify-center py-28 sm:py-36 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
       {/* Top Editorial Eyebrow */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
+      <div data-reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold flex items-center gap-1.5">
@@ -69,7 +69,7 @@ export default function TimelineSection() {
         
         {/* 1. SEVEN MILESTONES OF YOUR JOURNEY (From Document) */}
         <div>
-          <div className="mb-6 flex items-center justify-between">
+          <div data-reveal className="mb-6 flex items-center justify-between">
             <span className="font-display text-xs tracking-[0.2em] uppercase text-[#C084FC] font-semibold">
               // PARTICIPANT LIFECYCLE (7 PHASES)
             </span>
@@ -78,7 +78,7 @@ export default function TimelineSection() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div data-reveal-stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {journey.map((item, idx) => (
               <div 
                 key={item.num}
@@ -112,7 +112,7 @@ export default function TimelineSection() {
         </div>
 
         {/* 2. 48-HOUR SPRINT TRAJECTORY */}
-        <div className="pt-10 border-t border-white/[0.12] space-y-10">
+        <div data-reveal className="pt-10 border-t border-white/[0.12] space-y-10">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <span className="font-display text-xs tracking-[0.2em] uppercase text-[#A855F7] font-semibold block mb-1">
@@ -219,7 +219,7 @@ export default function TimelineSection() {
         </div>
 
         {/* Registration Cutoff Strip */}
-        <div className="p-4 sm:p-5 rounded-xl border border-[#8B5CF6]/40 bg-[#160A2C]/80 flex flex-wrap items-center justify-between gap-4 text-xs font-display">
+        <div data-reveal className="p-4 sm:p-5 rounded-xl border border-[#8B5CF6]/40 bg-[#160A2C]/80 flex flex-wrap items-center justify-between gap-4 text-xs font-display">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-pulse" />
             <span className="text-[#C084FC] font-bold uppercase tracking-wider">REGISTRATION DEADLINE:</span>

@@ -195,6 +195,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       let width = window.innerWidth;
       let height = window.innerHeight;
       const isMobile = width < 768;
+      // Phones/tablets: lighter textures, geometry and pixel ratio so the GPU isn't overloaded
+      const isLowPower = isMobile || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
 
       // 1. SCENE SETUP
       const scene = new THREE.Scene();
@@ -214,7 +216,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         powerPreference: 'high-performance',
       });
       renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isLowPower ? 1.5 : 2));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.15;
       container.appendChild(renderer.domElement);
@@ -252,16 +254,22 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     };
     const glowTex = makeGlowTex();
 
-    // High-res planetary maps for Earth
+    // High-res (4K) planetary maps for Earth
+    // day = surface albedo, night = city lights, brc = R: bump, G: roughness (oceans dark), B: clouds
     const texLoader = new THREE.TextureLoader();
-    const earthAtmosTex = texLoader.load('/textures/planets/earth_atmos.jpg');
-    const earthNormalTex = texLoader.load('/textures/planets/earth_normal.jpg');
-    const earthSpecTex = texLoader.load('/textures/planets/earth_specular.jpg');
-    const earthCloudsTex = texLoader.load('/textures/planets/earth_clouds.png');
+    const texRes = isLowPower ? 2048 : 4096;
+    const earthDayTex = texLoader.load(`/textures/planets/earth_day_${texRes}.jpg`);
+    const earthNightTex = texLoader.load(`/textures/planets/earth_night_${texRes}.jpg`);
+    const earthBrcTex = texLoader.load(`/textures/planets/earth_bump_roughness_clouds_${texRes}.jpg`);
 
-    [earthAtmosTex, earthNormalTex, earthSpecTex, earthCloudsTex].forEach((t) => {
+    // Color maps must be decoded as sRGB, otherwise the planet renders washed-out and grey
+    earthDayTex.colorSpace = THREE.SRGBColorSpace;
+    earthNightTex.colorSpace = THREE.SRGBColorSpace;
+
+    const maxAniso = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
+    [earthDayTex, earthNightTex, earthBrcTex].forEach((t) => {
       t.wrapS = THREE.RepeatWrapping;
-      t.anisotropy = 4;
+      t.anisotropy = maxAniso;
     });
 
     // 4. MULTI-LAYER COSMIC STARFIELD
@@ -503,6 +511,9 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     signalPointLight.position.set(0, 0, 2.2);
     introSpacecraftGroup.add(signalPointLight);
 
+    // Hull materials fade together as the spacecraft exits (instead of popping out)
+    const introSatMats = [satChassisMat, mliMat, railMat, panelMat, dishMat, mastMat];
+
     // 6. MONUMENTAL PLANETARY SYSTEM (Earth Viewed from Orbit)
     const celestialSystem = new THREE.Group();
     celestialSystem.position.set(motionRef.current.earthPosX, motionRef.current.earthPosY, motionRef.current.earthPosZ);
@@ -514,85 +525,198 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     celestialSystem.add(axialTiltGroup);
 
     // Photorealistic Earth (Radius 28)
+    // Custom shaders lit ONLY by the sun direction, so the violet spacecraft rim/fill
+    // lights no longer tint the planet purple.
     const planetRadius = 28.0;
-    const planetGeo = new THREE.SphereGeometry(planetRadius, 64, 64);
-    const planetMat = new THREE.MeshPhongMaterial({
-      map: earthAtmosTex,
-      normalMap: earthNormalTex,
-      normalScale: new THREE.Vector2(0.95, 0.95),
-      specularMap: earthSpecTex,
-      specular: new THREE.Color('#6D28D9'),
-      shininess: 32,
+    const sunDirWorld = new THREE.Vector3(95, 34, 75).normalize();
+
+    // Shared uniforms: sun direction is supplied in VIEW space and refreshed every frame
+    const earthUniforms = {
+      uSunDirView: { value: new THREE.Vector3() },
+      uSunIntensity: { value: motionRef.current.sunIntensity },
+      uReveal: { value: motionRef.current.earthRevealAlpha },
+      uAtmosphereAlpha: { value: motionRef.current.atmosphereAlpha },
+      uAtmoDayColor: { value: new THREE.Color('#4db2ff') },
+      uAtmoTwilightColor: { value: new THREE.Color('#bc490b') },
+    };
+
+    const earthVertexShader = `
+      varying vec2 vUv;
+      varying vec3 vNormalView;
+      varying vec3 vViewPos;
+      void main() {
+        vUv = uv;
+        vNormalView = normalize(normalMatrix * normal);
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        vViewPos = mvPosition.xyz;
+        gl_Position = projectionMatrix * mvPosition;
+      }
+    `;
+
+    const earthAtmoChunk = `
+      uniform vec3 uSunDirView;
+      uniform float uAtmosphereAlpha;
+      uniform vec3 uAtmoDayColor;
+      uniform vec3 uAtmoTwilightColor;
+
+      // Blue sky on the day side, warm orange scattering along the terminator
+      vec3 atmosphereColor(float sunOrientation) {
+        return mix(uAtmoTwilightColor, uAtmoDayColor, smoothstep(-0.05, 0.45, sunOrientation));
+      }
+    `;
+
+    const planetMat = new THREE.ShaderMaterial({
+      uniforms: {
+        ...earthUniforms,
+        uDayMap: { value: earthDayTex },
+        uNightMap: { value: earthNightTex },
+        uBrcMap: { value: earthBrcTex },
+        uBumpScale: { value: 0.08 },
+      },
+      vertexShader: earthVertexShader,
+      fragmentShader: `
+        varying vec2 vUv;
+        varying vec3 vNormalView;
+        varying vec3 vViewPos;
+        uniform sampler2D uDayMap;
+        uniform sampler2D uNightMap;
+        uniform sampler2D uBrcMap;
+        uniform float uBumpScale;
+        uniform float uSunIntensity;
+        uniform float uReveal;
+        ${earthAtmoChunk}
+
+        // Derivative-based bump mapping (Mikkelsen) — terrain relief along the terminator
+        vec3 perturbNormal(vec3 surfPos, vec3 surfNorm) {
+          vec2 dSTdx = dFdx(vUv);
+          vec2 dSTdy = dFdy(vUv);
+          float hll = texture2D(uBrcMap, vUv).r;
+          vec2 dHdxy = uBumpScale * vec2(
+            texture2D(uBrcMap, vUv + dSTdx).r - hll,
+            texture2D(uBrcMap, vUv + dSTdy).r - hll
+          );
+          vec3 sigmaX = dFdx(surfPos);
+          vec3 sigmaY = dFdy(surfPos);
+          vec3 r1 = cross(sigmaY, surfNorm);
+          vec3 r2 = cross(surfNorm, sigmaX);
+          float det = dot(sigmaX, r1);
+          vec3 grad = sign(det) * (dHdxy.x * r1 + dHdxy.y * r2);
+          return normalize(abs(det) * surfNorm - grad);
+        }
+
+        void main() {
+          vec3 geomN = normalize(vNormalView);
+          vec3 V = normalize(-vViewPos);
+          vec3 L = normalize(uSunDirView);
+          vec3 N = perturbNormal(vViewPos, geomN);
+
+          vec3 day = texture2D(uDayMap, vUv).rgb;
+          vec3 night = texture2D(uNightMap, vUv).rgb;
+          vec4 brc = texture2D(uBrcMap, vUv);
+          float ocean = 1.0 - smoothstep(0.08, 0.35, brc.g);
+
+          float sunOrientation = dot(geomN, L);
+          float NdotL = max(dot(N, L), 0.0);
+
+          // Diffuse sunlight + faint earthshine
+          vec3 color = day * (NdotL * uSunIntensity * 0.42 + 0.004);
+
+          // Sun glint on oceans (Blinn-Phong with Schlick fresnel)
+          vec3 H = normalize(L + V);
+          float specPow = mix(14.0, 90.0, ocean);
+          float fres = 0.04 + 0.96 * pow(1.0 - max(dot(H, V), 0.0), 5.0);
+          float spec = pow(max(dot(N, H), 0.0), specPow) * NdotL * fres;
+          color += vec3(1.0, 0.94, 0.86) * spec * (0.15 + ocean * 2.2) * uSunIntensity * 0.45;
+
+          // City lights fade in across the terminator onto the night side
+          float dayStrength = smoothstep(-0.25, 0.45, sunOrientation);
+          color += night * vec3(1.0, 0.82, 0.58) * (1.0 - dayStrength) * 1.35 * uReveal;
+
+          // Atmospheric haze toward the limb
+          float fresnel = 1.0 - abs(dot(V, geomN));
+          float atmoMix = clamp(smoothstep(-0.15, 0.8, sunOrientation) * pow(fresnel, 2.0), 0.0, 1.0);
+          color = mix(color, atmosphereColor(sunOrientation) * (0.35 + uSunIntensity * 0.22), atmoMix * uAtmosphereAlpha);
+
+          gl_FragColor = vec4(color, 1.0);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
+        }
+      `,
     });
+    const sphereSegs = isLowPower ? 96 : 128;
+    const planetGeo = new THREE.SphereGeometry(planetRadius, sphereSegs, sphereSegs);
     const planetMesh = new THREE.Mesh(planetGeo, planetMat);
     axialTiltGroup.add(planetMesh);
 
-    // Dynamic Cloud Layer
-    const cloudsGeo = new THREE.SphereGeometry(planetRadius + 0.42, 64, 64);
-    const cloudsMat = new THREE.MeshPhongMaterial({
-      map: earthCloudsTex,
+    // Dynamic Cloud Layer (alpha from the B channel; sunlit by day, dark by night so it occludes city lights)
+    const cloudsMat = new THREE.ShaderMaterial({
+      uniforms: {
+        ...earthUniforms,
+        uBrcMap: { value: earthBrcTex },
+      },
+      vertexShader: earthVertexShader,
+      fragmentShader: `
+        varying vec2 vUv;
+        varying vec3 vNormalView;
+        varying vec3 vViewPos;
+        uniform sampler2D uBrcMap;
+        uniform float uSunIntensity;
+        ${earthAtmoChunk}
+
+        void main() {
+          vec3 geomN = normalize(vNormalView);
+          vec3 V = normalize(-vViewPos);
+          float sunOrientation = dot(geomN, normalize(uSunDirView));
+
+          float cloud = smoothstep(0.2, 1.0, texture2D(uBrcMap, vUv).b);
+          float lit = clamp((sunOrientation + 0.06) / 1.06, 0.0, 1.0);
+          vec3 color = vec3(0.92) * lit * uSunIntensity * 0.42;
+
+          float fresnel = 1.0 - abs(dot(V, geomN));
+          float atmoMix = clamp(smoothstep(-0.15, 0.8, sunOrientation) * pow(fresnel, 2.0), 0.0, 1.0);
+          color = mix(color, atmosphereColor(sunOrientation) * (0.35 + uSunIntensity * 0.22), atmoMix * uAtmosphereAlpha);
+
+          gl_FragColor = vec4(color, cloud * 0.95);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
+        }
+      `,
       transparent: true,
-      opacity: 0.76,
-      blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
+    const cloudsGeo = new THREE.SphereGeometry(planetRadius + 0.22, sphereSegs, sphereSegs);
     const cloudsMesh = new THREE.Mesh(cloudsGeo, cloudsMat);
     axialTiltGroup.add(cloudsMesh);
 
-    // Rayleigh Atmospheric Scattering Shader
-    const atmosGeo = new THREE.SphereGeometry(planetRadius + 1.6, 64, 64);
-    const atmosUniforms = {
-      uSunDirection: { value: new THREE.Vector3(95, 34, 75).normalize() },
-      uAtmosphereAlpha: { value: motionRef.current.atmosphereAlpha },
-    };
-
+    // Outer atmospheric scattering shell — thin blue rim that fades smoothly into space
     const atmosMat = new THREE.ShaderMaterial({
-      uniforms: atmosUniforms,
-      vertexShader: `
-        varying vec3 vNormal;
-        varying vec3 vPosition;
-        void main() {
-          vNormal = normalize(normalMatrix * normal);
-          vPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
+      uniforms: earthUniforms,
+      vertexShader: earthVertexShader,
       fragmentShader: `
-        varying vec3 vNormal;
-        varying vec3 vPosition;
-        uniform vec3 uSunDirection;
-        uniform float uAtmosphereAlpha;
+        varying vec3 vNormalView;
+        varying vec3 vViewPos;
+        ${earthAtmoChunk}
 
         void main() {
-          vec3 viewDir = normalize(-vPosition);
-          float fresnel = 1.0 - max(0.0, dot(viewDir, vNormal));
-          fresnel = pow(fresnel, 2.8);
+          vec3 N = normalize(vNormalView);
+          vec3 V = normalize(-vViewPos);
+          float sunOrientation = dot(N, normalize(uSunDirView));
+          float fresnel = 1.0 - abs(dot(V, N));
 
-          vec3 normWorld = normalize(vNormal);
-          float sunDot = dot(normWorld, uSunDirection);
+          // 1 at the planet limb, 0 at the outer edge of the shell
+          float alpha = pow(clamp((1.0 - fresnel) / 0.27, 0.0, 1.0), 3.0);
+          alpha *= smoothstep(-0.3, 0.7, sunOrientation) * uAtmosphereAlpha;
 
-          // Deep aerospace Rayleigh violet ionosphere ramp
-          vec3 deepIonosphere = vec3(0.20, 0.08, 0.50);
-          vec3 electricViolet = vec3(0.58, 0.35, 1.00);
-          vec3 terminatorGold = vec3(0.96, 0.68, 0.42);
-
-          float dayFactor = clamp(sunDot * 1.4 + 0.4, 0.0, 1.0);
-          vec3 baseColor = mix(deepIonosphere, electricViolet, dayFactor);
-
-          // Golden-amber terminator accent
-          float terminator = pow(1.0 - abs(sunDot), 2.9);
-          vec3 rimColor = mix(baseColor, terminatorGold, terminator * 0.45);
-
-          float intensity = fresnel * (clamp(sunDot * 1.8 + 0.35, 0.08, 2.2)) * uAtmosphereAlpha;
-          gl_FragColor = vec4(rimColor * 1.85, intensity * 0.96);
+          gl_FragColor = vec4(atmosphereColor(sunOrientation), alpha);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
         }
       `,
-      blending: THREE.AdditiveBlending,
       side: THREE.BackSide,
       transparent: true,
       depthWrite: false,
     });
-    const atmosMesh = new THREE.Mesh(atmosGeo, atmosMat);
+    const atmosMesh = new THREE.Mesh(new THREE.SphereGeometry(planetRadius * 1.04, 96, 96), atmosMat);
     celestialSystem.add(atmosMesh);
 
     // 7. THE SINGLE ELEGANT ORBITAL TRAJECTORY & SATELLITE (100% Mathematically Aligned)
@@ -876,9 +1000,9 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     portalGroup.add(portalAccretion);
     scene.add(portalGroup);
 
-    // 11. MASTER GSAP CINEMATIC BOOT TIMELINE — "THE SIGNAL"
-    let bootTl = null;
-
+    // 11. MASTER GSAP CINEMATIC BOOT TIMELINE — "THE SIGNAL" (~12s total)
+    // NOTE: assigns the outer `bootTl` (no re-declaration) so cleanup can kill it.
+    // Previously a shadowed `let` left the first StrictMode timeline running alongside the second.
     if (!propsRef.current.isBootComplete) {
       bootTl = gsap.timeline({
         onComplete: () => {
@@ -888,126 +1012,113 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       bootTlRef.current = bootTl;
 
       // ==========================================
-      // PHASE 0: COMPLETE DARKNESS (0.0s -> 0.5s)
-      // Viewport is almost black. No UI, no buttons, no spinners.
+      // PHASE 0: COMPLETE DARKNESS (0.0s -> 0.15s)
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(0);
       }, null, 0.0);
 
       // ==========================================
-      // PHASE 1: THE SIGNAL (0.5s -> 2.8s)
-      // Solitary 1-3px violet point appears at center. Fades in softly.
-      // Camera begins slow, physical forward travel in 3D.
+      // PHASE 1: THE SIGNAL (0.15s -> 0.9s)
+      // Solitary violet point appears at center. Camera begins forward travel.
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(1);
         playSignalTone();
-      }, null, 0.5);
+      }, null, 0.15);
 
       bootTl.to(motionRef.current, {
         signalPointAlpha: 1.0,
         signalGlowAlpha: 0.85,
-        duration: 1.4,
-        ease: 'power2.inOut',
-      }, 0.5);
+        duration: 0.8,
+        ease: 'power2.out',
+      }, 0.15);
 
       bootTl.to(motionRef.current, {
         camZ: 190,
-        duration: 2.3,
+        duration: 1.0,
         ease: 'power2.out',
-      }, 0.5);
+      }, 0.15);
 
       // ==========================================
-      // PHASE 2: SPACE REVEALS ITSELF (2.8s -> 5.0s)
-      // Multi-depth stars gradually emerge. Very subtle purple nebula.
-      // Space remains vast and empty.
+      // PHASE 2: SPACE REVEALS ITSELF (0.9s -> 1.8s)
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(2);
-      }, null, 2.8);
+      }, null, 0.9);
 
       bootTl.to(motionRef.current, {
         starDeepAlpha: 0.65,
         starMidAlpha: 0.70,
         nebulaAlpha: 0.035,
         camZ: 130,
-        duration: 2.2,
+        duration: 1.1,
         ease: 'power2.inOut',
-      }, 2.8);
+      }, 0.9);
 
       // ==========================================
-      // PHASE 3: THE SIGNAL IS REVEALED (5.0s -> 7.8s)
-      // Point is attached to an orbital spacecraft.
-      // Silhouette -> subtle edge rim light -> surface details -> violet illumination.
+      // PHASE 3: THE SIGNAL IS REVEALED (1.8s -> 3.2s)
+      // Silhouette -> edge rim light -> surface details -> violet illumination.
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(3);
-      }, null, 5.0);
+      }, null, 1.8);
 
-      // Camera gets close to the spacecraft
       bootTl.to(motionRef.current, {
         camZ: 65,
         camX: 1.2,
         camY: 0.6,
         lookZ: -35,
         lookX: 0.2,
-        duration: 2.8,
+        duration: 1.5,
         ease: 'power2.inOut',
-      }, 5.0);
+      }, 1.8);
 
-      // Step A: Silhouette against stars
       bootTl.to(motionRef.current, {
         satSilhouetteAlpha: 1.0,
-        duration: 0.8,
+        duration: 0.5,
         ease: 'power1.out',
-      }, 5.0);
+      }, 1.8);
 
-      // Step B: Subtle edge light
       bootTl.to(motionRef.current, {
         satRimLight: 0.9,
-        duration: 1.0,
+        duration: 0.6,
         ease: 'power2.out',
-      }, 5.6);
+      }, 2.1);
 
-      // Step C & D: Surface details & solar deploy & forward violet illumination
       bootTl.to(motionRef.current, {
         satFillLight: 0.6,
         satSolarDeploy: 1.57,
         satEmitterLight: 2.2,
-        duration: 1.4,
+        duration: 0.9,
         ease: 'power2.out',
-      }, 6.2);
+      }, 2.4);
 
       // ==========================================
-      // PHASE 4: PLANETARY HORIZON (7.8s -> 10.5s)
-      // Camera sweeps forward past the introductory spacecraft.
-      // The introductory spacecraft smoothly glides past camera and exits the scene.
-      // Massive realistic Earth horizon revealed!
+      // PHASE 4: PLANETARY HORIZON (3.2s -> 4.9s)
+      // Spacecraft glides past the camera and fades; Earth sunrise.
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(4);
-      }, null, 7.8);
+      }, null, 3.2);
 
-      // Intro spacecraft glides past camera shoulder and vanishes
       bootTl.to(introSpacecraftGroup.position, {
         x: -20,
         y: 10,
         z: 85,
-        duration: 2.4,
+        duration: 1.6,
         ease: 'power2.in',
-      }, 7.8);
+      }, 3.2);
 
       bootTl.to(motionRef.current, {
         introSatOpacity: 0.0,
-        duration: 1.5,
+        duration: 1.0,
         ease: 'power2.in',
         onComplete: () => {
           introSpacecraftGroup.visible = false;
         }
-      }, 8.2);
+      }, 3.5);
 
-      // Camera moves to view Earth from orbit
       bootTl.to(motionRef.current, {
         camZ: 42,
         camX: 6.5,
@@ -1015,23 +1126,28 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         lookX: 14.0,
         lookY: -8.0,
         lookZ: -20.0,
+        starDeepAlpha: 0.85,
+        starMidAlpha: 0.90,
+        duration: 1.7,
+        ease: 'power3.inOut',
+      }, 3.2);
+
+      // Sunrise slightly trails the camera move so the terminator sweeps across the planet
+      bootTl.to(motionRef.current, {
         earthRevealAlpha: 1.0,
         sunIntensity: 2.8,
         atmosphereAlpha: 1.0,
-        starDeepAlpha: 0.85,
-        starMidAlpha: 0.90,
-        duration: 2.7,
-        ease: 'power3.inOut',
-      }, 7.8);
+        duration: 1.6,
+        ease: 'power2.inOut',
+      }, 3.5);
 
       // ==========================================
-      // PHASE 5: ORBIT (10.5s -> 13.0s)
-      // Single elegant orbital trajectory curve appears and draws progressively.
-      // Luminous satellite travels along it with 100% precision.
+      // PHASE 5: ORBIT (4.9s -> 6.1s)
+      // Single orbital trajectory draws progressively.
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(5);
-      }, null, 10.5);
+      }, null, 4.9);
 
       bootTl.to(motionRef.current, {
         orbitLineAlpha: 0.55,
@@ -1040,18 +1156,16 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         camX: 9.0,
         camY: 4.8,
         camZ: 38.0,
-        duration: 2.5,
+        duration: 1.3,
         ease: 'power2.inOut',
-      }, 10.5);
+      }, 4.9);
 
       // ==========================================
-      // PHASE 6: CAMERA PASS (13.0s -> 15.5s)
-      // Camera travels along trajectory.
-      // Camera glides into darker region of space. Earth moves out of view.
+      // PHASE 6: CAMERA PASS (6.1s -> 7.1s)
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(6);
-      }, null, 13.0);
+      }, null, 6.1);
 
       bootTl.to(motionRef.current, {
         camX: -4.0,
@@ -1060,17 +1174,16 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         lookX: 0.0,
         lookY: 0.0,
         lookZ: 0.0,
-        duration: 2.5,
+        duration: 1.2,
         ease: 'power2.inOut',
-      }, 13.0);
+      }, 6.1);
 
       // ==========================================
-      // PHASE 7: EVERYTHING GOES DARK AGAIN (15.5s -> 16.8s)
-      // Environment dims down. Orbital line fades. Brief cosmic pause.
+      // PHASE 7: EVERYTHING GOES DARK AGAIN (7.1s -> 7.5s)
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(7);
-      }, null, 15.5);
+      }, null, 7.1);
 
       bootTl.to(motionRef.current, {
         orbitLineAlpha: 0.0,
@@ -1079,17 +1192,16 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         signalGlowAlpha: 0.0,
         sunIntensity: 0.35,
         atmosphereAlpha: 0.3,
-        duration: 1.0,
+        duration: 0.6,
         ease: 'power2.out',
-      }, 15.5);
+      }, 7.1);
 
       // ==========================================
-      // PHASE 8: SEDS REC REVEAL (16.8s -> 18.6s)
-      // Typography appears in center: "SEDS REC" & "RAJALAKSHMI ENGINEERING COLLEGE"
+      // PHASE 8: SEDS REC REVEAL (7.5s -> 8.0s)
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(8);
-      }, null, 16.8);
+      }, null, 7.5);
 
       bootTl.to(motionRef.current, {
         camX: 0,
@@ -1098,69 +1210,62 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         lookX: 0,
         lookY: 0,
         lookZ: 0,
-        duration: 1.8,
+        duration: 1.2,
         ease: 'power1.out',
-      }, 16.8);
+      }, 7.5);
 
       // ==========================================
-      // PHASE 9: PRESENTS (18.6s -> 19.6s)
-      // Subtle violet typography appears beneath SEDS REC.
+      // PHASE 9: PRESENTS (8.0s -> 8.4s)
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(9);
-      }, null, 18.6);
+      }, null, 8.0);
 
       // ==========================================
-      // PHASE 10: ORBITAL 26 (19.6s -> 21.8s)
-      // Thin orbital path forms behind title. Large premium typography reveal.
+      // PHASE 10: ORBITAL 26 (8.4s -> 9.1s)
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(10);
-      }, null, 19.6);
+      }, null, 8.4);
 
       bootTl.to(motionRef.current, {
         titleOrbitAlpha: 0.5,
         titleOrbitProgress: 1.0,
-        duration: 1.8,
+        duration: 1.0,
         ease: 'power2.out',
-      }, 19.6);
+      }, 8.4);
 
       // ==========================================
-      // PHASE 11: THE LIGHT SWEEP (21.8s -> 23.8s)
-      // Soft violet light source sweeps across trajectory behind "ORBITAL 26".
-      // Space catches subtle illumination.
+      // PHASE 11: THE LIGHT SWEEP (9.1s -> 10.2s)
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(11);
         playLightSweepTone();
-      }, null, 21.8);
+      }, null, 9.1);
 
       bootTl.to(motionRef.current, {
         sweepLightX: 90.0,
         sweepLightAlpha: 1.0,
         sunIntensity: 1.8,
         atmosphereAlpha: 0.8,
-        duration: 2.0,
+        duration: 1.1,
         ease: 'power2.inOut',
-      }, 21.8);
+      }, 9.1);
 
       // ==========================================
-      // PHASE 12: EVENT TAGLINE (23.8s -> 25.4s)
-      // "BUILD BEYOND THE KNOWN." + "48-HOUR SPACE SPRINT • CHENNAI, INDIA"
+      // PHASE 12: EVENT TAGLINE (9.9s -> 10.9s)
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(12);
-      }, null, 23.8);
+      }, null, 9.9);
 
       // ==========================================
-      // PHASE 13: TRANSITION INTO WEBSITE HERO (25.4s -> 27.2s)
-      // Camera moves forward into Hero composition.
-      // Earth settles into hero position on the right (38, 2, -10).
-      // Website hero typography takes over seamlessly.
+      // PHASE 13: TRANSITION INTO WEBSITE HERO (10.9s -> 12.3s)
+      // Intro typography exits first; hero UI fades in only after it is gone (see App/BootSequence).
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(13);
-      }, null, 25.4);
+      }, null, 10.9);
 
       bootTl.to(motionRef.current, {
         camX: 0,
@@ -1179,15 +1284,22 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         orbitBeaconAlpha: 1.0,
         titleOrbitAlpha: 0.0,
         sweepLightAlpha: 0.0,
-        duration: 1.8,
+        duration: 1.4,
         ease: 'power3.inOut',
-      }, 25.4);
+      }, 10.9);
     }
 
     // 12. WINDOW RESIZE HANDLER
     handleResize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      // Mobile browsers fire resize whenever the address bar shows/hides while scrolling.
+      // Keep the tallest height for the same width so the canvas isn't reallocated mid-scroll.
+      if (isLowPower && window.innerWidth === width && window.innerHeight <= height) return;
+      if (isLowPower && window.innerWidth === width) {
+        height = window.innerHeight;
+      } else {
+        width = window.innerWidth;
+        height = window.innerHeight;
+      }
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       if (renderer) renderer.setSize(width, height);
@@ -1213,6 +1325,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       // 1. Introductory spacecraft updates
       introSpacecraftGroup.visible = m.introSatOpacity > 0.01;
       if (introSpacecraftGroup.visible) {
+        introSatMats.forEach((mat) => { mat.opacity = m.introSatOpacity; });
         signalCoreMat.opacity = m.signalPointAlpha * m.introSatOpacity;
         signalHaloMat.opacity = m.signalGlowAlpha * m.introSatOpacity;
         signalPointLight.intensity = m.satEmitterLight * m.introSatOpacity;
@@ -1234,7 +1347,9 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
 
       // 3. Earth & Atmosphere shader updates
       sunLight.intensity = m.sunIntensity;
-      atmosUniforms.uAtmosphereAlpha.value = m.atmosphereAlpha;
+      earthUniforms.uSunIntensity.value = m.sunIntensity;
+      earthUniforms.uReveal.value = m.earthRevealAlpha;
+      earthUniforms.uAtmosphereAlpha.value = m.atmosphereAlpha;
 
       // 4. Single Orbital Trajectory & Precision Satellite Tracking
       orbitMat.opacity = m.orbitLineAlpha;
@@ -1267,7 +1382,9 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       const targetSingularity = (p.isModalOpen || p.activeSection === 'register') ? 0.04 : 1.0;
       m.singularityFactor = THREE.MathUtils.lerp(m.singularityFactor, targetSingularity, 0.06);
 
-      const isScrollActive = p.isBootComplete || smoothScroll > 0.005 || m.sunIntensity > 1.0;
+      // Only hand camera control to scroll once the intro has finished — otherwise the
+      // boot camera path gets hijacked mid-sequence (sunIntensity > 1 from phase 4 onward)
+      const isScrollActive = p.isBootComplete;
       if (isScrollActive) {
         targetCamPos.copy(wp.cam);
         targetLookAt.copy(wp.look);
@@ -1305,6 +1422,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
 
       camera.fov = m.fov;
       camera.updateProjectionMatrix();
+      camera.updateMatrixWorld();
+      earthUniforms.uSunDirView.value.copy(sunDirWorld).transformDirection(camera.matrixWorldInverse);
 
       // Celestial position lerp: Continuous and silky smooth 3D Earth travel
       celestialSystem.position.lerp(targetEarthPos, 0.06);

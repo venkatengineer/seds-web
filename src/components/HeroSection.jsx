@@ -23,7 +23,9 @@ export default function HeroSection({
   const parallaxX = (mousePos.x - 0.5) * 4;
   const parallaxY = (mousePos.y - 0.5) * 3;
 
-  const isRevealing = bootPhase >= 12;
+  // Reveal only after the intro overlay has cleared (it exits in ~500ms from phase 13),
+  // so the intro title and hero headline are never on screen together
+  const isRevealing = bootPhase >= 13;
   const isFullyLive = bootPhase >= 13;
 
   return (
@@ -72,6 +74,7 @@ export default function HeroSection({
 
       {/* Main Protected Editorial Zone (Left 50% of screen) */}
       <div 
+        data-hero-scroll
         className="w-full lg:w-[50%] xl:w-[46%] my-auto py-6 transition-transform duration-500 ease-out"
         style={{
           transform: `translate3d(${parallaxX}px, ${parallaxY}px, 0)`,
@@ -85,7 +88,7 @@ export default function HeroSection({
               opacity: isRevealing ? 1 : 0,
               transform: isRevealing ? 'translateY(0)' : 'translateY(20px)',
               filter: isRevealing ? 'blur(0)' : 'blur(8px)',
-              transitionDelay: '100ms',
+              transitionDelay: '450ms',
             }}
           >
             <span className="text-white font-extrabold text-sm sm:text-base tracking-[0.2em]">{EVENT_CONFIG.name}</span>
@@ -101,7 +104,7 @@ export default function HeroSection({
               opacity: isRevealing ? 1 : 0,
               transform: isRevealing ? 'translateY(0)' : 'translateY(20px)',
               filter: isRevealing ? 'blur(0)' : 'blur(8px)',
-              transitionDelay: '250ms',
+              transitionDelay: '550ms',
             }}
           >
             {/* ELEGANT, PROMINENT INTERNSHIP OPPORTUNITY PILL */}
@@ -127,7 +130,7 @@ export default function HeroSection({
               opacity: isRevealing ? 1 : 0,
               transform: isRevealing ? 'translateY(0)' : 'translateY(30px)',
               filter: isRevealing ? 'blur(0)' : 'blur(10px)',
-              transitionDelay: '350ms',
+              transitionDelay: '650ms',
             }}
           >
             {EVENT_CONFIG.heroHeadline[0]}
@@ -140,7 +143,7 @@ export default function HeroSection({
               opacity: isRevealing ? 1 : 0,
               transform: isRevealing ? 'translateY(0)' : 'translateY(30px)',
               filter: isRevealing ? 'blur(0)' : 'blur(10px)',
-              transitionDelay: '600ms',
+              transitionDelay: '780ms',
             }}
           >
             <span>{EVENT_CONFIG.heroHeadline[1]}</span>
@@ -155,7 +158,7 @@ export default function HeroSection({
             opacity: isRevealing ? 1 : 0,
             transform: isRevealing ? 'translateY(0)' : 'translateY(25px)',
             filter: isRevealing ? 'blur(0)' : 'blur(6px)',
-            transitionDelay: '1050ms',
+            transitionDelay: '920ms',
           }}
         >
           {EVENT_CONFIG.manifesto}
@@ -167,7 +170,7 @@ export default function HeroSection({
           style={{
             opacity: isRevealing ? 1 : 0,
             transform: isRevealing ? 'translateY(0)' : 'translateY(20px)',
-            transitionDelay: '1250ms',
+            transitionDelay: '1020ms',
           }}
         >
           <button
@@ -222,7 +225,7 @@ export default function HeroSection({
           style={{
             opacity: isRevealing ? 1 : 0,
             transform: isRevealing ? 'translateY(0)' : 'translateY(20px)',
-            transitionDelay: '1400ms',
+            transitionDelay: '1120ms',
           }}
         >
           <div className="flex items-center justify-between gap-2 mb-3">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
 import ThreeSpaceEngine from './components/ThreeSpaceEngine';
 import CustomCursor from './components/CustomCursor';
 import Navigation from './components/Navigation';
@@ -17,6 +17,21 @@ import CallToActionSection from './components/CallToActionSection';
 import Footer from './components/Footer';
 import BootSequence from './components/BootSequence';
 import RegistrationPortal from './components/RegistrationPortal';
+import { initScrollReveal, initScrollEffects, initPointerEffects } from './utils/motion';
+
+// Sections that don't depend on mouse position are memoized so cursor movement
+// doesn't re-render the whole page every frame
+const MemoAbout = memo(AboutSection);
+const MemoChallenges = memo(ChallengesSection);
+const MemoBuild = memo(BuildSection);
+const MemoTimeline = memo(TimelineSection);
+const MemoCountdown = memo(CountdownSection);
+const MemoSponsors = memo(SponsorsWall);
+const MemoFaq = memo(FaqSection);
+const MemoCta = memo(CallToActionSection);
+const MemoMission = memo(MissionSection);
+const MemoIdentity = memo(IdentitySection);
+const MemoFooter = memo(Footer);
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
@@ -29,17 +44,74 @@ export default function App() {
   const [isBootComplete, setIsBootComplete] = useState(false);
   const engineRef = useRef(null);
 
-  // Mouse coordinate tracker for 3D camera parallax drift
+  // Mouse coordinate tracker for 3D camera parallax drift (batched to one update per frame)
   useEffect(() => {
+    let rafId = null;
+    let latest = null;
     const handleMouseMove = (e) => {
-      setMousePos({
+      latest = {
         x: e.clientX / window.innerWidth,
         y: e.clientY / window.innerHeight,
-      });
+      };
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          setMousePos(latest);
+        });
+      }
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    // Phones/tablets have no mouse: drive the same parallax from device tilt instead
+    // (Android/Chrome expose it directly; iOS requires a permission prompt, so it simply stays centred there)
+    const isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    let baseBeta = null;
+    const handleOrientation = (e) => {
+      if (e.gamma == null || e.beta == null) return;
+      if (baseBeta === null) baseBeta = e.beta;
+      const clamp01 = (v) => Math.min(1, Math.max(0, v));
+      latest = {
+        x: clamp01(0.5 + e.gamma / 50),
+        y: clamp01(0.5 + (e.beta - baseBeta) / 50),
+      };
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          setMousePos(latest);
+        });
+      }
+    };
+    if (isTouch) window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('deviceorientation', handleOrientation);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
+
+  // Scroll reveals, scroll progress line and pointer effects start once the site is handed over from the intro
+  const isSiteLive = bootPhase >= 13;
+  useEffect(() => {
+    if (!isSiteLive) return;
+    const cleanups = [initScrollReveal(), initScrollEffects(), initPointerEffects()];
+    return () => cleanups.forEach((fn) => fn());
+  }, [isSiteLive]);
+
+  // Lock scrolling while the intro plays so the page can't drift underneath it
+  // (released at the handoff, while the hero is still invisible)
+  const isIntroPlaying = bootPhase < 13;
+  useEffect(() => {
+    if (!isIntroPlaying) return;
+    if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+    const root = document.documentElement;
+    const prevOverflow = root.style.overflow;
+    root.style.overflow = 'hidden';
+    return () => {
+      root.style.overflow = prevOverflow;
+    };
+  }, [isIntroPlaying]);
 
   // Focal IntersectionObserver for active navigation tracking (Zero scroll jitter)
   useEffect(() => {
@@ -79,7 +151,7 @@ export default function App() {
   }, []);
 
   // Smooth Travel & Scroll to target sector
-  const handleNavigate = (id) => {
+  const handleNavigate = useCallback((id) => {
     setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
@@ -91,15 +163,18 @@ export default function App() {
         behavior: 'smooth'
       });
     }
-  };
+  }, []);
+
+  const openRegister = useCallback(() => setIsRegisterOpen(true), []);
+  const handleChallengeSelect = useCallback((idx) => setActiveChallengeIndex(idx), []);
 
   const handleSkipBoot = () => {
     if (engineRef.current && engineRef.current.skipBoot) {
       engineRef.current.skipBoot();
     }
-    setBootPhase(12);
+    // Go straight to the handoff: intro text exits, then the hero fades in (no overlap at phase 12)
+    setBootPhase(13);
     setTimeout(() => {
-      setBootPhase(13);
       setIsBootComplete(true);
     }, 450);
   };
@@ -143,77 +218,77 @@ export default function App() {
 
       {/* 5. FOREGROUND EDITORIAL UI (Fades in smoothly as boot completes) */}
       <div 
-        className={`relative z-20 transition-opacity duration-1000 ${
-          bootPhase >= 12 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        className={`relative z-20 transition-opacity duration-700 ease-out ${
+          bootPhase >= 13 ? 'opacity-100 delay-300' : 'opacity-0 pointer-events-none'
         }`}
       >
         {/* Floating Minimal Navigation Dock */}
         <Navigation
           activeSection={activeSection}
           onNavigate={handleNavigate}
-          onOpenRegister={() => setIsRegisterOpen(true)}
+          onOpenRegister={openRegister}
           bootPhase={bootPhase}
           onReplayBoot={handleReplayBoot}
         />
 
         {/* Hero Section: Staggered line reveal coordinated with Boot */}
         <HeroSection
-          onOpenRegister={() => setIsRegisterOpen(true)}
+          onOpenRegister={openRegister}
           onNavigate={handleNavigate}
           mousePos={mousePos}
           bootPhase={bootPhase}
         />
 
         {/* 1. About SEDHACKS '26: Where Ideas Take Shape */}
-        <AboutSection
-          onOpenRegister={() => setIsRegisterOpen(true)}
+        <MemoAbout
+          onOpenRegister={openRegister}
           onNavigate={handleNavigate}
         />
 
         {/* 2. Tracks / Domains: Choose Your Mission (5 Official Domains) */}
-        <ChallengesSection
-          onOpenRegister={() => setIsRegisterOpen(true)}
-          onNodeSelect={(idx) => setActiveChallengeIndex(idx)}
+        <MemoChallenges
+          onOpenRegister={openRegister}
+          onNodeSelect={handleChallengeSelect}
         />
 
         {/* 3. What Can You Build?: Your Idea. Your Build. */}
-        <BuildSection
-          onOpenRegister={() => setIsRegisterOpen(true)}
+        <MemoBuild
+          onOpenRegister={openRegister}
         />
 
         {/* 4. Why Participate?: ₹10,000 Prize Pool & Aeroin Space Tech Internships */}
         <PrizesSection
-          onOpenRegister={() => setIsRegisterOpen(true)}
+          onOpenRegister={openRegister}
           mousePos={mousePos}
         />
 
         {/* 5. Your Journey at SEDHACKS ’26 & 48-Hour Sprint Trajectory */}
-        <TimelineSection />
+        <MemoTimeline />
 
         {/* 6. Launch & Registration Deadline Countdown */}
-        <CountdownSection />
+        <MemoCountdown />
 
         {/* 7. Industry Collaboration: Aeroin Space Tech × SEDS REC */}
-        <SponsorsWall />
+        <MemoSponsors />
 
         {/* 8. Frequently Asked Questions: Official 23 Directives + Handbook */}
-        <FaqSection onOpenRegister={() => setIsRegisterOpen(true)} />
+        <MemoFaq onOpenRegister={openRegister} />
 
         {/* 9. Final Call to Action: Have an Idea Worth Building? */}
-        <CallToActionSection onOpenRegister={() => setIsRegisterOpen(true)} />
+        <MemoCta onOpenRegister={openRegister} />
 
         {/* --- NON-HACKATHON / SEDS CHAPTER HERITAGE (Placed Last) --- */}
 
         {/* 10. SEDS REC Chapter Mission */}
-        <MissionSection onNavigate={handleNavigate} />
+        <MemoMission onNavigate={handleNavigate} />
 
         {/* 11. SEDS REC Student Identity & Laboratory Documentary */}
-        <IdentitySection onNavigate={handleNavigate} />
+        <MemoIdentity onNavigate={handleNavigate} />
 
         {/* 12. Chapter Lineage & Student Coordinator Footer */}
-        <Footer
+        <MemoFooter
           onNavigate={handleNavigate}
-          onOpenRegister={() => setIsRegisterOpen(true)}
+          onOpenRegister={openRegister}
         />
       </div>
 
