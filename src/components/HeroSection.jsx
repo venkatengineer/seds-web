@@ -64,7 +64,7 @@ export default function HeroSection({
             CLOSES: {EVENT_CONFIG.registrationDeadline}
           </span>
           <span className="text-white/20">/</span>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 font-semibold tracking-[0.16em]">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-white/15 bg-white/[0.04] text-[#E2DEEC] font-semibold tracking-[0.16em]">
             <span>100% FREE (₹0)</span>
           </span>
         </div>
@@ -190,10 +190,10 @@ export default function HeroSection({
             <ArrowDown size={13} className="text-[#C084FC] group-hover:translate-y-0.5 transition-transform" />
           </button>
 
-          {/* Clean, Restrained Directives Bar: Readable and cohesive */}
+          {/* Clean, Restrained Directives Bar: Dual-tone readable and cohesive */}
           <div className="w-full flex flex-wrap items-center gap-2.5 pt-2 font-mono text-[11px] sm:text-xs text-[#E2DEEC]">
-            <span className="inline-flex items-center gap-1.5 text-emerald-400 font-semibold uppercase tracking-wider">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 text-white font-semibold uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] animate-pulse" />
               <span>100% Free of Cost (₹0 Entry Fee)</span>
             </span>
             <span className="text-white/30">•</span>
@@ -260,7 +260,7 @@ export default function HeroSection({
           <span className="text-white/30">•</span>
           <span className="text-[#F7F5FF] font-medium">AEROIN INTERNSHIPS (TOP 2)</span>
           <span className="text-white/30">•</span>
-          <span className="text-emerald-400 font-semibold">100% FREE ENTRY (₹0)</span>
+          <span className="text-white font-medium">100% FREE (₹0)</span>
         </div>
 
         <button 

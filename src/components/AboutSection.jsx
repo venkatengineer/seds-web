@@ -34,7 +34,7 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
               <Clock size={11} className="text-[#C084FC]" />
               LAST DATE TO REGISTER: 10 OCT 2026
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/40 bg-emerald-950/30 text-emerald-300 font-display text-[11px] font-semibold tracking-wider uppercase">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
               100% FREE ENTRY (₹0)
             </span>
           </div>
@@ -110,8 +110,8 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
           </div>
 
           <div className="p-5 rounded-xl border border-white/[0.12] bg-[#07030F]/80 backdrop-blur-md space-y-1.5">
-            <div className="flex items-center gap-2 text-emerald-300 font-display text-xs tracking-wider uppercase font-semibold">
-              <ShieldCheck size={14} />
+            <div className="flex items-center gap-2 text-white font-display text-xs tracking-wider uppercase font-semibold">
+              <ShieldCheck size={14} className="text-[#C084FC]" />
               <span>100% Free Registration (₹0)</span>
             </div>
             <p className="font-sans text-xs text-[#E2DEEC] leading-relaxed">

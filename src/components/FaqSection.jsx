@@ -75,7 +75,7 @@ export default function FaqSection({ onOpenRegister }) {
             </span>
 
             {/* 100% Free badge */}
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/40 bg-emerald-950/30 text-emerald-300 font-display text-[11px] font-semibold tracking-wider uppercase">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
               100% FREE REGISTRATION (₹0)
             </span>
           </div>

@@ -27,7 +27,7 @@ export default function BuildSection({ onOpenRegister }) {
               <Sparkles size={12} className="text-[#C084FC]" />
               // ARTIFACT TYPES & MANIFESTATION
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/50 bg-emerald-950/40 text-emerald-300 font-display text-[11px] font-bold tracking-wider uppercase">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
               ALL MODALITIES WELCOME
             </span>
           </div>

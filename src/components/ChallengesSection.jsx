@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { 
   Shield, 
   Sprout, 
-  Cpu, 
-  Recycle, 
+  Telescope, 
+  Zap, 
   Lightbulb, 
   ArrowUpRight, 
   Layers,
@@ -24,36 +24,48 @@ import { EVENT_CONFIG } from '../config/event';
 const TRACK_ICONS = {
   'space-defence': Shield,
   'medical-bio': Sprout,
-  'autonomous-comms': Cpu,
-  'sustainability': Recycle,
+  'space-instrumentation': Telescope,
+  'autonomous-comms': Telescope,
+  'sustainability-energy': Zap,
+  'sustainability': Zap,
   'open-innovation': Lightbulb,
 };
 
 const TRACK_THEMES = {
   'space-defence': {
     accent: '#8B5CF6',
-    border: 'border-[#8B5CF6]/35',
-    glow: 'rgba(139, 92, 246, 0.25)',
+    border: 'border-white/[0.08]',
+    glow: 'rgba(139, 92, 246, 0.18)',
   },
   'medical-bio': {
-    accent: '#C084FC',
-    border: 'border-[#C084FC]/35',
-    glow: 'rgba(192, 132, 252, 0.25)',
+    accent: '#8B5CF6',
+    border: 'border-white/[0.08]',
+    glow: 'rgba(139, 92, 246, 0.18)',
+  },
+  'space-instrumentation': {
+    accent: '#8B5CF6',
+    border: 'border-white/[0.08]',
+    glow: 'rgba(139, 92, 246, 0.18)',
   },
   'autonomous-comms': {
-    accent: '#A855F7',
-    border: 'border-[#A855F7]/35',
-    glow: 'rgba(168, 85, 247, 0.25)',
+    accent: '#8B5CF6',
+    border: 'border-white/[0.08]',
+    glow: 'rgba(139, 92, 246, 0.18)',
+  },
+  'sustainability-energy': {
+    accent: '#8B5CF6',
+    border: 'border-white/[0.08]',
+    glow: 'rgba(139, 92, 246, 0.18)',
   },
   'sustainability': {
-    accent: '#818CF8',
-    border: 'border-[#818CF8]/35',
-    glow: 'rgba(129, 140, 248, 0.25)',
+    accent: '#8B5CF6',
+    border: 'border-white/[0.08]',
+    glow: 'rgba(139, 92, 246, 0.18)',
   },
   'open-innovation': {
-    accent: '#D8B4FE',
-    border: 'border-[#D8B4FE]/35',
-    glow: 'rgba(216, 180, 254, 0.25)',
+    accent: '#8B5CF6',
+    border: 'border-white/[0.08]',
+    glow: 'rgba(139, 92, 246, 0.18)',
   },
 };
 
@@ -78,16 +90,16 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
         onMouseEnter={() => {
           if (onNodeSelect) onNodeSelect(idx);
         }}
-        className={`group relative rounded-2xl border bg-[#0B0616] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-[0_15px_40px_rgba(0,0,0,0.85)] overflow-hidden w-full ${
+        className={`group relative rounded-2xl border bg-[#090514]/90 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-[0_15px_40px_rgba(0,0,0,0.85)] overflow-hidden w-full ${
           isHighlighted 
-            ? 'border-[#8B5CF6] shadow-[0_0_40px_rgba(139,92,246,0.35)] ring-1 ring-[#8B5CF6]' 
-            : `${theme.border} hover:border-[#8B5CF6]/80 hover:shadow-[0_15px_40px_rgba(109,40,217,0.25)]`
+            ? 'border-[#8B5CF6] shadow-[0_0_35px_rgba(139,92,246,0.3)] ring-1 ring-[#8B5CF6]' 
+            : `${theme.border} hover:border-[#8B5CF6]/70 hover:shadow-[0_15px_35px_rgba(139,92,246,0.2)]`
         }`}
       >
-        {/* Soft Ambient Radial Light Behind Card */}
+        {/* Restrained Ambient Radial Light Behind Card */}
         <div 
           className={`absolute top-0 right-0 w-48 h-48 rounded-full pointer-events-none -z-10 transition-opacity duration-500 ${
-            isHighlighted ? 'opacity-30' : 'opacity-0 group-hover:opacity-20'
+            isHighlighted ? 'opacity-25' : 'opacity-0 group-hover:opacity-15'
           }`}
           style={{
             background: `radial-gradient(circle, ${theme.glow} 0%, transparent 70%)`,
@@ -138,7 +150,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
           {/* Build Details from doc */}
           {track.build && (
             <div className="mt-3 pt-3 border-t border-white/[0.08] space-y-1.5">
-              <span className="font-display text-[10px] uppercase tracking-widest text-emerald-300 block font-semibold">
+              <span className="font-display text-[10px] uppercase tracking-widest text-[#C084FC] block font-semibold">
                 BUILD:
               </span>
               <p className="font-sans text-xs text-white/90 leading-relaxed">
@@ -149,7 +161,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
 
           {/* Interdisciplinary note on Track 5 */}
           {track.note && (
-            <div className="mt-3 p-3 rounded-lg border border-purple-500/20 bg-purple-950/20 text-xs text-[#E2DEEC] italic">
+            <div className="mt-3 p-3 rounded-lg border border-[#8B5CF6]/20 bg-[#8B5CF6]/[0.06] text-xs text-[#E2DEEC] italic">
               {track.note}
             </div>
           )}
@@ -157,8 +169,8 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
 
         {/* Card Footer: Pinned at bottom */}
         <div className="pt-4 mt-5 border-t border-white/[0.08] flex items-center justify-between gap-2 shrink-0">
-          <span className="font-display text-[10px] text-emerald-400 uppercase tracking-wider font-semibold">
-            Strictly 4 Members • ₹0 Entry
+          <span className="font-mono text-[10px] text-[#E2DEEC] uppercase tracking-wider font-medium">
+            Strictly 4 Members • ₹0 Entry (Free)
           </span>
 
           <button

@@ -60,7 +60,7 @@ export default function CallToActionSection({ onOpenRegister }) {
               {EVENT_CONFIG.venue}
             </span>
             <span className="text-white/30">•</span>
-            <span className="text-emerald-400 font-semibold uppercase">
+            <span className="text-white font-semibold uppercase">
               {cta.feeText} (₹0)
             </span>
           </div>

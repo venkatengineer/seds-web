@@ -65,7 +65,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
               <span className="font-display text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#C084FC] font-semibold">
                 {SEDS_CONFIG.name} // OFFICIAL SUBMISSION
               </span>
-              <span className="inline-block px-2.5 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-950/40 text-[10px] font-mono text-emerald-300 font-semibold">
+              <span className="inline-block px-2.5 py-0.5 rounded-full border border-white/15 bg-white/[0.04] text-[10px] font-mono text-[#E2DEEC] font-semibold">
                 100% FREE OF COST (₹0)
               </span>
               <span className="inline-block px-2.5 py-0.5 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/40 text-[10px] font-mono text-[#E2DEEC] font-semibold">
@@ -113,8 +113,8 @@ export default function RegistrationPortal({ isOpen, onClose }) {
               <Users size={13} className="text-[#C084FC]" />
               <strong>Squad Size:</strong> Strictly 4 Members Only
             </span>
-            <span className="flex items-center gap-1.5 text-emerald-300 font-bold">
-              <ShieldCheck size={13} className="text-emerald-400" />
+            <span className="flex items-center gap-1.5 text-white font-medium">
+              <ShieldCheck size={13} className="text-[#C084FC]" />
               <strong>Fee:</strong> Completely Free of Cost (₹0 Entry Fee)
             </span>
             <span className="hidden md:flex items-center gap-1.5 text-[#E2DEEC]">

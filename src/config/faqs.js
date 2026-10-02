@@ -86,7 +86,7 @@ export const FAQ_CATEGORIES = [
       {
         num: "11",
         q: "What are the hackathon domains?",
-        a: "SEDHACKS ’26 features five official domains: 01. Space Applications & Defence Technology, 02. Medical, Food & Agriculture in Space, 03. Autonomous & Communication Technology, 04. Sustainability in Space, and 05. Open Innovation.",
+        a: "SEDHACKS ’26 features five official domains: 01. Space Applications & Defence Technology, 02. Medical, Food & Agriculture in Space, 03. Space Instrumentation, 04. Sustainability and Energy Management, and 05. Open Innovation.",
         officialId: 9
       },
       {
