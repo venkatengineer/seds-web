@@ -15,13 +15,13 @@ import { toggleOrbitalAmbiance } from '../utils/audio';
  */
 
 const NAV_LINKS = [
-  { id: 'tracks', label: 'TRACKS' },
-  { id: 'prizes', label: 'PRIZES' },
-  { id: 'timeline', label: 'TIMELINE' },
-  { id: 'countdown', label: 'DEADLINE' },
+  { id: 'about', label: 'ABOUT' },
+  { id: 'tracks', label: 'DOMAINS' },
+  { id: 'build', label: 'BUILD' },
+  { id: 'prizes', label: 'REWARDS' },
+  { id: 'timeline', label: 'JOURNEY' },
   { id: 'faq', label: 'FAQ' },
-  { id: 'partners', label: 'PARTNERS' },
-  { id: 'mission', label: 'ABOUT SEDS' },
+  { id: 'partners', label: 'INDUSTRY' },
 ];
 
 export default function Navigation({ 

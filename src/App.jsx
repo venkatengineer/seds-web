@@ -3,14 +3,17 @@ import ThreeSpaceEngine from './components/ThreeSpaceEngine';
 import CustomCursor from './components/CustomCursor';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
+import AboutSection from './components/AboutSection';
 import MissionSection from './components/MissionSection';
 import IdentitySection from './components/IdentitySection';
 import ChallengesSection from './components/ChallengesSection';
+import BuildSection from './components/BuildSection';
 import TimelineSection from './components/TimelineSection';
 import CountdownSection from './components/CountdownSection';
 import PrizesSection from './components/PrizesSection';
 import SponsorsWall from './components/SponsorsWall';
 import FaqSection from './components/FaqSection';
+import CallToActionSection from './components/CallToActionSection';
 import Footer from './components/Footer';
 import BootSequence from './components/BootSequence';
 import RegistrationPortal from './components/RegistrationPortal';
@@ -42,13 +45,16 @@ export default function App() {
   useEffect(() => {
     const sections = [
       'hero',
+      'about',
       'tracks',
       'challenges',
+      'build',
       'prizes',
       'timeline',
       'countdown',
-      'faq',
       'partners',
+      'faq',
+      'cta',
       'mission',
       'identity',
     ];
@@ -158,39 +164,53 @@ export default function App() {
           bootPhase={bootPhase}
         />
 
-        {/* 1. 5 Official Hackathon Tracks: Positioned first right after Hero */}
+        {/* 1. About SEDHACKS '26: Where Ideas Take Shape */}
+        <AboutSection
+          onOpenRegister={() => setIsRegisterOpen(true)}
+          onNavigate={handleNavigate}
+        />
+
+        {/* 2. Tracks / Domains: Choose Your Mission (5 Official Domains) */}
         <ChallengesSection
           onOpenRegister={() => setIsRegisterOpen(true)}
           onNodeSelect={(idx) => setActiveChallengeIndex(idx)}
         />
 
-        {/* 2. Hackathon Rewards: ₹10,000 Prize Pool & Aeroin Space Tech Internships */}
+        {/* 3. What Can You Build?: Your Idea. Your Build. */}
+        <BuildSection
+          onOpenRegister={() => setIsRegisterOpen(true)}
+        />
+
+        {/* 4. Why Participate?: ₹10,000 Prize Pool & Aeroin Space Tech Internships */}
         <PrizesSection
           onOpenRegister={() => setIsRegisterOpen(true)}
           mousePos={mousePos}
         />
 
-        {/* 3. 48-Hour Hackathon Mission Trajectory */}
+        {/* 5. Your Journey at SEDHACKS ’26 & 48-Hour Sprint Trajectory */}
         <TimelineSection />
 
-        {/* 4. Launch & Registration Deadline Countdown */}
+        {/* 6. Launch & Registration Deadline Countdown */}
         <CountdownSection />
 
-        {/* 5. Hackathon Directives & Clarification FAQs */}
+        {/* 7. Industry Collaboration: Aeroin Space Tech × SEDS REC */}
+        <SponsorsWall />
+
+        {/* 8. Frequently Asked Questions: Official 23 Directives + Handbook */}
         <FaqSection onOpenRegister={() => setIsRegisterOpen(true)} />
 
-        {/* 6. Institutional & Industry Collaboration Network */}
-        <SponsorsWall />
+        {/* 9. Final Call to Action: Have an Idea Worth Building? */}
+        <CallToActionSection onOpenRegister={() => setIsRegisterOpen(true)} />
 
         {/* --- NON-HACKATHON / SEDS CHAPTER HERITAGE (Placed Last) --- */}
 
-        {/* 7. SEDS REC Chapter Mission */}
+        {/* 10. SEDS REC Chapter Mission */}
         <MissionSection onNavigate={handleNavigate} />
 
-        {/* 8. SEDS REC Student Identity & Laboratory Documentary */}
+        {/* 11. SEDS REC Student Identity & Laboratory Documentary */}
         <IdentitySection onNavigate={handleNavigate} />
 
-        {/* 9. Chapter Lineage & Student Coordinator Footer */}
+        {/* 12. Chapter Lineage & Student Coordinator Footer */}
         <Footer
           onNavigate={handleNavigate}
           onOpenRegister={() => setIsRegisterOpen(true)}

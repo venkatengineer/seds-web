@@ -67,43 +67,53 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             // SECTOR DIRECTORY
           </div>
           <div>
+            <button onClick={() => onNavigate('about')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
+              01 — About SEDHACKS '26
+            </button>
+          </div>
+          <div>
             <button onClick={() => onNavigate('tracks')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
-              01 — Hackathon Tracks
+              02 — Tracks / Domains
+            </button>
+          </div>
+          <div>
+            <button onClick={() => onNavigate('build')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
+              03 — What Can You Build?
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('prizes')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
-              02 — Why Participate / Prizes
+              04 — Why Participate / Prizes
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('timeline')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
-              03 — Flight Trajectory
+              05 — Your Journey & Schedule
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('countdown')} className="text-amber-300 hover:text-amber-200 transition-colors cursor-pointer font-semibold">
-              04 — Deadline Countdown
+              06 — Deadline Countdown
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('faq')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
-              05 — Directives & FAQ
+              07 — Frequently Asked Questions
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('partners')} className="text-[#E2DEEC] hover:text-white transition-colors cursor-pointer">
-              06 — Academic & Chapter Alliance
+              08 — Industry Collaboration
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('mission')} className="text-[#E2DEEC]/80 hover:text-white transition-colors cursor-pointer">
-              07 — Chapter Mission
+              09 — Chapter Mission
             </button>
           </div>
           <div>
             <button onClick={() => onNavigate('identity')} className="text-[#E2DEEC]/80 hover:text-white transition-colors cursor-pointer">
-              08 — SEDS REC Identity
+              10 — SEDS REC Identity
             </button>
           </div>
         </div>

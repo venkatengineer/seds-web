@@ -1,10 +1,12 @@
 /**
  * SEDS REC & EVENT BRANDING CONFIGURATION
+ * Fully synchronized with official document:
+ * "SEDHACKS ’26 website content document_20261002_085041_0000.docx"
  * 
  * CORE IDENTITY:
  * PRIMARY: SEDS REC (Students for the Exploration and Development of Space, Rajalakshmi Engineering College)
  * INSTITUTION: Rajalakshmi Engineering College, Chennai, India
- * EVENT: SEDHACKS '26 — Student Space & Technology Hackathon
+ * EVENT: SEDHACKS '26 — A Space × Technology × Innovation Hackathon
  */
 
 export const SEDS_CONFIG = {
@@ -45,10 +47,11 @@ export const REGISTRATION_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1F
 
 export const EVENT_CONFIG = {
   name: "SEDHACKS '26",
-  tagline: "Innovate. Build. Explore Beyond the Sky.",
-  presentsText: "PRESENTS",
-  heroHeadline: ["INNOVATE.", "BUILD.", "EXPLORE BEYOND THE SKY."],
-  manifesto: "SEDS REC presents a student-led hackathon bringing together young innovators from diverse disciplines to develop solutions for challenges related to space, technology and sustainability.",
+  tagline: "From Ideas to Orbit.",
+  subTagline: "A Space × Technology × Innovation Hackathon",
+  presentsText: "SEDS REC PRESENTS",
+  heroHeadline: ["FROM IDEAS", "TO ORBIT.", "A SPACE × TECH HACKATHON"],
+  manifesto: "A student-led hackathon designed to bring together innovators from different disciplines to explore challenges connected to space, technology and sustainability. Turn your ideas into practical solutions through hardware prototypes, software, applications, websites, simulations or other working concepts.",
   dates: "12–13 OCTOBER 2026",
   datesFormatted: "October 12–13, 2026",
   registrationDeadline: "10 OCTOBER 2026",
@@ -63,9 +66,66 @@ export const EVENT_CONFIG = {
   grandPrize: "₹10,000",
   grandPrizeNumeric: "₹10,000",
   internshipHeadline: "Top 3 Teams Internship Opportunities",
-  internshipDetails: "The Top 3 teams will receive internship opportunities through our industry collaboration with Aeroin Space Tech, subject to the organisation's selection process.",
+  internshipDetails: "Top 3 teams will receive internship opportunities through our collaboration with Aeroin Space Tech, subject to the applicable selection process.",
   industryPartner: "Aeroin Space Tech",
-  industryCollaboration: "This hackathon is being conducted with industry collaboration from Aeroin Space Tech, creating opportunities for students to interact with industry perspectives and explore potential internship opportunities.",
+  industryCollaboration: "SEDS REC is collaborating with Aeroin Space Tech to bring industry exposure into SEDHACKS ’26. Through this collaboration, participants get an opportunity to present their ideas in an environment that connects student innovation with industry perspectives. Top 3 teams will receive internship opportunities through Aeroin Space Tech, subject to the applicable selection process.",
+  
+  // Section: About SEDHACKS '26 (Where Ideas Take Shape)
+  about: {
+    title: "About SEDHACKS ’26",
+    subtitle: "Where Ideas Take Shape",
+    lead: "SEDS REC presents SEDHACKS ’26, a student-led hackathon designed to bring together innovators from different disciplines to explore challenges connected to space, technology and sustainability.",
+    p2: "Participants can turn their ideas into practical solutions through hardware prototypes, software, applications, websites, simulations or other working concepts.",
+    p3: "The focus is not only on the idea, but on how effectively you can build, demonstrate and communicate your solution.",
+  },
+
+  // Section: Why Participate? (What You Take Away)
+  whyParticipate: [
+    {
+      num: "01",
+      title: "Build Something Real",
+      desc: "Turn an idea into a working prototype, application, simulation or demonstrable solution.",
+      tag: "PROTOTYPING",
+      highlight: "Working Solution",
+    },
+    {
+      num: "02",
+      title: "Compete & Get Recognised",
+      desc: "Compete for a ₹10,000 prize pool and showcase your work to industry professionals.",
+      tag: "AWARDS",
+      highlight: "₹10,000 Prize Pool",
+    },
+    {
+      num: "03",
+      title: "Top 3 Teams — Internship Opportunities",
+      desc: "Top three teams will receive internship opportunities through our collaboration with Aeroin Space Tech, subject to the applicable selection process.",
+      tag: "INDUSTRY CAREER",
+      highlight: "Aeroin Space Tech",
+    },
+    {
+      num: "04",
+      title: "Learn Beyond the Classroom",
+      desc: "Work with students from different backgrounds and gain practical experience in problem-solving and innovation.",
+      tag: "COLLABORATION",
+      highlight: "Cross-Disciplinary",
+    },
+    {
+      num: "05",
+      title: "Get Industry Exposure",
+      desc: "Present your solution and receive perspectives from professionals and jury members.",
+      tag: "NETWORKING",
+      highlight: "Jury Mentorship",
+    },
+    {
+      num: "06",
+      title: "Earn Your Certificate",
+      desc: "Certificates will be provided to participating teams/participants as per the event guidelines.",
+      tag: "CERTIFICATION",
+      highlight: "Official Credentials",
+    },
+  ],
+
+  // Section: Tracks / Domains (Choose Your Mission - Five domains. Countless ways to build.)
   tracks: [
     {
       id: "space-defence",
@@ -73,10 +133,11 @@ export const EVENT_CONFIG = {
       number: "01",
       name: "Space Applications & Defence Technology",
       title: "SPACE & DEFENCE",
-      subtitle: "Space Applications, Defence Technologies & Flight Hardware",
-      desc: "Explore innovative technologies and applications for space and defence.",
-      image: "/images/challenges/propulsion.jpg",
-      domains: ["Defence Tech", "Space Applications", "Avionics & Telemetry", "Surveillance & Guidance"],
+      subtitle: "Space Applications & Defence Technology",
+      desc: "Explore technologies that support space missions, exploration, satellite applications and defence systems.",
+      thinkAbout: "Satellite-based solutions • Mission support systems • Space situational awareness • Navigation • Remote sensing • Security technologies",
+      build: "Hardware prototypes, software platforms, simulations, monitoring systems or intelligent applications.",
+      domains: ["Satellite Solutions", "Mission Support", "Space Situational Awareness", "Navigation", "Remote Sensing", "Security Tech"],
       prize: "Track Recognition & Awards",
     },
     {
@@ -85,10 +146,11 @@ export const EVENT_CONFIG = {
       number: "02",
       name: "Medical, Food & Agriculture in Space",
       title: "SPACE BIO & MED",
-      subtitle: "Off-World Healthcare, Bio-Regenerative Life Support & Space Food",
-      desc: "Develop ideas addressing healthcare, food systems and agriculture for space environments.",
-      image: "/images/challenges/satellites.jpg",
-      domains: ["Space Medicine", "Food Systems", "Microgravity Agriculture", "Bio-Regenerative Life Support"],
+      subtitle: "Medical, Food & Agriculture in Space",
+      desc: "How can we support human health, food systems and biological needs beyond Earth? Explore solutions for astronauts, controlled environments and future long-duration missions.",
+      thinkAbout: "Astronaut health • Food preservation • Space farming • Plant growth • Nutrition • Biological systems • Resource-efficient agriculture",
+      build: "Biological concepts, monitoring systems, prototypes, software tools or experimental models.",
+      domains: ["Astronaut Health", "Food Preservation", "Space Farming", "Plant Growth", "Nutrition", "Resource-Efficient Agriculture"],
       prize: "Track Recognition & Awards",
     },
     {
@@ -97,10 +159,11 @@ export const EVENT_CONFIG = {
       number: "03",
       name: "Autonomous & Communication Technology",
       title: "AUTONOMOUS & COMMS",
-      subtitle: "Autonomous Systems, Space Communications & Edge Computing",
-      desc: "Build solutions involving autonomous systems, communication technologies and intelligent applications.",
-      image: "/images/challenges/astrodynamics.jpg",
-      domains: ["Autonomous Flight", "RF & Optical Comms", "Intelligent Systems", "Edge Computing"],
+      subtitle: "Autonomous & Communication Technology",
+      desc: "Make systems smarter, more connected and capable of responding with minimal human intervention.",
+      thinkAbout: "Autonomous robots • Communication systems • Intelligent monitoring • Sensor networks • Navigation • Remote operations",
+      build: "Robotics, embedded systems, communication platforms, AI-based tools, simulations or working prototypes.",
+      domains: ["Autonomous Robots", "Communication Systems", "Intelligent Monitoring", "Sensor Networks", "Navigation", "Remote Operations"],
       prize: "Track Recognition & Awards",
     },
     {
@@ -109,25 +172,125 @@ export const EVENT_CONFIG = {
       number: "04",
       name: "Sustainability in Space",
       title: "SPACE SUSTAINABILITY",
-      subtitle: "Sustainable Space Exploration, Resource Utilisation & Clean Orbit",
-      desc: "Address challenges related to sustainable space exploration, resource utilisation and future space missions.",
-      image: "/images/challenges/exploration.jpg",
-      domains: ["Debris Remediation", "Resource Utilisation (ISRU)", "Green Propulsion", "Long-Duration Missions"],
+      subtitle: "Sustainability in Space",
+      desc: "How can future missions use resources efficiently while reducing waste, energy consumption and dependence on Earth? Explore ideas for making space missions and future habitats more sustainable.",
+      thinkAbout: "Waste management • Recycling • Resource recovery • Energy efficiency • Water management • Closed-loop systems • Sustainable habitats",
+      build: "Physical prototypes, process models, simulations, software solutions or resource-management systems.",
+      domains: ["Waste Management", "Recycling", "Resource Recovery", "Energy Efficiency", "Water Management", "Closed-Loop Systems"],
       prize: "Track Recognition & Awards",
     },
     {
       id: "open-innovation",
       chapter: "05",
       number: "05",
-      name: "Miscellaneous / Open Innovation",
+      name: "Open Innovation",
       title: "OPEN INNOVATION",
-      subtitle: "Cross-Disciplinary Space Tech, Planetary Science & Disruptive Ideas",
-      desc: "Have an innovative space-related idea that does not fit the above tracks? This is your space to explore it.",
-      image: "/images/challenges/satellites.jpg",
-      domains: ["Open Architecture", "Space Policy & Economics", "Planetary Sciences", "Disruptive Concepts"],
+      subtitle: "Open Innovation",
+      desc: "Have an idea that does not fit neatly into the other four domains? This is your space to explore it. Bring forward an innovative solution connected to space, technology, exploration or future human missions.",
+      thinkAbout: "Interdisciplinary ideas • Space exploration concepts • Novel technologies • Cross-domain applications • Disruptive approaches",
+      build: "Anything from a working hardware prototype to an app, website, simulation, scientific model or interdisciplinary concept.",
+      note: "Not sure whether your idea fits? Choose the domain that is closest to your solution. Interdisciplinary ideas are welcome.",
+      domains: ["Cross-Disciplinary Ideas", "Exploration Concepts", "Scientific Models", "Disruptive Tech"],
       prize: "Track Recognition & Awards",
     },
   ],
+
+  // Section: What Can You Build? (Your Idea. Your Build.)
+  whatCanYouBuild: {
+    title: "What Can You Build?",
+    subtitle: "Your Idea. Your Build.",
+    intro: "Your solution can take different forms:",
+    types: [
+      {
+        id: "hardware",
+        title: "Hardware Prototype",
+        desc: "Build and demonstrate a physical solution.",
+        badge: "PHYSICAL",
+      },
+      {
+        id: "software",
+        title: "Software / Web Platform",
+        desc: "Create a website, dashboard, digital tool or web-based solution.",
+        badge: "WEB & CLOUD",
+      },
+      {
+        id: "mobile",
+        title: "Mobile Application",
+        desc: "Develop an app that addresses your chosen challenge.",
+        badge: "NATIVE & HYBRID",
+      },
+      {
+        id: "ai-data",
+        title: "AI / Data Solution",
+        desc: "Use intelligent systems, data analysis or machine learning where relevant.",
+        badge: "INTELLIGENT",
+      },
+      {
+        id: "simulation",
+        title: "Simulation / Digital Model",
+        desc: "Demonstrate your solution through a simulation or digital model.",
+        badge: "COMPUTATIONAL",
+      },
+      {
+        id: "science",
+        title: "Biological / Scientific Concept",
+        desc: "Develop an experimental proof-of-concept or scientific model where applicable.",
+        badge: "RESEARCH & LAB",
+      },
+    ],
+    keyRequirement: {
+      title: "The Key Requirement: Demonstrate It.",
+      desc: "Your final solution should be sufficiently developed to demonstrate its working, functionality or proof-of-concept during evaluation.",
+    },
+  },
+
+  // Section: Your Journey at SEDHACKS ’26 (From Registration to Recognition)
+  journey: [
+    {
+      num: "01",
+      step: "REGISTER",
+      desc: "Submit your details through the official registration form.",
+      timing: "Before 10 Oct // 23:59 IST",
+    },
+    {
+      num: "02",
+      step: "FORM YOUR TEAM",
+      desc: "Build your team and decide your domain.",
+      timing: "Strictly 4 Members",
+    },
+    {
+      num: "03",
+      step: "CHOOSE & DEVELOP",
+      desc: "Understand the challenge and develop your solution.",
+      timing: "Track Onboarding",
+    },
+    {
+      num: "04",
+      step: "BUILD & VALIDATE",
+      desc: "Develop your prototype, software, simulation or working concept.",
+      timing: "48-Hour Sprint",
+    },
+    {
+      num: "05",
+      step: "DEMONSTRATE",
+      desc: "Show how your solution works during the final evaluation.",
+      timing: "Jury Demonstration",
+    },
+    {
+      num: "06",
+      step: "PITCH",
+      desc: "Present your problem, solution, innovation, prototype and future scope to the jury.",
+      timing: "Grand Defense",
+    },
+    {
+      num: "07",
+      step: "RECOGNITION",
+      desc: "Compete for the ₹10,000 prize pool and internship opportunities for the Top 3 teams.",
+      timing: "Awards Ceremony",
+    },
+  ],
+
+  // Section: 48-Hour Sprint Timeline
   timeline: [
     {
       stage: "01",
@@ -158,33 +321,22 @@ export const EVENT_CONFIG = {
       desc: "Final live pitch presentations before the SEDS REC & Aeroin Space Tech jury panel. Awards allocation from the ₹10,000 prize pool and top 3 internship selections.",
     },
   ],
-  whyParticipate: [
-    {
-      title: "₹10,000 Prize Pool",
-      highlight: "₹10,000",
-      desc: "Compete, innovate and get recognised for your solution.",
-    },
-    {
-      title: "Internship Opportunities",
-      highlight: "Top 3 Teams",
-      desc: "The Top 3 teams will receive internship opportunities through our industry collaboration with Aeroin Space Tech, subject to the organisation's selection process.",
-    },
-    {
-      title: "100% Free Registration",
-      highlight: "₹0 Cost",
-      desc: "Registration is completely free of cost for all student teams. Zero participation fee, zero hidden charges.",
-    },
-    {
-      title: "Industry Collaboration",
-      highlight: "Aeroin Space Tech",
-      desc: "Interact with real aerospace industry perspectives and explore direct professional growth pathways.",
-    },
-    {
-      title: "SEDS Platform & Mentorship",
-      highlight: "SEDS REC",
-      desc: "Access guidance from experienced student engineers, academic mentors, and space community peers.",
-    },
-  ],
+
+  // Section: Final Call to Action
+  cta: {
+    title: "Have an Idea Worth Building?",
+    lines: [
+      "Bring your curiosity.",
+      "Build your solution.",
+      "Take it beyond the classroom.",
+    ],
+    brand: "SEDHACKS ’26",
+    tagline: "From Ideas to Orbit.",
+    venueDates: "12–13 October 2026 | Rajalakshmi Engineering College, Chennai",
+    feeText: "FREE REGISTRATION",
+    buttonText: "REGISTER NOW",
+  },
+
   contacts: [
     {
       role: "Student Coordinator",
@@ -205,6 +357,7 @@ export const PARTNERS_CONFIG = [
         type: "Aerospace Industry Partner",
         location: "India",
         role: "Industry Collaboration & Internship Opportunities Provider for Top 3 Teams",
+        desc: "SEDS REC is collaborating with Aeroin Space Tech to bring industry exposure into SEDHACKS ’26. Through this collaboration, participants get an opportunity to present their ideas in an environment that connects student innovation with industry perspectives. Top 3 teams will receive internship opportunities through Aeroin Space Tech, subject to the applicable selection process.",
       },
     ],
   },
@@ -216,6 +369,7 @@ export const PARTNERS_CONFIG = [
         type: "Autonomous Academic Institution",
         location: "Chennai, Tamil Nadu",
         role: "Host Campus & Laboratory Infrastructure Provider",
+        desc: "Autonomous institution offering engineering excellence, compute labs, and venue hosting for SEDHACKS '26 on 12–13 October 2026.",
       },
     ],
   },
@@ -227,12 +381,14 @@ export const PARTNERS_CONFIG = [
         type: "Student Space Organization",
         location: "REC Chennai",
         role: "Organizing Body & Host of SEDHACKS '26",
+        desc: "Student-led space community driving space science, rocketry, avionics, and student engineering hackathons.",
       },
       {
         name: "SEDS India",
         type: "National Space Organization",
         location: "National Chapter Network",
         role: "Parent Chapter Affiliation & Student Space Alliance",
+        desc: "National student space federation fostering aerospace talent across top engineering institutions in India.",
       },
     ],
   },
@@ -240,4 +396,3 @@ export const PARTNERS_CONFIG = [
 
 // Re-export comprehensive FAQ registry
 export * from './faqs';
-

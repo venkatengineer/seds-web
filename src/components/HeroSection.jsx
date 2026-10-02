@@ -72,9 +72,9 @@ export default function HeroSection({
         }}
       >
         {/* Brand Hierarchy Stack */}
-        <div className="mb-6 space-y-1.5">
+        <div className="mb-6 space-y-2">
           <div 
-            className="font-editorial text-xl sm:text-2xl font-bold tracking-[0.2em] text-[#F7F5FF] transition-all duration-800 ease-out"
+            className="flex flex-wrap items-center gap-2 font-display text-xs tracking-[0.26em] text-[#C084FC] uppercase font-bold transition-all duration-800 ease-out"
             style={{
               opacity: isRevealing ? 1 : 0,
               transform: isRevealing ? 'translateY(0)' : 'translateY(20px)',
@@ -82,11 +82,13 @@ export default function HeroSection({
               transitionDelay: '100ms',
             }}
           >
-            {SEDS_CONFIG.name}
+            <span>{SEDS_CONFIG.name}</span>
+            <span className="text-white/30">PRESENTS</span>
+            <span className="text-white font-extrabold">{EVENT_CONFIG.name}</span>
           </div>
 
           <div 
-            className="flex flex-wrap items-center gap-2.5 pt-0.5 transition-all duration-800 ease-out"
+            className="flex flex-wrap items-center gap-2 pt-0.5 transition-all duration-800 ease-out"
             style={{
               opacity: isRevealing ? 1 : 0,
               transform: isRevealing ? 'translateY(0)' : 'translateY(20px)',
@@ -94,12 +96,9 @@ export default function HeroSection({
               transitionDelay: '250ms',
             }}
           >
-            <span className="font-display text-xs tracking-[0.28em] text-[#8B5CF6] uppercase font-semibold">
-              {EVENT_CONFIG.presentsText}
-            </span>
-            <span className="text-white/20 font-display text-xs">/</span>
-            <span className="font-display text-sm sm:text-base font-medium tracking-[0.18em] text-[#F7F5FF]">
-              {EVENT_CONFIG.name}
+            {/* Sub-tagline */}
+            <span className="font-display text-xs tracking-[0.2em] text-white/90 uppercase font-medium">
+              {EVENT_CONFIG.subTagline}
             </span>
             <span className="text-white/40 font-display text-xs hidden sm:inline">•</span>
             {/* Prominently Highlighted Hackathon Date */}
@@ -118,7 +117,7 @@ export default function HeroSection({
 
         {/* PRIMARY HEADLINE: Staggered Stately Reveal (600–900ms per line) */}
         <h1 className="font-editorial text-4xl sm:text-6xl lg:text-[4.5rem] xl:text-[5.25rem] font-bold tracking-tight leading-[0.94] text-[#F7F5FF]">
-          {/* Line 1: INNOVATE */}
+          {/* Line 1: FROM IDEAS */}
           <div 
             className="transition-all duration-800 ease-out"
             style={{
@@ -131,9 +130,9 @@ export default function HeroSection({
             {EVENT_CONFIG.heroHeadline[0]}
           </div>
 
-          {/* Line 2: BUILD */}
+          {/* Line 2: TO ORBIT. */}
           <div 
-            className="text-white transition-all duration-800 ease-out"
+            className="text-white transition-all duration-800 ease-out flex items-baseline gap-3"
             style={{
               opacity: isRevealing ? 1 : 0,
               transform: isRevealing ? 'translateY(0)' : 'translateY(30px)',
@@ -141,25 +140,12 @@ export default function HeroSection({
               transitionDelay: '600ms',
             }}
           >
-            {EVENT_CONFIG.heroHeadline[1]}
-          </div>
-
-          {/* Line 3: EXPLORE BEYOND THE SKY */}
-          <div 
-            className="flex items-baseline gap-3 transition-all duration-800 ease-out"
-            style={{
-              opacity: isRevealing ? 1 : 0,
-              transform: isRevealing ? 'translateY(0)' : 'translateY(30px)',
-              filter: isRevealing ? 'blur(0)' : 'blur(10px)',
-              transitionDelay: '850ms',
-            }}
-          >
-            <span>{EVENT_CONFIG.heroHeadline[2]}</span>
+            <span>{EVENT_CONFIG.heroHeadline[1]}</span>
             <span className="inline-block w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#8B5CF6] mb-1 sm:mb-2 opacity-90 shadow-[0_0_15px_#8B5CF6]" />
           </div>
         </h1>
 
-        {/* Supporting Narrative: Bright, high-contrast, perfectly legible text */}
+        {/* Supporting Narrative: Bright, high-contrast, perfectly legible text from doc */}
         <p 
           className="mt-6 sm:mt-8 max-w-xl font-sans text-sm sm:text-base text-[#E2DEEC] leading-relaxed font-normal transition-all duration-800 ease-out"
           style={{

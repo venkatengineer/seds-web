@@ -1,36 +1,65 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Briefcase } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG, PARTNERS_CONFIG } from '../config/event';
 
 /**
- * EDITORIAL PARTNERS & INSTITUTIONAL LOGO WALL
+ * INDUSTRY COLLABORATION & ALLIANCE WALL
+ * Transcribed from: "SEDHACKS ’26 website content document_20261002_085041_0000.docx"
  * 
- * Philosophy:
- * - NO fake constellation of random dots.
- * - NO fake companies or fabricated GPU claims.
- * - Dignified editorial logo wall with clear hierarchy and generous negative space.
- * - Real academic and institutional partners: REC, SEDS India.
- * - Clearly marked honest callout for event sponsor inquiries.
+ * Title: Industry Collaboration
+ * Subtitle: Built With Industry. Driven By Students.
  */
 
 export default function SponsorsWall() {
   return (
     <section 
       id="partners" 
-      className="relative min-h-[80vh] w-full flex flex-col justify-center py-32 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
+      className="relative min-h-[80vh] w-full flex flex-col justify-center py-28 sm:py-36 px-6 sm:px-12 lg:px-16 z-20 select-none overflow-hidden"
     >
       {/* Top Editorial Eyebrow */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.12] pb-6 mb-16">
         <div>
-          <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] block mb-1 font-semibold">
-            // INSTITUTIONAL BACKING & NETWORK
+          <span className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] block mb-1 font-semibold flex items-center gap-1.5">
+            <Sparkles size={13} className="text-[#C084FC]" />
+            // INDUSTRY COLLABORATION
           </span>
           <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">
-            ACADEMIC & CHAPTER ALLIANCE.
+            BUILT WITH INDUSTRY. DRIVEN BY STUDENTS.
           </h2>
         </div>
         <div className="font-display text-xs tracking-[0.2em] text-[#E2DEEC] uppercase font-medium">
-          {SEDS_CONFIG.name} × {EVENT_CONFIG.name}
+          AEROIN SPACE TECH × {SEDS_CONFIG.name}
+        </div>
+      </div>
+
+      {/* Featured Industry Collaboration Hero Banner (From Document) */}
+      <div className="mb-14 p-8 sm:p-10 rounded-3xl border border-[#8B5CF6]/40 bg-gradient-to-br from-[#1b0a33] via-[#090314] to-[#04010a] shadow-[0_0_40px_rgba(139,92,246,0.2)]">
+        <div className="flex items-center gap-2 font-display text-xs tracking-[0.25em] uppercase text-[#C084FC] font-bold mb-3">
+          <Briefcase size={14} />
+          <span>OFFICIAL INDUSTRY PARTNER // AEROIN SPACE TECH</span>
+        </div>
+
+        <p className="font-editorial text-xl sm:text-2xl text-white font-medium leading-relaxed mb-4">
+          SEDS REC is collaborating with Aeroin Space Tech to bring industry exposure into SEDHACKS ’26.
+        </p>
+
+        <p className="font-sans text-sm sm:text-base text-[#E2DEEC] leading-relaxed mb-6">
+          Through this collaboration, participants get an opportunity to present their ideas in an environment that connects student innovation with industry perspectives.
+        </p>
+
+        <div className="pt-4 border-t border-white/[0.12] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span className="font-display text-xs uppercase tracking-widest text-amber-300 font-bold block">
+              AND THERE IS MORE:
+            </span>
+            <p className="font-sans text-sm text-[#F7F5FF] font-semibold mt-0.5">
+              Top 3 teams will receive internship opportunities through Aeroin Space Tech, subject to the applicable selection process.
+            </p>
+          </div>
+
+          <span className="px-3.5 py-1.5 rounded-full border border-purple-500/50 bg-purple-950/40 text-purple-200 text-xs font-display uppercase tracking-wider shrink-0 font-semibold">
+            TOP 3 TEAMS ELIGIBLE
+          </span>
         </div>
       </div>
 
@@ -67,36 +96,13 @@ export default function SponsorsWall() {
                   </div>
 
                   <p className="font-sans text-xs text-[#E2DEEC] font-normal leading-relaxed mt-4 pt-3 border-t border-white/[0.12]">
-                    {item.role}
+                    {item.desc || item.role}
                   </p>
                 </div>
               ))}
             </div>
           </div>
         ))}
-
-        {/* Transparent & Honest Sponsor Callout */}
-        <div className="p-8 sm:p-10 rounded-2xl border border-dashed border-white/25 bg-white/[0.02] flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-xl">
-            <div className="font-display text-xs uppercase tracking-[0.2em] text-[#C084FC] font-semibold">
-              // COLLABORATE WITH {EVENT_CONFIG.name}
-            </div>
-            <h4 className="font-editorial text-2xl font-bold text-[#F7F5FF]">
-              Support Student Space Engineering.
-            </h4>
-            <p className="font-sans text-xs sm:text-sm text-[#E2DEEC] font-normal leading-relaxed">
-              We welcome aerospace industry organizations, software tool providers, and research laboratories to sponsor challenges, mentor teams, or offer specialized tooling licenses to student finalists.
-            </p>
-          </div>
-
-          <a
-            href="mailto:partnerships@sedsrec.in"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#8B5CF6] bg-[#6D28D9]/40 hover:bg-[#6D28D9] text-[#F7F5FF] text-xs font-display uppercase tracking-widest font-bold transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] shrink-0"
-          >
-            <span>Inquire for Sponsorship</span>
-            <ArrowUpRight size={14} />
-          </a>
-        </div>
       </div>
     </section>
   );
