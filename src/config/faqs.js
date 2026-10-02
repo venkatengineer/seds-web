@@ -173,8 +173,8 @@ export const FAQ_CATEGORIES = [
       },
       {
         num: "24",
-        q: "Will there be a final presentation?",
-        a: "Yes. Shortlisted/final teams will present and demonstrate their working solutions and pitch deck before the jury panel.",
+        q: "Will there be a final presentation, and is there an official PPT template?",
+        a: "Yes. Shortlisted/final teams will present and demonstrate their working solutions and pitch deck before the jury panel. You can download the official SEDHACKS PPT presentation template (.pptx) directly using the download buttons on this website or inside the registration portal.",
         officialId: 22
       },
       {
@@ -237,7 +237,7 @@ export const FAQ_CATEGORIES = [
       {
         num: "32",
         q: "Whom can I contact for more information?",
-        a: "For queries regarding SEDHACKS ’26, contact SEDS REC Student Coordinator: Sruthi Nisha.J.S at +91 98844 64389 (sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in) at Rajalakshmi Engineering College, Chennai.",
+        a: "For queries regarding SEDHACKS ’26, contact SEDS REC Student Coordinator: Sruthi Nisha.J.S at +91 98844 64389 (sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in) or Club President: Arun Kumar.S at +91 81221 50038 (arunkumar.s.2024.bme@rajalakshmi.edu.in) at Rajalakshmi Engineering College, Chennai.",
         officialId: 23
       }
     ]

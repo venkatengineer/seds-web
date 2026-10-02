@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { X, ExternalLink, ShieldCheck, Users, Sparkles, RefreshCw, FileText, Calendar } from 'lucide-react';
-import { SEDS_CONFIG, EVENT_CONFIG, REGISTRATION_FORM_URL, REGISTRATION_FORM_EMBED_URL } from '../config/event';
+import { X, ExternalLink, ShieldCheck, Users, Sparkles, RefreshCw, FileText, Calendar, Download } from 'lucide-react';
+import { SEDS_CONFIG, EVENT_CONFIG, REGISTRATION_FORM_URL, REGISTRATION_FORM_EMBED_URL, PPT_TEMPLATE_URL, PPT_TEMPLATE_FILENAME } from '../config/event';
 
 /**
  * OFFICIAL ORBITAL 26 REGISTRATION PORTAL (GOOGLE FORM POWERED)
@@ -78,16 +78,29 @@ export default function RegistrationPortal({ isOpen, onClose }) {
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Download Official PPT Template Button */}
+            <a
+              href={PPT_TEMPLATE_URL}
+              download={PPT_TEMPLATE_FILENAME}
+              className="group flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full border border-[#C084FC] bg-[#4C1D95]/60 hover:bg-[#6D28D9] text-[#F7F5FF] text-xs font-display uppercase tracking-[0.14em] font-bold shadow-[0_0_20px_rgba(192,132,252,0.35)] hover:shadow-[0_0_30px_rgba(192,132,252,0.6)] transition-all duration-200 cursor-pointer"
+              title="Download official SEDHACKS PPT template (.pptx) for submission"
+            >
+              <Download size={13} className="text-[#C084FC] group-hover:translate-y-0.5 transition-transform" />
+              <span className="hidden sm:inline">Download PPT Template</span>
+              <span className="sm:hidden">PPT Template</span>
+            </a>
+
             {/* Open in Full Google Form Window */}
             <a
               href={REGISTRATION_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-[#8B5CF6] bg-[#6D28D9]/40 hover:bg-[#6D28D9] text-[#F7F5FF] text-xs font-display uppercase tracking-[0.15em] font-bold shadow-[0_0_20px_rgba(139,92,246,0.35)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all duration-200"
+              className="group flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full border border-[#8B5CF6] bg-[#6D28D9]/40 hover:bg-[#6D28D9] text-[#F7F5FF] text-xs font-display uppercase tracking-[0.14em] font-bold shadow-[0_0_20px_rgba(139,92,246,0.35)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all duration-200"
               title="Open Google Form in a new tab"
             >
-              <span>Open in Full Tab</span>
+              <span className="hidden sm:inline">Open in Full Tab</span>
+              <span className="sm:hidden">Full Tab</span>
               <ExternalLink size={13} className="text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
 
@@ -103,7 +116,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
         </header>
 
         {/* Quick Requirement Directives Bar */}
-        <div className="relative z-10 px-5 sm:px-8 py-3 bg-[#0C091C] border-b border-white/[0.1] flex flex-wrap items-center justify-between gap-2 text-xs font-sans text-[#E2DEEC] shrink-0">
+        <div className="relative z-10 px-5 sm:px-8 py-3 bg-[#0C091C] border-b border-white/[0.1] flex flex-wrap items-center justify-between gap-3 text-xs font-sans text-[#E2DEEC] shrink-0">
           <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[11px] sm:text-xs">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 text-[#F7F5FF] font-semibold font-display tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
@@ -119,13 +132,19 @@ export default function RegistrationPortal({ isOpen, onClose }) {
             </span>
             <span className="hidden md:flex items-center gap-1.5 text-[#E2DEEC]">
               <FileText size={13} className="text-[#C084FC]" />
-              PPT / PPTX Presentation Deck Upload Required
+              PPT Upload Required
             </span>
           </div>
 
-          <div className="text-[11px] text-[#E2DEEC] font-mono-tech hidden lg:block font-medium">
-            DIRECT G-FORM TRANSMISSION
-          </div>
+          <a
+            href={PPT_TEMPLATE_URL}
+            download={PPT_TEMPLATE_FILENAME}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#C084FC]/70 bg-[#C084FC]/15 hover:bg-[#C084FC]/30 text-white font-mono text-[11px] font-semibold transition-colors cursor-pointer"
+            title="Download PPT Template file"
+          >
+            <Download size={12} className="text-[#C084FC]" />
+            <span>Click to Download Official PPT Template (.pptx)</span>
+          </a>
         </div>
 
         {/* Main Form Display Area */}

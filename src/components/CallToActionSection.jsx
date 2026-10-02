@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, Sparkles, Calendar, MapPin, Clock } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Calendar, MapPin, Clock, Download } from 'lucide-react';
 import { EVENT_CONFIG } from '../config/event';
 
 export default function CallToActionSection({ onOpenRegister }) {
@@ -66,7 +66,7 @@ export default function CallToActionSection({ onOpenRegister }) {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={onOpenRegister}
             className="group relative overflow-hidden px-10 py-4 rounded-full border border-[#8B5CF6] bg-gradient-to-r from-[#6D28D9] to-[#8B5CF6] text-white font-display text-xs uppercase tracking-[0.22em] font-bold shadow-[0_0_35px_rgba(139,92,246,0.5)] hover:shadow-[0_0_50px_rgba(139,92,246,0.8)] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
@@ -76,6 +76,16 @@ export default function CallToActionSection({ onOpenRegister }) {
               <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </div>
           </button>
+
+          <a
+            href={EVENT_CONFIG.pptTemplateUrl}
+            download={EVENT_CONFIG.pptTemplateFilename}
+            className="group flex items-center gap-2.5 px-8 py-4 rounded-full border border-white/20 hover:border-[#C084FC] bg-white/[0.04] hover:bg-[#8B5CF6]/20 text-[#F7F5FF] hover:text-white font-display text-xs uppercase tracking-[0.18em] font-semibold transition-all duration-300 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+            title="Download official presentation deck template (.pptx)"
+          >
+            <Download size={15} className="text-[#C084FC] group-hover:translate-y-0.5 transition-transform" />
+            <span>DOWNLOAD PPT TEMPLATE (.PPTX)</span>
+          </a>
         </div>
 
         <div className="mt-8 text-xs font-mono text-[#E2DEEC]">

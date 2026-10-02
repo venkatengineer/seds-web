@@ -144,8 +144,8 @@ export default function Footer({ onNavigate, onOpenRegister }) {
       </div>
 
       {/* Contact Us & Queries Desk */}
-      <div data-reveal className="py-12 border-b border-white/[0.12] grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-        <div className="md:col-span-5 space-y-2">
+      <div data-reveal className="py-12 border-b border-white/[0.12] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="lg:col-span-5 space-y-2">
           <div className="font-display text-xs tracking-[0.25em] uppercase text-[#A855F7] font-semibold">
             // CONTACT US & INQUIRIES
           </div>
@@ -153,38 +153,50 @@ export default function Footer({ onNavigate, onOpenRegister }) {
             Questions About {EVENT_CONFIG.name}?
           </h3>
           <p className="font-sans text-xs sm:text-sm text-[#E2DEEC] font-normal leading-relaxed">
-            Reach out to Student Coordinator Sruthi Nisha.J.S at {SEDS_CONFIG.institution}, Chennai for team registration, problem statements, or event logistics.
+            Reach out to our Student Coordinator or Club President at {SEDS_CONFIG.institution}, Chennai for team registration, problem statements, or event logistics.
           </p>
         </div>
 
-        <div className="md:col-span-7 flex justify-start md:justify-end">
-          <div className="w-full max-w-md p-6 rounded-2xl border border-white/[0.12] bg-[#07030F]/80 space-y-2.5 shadow-[0_0_25px_rgba(76,29,149,0.15)]">
-            <span className="font-display text-[10px] tracking-widest uppercase text-[#C084FC] block font-semibold">
-              OFFICIAL STUDENT COORDINATOR
-            </span>
-            <div className="font-display text-lg font-bold text-[#F7F5FF]">
-              Sruthi Nisha.J.S
-            </div>
-            <div className="font-sans text-xs text-[#E2DEEC]">
-              {SEDS_CONFIG.institution}, Chennai
-            </div>
-            <div className="pt-2 space-y-2 border-t border-white/[0.12]">
-              <div className="flex items-center gap-2.5 text-xs text-[#C084FC]">
-                <Phone size={13} className="shrink-0 text-[#C084FC]" />
-                <a href="tel:9884464389" className="hover:underline font-mono text-[#F7F5FF] text-sm font-semibold">
-                  +91 98844 64389
-                </a>
+        <div className="lg:col-span-7 flex justify-start lg:justify-end w-full">
+          <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {EVENT_CONFIG.contacts.map((contact, idx) => (
+              <div 
+                key={idx}
+                className="p-6 rounded-2xl border border-white/[0.12] bg-[#07030F]/80 space-y-2.5 shadow-[0_0_25px_rgba(76,29,149,0.15)] flex flex-col justify-between"
+              >
+                <div>
+                  <span className="font-display text-[10px] tracking-widest uppercase text-[#C084FC] block font-semibold">
+                    {contact.badge || contact.role.toUpperCase()}
+                  </span>
+                  <div className="font-display text-lg font-bold text-[#F7F5FF]">
+                    {contact.name}
+                  </div>
+                  <div className="font-sans text-xs text-[#E2DEEC]">
+                    {contact.institution}
+                  </div>
+                </div>
+                <div className="pt-2 space-y-2 border-t border-white/[0.12]">
+                  <div className="flex items-center gap-2.5 text-xs text-[#C084FC]">
+                    <Phone size={13} className="shrink-0 text-[#C084FC]" />
+                    <a 
+                      href={`tel:${contact.phone.replace(/[^0-9]/g, '')}`} 
+                      className="hover:underline font-mono text-[#F7F5FF] text-sm font-semibold"
+                    >
+                      {contact.phone}
+                    </a>
+                  </div>
+                  <div className="flex items-start gap-2.5 text-xs text-[#C084FC]">
+                    <Mail size={13} className="shrink-0 text-[#C084FC] mt-0.5" />
+                    <a 
+                      href={`mailto:${contact.email}`} 
+                      className="hover:underline font-mono text-xs leading-snug break-all text-[#E2DEEC] hover:text-white"
+                    >
+                      {contact.email}
+                    </a>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-start gap-2.5 text-xs text-[#C084FC]">
-                <Mail size={13} className="shrink-0 text-[#C084FC] mt-0.5" />
-                <a 
-                  href="mailto:sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in" 
-                  className="hover:underline font-mono text-xs leading-snug break-all text-[#E2DEEC] hover:text-white"
-                >
-                  sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in
-                </a>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

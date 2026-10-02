@@ -180,7 +180,7 @@ export default function FaqSection({ onOpenRegister }) {
             No matching questions found
           </h3>
           <p className="font-sans text-sm text-[#E2DEEC]">
-            We couldn't find an answer matching &ldquo;{searchQuery}&rdquo;. Try using broader terms like &ldquo;team&rdquo;, &ldquo;hardware&rdquo;, &ldquo;fee&rdquo;, or contact our Student Coordinator directly.
+            We couldn't find an answer matching &ldquo;{searchQuery}&rdquo;. Try using broader terms like &ldquo;team&rdquo;, &ldquo;hardware&rdquo;, &ldquo;fee&rdquo;, or contact our coordinators directly.
           </p>
           <button
             onClick={handleClearSearch}
@@ -247,23 +247,60 @@ export default function FaqSection({ onOpenRegister }) {
             Have a question not listed here?
           </h3>
           <p className="font-sans text-sm text-[#E2DEEC] leading-relaxed">
-            Reach out to official Student Coordinator <strong className="text-white">Sruthi Nisha.J.S</strong> at {SEDS_CONFIG.institution}, Chennai for queries regarding team registration, tracks, presentation deck formatting, or hackathon logistics.
+            Reach out to Student Coordinator <strong className="text-white">Sruthi Nisha.J.S</strong> or Club President <strong className="text-white">Arun Kumar.S</strong> at {SEDS_CONFIG.institution}, Chennai for queries regarding team registration, tracks, presentation deck formatting, or hackathon logistics.
           </p>
-          <div className="flex flex-wrap items-center gap-4 pt-2">
-            <a 
-              href="tel:9884464389" 
-              className="inline-flex items-center gap-2 font-mono text-sm text-white hover:text-[#C084FC] transition-colors"
-            >
-              <Phone size={14} className="text-[#A855F7]" />
-              <span>+91 98844 64389</span>
-            </a>
-            <a 
-              href="mailto:sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in" 
-              className="inline-flex items-center gap-2 font-mono text-xs text-[#E2DEEC] hover:text-white transition-colors"
-            >
-              <Mail size={14} className="text-[#A855F7]" />
-              <span>sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in</span>
-            </a>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3">
+            {/* Student Coordinator */}
+            <div className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] space-y-1.5">
+              <span className="font-display text-[10px] tracking-wider uppercase text-[#C084FC] font-semibold block">
+                STUDENT COORDINATOR
+              </span>
+              <div className="font-display text-sm font-bold text-white">
+                Sruthi Nisha.J.S
+              </div>
+              <div className="space-y-1 pt-1">
+                <a 
+                  href="tel:9884464389" 
+                  className="flex items-center gap-2 font-mono text-xs text-white hover:text-[#C084FC] transition-colors"
+                >
+                  <Phone size={12} className="text-[#A855F7] shrink-0" />
+                  <span>+91 98844 64389</span>
+                </a>
+                <a 
+                  href="mailto:sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in" 
+                  className="flex items-start gap-2 font-mono text-[11px] text-[#E2DEEC] hover:text-white transition-colors break-all leading-tight"
+                >
+                  <Mail size={12} className="text-[#A855F7] shrink-0 mt-0.5" />
+                  <span>sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Club President */}
+            <div className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] space-y-1.5">
+              <span className="font-display text-[10px] tracking-wider uppercase text-[#C084FC] font-semibold block">
+                CLUB PRESIDENT
+              </span>
+              <div className="font-display text-sm font-bold text-white">
+                Arun Kumar.S
+              </div>
+              <div className="space-y-1 pt-1">
+                <a 
+                  href="tel:8122150038" 
+                  className="flex items-center gap-2 font-mono text-xs text-white hover:text-[#C084FC] transition-colors"
+                >
+                  <Phone size={12} className="text-[#A855F7] shrink-0" />
+                  <span>+91 81221 50038</span>
+                </a>
+                <a 
+                  href="mailto:arunkumar.s.2024.bme@rajalakshmi.edu.in" 
+                  className="flex items-start gap-2 font-mono text-[11px] text-[#E2DEEC] hover:text-white transition-colors break-all leading-tight"
+                >
+                  <Mail size={12} className="text-[#A855F7] shrink-0 mt-0.5" />
+                  <span>arunkumar.s.2024.bme@rajalakshmi.edu.in</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

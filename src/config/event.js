@@ -44,6 +44,8 @@ export const SEDS_CONFIG = {
 
 export const REGISTRATION_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfEC7Sndyksvk125Jr8TzwKhKVcqiFLFZwL3chNYuNbataJRg/viewform?usp=sharing&ouid=105886379411425310581";
 export const REGISTRATION_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfEC7Sndyksvk125Jr8TzwKhKVcqiFLFZwL3chNYuNbataJRg/viewform?embedded=true";
+export const PPT_TEMPLATE_URL = "/SEDHACKS_ppt_template.pptx";
+export const PPT_TEMPLATE_FILENAME = "SEDHACKS_ppt_template.pptx";
 
 export const EVENT_CONFIG = {
   name: "SEDHACKS '26",
@@ -61,6 +63,8 @@ export const EVENT_CONFIG = {
   registrationFee: "100% Free of Cost (₹0 Entry Fee)",
   registrationFormUrl: REGISTRATION_FORM_URL,
   registrationFormEmbedUrl: REGISTRATION_FORM_EMBED_URL,
+  pptTemplateUrl: PPT_TEMPLATE_URL,
+  pptTemplateFilename: PPT_TEMPLATE_FILENAME,
   prizePool: "₹10,000",
   prizeSummary: "₹10,000",
   grandPrize: "₹10,000",
@@ -340,10 +344,19 @@ export const EVENT_CONFIG = {
   contacts: [
     {
       role: "Student Coordinator",
+      badge: "OFFICIAL STUDENT COORDINATOR",
       name: "Sruthi Nisha.J.S",
       institution: "Rajalakshmi Engineering College, Chennai",
       email: "sruthinishajanardhanansunil.2024.ece@rajalakshmi.edu.in",
       phone: "+91 98844 64389",
+    },
+    {
+      role: "Club President",
+      badge: "CLUB PRESIDENT",
+      name: "Arun Kumar.S",
+      institution: "Rajalakshmi Engineering College, Chennai",
+      email: "arunkumar.s.2024.bme@rajalakshmi.edu.in",
+      phone: "+91 81221 50038",
     },
   ],
 };
