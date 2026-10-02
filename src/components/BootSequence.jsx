@@ -161,8 +161,11 @@ export default function BootSequence({ bootPhase, onSkip }) {
             <div
               className="absolute inset-0 overflow-hidden pointer-events-none"
               style={{
-                maskImage: 'linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%)',
+                // Soft on all four edges so the sweeping band never shows a hard clip line
+                maskImage: 'linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%)',
+                maskComposite: 'intersect',
+                WebkitMaskComposite: 'source-in',
               }}
             >
               <div
