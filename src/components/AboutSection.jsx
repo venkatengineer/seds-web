@@ -99,13 +99,13 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
             </p>
           </div>
 
-          <div className="p-5 rounded-xl border border-white/[0.12] bg-[#07030F]/80 backdrop-blur-md space-y-1.5">
-            <div className="flex items-center gap-2 text-[#C084FC] font-display text-xs tracking-wider uppercase font-semibold">
-              <Sparkles size={14} />
-              <span>Top 2 Teams Internships</span>
+          <div className="p-5 rounded-xl border border-cyan-400/60 bg-gradient-to-r from-cyan-950/40 via-[#2e0954]/50 to-[#07030F] backdrop-blur-md space-y-1.5 shadow-[0_0_25px_rgba(6,182,212,0.25)]">
+            <div className="flex items-center gap-2 text-cyan-300 font-display text-xs tracking-wider uppercase font-extrabold">
+              <Sparkles size={14} className="text-cyan-400 animate-pulse" />
+              <span>Top 2 Teams Win Aeroin Internships</span>
             </div>
-            <p className="font-sans text-xs text-[#E2DEEC] leading-relaxed">
-              Industry exposure through collaboration with Aeroin Space Tech (subject to selection process).
+            <p className="font-sans text-xs text-white/95 leading-relaxed font-medium">
+              Direct aerospace industry exposure and internship opportunities through collaboration with Aeroin Space Tech (subject to selection process).
             </p>
           </div>
 

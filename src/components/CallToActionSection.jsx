@@ -21,9 +21,16 @@ export default function CallToActionSection({ onOpenRegister }) {
           }}
         />
 
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-xs font-bold tracking-widest uppercase mb-6 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-          <Clock size={12} className="text-amber-400" />
-          <span>CLOSING DEADLINE: 10 OCTOBER 2026 // 23:59 IST</span>
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-cyan-400 bg-cyan-950/70 text-cyan-200 font-display text-xs font-extrabold tracking-widest uppercase shadow-[0_0_20px_rgba(34,211,238,0.45)]">
+            <Sparkles size={12} className="text-cyan-400" />
+            <span>TOP 2 TEAMS WIN AEROIN INTERNSHIPS</span>
+          </div>
+
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-amber-500/50 bg-amber-500/10 text-amber-300 font-display text-xs font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+            <Clock size={12} className="text-amber-400" />
+            <span>CLOSING: 10 OCTOBER 2026 // 23:59 IST</span>
+          </div>
         </div>
 
         <h2 className="font-editorial text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6">

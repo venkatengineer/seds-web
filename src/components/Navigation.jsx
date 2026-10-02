@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, Volume2, VolumeX, Menu, X, RotateCcw, Calendar } from 'lucide-react';
+import { ArrowUpRight, Volume2, VolumeX, Menu, X, RotateCcw, Calendar, Sparkles } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 import { toggleOrbitalAmbiance } from '../utils/audio';
 
@@ -115,6 +115,12 @@ export default function Navigation({
             <span className="hidden 2xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/70 bg-[#4C1D95]/40 text-[#F7F5FF] font-display text-[10px] uppercase tracking-[0.16em] font-semibold shadow-[0_0_12px_rgba(139,92,246,0.3)]">
               <Calendar size={11} className="text-[#C084FC]" />
               <span>{EVENT_CONFIG.dates}</span>
+            </span>
+
+            {/* Prominently Highlighted Internship Opportunity in Navbar */}
+            <span className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-cyan-400/80 bg-cyan-950/60 text-cyan-200 font-display text-[10px] uppercase tracking-[0.16em] font-extrabold shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+              <Sparkles size={11} className="text-cyan-400" />
+              <span>INTERNSHIPS: TOP 2 TEAMS</span>
             </span>
 
             {/* Prominently Highlighted Registration Deadline Badge */}

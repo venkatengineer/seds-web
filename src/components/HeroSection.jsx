@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowDown, ArrowUpRight, Calendar, Clock } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Calendar, Clock, Briefcase, Sparkles } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 
 /**
@@ -43,23 +43,29 @@ export default function HeroSection({
 
       {/* Top Architecture Baseline (Fades in at Phase 7) */}
       <div 
-        className={`flex items-center justify-between border-b border-white/[0.06] pb-3 text-[#A6A0B8] font-display text-[11px] tracking-[0.2em] uppercase transition-all duration-1000 ease-out ${
+        className={`flex items-center justify-between border-b border-white/[0.08] pb-3 text-[#A6A0B8] font-display text-[11px] tracking-[0.2em] uppercase transition-all duration-1000 ease-out ${
           isFullyLive ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
       >
-        <div className="flex items-center gap-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
-          <span className="text-[#F7F5FF] font-medium">{SEDS_CONFIG.name}</span>
-          <span className="text-white/20">/</span>
-          <span className="hidden sm:inline text-[#A6A0B8]">{SEDS_CONFIG.institution}</span>
+        <div className="flex items-center gap-2.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+          <span className="text-[#F7F5FF] font-medium tracking-widest text-[11px]">
+            STUDENT SPACE HACKATHON PROTOCOL
+          </span>
+          <span className="text-white/20 hidden sm:inline">•</span>
+          <span className="hidden md:inline-flex items-center gap-1 text-cyan-300 font-semibold tracking-wider text-[11px]">
+            <Sparkles size={11} className="text-cyan-400" />
+            TOP 2 TEAMS GET AEROIN INTERNSHIPS
+          </span>
         </div>
 
         <div className="flex items-center gap-3 sm:gap-4">
-          <span className="text-[#C084FC] font-medium">{EVENT_CONFIG.name}</span>
+          <span className="text-amber-300 font-medium font-mono text-[11px]">
+            DEADLINE: 10 OCT 2026 // 23:59 IST
+          </span>
           <span className="text-white/20">/</span>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-[#8B5CF6]/70 bg-[#4C1D95]/40 text-[#F7F5FF] font-semibold tracking-[0.16em] shadow-[0_0_12px_rgba(139,92,246,0.35)]">
-            <Calendar size={11} className="text-[#C084FC]" />
-            <span>{EVENT_CONFIG.dates}</span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-emerald-500/50 bg-emerald-950/40 text-emerald-300 font-semibold tracking-[0.16em]">
+            <span>100% FREE ENTRY (₹0)</span>
           </span>
         </div>
       </div>
@@ -72,7 +78,7 @@ export default function HeroSection({
         }}
       >
         {/* Brand Hierarchy Stack */}
-        <div className="mb-6 space-y-2">
+        <div className="mb-6 space-y-2.5">
           <div 
             className="flex flex-wrap items-center gap-2 font-display text-xs tracking-[0.26em] text-[#C084FC] uppercase font-bold transition-all duration-800 ease-out"
             style={{
@@ -82,9 +88,11 @@ export default function HeroSection({
               transitionDelay: '100ms',
             }}
           >
-            <span>{SEDS_CONFIG.name}</span>
-            <span className="text-white/30">PRESENTS</span>
-            <span className="text-white font-extrabold">{EVENT_CONFIG.name}</span>
+            <span className="text-white font-extrabold text-sm sm:text-base tracking-[0.2em]">{EVENT_CONFIG.name}</span>
+            <span className="text-white/30">•</span>
+            <span className="text-cyan-300 font-semibold text-xs tracking-[0.18em]">
+              48-HR INNOVATION SPRINT
+            </span>
           </div>
 
           <div 
@@ -96,21 +104,22 @@ export default function HeroSection({
               transitionDelay: '250ms',
             }}
           >
-            {/* Sub-tagline */}
-            <span className="font-display text-xs tracking-[0.2em] text-white/90 uppercase font-medium">
-              {EVENT_CONFIG.subTagline}
+            {/* ULTRA-PROMINENT INTERNSHIP OPPORTUNITY BADGE */}
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-cyan-400 bg-gradient-to-r from-cyan-950 via-[#3b126b] to-purple-950 text-cyan-200 font-display text-xs uppercase tracking-[0.18em] font-extrabold shadow-[0_0_25px_rgba(34,211,238,0.5)] backdrop-blur-sm">
+              <Briefcase size={12} className="text-cyan-300" />
+              <span>TOP 2 TEAMS GET AEROIN INTERNSHIPS</span>
             </span>
-            <span className="text-white/40 font-display text-xs hidden sm:inline">•</span>
+
             {/* Prominently Highlighted Hackathon Date */}
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6] bg-gradient-to-r from-[#4C1D95] via-[#6D28D9]/80 to-[#8B5CF6]/50 text-white font-display text-xs uppercase tracking-[0.18em] font-bold shadow-[0_0_20px_rgba(139,92,246,0.6)] backdrop-blur-sm">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6] bg-[#4C1D95]/40 text-white font-display text-xs uppercase tracking-[0.18em] font-bold shadow-[0_0_15px_rgba(139,92,246,0.4)] backdrop-blur-sm">
               <Calendar size={12} className="text-[#E9D5FF]" />
               <span>{EVENT_CONFIG.dates}</span>
             </span>
 
             {/* Prominently Highlighted Registration Deadline Badge */}
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-amber-400 bg-amber-950/70 text-amber-200 font-display text-xs uppercase tracking-[0.18em] font-extrabold shadow-[0_0_20px_rgba(251,191,36,0.5)] backdrop-blur-sm">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-400 bg-amber-950/70 text-amber-200 font-display text-xs uppercase tracking-[0.18em] font-bold shadow-[0_0_15px_rgba(251,191,36,0.4)] backdrop-blur-sm">
               <Clock size={12} className="text-amber-400 animate-pulse" />
-              <span>LAST DATE TO REGISTER: {EVENT_CONFIG.registrationDeadline}</span>
+              <span>CLOSES: {EVENT_CONFIG.registrationDeadline}</span>
             </span>
           </div>
         </div>
@@ -186,6 +195,22 @@ export default function HeroSection({
             <span>Explore 5 Tracks</span>
             <ArrowDown size={13} className="text-[#C084FC] group-hover:translate-y-0.5 transition-transform" />
           </button>
+
+          {/* Prominently Highlighted Internship Callout */}
+          <div className="w-full mt-2 p-3 sm:p-3.5 rounded-xl border border-cyan-400/60 bg-gradient-to-r from-cyan-950/70 via-[#370d61]/60 to-[#07030F] shadow-[0_0_25px_rgba(34,211,238,0.25)] flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <span className="p-1.5 rounded-lg bg-cyan-400/20 text-cyan-300 shrink-0">
+                <Briefcase size={15} />
+              </span>
+              <div className="text-xs sm:text-sm font-display text-white">
+                <span className="text-cyan-300 font-extrabold uppercase tracking-wide">INTERNSHIP OPPORTUNITY: </span>
+                <span className="font-semibold text-white/95">Top 2 Teams win direct internships with Aeroin Space Tech!</span>
+              </div>
+            </div>
+            <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full border border-cyan-400/50 bg-cyan-400/10 text-cyan-300 text-[10px] font-mono font-bold whitespace-nowrap uppercase">
+              TOP 2 TEAMS
+            </span>
+          </div>
 
           {/* Prominently Highlighted Fee & Deadline Callout */}
           <div className="w-full flex flex-wrap items-center gap-2.5 pt-1.5 font-mono text-[11px] sm:text-xs">

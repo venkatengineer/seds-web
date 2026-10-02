@@ -113,49 +113,52 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
         </div>
 
         {/* Monument 2: Internship Opportunities at Aeroin Space Tech */}
-        <div className="lg:col-span-6 relative p-8 sm:p-12 rounded-3xl border border-white/[0.16] bg-[#07030F]/90 backdrop-blur-xl flex flex-col justify-between overflow-hidden group hover:border-[#8B5CF6]/60 transition-all duration-400 shadow-[0_0_30px_rgba(76,29,149,0.2)]">
+        <div className="lg:col-span-6 relative p-8 sm:p-12 rounded-3xl border border-cyan-400/50 bg-gradient-to-br from-[#0c051a] via-[#04010a] to-[#040b17] backdrop-blur-xl flex flex-col justify-between overflow-hidden group hover:border-cyan-400 transition-all duration-400 shadow-[0_0_40px_rgba(6,182,212,0.25)]">
           
-          {/* Volumetric Purple Ambient Light */}
+          {/* Volumetric Cyan/Purple Ambient Light */}
           <div 
-            className="absolute bottom-0 left-0 w-[320px] h-[320px] rounded-full pointer-events-none -z-10 opacity-30"
+            className="absolute bottom-0 right-0 w-[350px] h-[350px] rounded-full pointer-events-none -z-10 opacity-35"
             style={{
-              background: 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(50, 16, 95, 0.1) 60%, transparent 80%)',
-              filter: 'blur(70px)',
+              background: 'radial-gradient(circle, rgba(34, 211, 238, 0.35) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 80%)',
+              filter: 'blur(75px)',
             }}
           />
 
           <div>
             <div className="flex items-center justify-between mb-6">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 font-display text-[11px] tracking-[0.2em] text-[#E2DEEC] uppercase font-semibold">
-                <Briefcase size={13} className="text-[#C084FC]" />
-                <span>CAREER ACCELERATOR</span>
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-400/80 bg-cyan-950/60 font-display text-[11px] tracking-[0.2em] text-cyan-200 uppercase font-extrabold shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+                <Briefcase size={14} className="text-cyan-400" />
+                <span>EXCLUSIVE CAREER LAUNCHPAD</span>
               </span>
-              <span className="font-display text-xs text-[#E2DEEC] tracking-widest uppercase font-mono-tech">
+              <span className="font-display text-xs text-cyan-300 tracking-widest uppercase font-mono-tech">
                 02 // INTERNSHIPS
               </span>
             </div>
 
             <div 
-              className="font-editorial text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#F7F5FF] leading-none my-4"
+              className="font-editorial text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-none my-4"
               style={{
-                textShadow: '0 0 45px rgba(168, 85, 247, 0.35)',
+                textShadow: '0 0 45px rgba(34, 211, 238, 0.45)',
               }}
             >
               TOP 2 TEAMS
             </div>
 
-            <h3 className="font-display text-xl sm:text-2xl font-medium tracking-[0.16em] uppercase text-[#F7F5FF] mt-3">
+            <h3 className="font-display text-xl sm:text-2xl font-bold tracking-[0.16em] uppercase text-cyan-300 mt-3">
               AEROIN SPACE TECH INTERNSHIPS
             </h3>
 
-            <p className="font-sans text-sm sm:text-base text-[#E2DEEC] font-normal mt-4 leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-[#F7F5FF] font-normal mt-4 leading-relaxed">
               {EVENT_CONFIG.internshipDetails}
             </p>
           </div>
 
-          <div className="pt-8 mt-8 border-t border-white/[0.12] flex items-center justify-between text-xs font-display text-[#E2DEEC] font-medium">
-            <span>Industry Collaboration</span>
-            <span className="text-white/60">•</span>
+          <div className="pt-8 mt-8 border-t border-cyan-400/20 flex items-center justify-between text-xs font-display text-cyan-200 font-medium">
+            <span className="flex items-center gap-1.5 font-bold text-white">
+              <Sparkles size={12} className="text-cyan-400" />
+              Direct Aerospace Industry Integration
+            </span>
+            <span className="text-white/40">•</span>
             <span>Subject to Selection Process</span>
           </div>
         </div>

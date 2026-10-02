@@ -198,11 +198,14 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
             </h2>
           </div>
           <div className="flex flex-wrap items-center gap-2.5">
+            <span className="px-3.5 py-1.5 rounded-full border border-cyan-400/80 bg-cyan-950/60 font-display text-[10px] tracking-[0.2em] text-cyan-200 uppercase font-extrabold shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+              TOP 2 TEAMS: AEROIN INTERNSHIPS
+            </span>
             <span className="px-3.5 py-1.5 rounded-full border border-amber-400/80 bg-amber-950/40 font-display text-[10px] tracking-[0.2em] text-amber-200 uppercase font-bold shadow-[0_0_15px_rgba(251,191,36,0.35)]">
               DEADLINE: 10 OCT 2026 • FREE (₹0)
             </span>
             <span className="px-3.5 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-950/30 font-display text-[10px] tracking-[0.2em] text-emerald-300 uppercase font-semibold shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-              ₹10,000 PRIZES + INTERNSHIPS
+              ₹10,000 PRIZES
             </span>
           </div>
         </div>
