@@ -217,7 +217,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
               DEADLINE: 9 OCT, 18:00 IST • 100% FREE (₹0)
             </span>
             <span className="px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.04] font-display text-[10px] tracking-[0.2em] text-[#C084FC] uppercase font-semibold">
-              ₹10,000 PRIZES
+              ₹10,000+ PRIZES
             </span>
           </div>
         </div>

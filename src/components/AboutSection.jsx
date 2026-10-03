@@ -92,7 +92,7 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
           <div className="p-5 rounded-xl border border-white/[0.12] bg-[#07030F]/80 backdrop-blur-md space-y-1.5">
             <div className="flex items-center gap-2 text-[#C084FC] font-display text-xs tracking-wider uppercase font-semibold">
               <Award size={14} />
-              <span>₹10,000 Cash Pool</span>
+              <span>₹10,000+ Cash Pool</span>
             </div>
             <p className="font-sans text-xs text-[#E2DEEC] leading-relaxed">
               Merit grant rewards for winning student teams across all technical tracks.

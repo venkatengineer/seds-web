@@ -89,7 +89,7 @@ export default function CallToActionSection({ onOpenRegister }) {
         </div>
 
         <div className="mt-8 text-xs font-mono text-[#E2DEEC]">
-          Only 4 members per team (1 Team Lead + 3 members) • Cash prize pool ₹10,000 • Top 2 teams internships
+          Only 4 members per team (1 Team Lead + 3 members) • Cash prize pool ₹10,000+ • Top 2 teams internships
         </div>
       </div>
     </section>

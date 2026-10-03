@@ -10,7 +10,7 @@ import { EVENT_CONFIG } from '../config/event';
  * Subtitle: What You Take Away
  * 6 Takeaways:
  * 1. Build Something Real
- * 2. Compete & Get Recognised (₹10,000 Prize Pool)
+ * 2. Compete & Get Recognised (₹10,000+ Prize Pool)
  * 3. Top 2 Teams — Internship Opportunities (Aeroin Space Tech)
  * 4. Learn Beyond the Classroom
  * 5. Get Industry Exposure
@@ -64,7 +64,7 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
           transform: `translate3d(${depthX * 0.4}px, ${depthY * 0.4}px, 0)`,
         }}
       >
-        {/* Monument 1: ₹10,000 Prize Pool */}
+        {/* Monument 1: ₹10,000+ Prize Pool */}
         <div className="lg:col-span-6 relative p-8 sm:p-12 rounded-3xl border border-white/[0.16] bg-[#07030F]/90 backdrop-blur-xl flex flex-col justify-between overflow-hidden group hover:border-[#8B5CF6]/60 transition-all duration-400 shadow-[0_0_30px_rgba(76,29,149,0.2)]">
           
           {/* Volumetric Purple Ambient Light */}

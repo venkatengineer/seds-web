@@ -150,7 +150,7 @@ export const FAQ_CATEGORIES = [
       {
         num: "20",
         q: "What is the prize pool?",
-        a: "The total cash prize pool is ₹10,000, awarded across top performing solutions.",
+        a: "The total cash prize pool is ₹10,000+, awarded across top performing solutions.",
         officialId: 11
       },
       {

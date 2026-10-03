@@ -256,7 +256,7 @@ export default function App() {
           onOpenRegister={openRegister}
         />
 
-        {/* 4. Why Participate?: ₹10,000 Prize Pool & Aeroin Space Tech Internships */}
+        {/* 4. Why Participate?: ₹10,000+ Prize Pool & Aeroin Space Tech Internships */}
         <PrizesSection
           onOpenRegister={openRegister}
           mousePos={mousePos}
