@@ -94,7 +94,7 @@ export default function HeroSection({
             <span className="text-white font-extrabold text-sm sm:text-base tracking-[0.2em]">{EVENT_CONFIG.name}</span>
             <span className="text-white/30">•</span>
             <span className="text-[#E2DEEC] font-medium text-xs tracking-[0.18em]">
-              48-HR INNOVATION SPRINT
+              24-HR INNOVATION SPRINT
             </span>
           </div>
 

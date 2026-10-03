@@ -37,7 +37,7 @@ export const FAQ_CATEGORIES = [
       {
         num: "05",
         q: "Will food and refreshments be provided?",
-        a: "Yes. Food and refreshments will be provided to participants during the 48-hour hackathon event.",
+        a: "Yes. Food and refreshments will be provided to participants during the 24-hour hackathon event.",
         officialId: 14
       },
       {

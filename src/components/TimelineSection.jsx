@@ -8,7 +8,7 @@ import { EVENT_CONFIG } from '../config/event';
  * 
  * Includes:
  * 1. Your Journey at SEDHACKS ’26: From Registration to Recognition (7 Milestones)
- * 2. 48-Hour Hackathon Mission Trajectory: DISCOVER, BUILD, CREATE, LAUNCH
+ * 2. 24-Hour Hackathon Mission Trajectory: DISCOVER, BUILD, CREATE, LAUNCH
  */
 
 export default function TimelineSection() {
@@ -61,7 +61,7 @@ export default function TimelineSection() {
           </h2>
         </div>
         <div className="font-display text-xs tracking-[0.2em] text-[#E2DEEC] uppercase font-medium">
-          ROADMAP & 48-HR SPRINT
+          ROADMAP & 24-HR SPRINT
         </div>
       </div>
 
@@ -111,7 +111,7 @@ export default function TimelineSection() {
           </div>
         </div>
 
-        {/* 2. 48-HOUR SPRINT TRAJECTORY */}
+        {/* 2. 24-HOUR SPRINT TRAJECTORY */}
         <div data-reveal className="pt-10 border-t border-white/[0.12] space-y-10">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
@@ -119,7 +119,7 @@ export default function TimelineSection() {
                 // 12–13 OCTOBER 2026 // ON-SITE SPRINT
               </span>
               <h3 className="font-editorial text-3xl sm:text-4xl font-bold text-white">
-                48-Hour Flight Trajectory
+                24-Hour Flight Trajectory
               </h3>
             </div>
             <span className="px-4 py-1.5 rounded-full border border-purple-500/40 bg-purple-950/30 text-purple-200 text-xs font-display tracking-wider uppercase">

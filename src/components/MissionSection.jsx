@@ -90,7 +90,7 @@ export default function MissionSection({ onNavigate }) {
               {SEDS_CONFIG.missionStatement}
             </p>
             <p className="font-sans text-sm sm:text-base text-[#E2DEEC] font-normal leading-relaxed mt-4">
-              As an official university division of the global SEDS network, our student engineers construct sub-orbital rocket avionics, CubeSat payloads, autonomous planetary rover testbeds, and astrodynamic flight code. We organize <strong className="text-white font-semibold">{EVENT_CONFIG.name}</strong> to bring ambitious student builders together for 48 hours of pure engineering.
+              As an official university division of the global SEDS network, our student engineers construct sub-orbital rocket avionics, CubeSat payloads, autonomous planetary rover testbeds, and astrodynamic flight code. We organize <strong className="text-white font-semibold">{EVENT_CONFIG.name}</strong> to bring ambitious student builders together for 24 hours of pure engineering.
             </p>
           </div>
 

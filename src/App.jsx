@@ -262,7 +262,7 @@ export default function App() {
           mousePos={mousePos}
         />
 
-        {/* 5. Your Journey at SEDHACKS ’26 & 48-Hour Sprint Trajectory */}
+        {/* 5. Your Journey at SEDHACKS ’26 & 24-Hour Sprint Trajectory */}
         <MemoTimeline />
 
         {/* 6. Launch & Registration Deadline Countdown */}

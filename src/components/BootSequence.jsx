@@ -18,7 +18,7 @@ import { Volume2, VolumeX, Calendar } from 'lucide-react';
  *   9: PRESENTS reveal
  *   10: ORBITAL 26 major title reveal
  *   11: The Light Sweep across trajectory & title
- *   12: BUILD BEYOND THE KNOWN & 48-Hour Space Sprint metadata
+ *   12: BUILD BEYOND THE KNOWN & 24-Hour Space Sprint metadata
  *   13: Seamless handoff into Website Hero (Splash BECOMES the Hero)
  */
 

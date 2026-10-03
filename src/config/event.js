@@ -272,7 +272,7 @@ export const EVENT_CONFIG = {
       num: "04",
       step: "BUILD & VALIDATE",
       desc: "Develop your prototype, software, simulation or working concept.",
-      timing: "48-Hour Sprint",
+      timing: "24-Hour Sprint",
     },
     {
       num: "05",
@@ -294,7 +294,7 @@ export const EVENT_CONFIG = {
     },
   ],
 
-  // Section: 48-Hour Sprint Timeline
+  // Section: 24-Hour Sprint Timeline
   timeline: [
     {
       stage: "01",
