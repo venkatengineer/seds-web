@@ -9,7 +9,8 @@ import { playSignalTone, playLightSweepTone } from '../utils/audio';
  * Flawless Architecture:
  * - Single persistent WebGL context mounted once.
  * - Single primary orbital trajectory around Earth with 100% precision satellite tracking.
- * - Introductory spacecraft with The Signal emitter swoops past camera into deep space and cleanly vanishes during Phase 4 Earth sunrise.
+ * - The Signal: the opening centre dot is the orbital satellite's beacon. It transforms into the satellite,
+ *   its orbit traces outward from it, and it starts revolving as the camera pulls back to the Earth sunrise.
  * - Zero stray objects, zero rogue moons without orbits, zero duplicate or stationary floating satellites.
  * - Completely smooth 60fps render loop with Hermite scroll waypoints and 3-layer parallax.
  */
@@ -104,13 +105,21 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     starMidAlpha: isBootComplete ? 0.90 : 0.0,
     nebulaAlpha: isBootComplete ? 0.04 : 0.0,
 
-    // Intro Spacecraft Lifecycle (Active in Phases 1-3, exits in Phase 4)
-    introSatOpacity: isBootComplete ? 0.0 : 1.0,
-    satSilhouetteAlpha: isBootComplete ? 1.0 : 0.0,
+    // Legacy intro spacecraft — kept hidden; the orbital satellite now carries the whole intro
+    introSatOpacity: 0.0,
+
+    // The Signal -> Satellite (Phases 1-3): the centre dot IS the orbital satellite's beacon
+    satMorph: isBootComplete ? 1.0 : 0.0, // 0 = pure signal dot, 1 = fully formed satellite
+    signalFlare: 0.0,
     satRimLight: isBootComplete ? 1.2 : 0.0,
     satFillLight: isBootComplete ? 0.7 : 0.0,
-    satEmitterLight: isBootComplete ? 0.0 : 0.0,
+    satEmitterLight: isBootComplete ? 2.2 : 0.0,
     satSolarDeploy: isBootComplete ? 1.57 : 0.0,
+    satSpeed: isBootComplete ? 1.0 : 0.0, // 0 = parked at the start of its orbit, 1 = cruising
+    satFocus: isBootComplete ? 0.0 : 1.0, // 1 = camera locked onto the satellite
+    focusDist: 335,
+    focusOffX: 0,
+    focusOffY: 0,
 
     // Phase 4: Earth & Sunlight
     earthRevealAlpha: isBootComplete ? 1.0 : 0.0,
@@ -166,8 +175,14 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         orbitDrawProgress: 1.0,
         orbitLineAlpha: 0.45,
         orbitBeaconAlpha: 1.0,
-        signalPointAlpha: 0.0,
-        signalGlowAlpha: 0.0,
+        satMorph: 1.0,
+        signalFlare: 0.0,
+        satRimLight: 0.9,
+        satFillLight: 0.6,
+        satEmitterLight: 2.2,
+        satSolarDeploy: 1.57,
+        satSpeed: 1.0,
+        satFocus: 0.0,
         sweepLightAlpha: 0.0,
         titleOrbitAlpha: 0.0,
         duration: 0.45,
@@ -377,6 +392,11 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     scene.add(introSpacecraftGroup);
     introSpacecraftRef.current = introSpacecraftGroup;
 
+    // Hull unfolds out of the signal dot (scaled by satMorph); the dot itself stays on the outer group
+    const introHull = new THREE.Group();
+    introHull.scale.setScalar(Math.max(0.001, motionRef.current.satMorph));
+    introSpacecraftGroup.add(introHull);
+
     // 3U Modular Bus Chassis
     const satChassisGeo = new THREE.BoxGeometry(1.2, 1.2, 2.8);
     const satChassisMat = new THREE.MeshStandardMaterial({
@@ -387,7 +407,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       opacity: 1.0,
     });
     const satChassis = new THREE.Mesh(satChassisGeo, satChassisMat);
-    introSpacecraftGroup.add(satChassis);
+    introHull.add(satChassis);
 
     // MLI Gold Kapton Thermal Blanket Facets
     const mliGeo = new THREE.PlaneGeometry(1.16, 2.7);
@@ -402,7 +422,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     const mliTop = new THREE.Mesh(mliGeo, mliMat);
     mliTop.position.set(0, 0.605, 0);
     mliTop.rotation.x = -Math.PI / 2;
-    introSpacecraftGroup.add(mliTop);
+    introHull.add(mliTop);
 
     // Corner Deployer Rails
     const railGeo = new THREE.CylinderGeometry(0.04, 0.04, 2.9, 8);
@@ -422,17 +442,17 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       const rail = new THREE.Mesh(railGeo, railMat);
       rail.position.set(rx, ry, 0);
       rail.rotation.x = Math.PI / 2;
-      introSpacecraftGroup.add(rail);
+      introHull.add(rail);
     });
 
     // Articulated Solar Array Wings
     const solarHingeLeft = new THREE.Group();
     solarHingeLeft.position.set(-0.6, 0, 0);
-    introSpacecraftGroup.add(solarHingeLeft);
+    introHull.add(solarHingeLeft);
 
     const solarHingeRight = new THREE.Group();
     solarHingeRight.position.set(0.6, 0, 0);
-    introSpacecraftGroup.add(solarHingeRight);
+    introHull.add(solarHingeRight);
 
     const panelGeo = new THREE.BoxGeometry(2.2, 0.05, 1.4);
     const panelMat = new THREE.MeshStandardMaterial({
@@ -466,7 +486,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     const dish = new THREE.Mesh(dishGeo, dishMat);
     dish.position.set(0, 0, -1.55);
     dish.rotation.x = Math.PI;
-    introSpacecraftGroup.add(dish);
+    introHull.add(dish);
 
     // Forward Optical Telemetry Mast
     const mastGeo = new THREE.CylinderGeometry(0.08, 0.12, 0.7, 12);
@@ -480,7 +500,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     const mast = new THREE.Mesh(mastGeo, mastMat);
     mast.position.set(0, 0, 1.6);
     mast.rotation.x = Math.PI / 2;
-    introSpacecraftGroup.add(mast);
+    introHull.add(mast);
 
     // THE SIGNAL EMITTER (Housed directly on the forward mast)
     const signalCoreGeo = new THREE.SphereGeometry(0.12, 16, 16);
@@ -722,6 +742,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     // 7. THE SINGLE ELEGANT ORBITAL TRAJECTORY & SATELLITE (100% Mathematically Aligned)
     const orbitRadius = 45.0;
     const orbitPointsCount = 280;
+    // Where the satellite is born (left of Earth, never occluded by the planet from the intro camera)
+    const orbitStartAngle = Math.PI;
 
     // Dedicated Orbit Group handles the 3D inclination
     const orbitGroup = new THREE.Group();
@@ -730,16 +752,22 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     celestialSystem.add(orbitGroup);
 
     // Orbit Trajectory Line (Defined in orbitGroup local coordinates)
+    // Points run from half a lap behind the satellite's birth point to half a lap ahead, so a
+    // centred draw range makes the orbit grow outward from the satellite in both directions
     const orbitPositions = new Float32Array(orbitPointsCount * 3);
     for (let i = 0; i < orbitPointsCount; i++) {
-      const theta = (i / (orbitPointsCount - 1)) * Math.PI * 2;
+      const theta = orbitStartAngle - Math.PI + (i / (orbitPointsCount - 1)) * Math.PI * 2;
       orbitPositions[i * 3] = orbitRadius * Math.cos(theta);
       orbitPositions[i * 3 + 1] = 0;
       orbitPositions[i * 3 + 2] = orbitRadius * Math.sin(theta);
     }
     const orbitGeo = new THREE.BufferGeometry();
     orbitGeo.setAttribute('position', new THREE.BufferAttribute(orbitPositions, 3));
-    orbitGeo.setDrawRange(0, Math.floor(motionRef.current.orbitDrawProgress * orbitPointsCount));
+    const setOrbitDraw = (progress) => {
+      const count = Math.floor(progress * orbitPointsCount);
+      orbitGeo.setDrawRange(Math.floor((orbitPointsCount - count) / 2), count);
+    };
+    setOrbitDraw(motionRef.current.orbitDrawProgress);
 
     const orbitMat = new THREE.LineBasicMaterial({
       color: 0x8B5CF6,
@@ -751,7 +779,11 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     orbitGroup.add(orbitLine);
 
     // Precision Orbital Satellite (Added directly to orbitGroup, locked to the line)
+    // During the intro it starts as nothing but its beacon (the centre "signal" dot); the hull
+    // group grows out of that dot (satMorph) and the solar wings swing open (satSolarDeploy).
     const orbitSatellite = new THREE.Group();
+    const orbSatHull = new THREE.Group();
+    orbitSatellite.add(orbSatHull);
 
     // Satellite Bus Chassis
     const orbSatBody = new THREE.Mesh(
@@ -762,7 +794,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         roughness: 0.2,
       })
     );
-    orbitSatellite.add(orbSatBody);
+    orbSatHull.add(orbSatBody);
 
     // Gold Kapton MLI Blanket
     const orbSatMli = new THREE.Mesh(
@@ -776,9 +808,17 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     );
     orbSatMli.position.set(0, 0.435, 0);
     orbSatMli.rotation.x = -Math.PI / 2;
-    orbitSatellite.add(orbSatMli);
+    orbSatHull.add(orbSatMli);
 
-    // Dual Solar Array Panels
+    // Dual Solar Array Panels on hinges at the bus edges (folded along the bus until deployed)
+    const orbHingeLeft = new THREE.Group();
+    orbHingeLeft.position.set(-0.425, 0, 0);
+    orbSatHull.add(orbHingeLeft);
+
+    const orbHingeRight = new THREE.Group();
+    orbHingeRight.position.set(0.425, 0, 0);
+    orbSatHull.add(orbHingeRight);
+
     const orbLeftWing = new THREE.Mesh(
       new THREE.BoxGeometry(1.6, 0.04, 0.9),
       new THREE.MeshStandardMaterial({
@@ -789,8 +829,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         emissiveIntensity: 0.35,
       })
     );
-    orbLeftWing.position.set(-1.25, 0, 0);
-    orbitSatellite.add(orbLeftWing);
+    orbLeftWing.position.set(-0.825, 0, 0);
+    orbHingeLeft.add(orbLeftWing);
 
     const orbRightWing = new THREE.Mesh(
       new THREE.BoxGeometry(1.6, 0.04, 0.9),
@@ -802,8 +842,8 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         emissiveIntensity: 0.35,
       })
     );
-    orbRightWing.position.set(1.25, 0, 0);
-    orbitSatellite.add(orbRightWing);
+    orbRightWing.position.set(0.825, 0, 0);
+    orbHingeRight.add(orbRightWing);
 
     // Communications Dish
     const orbDish = new THREE.Mesh(
@@ -817,7 +857,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     );
     orbDish.position.set(0, 0, -1.0);
     orbDish.rotation.x = Math.PI;
-    orbitSatellite.add(orbDish);
+    orbSatHull.add(orbDish);
 
     // Telemetry Beacon (The Signal Light traveling on orbit)
     const orbEmitterCore = new THREE.Mesh(
@@ -841,7 +881,23 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     orbEmitterHalo.position.set(0, 0, 1.0);
     orbitSatellite.add(orbEmitterHalo);
 
+    // Violet emitter glow that washes over the hull as it forms
+    const orbSignalLight = new THREE.PointLight(0xA855F7, motionRef.current.satEmitterLight, 18);
+    orbSignalLight.position.set(0, 0, 1.2);
+    orbitSatellite.add(orbSignalLight);
+
     orbitGroup.add(orbitSatellite);
+
+    // Hull materials fade with orbitBeaconAlpha × satMorph (instead of popping in/out via `visible`)
+    const orbSatMats = [
+      orbSatBody.material,
+      orbSatMli.material,
+      orbLeftWing.material,
+      orbRightWing.material,
+      orbDish.material,
+    ];
+    orbSatMats.forEach((mat) => { mat.transparent = true; });
+    orbEmitterCore.material.transparent = true;
 
     // 8. TITLE ORBITAL PATH & CONTROLLED LIGHT SWEEP (Phases 10-11)
     const titleOrbitGroup = new THREE.Group();
@@ -1027,15 +1083,15 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         playSignalTone();
       }, null, 0.15);
 
+      // The dot is the orbital satellite's beacon (hull not yet formed, satMorph = 0)
       bootTl.to(motionRef.current, {
-        signalPointAlpha: 1.0,
-        signalGlowAlpha: 0.85,
+        orbitBeaconAlpha: 1.0,
         duration: 0.8,
         ease: 'power2.out',
       }, 0.15);
 
       bootTl.to(motionRef.current, {
-        camZ: 190,
+        focusDist: 225,
         duration: 1.0,
         ease: 'power2.out',
       }, 0.15);
@@ -1051,34 +1107,48 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         starDeepAlpha: 0.65,
         starMidAlpha: 0.70,
         nebulaAlpha: 0.035,
-        camZ: 130,
+        focusDist: 165,
         duration: 1.1,
         ease: 'power2.inOut',
       }, 0.9);
 
       // ==========================================
-      // PHASE 3: THE SIGNAL IS REVEALED (1.8s -> 3.2s)
-      // Silhouette -> edge rim light -> surface details -> violet illumination.
+      // PHASE 3: THE SIGNAL TRANSFORMS INTO THE SATELLITE (1.8s -> 3.2s)
+      // Dot flares -> hull unfolds out of it -> solar wings open -> orbit draws outward
+      // from the satellite -> satellite starts revolving along it.
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(3);
       }, null, 1.8);
 
+      // Camera closes in on the forming satellite at a slight three-quarter angle
       bootTl.to(motionRef.current, {
-        camZ: 65,
-        camX: 1.2,
-        camY: 0.6,
-        lookZ: -35,
-        lookX: 0.2,
+        focusDist: 22,
+        focusOffX: 5.0,
+        focusOffY: 3.0,
         duration: 1.5,
         ease: 'power2.inOut',
       }, 1.8);
 
+      // Flare of the signal right as the transformation begins, then it calms into the beacon
       bootTl.to(motionRef.current, {
-        satSilhouetteAlpha: 1.0,
-        duration: 0.5,
-        ease: 'power1.out',
+        signalFlare: 1.0,
+        duration: 0.3,
+        ease: 'power2.out',
       }, 1.8);
+
+      bootTl.to(motionRef.current, {
+        signalFlare: 0.0,
+        duration: 0.9,
+        ease: 'power2.inOut',
+      }, 2.1);
+
+      // Hull grows and untwists out of the dot
+      bootTl.to(motionRef.current, {
+        satMorph: 1.0,
+        duration: 1.1,
+        ease: 'expo.out',
+      }, 1.9);
 
       bootTl.to(motionRef.current, {
         satRimLight: 0.9,
@@ -1094,30 +1164,34 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         ease: 'power2.out',
       }, 2.4);
 
+      // The orbit traces itself outward from the satellite in both directions while it forms
+      bootTl.to(motionRef.current, {
+        orbitLineAlpha: 0.55,
+        orbitDrawProgress: 1.0,
+        duration: 1.8,
+        ease: 'power2.inOut',
+      }, 2.2);
+
+      // Once formed, the satellite eases into motion along its orbit
+      bootTl.to(motionRef.current, {
+        satSpeed: 1.0,
+        duration: 1.6,
+        ease: 'power2.in',
+      }, 2.9);
+
       // ==========================================
       // PHASE 4: PLANETARY HORIZON (3.2s -> 4.9s)
-      // Spacecraft glides past the camera and fades; Earth sunrise.
+      // Camera releases the satellite and pulls back as Earth rises beneath its orbit.
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(4);
       }, null, 3.2);
 
-      bootTl.to(introSpacecraftGroup.position, {
-        x: -20,
-        y: 10,
-        z: 85,
-        duration: 1.6,
-        ease: 'power2.in',
-      }, 3.2);
-
       bootTl.to(motionRef.current, {
-        introSatOpacity: 0.0,
-        duration: 1.0,
-        ease: 'power2.in',
-        onComplete: () => {
-          introSpacecraftGroup.visible = false;
-        }
-      }, 3.5);
+        satFocus: 0.0,
+        duration: 1.7,
+        ease: 'power3.inOut',
+      }, 3.2);
 
       bootTl.to(motionRef.current, {
         camZ: 42,
@@ -1143,16 +1217,13 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
 
       // ==========================================
       // PHASE 5: ORBIT (4.9s -> 6.1s)
-      // Single orbital trajectory draws progressively.
+      // Camera drifts along the (already formed) orbit as the satellite cruises.
       // ==========================================
       bootTl.call(() => {
         if (onBootProgress) onBootProgress(5);
       }, null, 4.9);
 
       bootTl.to(motionRef.current, {
-        orbitLineAlpha: 0.55,
-        orbitDrawProgress: 1.0,
-        orbitBeaconAlpha: 1.0,
         camX: 9.0,
         camY: 4.8,
         camZ: 38.0,
@@ -1185,11 +1256,9 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         if (onBootProgress) onBootProgress(7);
       }, null, 7.1);
 
+      // The satellite keeps revolving through the dark beat; only the orbit line dims
       bootTl.to(motionRef.current, {
-        orbitLineAlpha: 0.0,
-        orbitBeaconAlpha: 0.0,
-        signalPointAlpha: 0.0,
-        signalGlowAlpha: 0.0,
+        orbitLineAlpha: 0.25,
         sunIntensity: 0.35,
         atmosphereAlpha: 0.3,
         duration: 0.6,
@@ -1308,7 +1377,7 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
 
     // 13. MASTER CONTINUOUS 60FPS RENDER LOOP
     let clock = new THREE.Clock();
-    let satAngle = 0;
+    let satAngle = orbitStartAngle;
     let smoothScroll = 0;
     const currentCamPos = new THREE.Vector3(0, 0, motionRef.current.camZ);
     const targetCamPos = new THREE.Vector3(0, 0, motionRef.current.camZ);
@@ -1316,23 +1385,46 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
     const targetLookAt = new THREE.Vector3(0, 0, 0);
     const targetEarthPos = new THREE.Vector3(38, 2, -10);
     let targetEarthScale = 1.0;
+    const focusPoint = new THREE.Vector3();
+    const focusCam = new THREE.Vector3();
+    const satWorldQuat = new THREE.Quaternion();
+
+    // Intro starts already framed on the satellite's beacon, so the first dot sits dead centre
+    if (!propsRef.current.isBootComplete) {
+      celestialSystem.scale.setScalar(motionRef.current.earthScale);
+      orbitSatellite.position.set(orbitRadius * Math.cos(satAngle), 0, orbitRadius * Math.sin(satAngle));
+      orbitSatellite.rotation.y = -satAngle + Math.PI / 2;
+      orbEmitterCore.getWorldPosition(currentLookAt);
+      currentCamPos.set(currentLookAt.x, currentLookAt.y, currentLookAt.z + motionRef.current.focusDist);
+      camera.position.copy(currentCamPos);
+    }
 
     const animate = () => {
       const elapsed = clock.getElapsedTime();
       const p = propsRef.current;
       const m = motionRef.current;
 
-      // 1. Introductory spacecraft updates
+      // 1. Satellite key lights (scene-level) & legacy intro spacecraft (kept hidden)
+      satRimLight.intensity = m.satRimLight;
+      satFillLight.intensity = m.satFillLight;
       introSpacecraftGroup.visible = m.introSatOpacity > 0.01;
       if (introSpacecraftGroup.visible) {
-        introSatMats.forEach((mat) => { mat.opacity = m.introSatOpacity; });
+        // Dot -> satellite morph: hull grows out of the signal point while untwisting into place
+        const morph = m.satMorph;
+        introHull.visible = morph > 0.001;
+        introHull.scale.setScalar(Math.max(0.001, morph));
+        introHull.rotation.z = (1 - morph) * 1.4;
+        introSatMats.forEach((mat) => { mat.opacity = m.introSatOpacity * Math.min(1, morph * 1.6); });
+
+        // Signal flares at the start of the morph, then shrinks into the satellite's forward beacon
+        signalCoreMesh.scale.setScalar(2.2 - morph * 1.2 + m.signalFlare * 1.5);
+        signalHaloMesh.scale.setScalar(1 + m.signalFlare * 1.8);
         signalCoreMat.opacity = m.signalPointAlpha * m.introSatOpacity;
-        signalHaloMat.opacity = m.signalGlowAlpha * m.introSatOpacity;
-        signalPointLight.intensity = m.satEmitterLight * m.introSatOpacity;
-        satRimLight.intensity = m.satRimLight;
-        satFillLight.intensity = m.satFillLight;
-        solarHingeLeft.rotation.y = -m.satSolarDeploy;
-        solarHingeRight.rotation.y = m.satSolarDeploy;
+        signalHaloMat.opacity = Math.min(1, (m.signalGlowAlpha + m.signalFlare * 0.4) * m.introSatOpacity);
+        signalPointLight.intensity = (m.satEmitterLight + m.signalFlare * 3.0) * m.introSatOpacity;
+        // satSolarDeploy 0 = wings folded along the bus, 1.57 = wings fully extended
+        solarHingeLeft.rotation.y = -(Math.PI / 2 - m.satSolarDeploy);
+        solarHingeRight.rotation.y = Math.PI / 2 - m.satSolarDeploy;
         introSpacecraftGroup.rotation.y = elapsed * 0.04;
         introSpacecraftGroup.rotation.x = Math.sin(elapsed * 0.02) * 0.08;
         signalHaloMesh.quaternion.copy(camera.quaternion);
@@ -1353,15 +1445,37 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
 
       // 4. Single Orbital Trajectory & Precision Satellite Tracking
       orbitMat.opacity = m.orbitLineAlpha;
-      orbitGeo.setDrawRange(0, Math.floor(m.orbitDrawProgress * orbitPointsCount));
-      
-      satAngle += 0.0055;
+      setOrbitDraw(m.orbitDrawProgress);
+
+      satAngle += 0.0055 * m.satSpeed;
       const ox = orbitRadius * Math.cos(satAngle);
       const oz = orbitRadius * Math.sin(satAngle);
       orbitSatellite.position.set(ox, 0, oz);
       orbitSatellite.rotation.y = -satAngle + Math.PI / 2;
-      orbEmitterHalo.quaternion.copy(camera.quaternion);
+      // Billboard the halo in world space (the satellite sits inside the tilted orbit group)
+      orbitSatellite.getWorldQuaternion(satWorldQuat);
+      orbEmitterHalo.quaternion.copy(satWorldQuat.invert()).multiply(camera.quaternion);
       orbitSatellite.visible = m.orbitBeaconAlpha > 0.01;
+      if (orbitSatellite.visible) {
+        // Dot -> satellite morph: hull grows out of the beacon (z = 1.0) while untwisting into place
+        const morph = m.satMorph;
+        orbSatHull.visible = morph > 0.001;
+        orbSatHull.scale.setScalar(Math.max(0.001, morph));
+        orbSatHull.position.z = 1.0 - morph;
+        orbSatHull.rotation.z = (1 - morph) * 1.4;
+        // satSolarDeploy 0 = wings folded along the bus, 1.57 = wings fully extended
+        orbHingeLeft.rotation.y = -(Math.PI / 2 - m.satSolarDeploy);
+        orbHingeRight.rotation.y = Math.PI / 2 - m.satSolarDeploy;
+        const hullAlpha = m.orbitBeaconAlpha * Math.min(1, morph * 1.6);
+        orbSatMats.forEach((mat) => { mat.opacity = hullAlpha; });
+
+        // Beacon: a lone bright dot before the morph, flares as it begins, settles as the nose light
+        orbEmitterCore.scale.setScalar(1 + (1 - morph) * 1.2 + m.signalFlare * 1.5);
+        orbEmitterHalo.scale.setScalar(1 + (1 - morph) * 3.5 + m.signalFlare * 3.0);
+        orbEmitterCore.material.opacity = m.orbitBeaconAlpha;
+        orbEmitterHalo.material.opacity = Math.min(1, 0.9 + m.signalFlare * 0.3) * m.orbitBeaconAlpha;
+        orbSignalLight.intensity = (m.satEmitterLight + m.signalFlare * 3.0) * m.orbitBeaconAlpha;
+      }
 
       // 5. Title Orbit & Light Sweep
       titleArcMat.opacity = m.titleOrbitAlpha;
@@ -1395,6 +1509,14 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
         targetLookAt.set(m.lookX, m.lookY, m.lookZ);
         targetEarthPos.set(m.earthPosX, m.earthPosY, m.earthPosZ);
         targetEarthScale = m.earthScale;
+
+        // Phases 1-3: camera locked onto the satellite's beacon (the centre dot), released in Phase 4
+        if (m.satFocus > 0.001) {
+          orbEmitterCore.getWorldPosition(focusPoint);
+          focusCam.set(focusPoint.x + m.focusOffX, focusPoint.y + m.focusOffY, focusPoint.z + m.focusDist);
+          targetCamPos.lerp(focusCam, m.satFocus);
+          targetLookAt.lerp(focusPoint, m.satFocus);
+        }
       }
 
       // Responsive adjustments for mobile/tablet (< 1024px)
@@ -1409,8 +1531,10 @@ const ThreeSpaceEngine = forwardRef(function ThreeSpaceEngine({
       // 3-Layer Mouse Parallax
       const mouseFactorX = (p.mousePos.x - 0.5);
       const mouseFactorY = (p.mousePos.y - 0.5);
-      const mouseCamX = mouseFactorX * 4.5;
-      const mouseCamY = mouseFactorY * -3.5;
+      // Parallax is softened while the camera is in close on the forming satellite
+      const parallaxScale = 1 - motionRef.current.satFocus * 0.8;
+      const mouseCamX = mouseFactorX * 4.5 * parallaxScale;
+      const mouseCamY = mouseFactorY * -3.5 * parallaxScale;
 
       currentCamPos.x = THREE.MathUtils.lerp(currentCamPos.x, targetCamPos.x + mouseCamX, 0.05);
       currentCamPos.y = THREE.MathUtils.lerp(currentCamPos.y, targetCamPos.y + mouseCamY, 0.05);
