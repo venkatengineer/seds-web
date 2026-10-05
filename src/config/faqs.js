@@ -13,7 +13,7 @@ export const FAQ_CATEGORIES = [
       {
         num: "01",
         q: "Who can participate in SEDHACKS ’26?",
-        a: "Students who meet the event's eligibility criteria can participate. Students currently enrolled in recognized colleges and universities (both undergraduate and postgraduate) across any engineering, science, or technology discipline are encouraged to take part.",
+        a: "SEDHACKS ’26 is an intra-college event open only to students of Rajalakshmi Engineering College (REC). Students currently enrolled at REC (both undergraduate and postgraduate) from any engineering, science, or technology department are encouraged to take part.",
         officialId: 1
       },
       {
@@ -51,7 +51,7 @@ export const FAQ_CATEGORIES = [
   {
     id: "teams",
     label: "Participation & Teams",
-    desc: "Squad rules, team composition, and cross-college criteria",
+    desc: "Squad rules, team composition, and eligibility criteria",
     faqs: [
       {
         num: "07",
@@ -68,7 +68,7 @@ export const FAQ_CATEGORIES = [
       {
         num: "09",
         q: "Can students from different colleges form a team?",
-        a: "Yes. Cross-college collaborations are permitted as long as all 4 team members are valid university students and carry valid college identification.",
+        a: "No. SEDHACKS ’26 is an intra-college event, so all 4 team members must be current students of Rajalakshmi Engineering College (REC) and carry a valid REC ID card. Students from other colleges cannot participate.",
       },
       {
         num: "10",
