@@ -69,6 +69,9 @@ export default function RegistrationPortal({ isOpen, onClose }) {
                 100% FREE OF COST (₹0)
               </span>
               <span className="inline-block px-2.5 py-0.5 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/40 text-[10px] font-mono text-[#E2DEEC] font-semibold">
+                INTRA-COLLEGE // REC ONLY
+              </span>
+              <span className="inline-block px-2.5 py-0.5 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/40 text-[10px] font-mono text-[#E2DEEC] font-semibold">
                 DEADLINE: 9 OCT 2026 // 18:00 IST
               </span>
             </div>
@@ -121,6 +124,10 @@ export default function RegistrationPortal({ isOpen, onClose }) {
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 text-[#F7F5FF] font-semibold font-display tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
               <span>REGISTRATION CLOSES: 9 OCT 2026 // 18:00 IST</span>
+            </span>
+            <span className="flex items-center gap-1.5 text-white font-medium">
+              <Users size={13} className="text-[#C084FC]" />
+              <strong>Eligibility:</strong> REC Students Only (Intra-College)
             </span>
             <span className="flex items-center gap-1.5 text-white font-medium">
               <Users size={13} className="text-[#C084FC]" />

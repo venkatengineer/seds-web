@@ -52,7 +52,7 @@ export default function HeroSection({
         <div className="flex items-center gap-2.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
           <span className="text-[#F7F5FF] font-medium tracking-widest text-[11px]">
-            STUDENT SPACE HACKATHON PROTOCOL
+            INTRA-COLLEGE SPACE HACKATHON // REC ONLY
           </span>
           <span className="text-white/30 hidden sm:inline">•</span>
           <span className="hidden md:inline-flex items-center gap-1.5 text-[#C084FC] font-semibold tracking-wider text-[11px]">
@@ -95,6 +95,10 @@ export default function HeroSection({
             <span className="text-white/30">•</span>
             <span className="text-[#E2DEEC] font-medium text-xs tracking-[0.18em]">
               24-HR INNOVATION SPRINT
+            </span>
+            <span className="text-white/30">•</span>
+            <span className="text-[#C084FC] font-semibold text-xs tracking-[0.16em]">
+              REC STUDENTS ONLY
             </span>
           </div>
 

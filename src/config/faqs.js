@@ -214,7 +214,7 @@ export const FAQ_CATEGORIES = [
       {
         num: "29",
         q: "What should I bring to the hackathon?",
-        a: "Participants should bring the equipment and materials required for their project (laptops, chargers, college student IDs, development boards like Arduino/ESP32/Raspberry Pi, sensors, cables), subject to venue safety guidelines.",
+        a: "Participants should bring the equipment and materials required for their project (laptops, chargers, valid REC student ID cards, development boards like Arduino/ESP32/Raspberry Pi, sensors, cables), subject to venue safety guidelines.",
         officialId: 19
       },
       {

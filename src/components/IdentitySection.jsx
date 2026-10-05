@@ -29,7 +29,7 @@ const PILLARS_DETAIL = [
     id: 'events',
     title: 'EVENTS & SPRINT HACKATHONS',
     tag: 'INTENSIVE TECHNICAL CONVENING',
-    desc: `Organizers and hosts of ${EVENT_CONFIG.name}, university avionics soldering bootcamps, high-altitude meteorological balloon launches, and rocketry recovery workshops that gather hundreds of student engineers from across the country.`,
+    desc: `Organizers and hosts of ${EVENT_CONFIG.name}, campus avionics soldering bootcamps, high-altitude meteorological balloon launches, and rocketry recovery workshops fostering engineering excellence and hands-on space innovation at Rajalakshmi Engineering College.`,
   },
   {
     id: 'outreach',
