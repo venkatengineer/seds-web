@@ -214,7 +214,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
               TOP 2 TEAMS: AEROIN INTERNSHIPS
             </span>
             <span className="px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.04] font-display text-[10px] tracking-[0.2em] text-[#E2DEEC] uppercase font-semibold">
-              DEADLINE: 9 OCT, 18:00 IST • 100% FREE (₹0)
+              DEADLINE: 9 OCT, 11:59 PM IST • 100% FREE (₹0)
             </span>
             <span className="px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.04] font-display text-[10px] tracking-[0.2em] text-[#C084FC] uppercase font-semibold">
               ₹10,000+ PRIZES
@@ -230,7 +230,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
                 FIVE DOMAINS. COUNTLESS WAYS TO BUILD.
               </span>
               <span className="text-white/30">•</span>
-              <span className="text-[10px] font-mono text-[#E2DEEC]">LAST DATE: 9 OCTOBER 2026</span>
+              <span className="text-[10px] font-mono text-[#E2DEEC]">LAST DATE: 9 OCT 2026 // 11:59 PM IST</span>
             </div>
             <p className="font-sans text-xs sm:text-sm text-[#F7F5FF] font-normal leading-relaxed">
               Explore technologies that support space missions & defence, medical & agriculture in space, space instrumentation, sustainability & energy management, or open innovation. Hardware prototypes, software platforms, AI tools, and simulations are all welcomed.

@@ -17,6 +17,7 @@ import CallToActionSection from './components/CallToActionSection';
 import Footer from './components/Footer';
 import BootSequence from './components/BootSequence';
 import RegistrationPortal from './components/RegistrationPortal';
+import DeadlineExtensionPopup from './components/DeadlineExtensionPopup';
 import { initScrollReveal, initScrollEffects, initPointerEffects } from './utils/motion';
 
 // Sections that don't depend on mouse position are memoized so cursor movement
@@ -42,7 +43,19 @@ export default function App() {
   // Master Cinematic Boot Sequence: Begins at Phase 0 on initial visit
   const [bootPhase, setBootPhase] = useState(0);
   const [isBootComplete, setIsBootComplete] = useState(false);
+  const [showExtensionPopup, setShowExtensionPopup] = useState(false);
+  const [hasDismissedPopup, setHasDismissedPopup] = useState(false);
   const engineRef = useRef(null);
+
+  // Trigger deadline extension popup after bootsplash sequence handoff
+  useEffect(() => {
+    if ((bootPhase >= 13 || isBootComplete) && !hasDismissedPopup) {
+      const timer = setTimeout(() => {
+        setShowExtensionPopup(true);
+      }, 900);
+      return () => clearTimeout(timer);
+    }
+  }, [bootPhase, isBootComplete, hasDismissedPopup]);
 
   // Mouse coordinate tracker for 3D camera parallax drift (batched to one update per frame)
   useEffect(() => {
@@ -296,6 +309,16 @@ export default function App() {
       <RegistrationPortal
         isOpen={isRegisterOpen}
         onClose={() => setIsRegisterOpen(false)}
+      />
+
+      {/* Deadline Extension Popup: Appears smoothly after bootsplash sequence */}
+      <DeadlineExtensionPopup
+        isOpen={showExtensionPopup && !isRegisterOpen}
+        onClose={() => {
+          setShowExtensionPopup(false);
+          setHasDismissedPopup(true);
+        }}
+        onOpenRegister={openRegister}
       />
     </div>
   );

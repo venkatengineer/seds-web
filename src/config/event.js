@@ -57,7 +57,8 @@ export const EVENT_CONFIG = {
   dates: "12–13 OCTOBER 2026",
   datesFormatted: "October 12–13, 2026",
   registrationDeadline: "9 OCTOBER 2026",
-  registrationDeadlineFormatted: "October 9, 2026 // 18:00 IST",
+  registrationDeadlineFormatted: "October 9, 2026 // 11:59 PM IST",
+  registrationDeadlineTime: "11:59 PM IST",
   venue: "Rajalakshmi Engineering College, Chennai",
   edition: "2026 EDITION // INTRA-COLLEGE SPACE HACKATHON",
   eligibility: "Open exclusively to students of Rajalakshmi Engineering College (REC). Outer college students are not permitted.",
@@ -255,7 +256,7 @@ export const EVENT_CONFIG = {
       num: "01",
       step: "REGISTER",
       desc: "Submit your details through the official registration form.",
-      timing: "Before 9 Oct // 18:00 IST",
+      timing: "Before 9 Oct // 11:59 PM IST",
     },
     {
       num: "02",

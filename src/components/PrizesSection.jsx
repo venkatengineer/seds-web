@@ -45,7 +45,7 @@ export default function PrizesSection({ onOpenRegister, mousePos = { x: 0.5, y: 
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] font-semibold tracking-wider uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
-              LAST DATE TO REGISTER: 9 OCT 2026 // 18:00 IST
+              LAST DATE TO REGISTER: 9 OCT 2026 // 11:59 PM IST
             </span>
           </div>
           <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F7F5FF]">

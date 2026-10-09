@@ -49,7 +49,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
           <div className="pt-1 flex flex-wrap items-center gap-2.5">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/30 text-[#E2DEEC] font-display text-[11px] tracking-wider font-semibold uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
-              <span>CLOSES: {EVENT_CONFIG.registrationDeadline} // 18:00 IST</span>
+              <span>CLOSES: {EVENT_CONFIG.registrationDeadline} // 11:59 PM IST</span>
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[#E2DEEC] font-display text-[11px] tracking-wider font-semibold">
               <span>100% FREE REGISTRATION (₹0)</span>

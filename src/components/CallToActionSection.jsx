@@ -29,7 +29,7 @@ export default function CallToActionSection({ onOpenRegister }) {
 
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/15 bg-white/[0.04] text-[#E2DEEC] font-display text-xs font-semibold tracking-widest uppercase">
             <Clock size={12} className="text-[#C084FC]" />
-            <span>CLOSING: 9 OCTOBER 2026 // 18:00 IST</span>
+            <span>CLOSING: 9 OCTOBER 2026 // 11:59 PM IST</span>
           </div>
         </div>
 
