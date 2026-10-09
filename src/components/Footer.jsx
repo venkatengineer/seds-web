@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUp, Mail, MapPin, Phone, Calendar } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 export default function Footer({ onNavigate, onOpenRegister }) {
+  const registrationClosed = useRegistrationClosed();
   const [utcTime, setUtcTime] = useState('');
 
   useEffect(() => {
@@ -137,7 +139,7 @@ export default function Footer({ onNavigate, onOpenRegister }) {
               onClick={onOpenRegister} 
               className="inline-flex items-center gap-1.5 text-white hover:text-[#C084FC] transition-colors font-bold underline cursor-pointer"
             >
-              <span>Register for {EVENT_CONFIG.name} (Free Entry) ↗</span>
+              <span>{registrationClosed ? 'Registration Closed' : `Register for ${EVENT_CONFIG.name} (Free Entry) ↗`}</span>
             </button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowDown, ArrowUpRight, Calendar, Clock, Briefcase, Sparkles, Download } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 /**
  * MASTER CINEMATIC HERO SECTION
@@ -20,6 +21,7 @@ export default function HeroSection({
   mousePos = { x: 0.5, y: 0.5 }, 
   bootPhase = 7,
 }) {
+  const registrationClosed = useRegistrationClosed();
   const parallaxX = (mousePos.x - 0.5) * 4;
   const parallaxY = (mousePos.y - 0.5) * 3;
 
@@ -183,7 +185,7 @@ export default function HeroSection({
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
             <div className="relative flex items-center gap-2">
-              <span>Register for {EVENT_CONFIG.name} (Free)</span>
+              <span>{registrationClosed ? 'Registration Closed' : `Register for ${EVENT_CONFIG.name} (Free)`}</span>
               <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
             </div>
           </button>

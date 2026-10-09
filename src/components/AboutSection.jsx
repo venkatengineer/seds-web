@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUpRight, Sparkles, Cpu, Layers, Award, ShieldCheck, Clock } from 'lucide-react';
 import { EVENT_CONFIG, SEDS_CONFIG } from '../config/event';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 /**
  * ABOUT SEDHACKS '26 SECTION
@@ -15,6 +16,7 @@ import { EVENT_CONFIG, SEDS_CONFIG } from '../config/event';
  */
 
 export default function AboutSection({ onOpenRegister, onNavigate }) {
+  const registrationClosed = useRegistrationClosed();
   const about = EVENT_CONFIG.about;
 
   return (
@@ -77,7 +79,7 @@ export default function AboutSection({ onOpenRegister, onNavigate }) {
               onClick={onOpenRegister}
               className="px-7 py-3.5 rounded-full border border-[#8B5CF6] bg-[#8B5CF6]/30 hover:bg-[#8B5CF6]/50 text-white font-display text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center gap-2 shadow-[0_0_20px_rgba(139,92,246,0.3)] cursor-pointer"
             >
-              <span>REGISTER YOUR TEAM (FREE ₹0)</span>
+              <span>{registrationClosed ? 'REGISTRATION CLOSED' : 'REGISTER YOUR TEAM (FREE ₹0)'}</span>
               <ArrowUpRight size={14} />
             </button>
 

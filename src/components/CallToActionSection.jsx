@@ -1,8 +1,10 @@
 import React from 'react';
 import { ArrowUpRight, Sparkles, Calendar, MapPin, Clock, Download } from 'lucide-react';
 import { EVENT_CONFIG } from '../config/event';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 export default function CallToActionSection({ onOpenRegister }) {
+  const registrationClosed = useRegistrationClosed();
   const cta = EVENT_CONFIG.cta;
 
   return (
@@ -72,7 +74,7 @@ export default function CallToActionSection({ onOpenRegister }) {
             className="group relative overflow-hidden px-10 py-4 rounded-full border border-[#8B5CF6] bg-gradient-to-r from-[#6D28D9] to-[#8B5CF6] text-white font-display text-xs uppercase tracking-[0.22em] font-bold shadow-[0_0_35px_rgba(139,92,246,0.5)] hover:shadow-[0_0_50px_rgba(139,92,246,0.8)] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
           >
             <div className="relative flex items-center gap-2">
-              <span>{cta.buttonText} (FREE)</span>
+              <span>{registrationClosed ? 'REGISTRATION CLOSED' : `${cta.buttonText} (FREE)`}</span>
               <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </div>
           </button>

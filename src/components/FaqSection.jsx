@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Plus, Minus, Search, X, HelpCircle, Phone, Mail, ArrowUpRight, Sparkles } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG, FAQ_CATEGORIES, ALL_FAQS } from '../config/event';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 /**
  * COMPREHENSIVE EDITORIAL FAQ SECTION
@@ -16,6 +17,7 @@ import { SEDS_CONFIG, EVENT_CONFIG, FAQ_CATEGORIES, ALL_FAQS } from '../config/e
  */
 
 export default function FaqSection({ onOpenRegister }) {
+  const registrationClosed = useRegistrationClosed();
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [openIndex, setOpenIndex] = useState(0);
@@ -315,7 +317,7 @@ export default function FaqSection({ onOpenRegister }) {
               onClick={onOpenRegister}
               className="px-6 py-3 rounded-full border border-[#8B5CF6] bg-[#8B5CF6]/30 hover:bg-[#8B5CF6]/50 text-white font-display text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(139,92,246,0.3)] cursor-pointer"
             >
-              <span>REGISTER (FREE ₹0)</span>
+              <span>{registrationClosed ? 'REGISTRATION CLOSED' : 'REGISTER (FREE ₹0)'}</span>
               <ArrowUpRight size={14} />
             </button>
           )}

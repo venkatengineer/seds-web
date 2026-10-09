@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar } from 'lucide-react';
 import { EVENT_CONFIG } from '../config/event';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 /**
  * ASTRONOMICAL COUNTDOWN SECTION
@@ -25,6 +26,7 @@ function SlidingDigit({ value }) {
 }
 
 export default function CountdownSection() {
+  const registrationClosed = useRegistrationClosed();
   const [targetDate] = useState(() => new Date('2026-10-09T23:59:59+05:30').getTime());
   const [timeLeft, setTimeLeft] = useState(() => {
     const diff = Math.max(0, new Date('2026-10-09T23:59:59+05:30').getTime() - Date.now());
@@ -119,7 +121,11 @@ export default function CountdownSection() {
 
           <div className="pt-2 space-y-1">
             <div className="font-display text-xs sm:text-sm tracking-[0.25em] uppercase text-[#F7F5FF] font-bold">
-              FREE REGISTRATION CLOSES: <span className="text-[#C084FC]">9 OCTOBER 2026 // 11:59 PM IST</span>
+              {registrationClosed ? (
+                <span className="text-[#C084FC]">REGISTRATION CLOSED</span>
+              ) : (
+                <>FREE REGISTRATION CLOSES: <span className="text-[#C084FC]">9 OCTOBER 2026 // 11:59 PM IST</span></>
+              )}
             </div>
             <p className="max-w-sm mx-auto font-sans text-xs text-[#E2DEEC] font-normal leading-relaxed">
               100% Free of Cost Entry (₹0 Fee). Synchronized with Indian Standard Time (IST). Team slot registration closes strictly at cutoff.

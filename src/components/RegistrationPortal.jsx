@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, ExternalLink, ShieldCheck, Users, Sparkles, RefreshCw, FileText, Calendar, Download } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG, REGISTRATION_FORM_URL, REGISTRATION_FORM_EMBED_URL, PPT_TEMPLATE_URL, PPT_TEMPLATE_FILENAME } from '../config/event';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 /**
  * OFFICIAL ORBITAL 26 REGISTRATION PORTAL (GOOGLE FORM POWERED)
@@ -13,6 +14,7 @@ import { SEDS_CONFIG, EVENT_CONFIG, REGISTRATION_FORM_URL, REGISTRATION_FORM_EMB
  */
 export default function RegistrationPortal({ isOpen, onClose }) {
   const [iframeLoading, setIframeLoading] = useState(true);
+  const registrationClosed = useRegistrationClosed();
 
   // Close on Escape key
   useEffect(() => {
@@ -95,6 +97,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
             </a>
 
             {/* Open in Full Google Form Window */}
+            {!registrationClosed && (
             <a
               href={REGISTRATION_FORM_URL}
               target="_blank"
@@ -106,6 +109,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
               <span className="sm:hidden">Full Tab</span>
               <ExternalLink size={13} className="text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
+            )}
 
             {/* Close Portal */}
             <button
@@ -123,7 +127,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
           <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[11px] sm:text-xs">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#8B5CF6]/50 bg-[#4C1D95]/30 text-[#F7F5FF] font-semibold font-display tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] animate-pulse" />
-              <span>REGISTRATION CLOSES: 9 OCT 2026 // 11:59 PM IST</span>
+              <span>{registrationClosed ? 'REGISTRATION CLOSED' : 'REGISTRATION CLOSES: 9 OCT 2026 // 11:59 PM IST'}</span>
             </span>
             <span className="flex items-center gap-1.5 text-white font-medium">
               <Users size={13} className="text-[#C084FC]" />
@@ -156,7 +160,20 @@ export default function RegistrationPortal({ isOpen, onClose }) {
 
         {/* Main Form Display Area */}
         <div className="relative flex-1 w-full bg-[#030208] overflow-hidden">
-          
+          {registrationClosed ? (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
+              <span className="font-display text-xs tracking-[0.3em] uppercase text-[#C084FC] font-bold">
+                // TRANSMISSION ENDED
+              </span>
+              <h3 className="font-editorial text-3xl sm:text-5xl font-bold tracking-tight text-[#F7F5FF]">
+                REGISTRATION CLOSED
+              </h3>
+              <p className="max-w-md font-sans text-sm text-[#E2DEEC] leading-relaxed">
+                Registrations for {EVENT_CONFIG.name} closed at 12:00 AM IST on 10 October 2026. Thank you to every team that signed up. See you on {EVENT_CONFIG.datesFormatted}!
+              </p>
+            </div>
+          ) : (
+          <>
           {/* Loading Animation Overlay */}
           {iframeLoading && (
             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-[#030208] text-[#E2DEEC]">
@@ -192,6 +209,8 @@ export default function RegistrationPortal({ isOpen, onClose }) {
             onLoad={() => setIframeLoading(false)}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           />
+          </>
+          )}
         </div>
 
         {/* Bottom Status / Fallback Notice Footer */}
@@ -199,10 +218,13 @@ export default function RegistrationPortal({ isOpen, onClose }) {
           <div className="flex items-center gap-2 text-center sm:text-left">
             <Sparkles size={13} className="text-[#C084FC] shrink-0" />
             <span className="font-sans text-[11px] sm:text-xs">
-              Google Account required for PPT file attachment. If browser restricts sign-in in embedded frame, open in full tab.
+              {registrationClosed
+                ? 'Registration is closed. No new team submissions are being accepted.'
+                : 'Google Account required for PPT file attachment. If browser restricts sign-in in embedded frame, open in full tab.'}
             </span>
           </div>
 
+          {!registrationClosed && (
           <a
             href={REGISTRATION_FORM_URL}
             target="_blank"
@@ -212,6 +234,7 @@ export default function RegistrationPortal({ isOpen, onClose }) {
             <span>Open in Full Tab</span>
             <ExternalLink size={11} />
           </a>
+          )}
         </footer>
       </div>
     </div>

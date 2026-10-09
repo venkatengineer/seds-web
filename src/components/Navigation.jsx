@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, Volume2, VolumeX, Menu, X, RotateCcw, Calendar, Sparkles } from 'lucide-react';
 import { SEDS_CONFIG, EVENT_CONFIG } from '../config/event';
 import { toggleOrbitalAmbiance } from '../utils/audio';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 /**
  * PREMIUM MINIMAL EDITORIAL NAVIGATION
@@ -31,6 +32,7 @@ export default function Navigation({
   bootPhase = 13,
   onReplayBoot,
 }) {
+  const registrationClosed = useRegistrationClosed();
   const [isAudioActive, setIsAudioActive] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -146,7 +148,7 @@ export default function Navigation({
               className="group relative overflow-hidden px-5 py-2.5 rounded-full border border-[#8B5CF6]/40 bg-[#4C1D95]/20 hover:bg-[#6D28D9]/40 text-[#F7F5FF] hover:border-[#8B5CF6] hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:-translate-y-0.5 transition-all duration-300 focus:outline-none"
             >
               <div className="flex items-center gap-1.5 font-display text-xs uppercase tracking-[0.2em] font-medium">
-                <span>Register (Free)</span>
+                <span>{registrationClosed ? 'Registration Closed' : 'Register (Free)'}</span>
                 <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               </div>
             </button>
@@ -208,7 +210,7 @@ export default function Navigation({
               }}
               className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#4C1D95] to-[#8B5CF6] text-white font-display text-xs uppercase tracking-[0.22em] font-semibold text-center shadow-[0_0_20px_rgba(139,92,246,0.3)]"
             >
-              Register for {EVENT_CONFIG.name} (Free of Cost)
+              {registrationClosed ? 'Registration Closed' : `Register for ${EVENT_CONFIG.name} (Free of Cost)`}
             </button>
           </div>
         </div>

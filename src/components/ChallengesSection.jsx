@@ -11,6 +11,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { EVENT_CONFIG } from '../config/event';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 /**
  * OFFICIAL HACKATHON TRACKS SECTION — "TRACKS / DOMAINS"
@@ -70,6 +71,7 @@ const TRACK_THEMES = {
 };
 
 export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
+  const registrationClosed = useRegistrationClosed();
   const [activeTrackId, setActiveTrackId] = useState(null);
   const tracks = EVENT_CONFIG.tracks;
 
@@ -242,7 +244,7 @@ export default function ChallengesSection({ onOpenRegister, onNodeSelect }) {
               onClick={onOpenRegister}
               className="group flex items-center gap-2 px-6 py-3 rounded-full border border-[#8B5CF6]/50 bg-gradient-to-r from-[#4C1D95] via-[#6D28D9] to-[#8B5CF6] text-white font-display text-xs uppercase tracking-wider font-semibold hover:shadow-[0_0_25px_rgba(139,92,246,0.35)] transition-all cursor-pointer"
             >
-              <span>Register Now (Free)</span>
+              <span>{registrationClosed ? 'Registration Closed' : 'Register Now (Free)'}</span>
               <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
           </div>

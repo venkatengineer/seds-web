@@ -18,6 +18,7 @@ import Footer from './components/Footer';
 import BootSequence from './components/BootSequence';
 import RegistrationPortal from './components/RegistrationPortal';
 import DeadlineExtensionPopup from './components/DeadlineExtensionPopup';
+import useRegistrationClosed from './hooks/useRegistrationClosed';
 import { initScrollReveal, initScrollEffects, initPointerEffects } from './utils/motion';
 
 // Sections that don't depend on mouse position are memoized so cursor movement
@@ -45,6 +46,7 @@ export default function App() {
   const [isBootComplete, setIsBootComplete] = useState(false);
   const [showExtensionPopup, setShowExtensionPopup] = useState(false);
   const [hasDismissedPopup, setHasDismissedPopup] = useState(false);
+  const registrationClosed = useRegistrationClosed();
   const engineRef = useRef(null);
 
   // Trigger deadline extension popup after bootsplash sequence handoff
@@ -313,7 +315,7 @@ export default function App() {
 
       {/* Deadline Extension Popup: Appears smoothly after bootsplash sequence */}
       <DeadlineExtensionPopup
-        isOpen={showExtensionPopup && !isRegisterOpen}
+        isOpen={showExtensionPopup && !isRegisterOpen && !registrationClosed}
         onClose={() => {
           setShowExtensionPopup(false);
           setHasDismissedPopup(true);

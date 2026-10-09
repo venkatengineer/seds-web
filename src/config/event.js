@@ -44,6 +44,8 @@ export const SEDS_CONFIG = {
 
 export const REGISTRATION_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfEC7Sndyksvk125Jr8TzwKhKVcqiFLFZwL3chNYuNbataJRg/viewform?usp=sharing&ouid=105886379411425310581";
 export const REGISTRATION_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfEC7Sndyksvk125Jr8TzwKhKVcqiFLFZwL3chNYuNbataJRg/viewform?embedded=true";
+// Registration closes at 12:00 AM IST on 10 Oct 2026 (midnight after the 9 Oct deadline).
+export const REGISTRATION_CLOSES_AT = new Date('2026-10-10T00:00:00+05:30').getTime();
 export const PPT_TEMPLATE_URL = "/SEDHACKS_ppt_template.pptx";
 export const PPT_TEMPLATE_FILENAME = "SEDHACKS_ppt_template.pptx";
 

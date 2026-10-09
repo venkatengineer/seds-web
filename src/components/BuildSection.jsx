@@ -1,6 +1,7 @@
 import React from 'react';
 import { Cpu, Globe, Smartphone, Bot, Binary, FlaskConical, CheckCircle2, Sparkles, ArrowUpRight, Download } from 'lucide-react';
 import { EVENT_CONFIG } from '../config/event';
+import useRegistrationClosed from '../hooks/useRegistrationClosed';
 
 const BUILD_ICONS = {
   hardware: Cpu,
@@ -12,6 +13,7 @@ const BUILD_ICONS = {
 };
 
 export default function BuildSection({ onOpenRegister }) {
+  const registrationClosed = useRegistrationClosed();
   const buildInfo = EVENT_CONFIG.whatCanYouBuild;
 
   return (
@@ -111,7 +113,7 @@ export default function BuildSection({ onOpenRegister }) {
               onClick={onOpenRegister}
               className="px-7 py-3.5 rounded-full border border-[#8B5CF6] bg-[#8B5CF6]/30 hover:bg-[#8B5CF6]/50 text-white font-display text-xs uppercase tracking-widest font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(139,92,246,0.3)] cursor-pointer"
             >
-              <span>REGISTER NOW (FREE ₹0)</span>
+              <span>{registrationClosed ? 'REGISTRATION CLOSED' : 'REGISTER NOW (FREE ₹0)'}</span>
               <ArrowUpRight size={14} />
             </button>
           )}
